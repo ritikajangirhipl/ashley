@@ -1,5 +1,4 @@
 <?php
-
 namespace App\DataTables;
 
 use App\Models\Category;
@@ -13,17 +12,19 @@ class CategoryDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function ($category) {
-                return '<a href="'.route('admin.categories.edit', $category->CategoryID).'" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="'.route('admin.categories.destroy', $category->CategoryID).'" method="POST" style="display:inline;">
-                            '.csrf_field().'
-                            '.method_field('DELETE').'
-                            <button type="submit" class="btn btn-danger btn-sm delete-btn">Delete</button>
-                        </form>';
+            ->addColumn('row_number', function ($category) {
+                static $rowNumber = 0;
+                return ++$rowNumber;
             })
-            ->rawColumns(['action']);
+            ->addColumn('action', function ($category) {
+                return '<a href="'.route('admin.categories.show',$category->CategoryID).'" class="btn btn-warning btn-sm">View</a>
+                        <a href="'.route('admin.categories.edit', $category->CategoryID).'" class="btn btn-warning btn-sm">Edit</a>
+                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.categories.destroy', $category->CategoryID).'">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>';
+            })
+            ->rawColumns(['action']); 
     }
-
     public function query(Category $model)
     {
         return $model->newQuery()->select(['CategoryID', 'name', 'description', 'status']);
@@ -36,28 +37,26 @@ class CategoryDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                ->orderBy(1);
     }
 
     protected function getColumns()
     {
         return [
-            Column::make('CategoryID')->title('ID'),
+            Column::make('row_number')
+                ->title('ID')
+                ->orderable(false)
+                ->searchable(false)
+                ->width(50)
+                ->addClass('text-center'),
             Column::make('name')->title('Name'),
             Column::make('description')->title('Description'),
             Column::make('status')->title('Status'),
             Column::computed('action')->title('Action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(150)
-                  ->addClass('text-center'),
+                ->exportable(false)
+                ->printable(false)
+                ->width(150)
+                ->addClass('text-center'),
         ];
     }
 

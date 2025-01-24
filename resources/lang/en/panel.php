@@ -24,11 +24,41 @@ return [
     'page_title'    => [
     	'dashboard' => 'Dashboard',
         'profile'   => 'Profile',
-        'category'  => [
-            'list_all'  => 'List of Categories',
+        'categories'  => [
+            'list'  => 'List of Categories',
             'add'       => 'Create Category',
             'edit'      => 'Edit Category',
             'show'      => 'View Category',
+        ],
+        'provider_type' => [ 
+            'list_all' => 'List of Provider Types',
+            'add' => 'Create Provider Type',
+            'edit' => 'Edit Provider Type',
+            'show' => 'View Provider Type',
+        ],
+        'verification_mode' => [
+            'list_all' => 'List of Provider Types',
+            'add' => 'Create Provider Type',
+            'edit' => 'Edit Provider Type',
+            'show' => 'View Provider Type',
+        ],
+        'country' => [
+            'list_all' => 'List of Provider Types',
+            'add' => 'Create Provider Type',
+            'edit' => 'Edit Provider Type',
+            'show' => 'View Provider Type',
+        ],
+        'evidence_type' => [
+            'list_all' => 'List of Provider Types',
+            'add' => 'Create Provider Type',
+            'edit' => 'Edit Provider Type',
+            'show' => 'View Provider Type',
+        ],
+        'sub_category' => [
+           'list_all' => 'List of Provider Types',
+            'add' => 'Create Provider Type',
+            'edit' => 'Edit Provider Type',
+            'show' => 'View Provider Type', 
         ],
         'change_password'   => 'Change Password',
         'change_password'   => 'Change Password',

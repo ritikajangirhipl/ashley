@@ -1,59 +1,126 @@
-@extends('layouts.app')
-
+@extends('layouts.admin')
+@section('title', $pageTitle)
 @section('content')
-    <h1>Categories</h1>
-    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary mb-3">Create New Category</a>
 
-    <!-- Success Message -->
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title float-left">
+                    
+                </h4>
+                    <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.category.title_singular') }}" href="{{ route('admin.categories.create') }}">
+                        <i class="fas fa-plus"></i>
+                    </a>
+            </div>
+            <div class="card-block">
+                <div class="table-responsive">
+                    <div class="clearfix"></div>
+                    {{ $dataTable->table(['class' => 'display table nowrap table-hover','id' => 'categories-table', 'style' => 'width:100%;' ]) }}
+                </div>
+            </div>
         </div>
-    @endif
-
-    <!-- DataTable -->
-    {!! $dataTable->table(['class' => 'table table-bordered', 'id' => 'categories-table']) !!}
+    </div>
+</div>
 @endsection
 
 @section('scripts')
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Include DataTables JS -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <!-- Include Yajra DataTables Scripts -->
-    {!! $dataTable->scripts() !!}
+@parent
+{!! $dataTable->scripts() !!}
 
-    <!-- Handle Delete Action with AJAX -->
-    <script>
-        $(document).ready(function() {
-            // Handle delete button clicks
-            $('#categories-table').on('click', '.delete-btn', function(e) {
-                e.preventDefault();
+<script type="text/javascript" src="{{ asset('assets/admin/js/sweet-alert/sweetalert2@9.js') }}"></script>
 
-                if (confirm('Are you sure you want to delete this category?')) {
-                    const form = $(this).closest('form');
-                    const url = form.attr('action');
+<script type="text/javascript">
+  $(document).ready(function() {
+    // Update status
+    $(document).on('click', '.categories_status_cb', function() {
+        var $this = $(this);
+        var dataId = $this.data('id');
+        var status = $this.val();
+        var flag = true;
+        var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: {
-                            _method: 'DELETE',
-                            _token: $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            // Reload the DataTable
-                            $('#categories-table').DataTable().ajax.reload();
-                            // Show success message
-                            alert('Category deleted successfully!');
-                        },
-                        error: function(xhr) {
-                            alert('An error occurred while deleting the category.');
-                            console.error(xhr.responseText);
+        if ($this.prop('checked')) {
+            flag = false;
+        }
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to change the status?",
+            icon: "warning",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes, I am sure",
+            denyButtonText: "No, cancel it!",
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'PUT',
+                    url: "{{ route('admin.categories.updateStatus') }}",
+                    dataType: 'json',
+                    data: { _token: csrf_token, id: dataId, status: status },
+                    success: function(response) {
+                        if (response.status == 'true') {
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: "success",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
+                            $('#categories-table').DataTable().ajax.reload(null, false);
                         }
-                    });
-                }
-            });
+                    },
+                    error: function(response) {
+                        $this.prop('checked', flag);
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Something went wrong!',
+                            icon: "warning",
+                            confirmButtonText: "Okay",
+                            confirmButtonColor: "#04a9f5"
+                        });
+                    }
+                });
+            } else {
+                $this.prop('checked', flag);
+            }
         });
-    </script>
+    });
+
+    // Delete record
+    $(document).on("click", ".delete-record", function(event) {
+    event.preventDefault();
+        var url = $(this).data('href');
+        var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+        Swal.fire({
+            title: "{{ trans('global.areYouSure') }}",
+            text: "{{ trans('global.onceClickedRecordDeleted') }}",
+            icon: "warning",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            denyButtonText: "No, cancel!",
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: 'json',
+                    data: { _token: csrf_token, _method: "DELETE" },
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success(response.message, 'Success!');
+                            $('#categories-table').DataTable().ajax.reload(null, false);
+                        } else {
+                            toastr.error(response.message, 'Error!');
+                        }
+                    }
+                });
+            }
+        });
+    });
+  });
+</script>
 @endsection

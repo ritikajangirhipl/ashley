@@ -1,10 +1,13 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Category\UpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -12,18 +15,19 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-        $this->status               = config('constant.enums.status');
+        $this->status = config('constant.enums.status');
     }
 
     public function index(CategoryDataTable $dataTable)
     {
-        return $dataTable->render('admin.categories.index');
+        $pageTitle = trans('panel.page_title.categories.list');
+        return $dataTable->render('admin.categories.index', compact('pageTitle'));
     }
 
     public function create()
     {
-        $pageTitle           = trans('panel.page_title.category.add');
-        $status              = $this->status;
+        $pageTitle = trans('panel.page_title.category.add');
+        $status = $this->status;
         return view('admin.categories.create', compact('pageTitle', 'status'));
     }
 
@@ -40,27 +44,69 @@ class CategoryController extends Controller
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully!');
     }
 
-    public function edit(Category $category)
+    public function show(Category $category)
     {
-        return view('admin.categories.edit', compact('category'));
+        $pageTitle = trans('panel.page_title.category.show');
+        $status = config('constant.enums.status');
+        return view('admin.categories.show', compact('category', 'pageTitle', 'status'));
     }
 
-    public function update(Request $request, Category $category)
+    public function edit(Category $category)
     {
-        $request->validate([
-            'name' => 'required|max:255|unique:categories,name,' . $category->CategoryID . ',CategoryID',
-            'description' => 'required',
-            'status' => 'required|in:active,inactive',
-        ]);
+        $pageTitle = trans('panel.page_title.category.edit');
+        $status = $this->status;
+        return view('admin.categories.edit', compact('category', 'pageTitle', 'status'));
+    }
 
+    public function update(UpdateRequest $request, Category $category)
+    {
         $category->update($request->all());
-
-        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully!');
+        $notification = [
+            'message' => trans('cruds.categories.title_singular') . " " . trans('messages.edit_success_message'),
+            'alert-type' => trans('panel.alert-type.success')
+        ];
+        return redirect()->route('admin.categories.index')->with($notification);
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return response()->json(['success' => 'Category deleted successfully!']);
+        return response()->json([
+            'success' => true,
+            'message' => trans('cruds.category.title_singular') . ' ' . trans('messages.delete_success_message')
+        ], 200);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'id' => [
+                    'required',
+                    'numeric',
+                    'exists:categories,CategoryID',
+                ],
+                'status' => [
+                    'required',
+                    'in:active,inactive',
+                ],
+            ]);
+
+            if (!$validator->passes()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->getMessageBag()->toArray(),
+                    'message' => 'Error Occurred!',
+                ], 400);
+            }
+
+            $category = Category::where('CategoryID', $request->id)->update(['status' => $request->status]);
+
+            $response = [
+                'status' => 'true',
+                'message' => trans('cruds.category.title_singular') . ' ' . trans('messages.change_status_success_message'),
+            ];
+            return response()->json($response);
+        }
     }
 }

@@ -11,23 +11,25 @@ class UpdateRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('country_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         return true;
-
     }
 
     public function rules()
     {
         return [
-            'name'    => [
+            'name'     => [
                 'required',
                 'string',
-                //'regex:/^[\pL\s\-]+$/u',
-                //'regex:/(^[A-Za-z0-9 ]+$)+/',
                 'max:191',
-                'unique:countries,name,'. $this->country->id,
             ],
+            'description' => [
+                'required',
+                'string',
+            ],
+            'status' => [
+                'required'
+            ],
+
         ];
 
     }

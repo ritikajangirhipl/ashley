@@ -8,11 +8,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id('CategoryID'); // Auto-incrementing primary key
-            $table->string('name')->unique(); // Unique name
-            $table->text('description'); // Memo/Text field
-            $table->enum('status', ['active', 'inactive'])->default('active'); // Status field
-            $table->timestamps(); // Created at and Updated at timestamps
+            $table->id('CategoryID');
+            $table->string('name')->unique(); 
+            $table->text('description'); 
+            $table->enum('status', ['active', 'inactive'])->default('active'); 
+            $table->timestamps();
         });
     }
 

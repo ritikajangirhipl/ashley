@@ -258,6 +258,60 @@ return [
         ],
     ],
 
+    'provider_type' => [ 
+        'title' => 'Provider Types', 
+        'title_singular' => 'Provider Type',
+        'fields' => [
+            'name' => 'Name',
+            'description' => 'Description',
+            'status' => 'Status',
+            'created_at' => 'Created at',
+            'updated_at' => 'Updated at',
+            'deleted_at' => 'Deleted at',
+        ],
+    ],
+    'verification_mode' => [
+        'title' => 'Verification Modes', 
+        'title_singular' => 'Verification Mode', 
+        'fields' => [
+            'name' => 'Name',
+            'description' => 'Description',
+            'status' => 'Status',
+        ],
+    ],
+    'country' => [
+        'title' => 'Countries', 
+        'title_singular' => 'Country',
+        'fields' => [
+            'name' => 'Name',
+            'flag' => 'Flag',
+            'description' => 'Description',
+            'currency_name' => 'Currency Name',
+            'currency_symbol' => 'Currency Symbol',
+            'status' => 'Status',
+        ],
+    ],
+    'evidence_type' => [
+        'title' => 'Evidence Types',
+        'title_singular' => 'Evidence Type',
+        'fields' => [
+            'name' => 'Name',
+            'description' => 'Description',
+            'status' => 'Status',
+        ],
+    ],
+
+    'sub_category' => [
+        'title' => 'Sub Categories',
+        'title_singular' => 'Sub Category',
+        'fields' => [
+            'category' => 'Category',
+            'name' => 'Name',
+            'description' => 'Description',
+            'status' => 'Status',
+        ],
+    ],
+
     'evaluationManagement' => [
         'title'          => 'Evaluations',
     ],

@@ -22,5 +22,4 @@
 
 @section('scripts')
 @parent
-@include('admin/issuers/partials/_script')
 @endsection

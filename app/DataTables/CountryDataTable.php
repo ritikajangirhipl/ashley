@@ -1,0 +1,81 @@
+<?php
+namespace App\DataTables;
+
+use App\Models\Country;
+use Yajra\DataTables\Html\Button;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
+
+class CountryDataTable extends DataTable
+{
+    public function dataTable($query)
+    {
+        return datatables()
+            ->eloquent($query)
+            ->addColumn('row_number', function ($country) {
+                static $rowNumber = 0;
+                return ++$rowNumber;
+            })
+            ->addColumn('flag', function ($country) {
+                return $country->flag ? '<img src="' . asset('storage/' . $country->flag) . '" width="50" height="30">' : 'No Flag';
+            })
+            ->addColumn('action', function ($country) {
+                return '<a href="'.route('admin.countries.show',$country->CountryID).'" class="btn btn-warning btn-sm">View</a>
+                        <a href="'.route('admin.countries.edit', $country->CountryID).'" class="btn btn-warning btn-sm">Edit</a>
+                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.countries.destroy', $country->CountryID).'">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>';
+            })
+            ->rawColumns(['flag', 'action']);
+    }
+
+    public function query(Country $model)
+    {
+        return $model->newQuery()->select(['CountryID', 'name', 'flag', 'description', 'currency_name', 'currency_symbol', 'status']);
+    }
+
+    public function html()
+    {
+        return $this->builder()
+                    ->setTableId('countries-table')
+                    ->columns($this->getColumns())
+                    ->minifiedAjax()
+                    ->dom('Bfrtip')
+                    ->orderBy(1)
+                    ->buttons(
+                        Button::make('create'),
+                        Button::make('export'),
+                        Button::make('print'),
+                        Button::make('reset'),
+                        Button::make('reload')
+                    );
+    }
+
+    protected function getColumns()
+    {
+        return [
+            Column::make('row_number')
+                  ->title('ID')
+                  ->orderable(false)
+                  ->searchable(false)
+                  ->width(50)
+                  ->addClass('text-center'),
+            Column::make('name')->title('Name'),
+            Column::make('flag')->title('Flag'),
+            Column::make('description')->title('Description'),
+            Column::make('currency_name')->title('Currency Name'),
+            Column::make('currency_symbol')->title('Currency Symbol'),
+            Column::make('status')->title('Status'),
+            Column::computed('action')->title('Action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(150)
+                  ->addClass('text-center'),
+        ];
+    }
+
+    protected function filename(): string
+    {
+        return 'Country_' . date('YmdHis');
+    }
+}
