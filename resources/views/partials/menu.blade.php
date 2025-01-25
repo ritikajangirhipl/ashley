@@ -18,7 +18,7 @@
                           <span class="pcoded-micon">
                               <i class="feather icon-home"></i>
                           </span>
-                          <span class="pcoded-mtext">Countries</span>
+                          <span class="pcoded-mtext">Dashboard</span>
                       </a>
                     </li>
                     @can('user_management_access')
@@ -64,15 +64,6 @@
                             </ul>
                         </li>
                     @endcan
-
-                        <li data-username="master_access" class="nav-item pcoded-hasmenu {{ request()->is('admin/levels*') || request()->is('admin/countries*') || request()->is('admin/accreditation-bodies*') || request()->is('admin/contry*') ? 'active pcoded-trigger' : '' }}">
-                            <a href="#!" class="nav-link">
-                                <span class="pcoded-micon"><i class="feather icon-cpu"></i></span>
-                                <span class="pcoded-mtext">{{ trans('cruds.masterManagement.title') }}</span>
-                            </a>
-                            
-                        </li>
-
                         <li data-username="category" class="nav-item {{ request()->is('admin/categories') || request()->is('admin/categories/*') ? 'active' : '' }}">
                             <a href="{{ route('admin.categories.index') }}" class="nav-link">
                                 <span class="pcoded-micon">

@@ -10,13 +10,13 @@ class CountryController extends Controller
 {
     public function index(CountryDataTable $dataTable)
     {
-        $pageTitle = trans('panel.page_title.countries.list');
+        $pageTitle = trans('panel.page_title.country.list');
         return $dataTable->render('admin.countries.index', compact('pageTitle'));
     }
 
     public function create()
     {
-        $pageTitle = trans('panel.page_title.countries.add');
+        $pageTitle = trans('panel.page_title.country.add');
         $status = config('constant.enums.status'); 
         return view('admin.countries.create', compact('pageTitle', 'status'));
     }
@@ -55,14 +55,14 @@ class CountryController extends Controller
     }
     public function show(Country $country)
     {
-        $pageTitle = trans('panel.page_title.countries.show');
+        $pageTitle = trans('panel.page_title.country.show');
         $status = config('constant.enums.status');
         return view('admin.countries.show', compact('country', 'pageTitle', 'status'));
     }
 
     public function edit(Country $country)
     {
-        $pageTitle = trans('panel.page_title.countries.edit');
+        $pageTitle = trans('panel.page_title.country.edit');
         $status = config('constant.enums.status');
         return view('admin.countries.edit', compact('country', 'pageTitle', 'status'));
     }

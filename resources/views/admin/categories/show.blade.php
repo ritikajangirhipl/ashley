@@ -5,7 +5,7 @@
 <div class="card">
     <div class="card-header card-header-primary">
         <h4 class="card-title">
-            {{ trans('panel.page_title.category.show') }}
+            {{ trans('panel.page_title.categories.show') }} 
         </h4>
     </div>
 

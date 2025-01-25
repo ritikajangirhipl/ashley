@@ -37,8 +37,8 @@
                                 </form>
                             </div>
                             <ul class="pro-body">
-                                <li><a href="{{ route('admin.profile') }}" class="dropdown-item"><i class="fa fa-user"></i> Profile</a></li>                                
-                                <li><a href="{{ route('admin.changePasswordForm') }}" class="dropdown-item"><i class="fa fa-key"></i> Change Password</a></li>                                
+                                <!-- <li><a href="{{ route('admin.profile') }}" class="dropdown-item"><i class="fa fa-user"></i> Profile</a></li>                                 -->
+                                <!-- <li><a href="{{ route('admin.changePasswordForm') }}" class="dropdown-item"><i class="fa fa-key"></i> Change Password</a></li>                                 -->
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf

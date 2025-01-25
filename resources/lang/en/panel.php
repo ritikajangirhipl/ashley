@@ -24,11 +24,11 @@ return [
     'page_title'    => [
     	'dashboard' => 'Dashboard',
         'profile'   => 'Profile',
-        'categories'  => [
-            'list'  => 'List of Categories',
-            'add'       => 'Create Category',
-            'edit'      => 'Edit Category',
-            'show'      => 'View Category',
+        'categories' => [
+            'list' => 'List of Categories',
+            'add' => 'Create Category',
+            'edit' => 'Edit Category',
+            'show' => 'View Category', 
         ],
         'provider_type' => [ 
             'list' => 'List of Provider Types',

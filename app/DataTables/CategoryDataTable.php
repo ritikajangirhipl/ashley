@@ -36,7 +36,7 @@ class CategoryDataTable extends DataTable
                     ->setTableId('categories-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
+                    ->dom('frtip')
                 ->orderBy(1);
     }
 

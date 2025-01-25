@@ -19,7 +19,7 @@ class ProviderTypeController extends Controller
 
     public function index(ProviderTypeDataTable $dataTable)
     {
-        $pageTitle = trans('panel.page_title.provider_types.list');
+        $pageTitle = trans('panel.page_title.provider_type.list');
         return $dataTable->render('admin.provider-types.index', compact('pageTitle'));
     }
 

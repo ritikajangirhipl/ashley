@@ -20,13 +20,13 @@ class SubCategoryController extends Controller
 
     public function index(SubCategoryDataTable $dataTable)
     {
-        $pageTitle = trans('panel.page_title.sub_categories.list');
+        $pageTitle = trans('panel.page_title.sub_category.list');
         return $dataTable->render('admin.sub-categories.index', compact('pageTitle'));
     }
 
     public function create()
     {
-        $pageTitle = trans('panel.page_title.sub_categories.add');
+        $pageTitle = trans('panel.page_title.sub_category.add');
         $status = $this->status;
         $categories = Category::pluck('name', 'CategoryID');
         return view('admin.sub-categories.create', compact('pageTitle', 'status', 'categories'));
@@ -48,7 +48,7 @@ class SubCategoryController extends Controller
 
     public function edit(SubCategory $subCategory)
     {
-        $pageTitle = trans('panel.page_title.sub_categories.edit');
+        $pageTitle = trans('panel.page_title.sub_category.edit');
         $status = $this->status;
         $categories = Category::pluck('name', 'CategoryID'); 
         return view('admin.sub-categories.edit', compact('subCategory', 'pageTitle', 'status', 'categories'));
@@ -56,7 +56,7 @@ class SubCategoryController extends Controller
 
     public function show(SubCategory $subCategory)
     {
-        $pageTitle = trans('panel.page_title.sub_categories.show');
+        $pageTitle = trans('panel.page_title.sub_category.show');
         $status = config('constant.enums.status');
         return view('admin.sub-categories.show', compact('subCategory', 'pageTitle', 'status'));
     }

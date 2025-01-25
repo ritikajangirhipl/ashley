@@ -12,13 +12,13 @@ class EvidenceTypeController extends Controller
 {
     public function index(EvidenceTypeDataTable $dataTable)
     {
-        $pageTitle = trans('panel.page_title.evidence_types.list');
+        $pageTitle = trans('panel.page_title.evidence_type.list');
         return $dataTable->render('admin.evidence-types.index', compact('pageTitle'));
     }
 
     public function create()
     {
-        $pageTitle = trans('panel.page_title.evidence_types.add');
+        $pageTitle = trans('panel.page_title.evidence_type.add');
         $status = config('constant.enums.status'); 
         return view('admin.evidence-types.create', compact('pageTitle', 'status'));
     }
@@ -38,14 +38,14 @@ class EvidenceTypeController extends Controller
 
     public function show(EvidenceType $evidenceType)
     {
-        $pageTitle = trans('panel.page_title.evidence_types.show');
+        $pageTitle = trans('panel.page_title.evidence_type.show');
         $status = config('constant.enums.status');
         return view('admin.evidence-types.show', compact('evidenceType', 'pageTitle', 'status'));
     }
 
     public function edit(EvidenceType $evidenceType)
     {
-        $pageTitle = trans('panel.page_title.evidence_types.edit');
+        $pageTitle = trans('panel.page_title.evidence_type.edit');
         $status = config('constant.enums.status');
         return view('admin.evidence-types.edit', compact('evidenceType', 'pageTitle', 'status'));
     }

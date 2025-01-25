@@ -26,7 +26,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $pageTitle = trans('panel.page_title.category.add');
+        $pageTitle = trans('panel.page_title.categories.add');
         $status = $this->status;
         return view('admin.categories.create', compact('pageTitle', 'status'));
     }
@@ -46,14 +46,14 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        $pageTitle = trans('panel.page_title.category.show');
+        $pageTitle = trans('panel.page_title.categories.show');
         $status = config('constant.enums.status');
         return view('admin.categories.show', compact('category', 'pageTitle', 'status'));
     }
 
     public function edit(Category $category)
     {
-        $pageTitle = trans('panel.page_title.category.edit');
+        $pageTitle = trans('panel.page_title.categories.edit');
         $status = $this->status;
         return view('admin.categories.edit', compact('category', 'pageTitle', 'status'));
     }

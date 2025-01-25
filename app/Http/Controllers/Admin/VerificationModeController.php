@@ -12,13 +12,13 @@ class VerificationModeController extends Controller
 {
     public function index(VerificationModeDataTable $dataTable)
     {
-        $pageTitle = trans('panel.page_title.verification_modes.list');
+        $pageTitle = trans('panel.page_title.verification_mode.list');
         return $dataTable->render('admin.verification-modes.index', compact('pageTitle'));
     }
 
     public function create()
     {
-        $pageTitle = trans('panel.page_title.verification_modes.add');
+        $pageTitle = trans('panel.page_title.verification_mode.add');
         $status = config('constant.enums.status'); 
         return view('admin.verification-modes.create', compact('pageTitle', 'status'));
     }
@@ -38,14 +38,14 @@ class VerificationModeController extends Controller
 
     public function show(VerificationMode $verificationMode)
     {
-        $pageTitle = trans('panel.page_title.verification_modes.show');
+        $pageTitle = trans('panel.page_title.verification_mode.show');
         $status = config('constant.enums.status');
         return view('admin.verification-modes.show', compact('verificationMode', 'pageTitle', 'status'));
     }
 
     public function edit(VerificationMode $verificationMode)
     {
-        $pageTitle = trans('panel.page_title.verification_modes.edit');
+        $pageTitle = trans('panel.page_title.verification_mode.edit');
         $status = config('constant.enums.status');
         return view('admin.verification-modes.edit', compact('verificationMode', 'pageTitle', 'status'));
     }
