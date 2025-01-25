@@ -311,7 +311,21 @@ return [
             'status' => 'Status',
         ],
     ],
-
+    'verification_provider' => [
+        'title' => 'Verification Provider',
+        'title_singular' => 'Verification Provider',
+        'fields' => [
+            'country' => 'Country',
+            'name' => 'Name',
+            'description' => 'Description',
+            'provider-type' => 'Provider Type',
+            'contact-address' => 'Contact Address',
+            'email-address' => 'Email-Address',
+            'website-address' => 'Website-Address',
+            'contact-person' => 'Contact-Person',
+            'status' => 'Status',
+        ],
+    ],
     'evaluationManagement' => [
         'title'          => 'Evaluations',
     ],

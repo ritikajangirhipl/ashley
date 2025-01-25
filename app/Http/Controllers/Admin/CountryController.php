@@ -53,7 +53,7 @@ class CountryController extends Controller
 
         return redirect()->route('admin.countries.index')->with('success', 'Country created successfully!');
     }
-        public function show(Country $country)
+    public function show(Country $country)
     {
         $pageTitle = trans('panel.page_title.countries.show');
         $status = config('constant.enums.status');

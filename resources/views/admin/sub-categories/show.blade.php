@@ -5,7 +5,7 @@
 <div class="card">
     <div class="card-header card-header-primary">
         <h4 class="card-title">
-            {{ trans('global.show') }} {{ trans('cruds.sub_category.title_singular') }}
+        {{ trans('panel.page_title.sub_category.show') }}
         </h4>
     </div>
 

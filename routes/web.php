@@ -7,8 +7,7 @@ use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\EvidenceTypeController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\HomeController;
-
-
+use App\Http\Controllers\Admin\ProfileController;
 //Clear Cache facade value:
 Route::get('/cache-clear', function() {
     Artisan::call('optimize:clear');
@@ -40,4 +39,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::put('sub-categories-update-status', [SubCategoryController::class, 'changeStatus'])->name('sub-categories.updateStatus');
     Route::resource('sub-categories', SubCategoryController::class);
 
+    Route::get('update-profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::post('update-profile/{id}', [ProfileController::class, 'updateProfile'])->name('update_profile');
+
+    Route::get('change-password', [ProfileController::class, 'showChangePasswordForm'])->name('changePasswordForm');
+    Route::post('change-password', [ProfileController::class, 'changePassword'])->name('changePassword');
 });
