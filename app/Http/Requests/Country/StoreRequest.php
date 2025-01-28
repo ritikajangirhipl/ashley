@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Country;
 
-use App\Models\Category;
+use App\Models\Country;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest

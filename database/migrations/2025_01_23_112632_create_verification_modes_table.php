@@ -7,7 +7,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('verification_modes', function (Blueprint $table) {
+        Schema::create('verification_mode', function (Blueprint $table) {
             $table->id('ModeID'); // Primary key
             $table->string('name')->unique(); // Unique name
             $table->text('description'); // Description

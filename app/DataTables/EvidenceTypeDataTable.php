@@ -17,11 +17,17 @@ class EvidenceTypeDataTable extends DataTable
                 return ++$rowNumber;
             })
             ->addColumn('action', function ($evidenceType) {
-                return '<a href="'.route('admin.evidence-types.show',$evidenceType->EvidenceTypeID).'" class="btn btn-warning btn-sm">View</a>
-                        <a href="'.route('admin.evidence-types.edit', $evidenceType->EvidenceTypeID).'" class="btn btn-warning btn-sm">Edit</a>
-                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.evidence-types.destroy', $evidenceType->EvidenceTypeID).'">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>';
+                return '<div style="display: flex; gap: 5px;">
+                            <a href="'.route('admin.evidence-types.show', $evidenceType->EvidenceTypeID).'" class="btn btn-warning btn-sm" title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="'.route('admin.evidence-types.edit', $evidenceType->EvidenceTypeID).'" class="btn btn-warning btn-sm" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.evidence-types.destroy', $evidenceType->EvidenceTypeID).'" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>';
             })
             ->rawColumns(['action']);
     }
@@ -38,7 +44,10 @@ class EvidenceTypeDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1);
+                    ->orderBy(1)
+                    ->language([
+                        'emptyTable' => 'No records found',
+                    ]);
                    
     }
 
@@ -46,7 +55,7 @@ class EvidenceTypeDataTable extends DataTable
     {
         return [
             Column::make('row_number')
-                  ->title('#')
+                  ->title('ID')
                   ->orderable(false)
                   ->searchable(false)
                   ->width(50)

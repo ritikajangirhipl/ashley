@@ -88,14 +88,13 @@
             }
         });
     });
-
     // Delete record
     $(document).on("click", ".delete-record", function(event) {
-        event.preventDefault();
-        var url = $(this).data('href');
-        var csrf_token = $('meta[name="csrf-token"]').attr('content');
+    event.preventDefault();
+    var url = $(this).data('href');
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-        Swal.fire({
+    Swal.fire({
             title: "{{ trans('global.areYouSure') }}",
             text: "{{ trans('global.onceClickedRecordDeleted') }}",
             icon: "warning",
@@ -112,11 +111,32 @@
                     data: { _token: csrf_token, _method: "DELETE" },
                     success: function(response) {
                         if (response.success) {
-                            toastr.success(response.message, 'Success!');
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: "success",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
                             $('#sub-categories-table').DataTable().ajax.reload(null, false);
                         } else {
-                            toastr.error(response.message, 'Error!');
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message,
+                                icon: "error",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
                         }
+                    },
+                    error: function(response) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Something went wrong!',
+                            icon: "error",
+                            confirmButtonText: "Okay",
+                            confirmButtonColor: "#04a9f5"
+                        });
                     }
                 });
             }

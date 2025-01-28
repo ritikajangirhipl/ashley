@@ -64,6 +64,16 @@
                             </ul>
                         </li>
                     @endcan
+
+                        <li data-username="country" class="nav-item {{ request()->is('admin/countries') || request()->is('admin/countries/*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.countries.index') }}" class="nav-link">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-flag"></i>
+                                </span>
+                                <span class="pcoded-mtext">{{ trans('cruds.country.title') }}</span>
+                            </a>
+                        </li>
+
                         <li data-username="category" class="nav-item {{ request()->is('admin/categories') || request()->is('admin/categories/*') ? 'active' : '' }}">
                             <a href="{{ route('admin.categories.index') }}" class="nav-link">
                                 <span class="pcoded-micon">
@@ -73,12 +83,12 @@
                             </a>
                         </li>
 
-                        <li data-username="providerType" class="nav-item {{ request()->is('admin/provider-types') || request()->is('admin/provider-types/*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.provider-types.index') }}" class="nav-link">
+                        <li data-username="subCategory" class="nav-item {{ request()->is('admin/sub-categories') || request()->is('admin/sub-categories/*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.sub-categories.index') }}" class="nav-link">
                                 <span class="pcoded-micon">
                                     <i class="feather icon-layers"></i> 
                                 </span>
-                                <span class="pcoded-mtext">{{ trans('cruds.provider_type.title') }}</span>
+                                <span class="pcoded-mtext">{{ trans('cruds.sub_category.title') }}</span>
                             </a>
                         </li>
 
@@ -91,12 +101,12 @@
                             </a>
                         </li>
 
-                        <li data-username="country" class="nav-item {{ request()->is('admin/countries') || request()->is('admin/countries/*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.countries.index') }}" class="nav-link">
+                        <li data-username="providerType" class="nav-item {{ request()->is('admin/provider-types') || request()->is('admin/provider-types/*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.provider-types.index') }}" class="nav-link">
                                 <span class="pcoded-micon">
-                                    <i class="feather icon-flag"></i>
+                                    <i class="feather icon-layers"></i> 
                                 </span>
-                                <span class="pcoded-mtext">{{ trans('cruds.country.title') }}</span>
+                                <span class="pcoded-mtext">{{ trans('cruds.provider_type.title') }}</span>
                             </a>
                         </li>
 
@@ -106,15 +116,6 @@
                                     <i class="feather icon-file-text"></i> 
                                 </span>
                                 <span class="pcoded-mtext">{{ trans('cruds.evidence_type.title') }}</span>
-                            </a>
-                        </li>
-
-                        <li data-username="subCategory" class="nav-item {{ request()->is('admin/sub-categories') || request()->is('admin/sub-categories/*') ? 'active' : '' }}">
-                            <a href="{{ route('admin.sub-categories.index') }}" class="nav-link">
-                                <span class="pcoded-micon">
-                                    <i class="feather icon-layers"></i> 
-                                </span>
-                                <span class="pcoded-mtext">{{ trans('cruds.sub_category.title') }}</span>
                             </a>
                         </li>
 

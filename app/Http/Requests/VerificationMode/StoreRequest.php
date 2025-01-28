@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\VerificationMode;
 
-use App\Models\Category;
+use App\Models\VerificationMode;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -16,6 +16,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name'     => [
+                'unique:provider_types,name',
                 'required',
                 'string',
                 'max:191',

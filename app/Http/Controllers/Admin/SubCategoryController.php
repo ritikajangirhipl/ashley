@@ -28,29 +28,38 @@ class SubCategoryController extends Controller
     {
         $pageTitle = trans('panel.page_title.sub_category.add');
         $status = $this->status;
-        $categories = Category::pluck('name', 'CategoryID');
+        $categories = Category::where('status', 'active')->pluck('name', 'CategoryID'); 
         return view('admin.sub-categories.create', compact('pageTitle', 'status', 'categories'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'CategoryID' => 'required|exists:categories,CategoryID',
+            'CategoryID' => 'required|exists:categories,CategoryID', 
             'name' => 'required|unique:sub_categories|max:255',
             'description' => 'nullable',
             'status' => 'required|in:active,inactive',
+        ], [
+            'CategoryID.exists' => 'The selected category is invalid or does not exist.',
         ]);
-
+        $category = Category::find($request->CategoryID);
+        if (!$category || $category->status !== 'active') {
+            return redirect()->back()
+                ->withErrors(['CategoryID' => 'The selected category has been deleted or is inactive.'])
+                ->withInput();
+        }
         SubCategory::create($request->all());
-
-        return redirect()->route('admin.sub-categories.index')->with('success', 'Sub Category created successfully!');
+    
+        return redirect()->route('admin.sub-categories.index')
+            ->with('success', 'Sub Category created successfully!');
     }
+    
 
     public function edit(SubCategory $subCategory)
     {
         $pageTitle = trans('panel.page_title.sub_category.edit');
         $status = $this->status;
-        $categories = Category::pluck('name', 'CategoryID'); 
+        $categories = Category::where('status', 'active')->pluck('name', 'CategoryID'); 
         return view('admin.sub-categories.edit', compact('subCategory', 'pageTitle', 'status', 'categories'));
     }
 
@@ -68,22 +77,32 @@ class SubCategoryController extends Controller
             'name' => 'required|unique:sub_categories,name,' . $subCategory->SubCategoryID . ',SubCategoryID',
             'description' => 'nullable',
             'status' => 'required|in:active,inactive',
+        ], [
+            'CategoryID.exists' => 'The selected category is invalid or does not exist.',
         ]);
 
-        $subCategory->update($request->all());
+        $category = Category::find($request->CategoryID);
+        if (!$category || $category->status !== 'active') {
+            return redirect()->back()
+                ->withErrors(['CategoryID' => 'The selected category has been deleted or is inactive.'])
+                ->withInput(); 
+        }
 
-        return redirect()->route('admin.sub-categories.index')->with('success', 'Sub Category updated successfully!');
+        $subCategory->update($request->all());
+    
+        $notification = [
+            'message' => trans('cruds.sub_category.title_singular') . " " . trans('messages.edit_success_message'),
+            'alert-type' => trans('panel.alert-type.success')
+        ];
+        return redirect()->route('admin.sub-categories.index')->with($notification);
     }
 
     public function destroy(SubCategory $subCategory)
     {
         $subCategory->delete();
-        return response()->json([
-            'success' => true,
-            'message' => trans('cruds.sub_category.title_singular') . ' ' . trans('messages.delete_success_message'),
-        ], 200);
+        return response()->json(['success' => true,'message' => trans('cruds.sub_category.title_singular') . ' ' . trans('messages.delete_success_message')], 200);
     }
-
+    
     public function changeStatus(Request $request)
     {
         if ($request->ajax()) {

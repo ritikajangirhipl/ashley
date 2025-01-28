@@ -20,10 +20,14 @@ class CountryDataTable extends DataTable
                 return $country->flag ? '<img src="' . asset('storage/' . $country->flag) . '" width="50" height="30">' : 'No Flag';
             })
             ->addColumn('action', function ($country) {
-                return '<a href="'.route('admin.countries.show',$country->CountryID).'" class="btn btn-warning btn-sm">View</a>
-                        <a href="'.route('admin.countries.edit', $country->CountryID).'" class="btn btn-warning btn-sm">Edit</a>
-                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.countries.destroy', $country->CountryID).'">
-                            <i class="fas fa-trash"></i> Delete
+                return '<a href="'.route('admin.countries.show',$country->CountryID).'" class="btn btn-warning btn-sm" title="View">
+                    <i class="fas fa-eye"></i>
+                </a>
+                        <a href="'.route('admin.countries.edit', $country->CountryID).'" class="btn btn-warning btn-sm" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.countries.destroy', $country->CountryID).'" title="Delete">
+                            <i class="fas fa-trash"></i>
                         </button>';
             })
             ->rawColumns(['flag', 'action']);
@@ -41,7 +45,10 @@ class CountryDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1);
+                    ->orderBy(1)
+                    ->language([
+                        'emptyTable' => 'No records found',
+                    ]);
                     
     }
 

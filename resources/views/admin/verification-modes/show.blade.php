@@ -12,23 +12,17 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.verification_mode.fields.name') }}</label>
-                    <p>{{ $verificationMode->name }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.verification_mode.fields.name') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ $verificationMode->name }}</p>
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.verification_mode.fields.description') }}</label>
-                    <p>{{ $verificationMode->description }}</p>
+                <div class="form-group d-flex view-listing">
+                     <h6 class="mb-0"><b>{{ trans('cruds.verification_mode.fields.description') }}:</b></h6>
+                     <p class="ml-2 mb-0">{{ $verificationMode->description }}</p>
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.verification_mode.fields.status') }}</label>
-                    <p>{{ ucfirst($verificationMode->status) }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.verification_mode.fields.status') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ ucfirst($verificationMode->status) }}</p>
                 </div>
             </div>
         </div>

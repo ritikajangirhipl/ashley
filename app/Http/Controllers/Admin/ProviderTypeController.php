@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\ProviderTypeDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProviderType\UpdateRequest;
+use App\Http\Requests\ProviderType\StoreRequest;
 use App\Models\ProviderType;
 use Illuminate\Http\Request;
-use Gate;
 
 class ProviderTypeController extends Controller
 {
@@ -38,9 +38,12 @@ class ProviderTypeController extends Controller
             'status' => 'required|in:active,inactive',
         ]);
 
-        ProviderType::create($request->all());
+        $providerType = ProviderType::create($request->all());
 
-        return redirect()->route('admin.provider-types.index')->with('success', 'Provider Type created successfully!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Provider Type created successfully!',
+        ]);
     }
 
     public function edit(ProviderType $providerType)
@@ -49,13 +52,19 @@ class ProviderTypeController extends Controller
         $status = $this->status;
         return view('admin.provider-types.edit', compact('providerType', 'pageTitle', 'status'));
     }
-
     public function update(UpdateRequest $request, ProviderType $providerType)
     {
-        $providerType->update($request->all());
-        $notification = ['message' => trans('cruds.provider_types.title_singular')." ".trans('messages.edit_success_message'),'alert-type' =>  trans('panel.alert-type.success')];
+        $providerType->update($request->validated());
+
+        $notification = [
+            'message' => trans('cruds.provider_type.title_singular') . " " . trans('messages.edit_success_message'),
+            'alert-type' => 'success'
+        ];
+
         return redirect()->route('admin.provider-types.index')->with($notification);
     }
+
+    
     public function show(ProviderType $providerType)
     {
         $pageTitle = trans('panel.page_title.provider_type.show');
@@ -76,7 +85,7 @@ class ProviderTypeController extends Controller
                 'id' => [
                     'required',
                     'numeric',
-                    'exists:provider_types,id',
+                    'exists:provider_type,id',
                 ],
                 'status' => [
                     'required',

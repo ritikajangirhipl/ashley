@@ -18,10 +18,14 @@ class ProviderTypeDataTable extends DataTable
                 return ++$rowNumber;
             })
             ->addColumn('action', function ($providerType) {
-                return '<a href="'.route('admin.provider-types.show', $providerType->ProviderTypeID).'" class="btn btn-warning btn-sm">View</a>
-                        <a href="'.route('admin.provider-types.edit', $providerType->ProviderTypeID).'" class="btn btn-warning btn-sm">Edit</a>
-                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.provider-types.destroy', $providerType->ProviderTypeID).'">
-                            <i class="fas fa-trash"></i> Delete
+                return '<a href="'.route('admin.provider-types.show', $providerType->ProviderTypeID).'" class="btn btn-warning btn-sm" title="View">
+                    <i class="fas fa-eye"></i>
+                </a>
+                        <a href="'.route('admin.provider-types.edit', $providerType->ProviderTypeID).'" class="btn btn-warning btn-sm" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.provider-types.destroy', $providerType->ProviderTypeID).'" title="Delete">
+                            <i class="fas fa-trash"></i>
                         </button>';
             })
             ->rawColumns(['action']);
@@ -39,7 +43,10 @@ class ProviderTypeDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1);
+                    ->orderBy(1)
+                    ->language([
+                        'emptyTable' => 'No records found',
+                    ]);
     }
 
     protected function getColumns()

@@ -62,7 +62,7 @@ class CategoryController extends Controller
     {
         $category->update($request->all());
         $notification = [
-            'message' => trans('cruds.categories.title_singular') . " " . trans('messages.edit_success_message'),
+            'message' => trans('cruds.category.title_singular') . " " . trans('messages.edit_success_message'),
             'alert-type' => trans('panel.alert-type.success')
         ];
         return redirect()->route('admin.categories.index')->with($notification);
@@ -108,5 +108,6 @@ class CategoryController extends Controller
             ];
             return response()->json($response);
         }
+    
     }
 }

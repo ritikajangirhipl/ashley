@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title float-left">
-                    
+                 {{ trans('global.list') }} {{ trans('cruds.category.title_singular') }}
                 </h4>
                     <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.category.title_singular') }}" href="{{ route('admin.categories.create') }}">
                         <i class="fas fa-plus"></i>
@@ -111,11 +111,32 @@
                     data: { _token: csrf_token, _method: "DELETE" },
                     success: function(response) {
                         if (response.success) {
-                            toastr.success(response.message, 'Success!');
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: "success",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
                             $('#categories-table').DataTable().ajax.reload(null, false);
                         } else {
-                            toastr.error(response.message, 'Error!');
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message,
+                                icon: "error",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
                         }
+                    },
+                    error: function(response) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Something went wrong!',
+                            icon: "error",
+                            confirmButtonText: "Okay",
+                            confirmButtonColor: "#04a9f5"
+                        });
                     }
                 });
             }

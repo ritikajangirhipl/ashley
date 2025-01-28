@@ -12,23 +12,17 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.provider_type.fields.name') }}</label>
-                    <p>{{ $providerType->name }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.provider_type.fields.name') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ $providerType->name }}</p>
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.provider_type.fields.description') }}</label>
-                    <p>{{ $providerType->description }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.provider_type.fields.description') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ $providerType->description }}</p>
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.provider_type.fields.status') }}</label>
-                    <p>{{ ucfirst($providerType->status) }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.provider_type.fields.status') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ ucfirst($providerType->status) }}</p>
                 </div>
             </div>
         </div>

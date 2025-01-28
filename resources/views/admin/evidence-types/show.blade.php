@@ -12,23 +12,19 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.evidence_type.fields.name') }}</label>
-                    <p>{{ $evidenceType->name }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.evidence_type.fields.name') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ $evidenceType->name }}</p>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.evidence_type.fields.description') }}</label>
-                    <p>{{ $evidenceType->description }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.evidence_type.fields.description') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ $evidenceType->description }}</p>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.evidence_type.fields.status') }}</label>
-                    <p>{{ ucfirst($evidenceType->status) }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.evidence_type.fields.status') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ ucfirst($evidenceType->status) }}</p>
                 </div>
             </div>
         </div>

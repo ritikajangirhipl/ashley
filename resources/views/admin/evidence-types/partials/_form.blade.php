@@ -1,41 +1,55 @@
 <div class="row">
+    <!-- Name Field -->
     <div class="col-md-6 col-sm-12">
-        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+        <div class="form-group">
             <label for="name">{{ trans('cruds.evidence_type.fields.name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($evidenceType) ? $evidenceType->name : '') }}" required autofocus>
-            @if($errors->has('name'))
-                <p class="help-block">
-                    {{ $errors->first('name') }}
-                </p>
-            @endif
+            <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', isset($evidenceType) ? $evidenceType->name : '') }}" placeholder="{{ trans('cruds.evidence_type.fields.name') }}" autofocus>
+            
+            <!-- Display error message for 'name' field -->
+            @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
     </div>
 
+    <!-- Description Field -->
     <div class="col-md-6 col-sm-12">
-        <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
+        <div class="form-group">
             <label for="description">{{ trans('cruds.evidence_type.fields.description') }}</label>
-            <textarea name="description" class="form-control">{{ old('description', isset($evidenceType) ? $evidenceType->description : '') }}</textarea>
-            @if($errors->has('description'))
-                <p class="help-block">
-                    {{ $errors->first('description') }}
-                </p>
-            @endif
+            <textarea name="description" class="form-control @error('description') is-invalid @enderror" placeholder="{{ trans('cruds.evidence_type.fields.description') }}">{{ old('description', isset($evidenceType) ? $evidenceType->description : '') }}</textarea>
+            
+            <!-- Display error message for 'description' field -->
+            @error('description')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
     </div>
 
+    <!-- Status Field -->
     <div class="col-md-6 col-sm-12">
-        <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+        <div class="form-group">
             <label for="status">{{ trans('cruds.evidence_type.fields.status') }}<span class="text-danger">*</span></label>
-            {{ Form::select('status', $status, old('status', isset($evidenceType) ? $evidenceType->status : null), ['class' => 'form-control select2', 'id' => 'status', 'placeholder' => 'Select ' . trans('cruds.evidence_type.fields.status'), 'required' => 'true']) }}
-            @if($errors->has('status'))
-                <p class="help-block">
-                    {{ $errors->first('status') }}
-                </p>
-            @endif
+            {{ Form::select('status', $status, old('status', isset($evidenceType) ? $evidenceType->status : null), ['class' => 'form-control select2' . ($errors->has('status') ? ' is-invalid' : ''), 'placeholder' => trans('global.select')]) }}
+
+            <!-- Display error message for 'status' field -->
+            @error('status')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
     </div>
 </div>
-
 <div>
-    <input class="btn btn-info" type="submit" value="{{ trans('global.save') }}">
+    <!-- Submit Button -->
+    @if(isset($evidenceType))
+        <input class="btn btn-info" type="submit" value="{{ trans('global.update') }}">
+    @else
+        <input class="btn btn-info" type="submit" value="{{ trans('global.create') }}">
+    @endif
 </div>
+

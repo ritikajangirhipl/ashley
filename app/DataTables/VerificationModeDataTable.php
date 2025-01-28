@@ -17,10 +17,14 @@ class VerificationModeDataTable extends DataTable
                 return ++$rowNumber;
             })
             ->addColumn('action', function ($verificationMode) {
-                return '<a href="'.route('admin.verification-modes.show', $verificationMode->ModeID).'" class="btn btn-warning btn-sm">View</a>
-                        <a href="'.route('admin.verification-modes.edit', $verificationMode->ModeID).'" class="btn btn-warning btn-sm">Edit</a>
-                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.verification-modes.destroy', $verificationMode->ModeID).'">
-                            <i class="fas fa-trash"></i> Delete
+                return '<a href="'.route('admin.verification-modes.show', $verificationMode->ModeID).'" class="btn btn-warning btn-sm" title="View">
+                    <i class="fas fa-eye"></i>
+                </a>
+                        <a href="'.route('admin.verification-modes.edit', $verificationMode->ModeID).'" class="btn btn-warning btn-sm" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.verification-modes.destroy', $verificationMode->ModeID).'" title="Delete">
+                            <i class="fas fa-trash"></i>
                         </button>';
             })
             ->rawColumns(['action']);
@@ -38,7 +42,10 @@ class VerificationModeDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1);
+                    ->orderBy(1)
+                    ->language([
+                        'emptyTable' => 'No records found',
+                    ]);
                     
     }
 

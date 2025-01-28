@@ -26,7 +26,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::put('provider-types-update-status', [ProviderTypeController::class, 'changeStatus'])->name('provider-types.updateStatus');
     Route::resource('provider-types', ProviderTypeController::class);
-
+    
     Route::put('verification-modes-change-status', [VerificationModeController::class, 'changeStatus'])->name('verification-modes.changeStatus');
     Route::resource('verification-modes', VerificationModeController::class);
 

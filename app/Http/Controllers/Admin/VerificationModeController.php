@@ -5,8 +5,6 @@ use App\Http\Controllers\Controller;
 use App\Models\VerificationMode;
 use Illuminate\Http\Request;
 use App\DataTables\VerificationModeDataTable;
-use Illuminate\Support\Facades\Gate;
-use Symfony\Component\HttpFoundation\Response;
 
 class VerificationModeController extends Controller
 {
@@ -57,10 +55,14 @@ class VerificationModeController extends Controller
             'description' => 'required',
             'status' => 'required|in:active,inactive',
         ]);
-
+    
         $verificationMode->update($request->all());
-
-        return redirect()->route('admin.verification-modes.index')->with('success', 'Verification Mode updated successfully!');
+        $notification = [
+            'message' => trans('cruds.verification_mode.title_singular') . " " . trans('messages.edit_success_message'),
+            'alert-type' => trans('panel.alert-type.success')
+        ];
+    
+        return redirect()->route('admin.verification-modes.index')->with($notification);
     }
 
     public function destroy(VerificationMode $verificationMode)

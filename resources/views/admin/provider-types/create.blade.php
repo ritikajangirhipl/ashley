@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route('admin.provider-types.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="provider-type-form" action="{{ route('admin.provider-types.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @include('admin.provider-types.partials._form')
         </form>
@@ -21,4 +21,5 @@
 
 @section('scripts')
 @parent
+@include('admin.provider-types.partials._script')
 @endsection

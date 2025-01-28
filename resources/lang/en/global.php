@@ -34,6 +34,8 @@ return [
     'remember_me'                          => 'Remember me',
     'reset_password'                       => 'Reset Password',
     'save'                                 => 'Save',
+    'create'                               => 'Create',
+    'update'                               => 'Update',
     'search'                               => 'Search',
     'searching'                            => 'Searching',
     'no_results'                           => 'No results',

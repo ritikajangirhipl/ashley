@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('title', $pageTitle)
+
 @section('content')
 
 <div class="card">
@@ -10,7 +11,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route('admin.evidence-types.store') }}" method="POST">
+        <form id="evidence-type-form" action="{{ route('admin.evidence-types.store') }}" method="POST">
             @csrf
             @include('admin.evidence-types.partials._form')
         </form>
@@ -21,4 +22,5 @@
 
 @section('scripts')
 @parent
+@include('admin.evidence-types.partials._script') 
 @endsection

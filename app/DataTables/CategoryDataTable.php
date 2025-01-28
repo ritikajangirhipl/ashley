@@ -17,14 +17,19 @@ class CategoryDataTable extends DataTable
                 return ++$rowNumber;
             })
             ->addColumn('action', function ($category) {
-                return '<a href="'.route('admin.categories.show',$category->CategoryID).'" class="btn btn-warning btn-sm">View</a>
-                        <a href="'.route('admin.categories.edit', $category->CategoryID).'" class="btn btn-warning btn-sm">Edit</a>
-                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.categories.destroy', $category->CategoryID).'">
-                            <i class="fas fa-trash"></i> Delete
+                return '<a href="'.route('admin.categories.show',$category->CategoryID).'" class="btn btn-warning btn-sm" title="View">
+                    <i class="fas fa-eye"></i>
+                </a>
+                        <a href="'.route('admin.categories.edit', $category->CategoryID).'" class="btn btn-warning btn-sm" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.categories.destroy', $category->CategoryID).'" title="Delete">
+                            <i class="fas fa-trash"></i>
                         </button>';
             })
             ->rawColumns(['action']); 
     }
+
     public function query(Category $model)
     {
         return $model->newQuery()->select(['CategoryID', 'name', 'description', 'status']);
@@ -37,7 +42,10 @@ class CategoryDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                ->orderBy(1);
+                    ->orderBy(1)
+                    ->language([
+                        'emptyTable' => 'No records found',
+                    ]);
     }
 
     protected function getColumns()

@@ -28,8 +28,15 @@ class CountryController extends Controller
             'flag' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'nullable',
             'currency_name' => 'required|max:255',
-            'currency_symbol' => 'required|max:10',
+            'currency_symbol' => [
+                'required',
+                'string',
+                'max:10',
+                'regex:/^[\p{Sc}\p{So}]*$/u', 
+            ],
             'status' => 'required|in:active,inactive',
+        ], [
+            'currency_symbol.regex' => 'The currency symbol must contain only valid currency symbols (e.g., $, €, £, ¥). Numbers, letters, and spaces are not allowed.',
         ]);
 
         // Handle file upload
@@ -86,7 +93,6 @@ class CountryController extends Controller
             $flagPath = $file->storeAs('public/flags', $filename); 
             $flagPath = str_replace('public/', '', $flagPath); 
         }
-        dd($request);
 
         // Update the country
         $country->update([
@@ -97,8 +103,11 @@ class CountryController extends Controller
             'currency_symbol' => $request->currency_symbol,
             'status' => $request->status,
         ]);
-
-        return redirect()->route('admin.countries.index')->with('success', 'Country updated successfully!');
+        $notification = [
+            'message' => trans('cruds.country.title_singular') . " " . trans('messages.edit_success_message'),
+            'alert-type' => trans('panel.alert-type.success')
+        ];
+        return redirect()->route('admin.countries.index')->with($notification);
     }
 
     public function destroy(Country $country)

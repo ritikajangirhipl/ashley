@@ -112,11 +112,32 @@
                     data: { _token: csrf_token, _method: "DELETE" },
                     success: function(response) {
                         if (response.success) {
-                            toastr.success(response.message, 'Success!');
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: "success",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
                             $('#evidence-types-table').DataTable().ajax.reload(null, false);
                         } else {
-                            toastr.error(response.message, 'Error!');
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message,
+                                icon: "error",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
                         }
+                    },
+                    error: function(response) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Something went wrong!',
+                            icon: "error",
+                            confirmButtonText: "Okay",
+                            confirmButtonColor: "#04a9f5"
+                        });
                     }
                 });
             }

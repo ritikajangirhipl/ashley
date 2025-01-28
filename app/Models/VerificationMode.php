@@ -10,6 +10,8 @@ class VerificationMode extends Model
 
     protected $primaryKey = 'ModeID'; 
 
+    protected $table = 'verification_modes';
+
     protected $fillable = [
         'name',
         'description',

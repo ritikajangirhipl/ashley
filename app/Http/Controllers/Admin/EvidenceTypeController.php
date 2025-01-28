@@ -5,8 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\EvidenceType;
 use Illuminate\Http\Request;
 use App\DataTables\EvidenceTypeDataTable;
-use Illuminate\Support\Facades\Gate;
-use Symfony\Component\HttpFoundation\Response;
+use app\Http\Requests\EvidenceType\UpdateRequest;
 
 class EvidenceTypeController extends Controller
 {
@@ -27,13 +26,15 @@ class EvidenceTypeController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:evidence_types|max:255',
-            'description' => 'nullable',
+            'description' => 'nullable|max:255',
             'status' => 'required|in:active,inactive',
         ]);
 
         EvidenceType::create($request->all());
-
-        return redirect()->route('admin.evidence-types.index')->with('success', 'Evidence Type created successfully!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Evidence Type created successfully!',
+        ]);
     }
 
     public function show(EvidenceType $evidenceType)
@@ -49,19 +50,23 @@ class EvidenceTypeController extends Controller
         $status = config('constant.enums.status');
         return view('admin.evidence-types.edit', compact('evidenceType', 'pageTitle', 'status'));
     }
-
+    
     public function update(Request $request, EvidenceType $evidenceType)
     {
         $request->validate([
-            'name' => 'required|unique:evidence_types,name,' . $evidenceType->EvidenceTypeID . ',EvidenceTypeID',
-            'description' => 'nullable',
+            'name' => 'required|unique:evidence_types,name,' . $evidenceType->EvidenceTypeID . ',EvidenceTypeID|max:255',
+            'description' => 'nullable|max:255',
             'status' => 'required|in:active,inactive',
         ]);
 
         $evidenceType->update($request->all());
 
-        return redirect()->route('admin.evidence-types.index')->with('success', 'Evidence Type updated successfully!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Evidence Type updated successfully!',
+        ]);
     }
+
 
     public function destroy(EvidenceType $evidenceType)
     {

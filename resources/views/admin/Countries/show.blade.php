@@ -12,23 +12,17 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.country.fields.name') }}</label>
-                    <p>{{ $country->name }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.country.fields.name') }} :</b></h6>
+                    <p class="ml-2 mb-0">{{ $country->name }}</p>
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.country.fields.description') }}</label>
-                    <p>{{ $country->description }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.country.fields.description') }} :</b></h6>
+                    <p class="ml-2 mb-0">{{ $country->description }}</p>
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.country.fields.flag') }}</label>
-                    <p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.country.fields.flag') }}:</b></h6>
+                    <p class="ml-2 mb-0">
                         @if($country->flag)
                             <img src="{{ asset('storage/' . $country->flag) }}" width="50" height="30" alt="Flag">
                         @else
@@ -36,26 +30,18 @@
                         @endif
                     </p>
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.country.fields.currency_name') }}</label>
-                    <p>{{ $country->currency_name }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.country.fields.currency_symbol') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ $country->currency_symbol }}</p>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.country.fields.currency_symbol') }}</label>
-                    <p>{{ $country->currency_symbol }}</p>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.country.fields.currency_name') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ $country->currency_name }}</p>
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ trans('cruds.country.fields.status') }}</label>
-                    <p>{{ ucfirst($country->status) }}</p>
+                <div class="form-group d-flex view-listing">
+                <h6 class="mb-0"><b>{{ trans('cruds.country.fields.status') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ ucfirst($country->status) }}</p>
                 </div>
             </div>
         </div>
