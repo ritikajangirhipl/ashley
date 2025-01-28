@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route('admin.evidence-types.update', $evidenceType->EvidenceTypeID) }}" method="POST">
+        <form id="evidence-type-form" action="{{ route('admin.evidence-types.update', $evidenceType->EvidenceTypeID) }}" method="POST">
             @csrf
             @method('PUT')
             @include('admin.evidence-types.partials._form')

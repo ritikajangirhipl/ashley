@@ -38,7 +38,7 @@ class ProviderTypeController extends Controller
             'status' => 'required|in:active,inactive',
         ]);
 
-        $providerType = ProviderType::create($request->all());
+        ProviderType::create($request->all());
 
         return response()->json([
             'success' => true,
@@ -54,14 +54,12 @@ class ProviderTypeController extends Controller
     }
     public function update(UpdateRequest $request, ProviderType $providerType)
     {
-        $providerType->update($request->validated());
+        $providerType->update($request->except('_token','_method'));
 
-        $notification = [
-            'message' => trans('cruds.provider_type.title_singular') . " " . trans('messages.edit_success_message'),
-            'alert-type' => 'success'
-        ];
-
-        return redirect()->route('admin.provider-types.index')->with($notification);
+        return response()->json([
+            'success' => true,
+            'message' => 'Provider Type updated successfully!',
+        ]);
     }
 
     
