@@ -1,11 +1,10 @@
 <?php
+
 namespace App\DataTables;
 
 use App\Models\VerificationProvider;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
-
 
 class VerificationProviderDataTable extends DataTable
 {
@@ -18,17 +17,18 @@ class VerificationProviderDataTable extends DataTable
                 return ++$rowNumber;
             })
             ->addColumn('action', function ($verificationprovider) {
-                return '<a href="'.route('admin.verification-provider.show',$verificationprovider->VerificationProviderID).'" class="btn btn-warning btn-sm">View</a>
-                        <a href="'.route('admin.verification-provider.edit', $verificationprovider->VerificationProviderID).'" class="btn btn-warning btn-sm">Edit</a>
-                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.verification-provide.destroy', $verificationprovider->VerificationProviderID).'">
+                return '<a href="' . route('admin.verification-providers.show', $verificationprovider->ProviderID) . '" class="btn btn-warning btn-sm">View</a>
+                        <a href="' . route('admin.verification-providers.edit', $verificationprovider->ProviderID) . '" class="btn btn-warning btn-sm">Edit</a>
+                        <button class="btn btn-danger btn-sm delete-record" data-href="' . route('admin.verification-providers.destroy', $verificationprovider->ProviderID) . '">
                             <i class="fas fa-trash"></i> Delete
                         </button>';
             })
-            ->rawColumns(['action']); 
+            ->rawColumns(['action']);
     }
+
     public function query(VerificationProvider $model)
     {
-        return $model->newQuery()->select(['VerificationProviderID', 'name', 'description', 'status']);
+        return $model->newQuery()->select(['ProviderID', 'name', 'description', 'status']);
     }
 
     public function html()
@@ -38,7 +38,7 @@ class VerificationProviderDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                ->orderBy(1);
+                    ->orderBy(1);
     }
 
     protected function getColumns()

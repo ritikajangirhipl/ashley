@@ -16,6 +16,9 @@ class SubCategoryDataTable extends DataTable
                 static $rowNumber = 0;
                 return ++$rowNumber;
             })
+            ->editColumn('status', function ($record) {
+                return config('constant.enums.status.'.$record->status);
+            }) 
             ->addColumn('category', function ($subCategory) {
                 return $subCategory->category_name;
             })
@@ -64,7 +67,7 @@ class SubCategoryDataTable extends DataTable
     {
         return [
             Column::make('row_number')
-                  ->title('#')
+                  ->title('ID')
                   ->orderable(false)
                   ->searchable(false)
                   ->width(50)

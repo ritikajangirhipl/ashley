@@ -1,13 +1,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        // Initialize form validation
         $("#provider-type-form").validate({
             rules: {
                 name: {
                     required: true,
                     minlength: 3,
-                    maxlength: 10,
                 },
                 description: {
                     required: true,
@@ -21,7 +20,6 @@
                 name: {
                     required: "{{ trans('validation.required', ['attribute' => 'name']) }}",
                     minlength: "{{ trans('validation.min.string', ['attribute' => 'name', 'min' => 3]) }}",
-                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'name', 'max' => 10]) }}",
                 },
                 description: {
                     required: "{{ trans('validation.required', ['attribute' => 'description']) }}",
@@ -31,31 +29,25 @@
                     required: "{{ trans('validation.required', ['attribute' => 'status']) }}",
                 },
             },
-            errorElement: 'span', // Use a span for error messages (default is div)
-            errorClass: 'invalid-feedback', // Add custom class for error messages
+            errorElement: 'span', 
+            errorClass: 'invalid-feedback',
             errorPlacement: function (error, element) {
-                error.appendTo(element.closest('.form-group')); // Append error message below the form field
+                error.appendTo(element.closest('.form-group'));
             },
             highlight: function (element, errorClass, validClass) {
-                // Remove 'is-invalid' class from inputs
                 $(element).removeClass('is-invalid');
             },
             unhighlight: function (element, errorClass, validClass) {
-                // Remove 'is-invalid' class from inputs when valid
                 $(element).removeClass('is-invalid');
             },
             submitHandler: function (form) {
                 submitForm(form);
             },
         });
-
-        // Function to handle form submission via AJAX
         function submitForm(form) {
             var formData = new FormData(form);
             var url = $(form).attr('action');
             var method = $(form).attr('method');
-
-            // Disable the submit button to prevent multiple submissions
             $('input[type="submit"]').prop('disabled', true);
 
             $.ajax({
@@ -65,7 +57,6 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    // Re-enable the submit button
                     $('input[type="submit"]').prop('disabled', false);
 
                     if (response.success) {
@@ -76,11 +67,10 @@
                             confirmButtonText: 'OK',
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "{{ route('admin.provider-types.index') }}"; // Redirect after success
+                                window.location.href = "{{ route('admin.provider-types.index') }}"; 
                             }
                         });
                     } else {
-                        // If response.success is false or not present, show a general error message
                         Swal.fire({
                             title: 'Error',
                             text: response.message || 'Something went wrong!',
@@ -90,10 +80,7 @@
                     }
                 },
                 error: function (xhr) {
-                    // Re-enable the submit button in case of error
                     $('input[type="submit"]').prop('disabled', false);
-
-                    // Handle validation errors
                     var errors = xhr.responseJSON.errors;
                     var errorMessages = '';
                     if (errors) {
@@ -101,7 +88,6 @@
                             errorMessages += value[0] + '<br>';
                         });
                     } else {
-                        // If there are no validation errors, show a generic error message
                         errorMessages = 'An unexpected error occurred!';
                     }
 

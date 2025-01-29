@@ -16,7 +16,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name'     => [
-                'unique:provider_types,name',
+                'unique:verification_mode,name',
                 'required',
                 'string',
                 'max:191',

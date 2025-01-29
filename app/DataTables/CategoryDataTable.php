@@ -16,6 +16,9 @@ class CategoryDataTable extends DataTable
                 static $rowNumber = 0;
                 return ++$rowNumber;
             })
+            ->editColumn('status', function ($record) {
+                return config('constant.enums.status.'.$record->status);
+            }) 
             ->addColumn('action', function ($category) {
                 return '<a href="'.route('admin.categories.show',$category->CategoryID).'" class="btn btn-warning btn-sm" title="View">
                     <i class="fas fa-eye"></i>

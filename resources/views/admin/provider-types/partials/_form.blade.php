@@ -37,7 +37,7 @@
 </div>
 
 <div>
-    @if(isset($category))
+    @if(isset($providerType))
         <input class="btn btn-info" type="submit" value="{{ trans('global.update') }}">
     @else
         <input class="btn btn-info" type="submit" value="{{ trans('global.create') }}">

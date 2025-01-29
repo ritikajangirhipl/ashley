@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\EvidenceTypeController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\VerificationProviderController;
+
 //Clear Cache facade value:
 Route::get('/cache-clear', function() {
     Artisan::call('optimize:clear');
@@ -26,6 +28,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::put('provider-types-update-status', [ProviderTypeController::class, 'changeStatus'])->name('provider-types.updateStatus');
     Route::resource('provider-types', ProviderTypeController::class);
+
+    Route::put('verification-providers-update-status', [VerificationProviderController::class, 'changeStatus'])->name('verification-providers.updateStatus');
+    Route::resource('verification-providers', VerificationProviderController::class);
     
     Route::put('verification-modes-change-status', [VerificationModeController::class, 'changeStatus'])->name('verification-modes.changeStatus');
     Route::resource('verification-modes', VerificationModeController::class);

@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route('admin.countries.update', $country->CountryID) }}" method="POST" enctype="multipart/form-data">
+        <form id="countries-form" action="{{ route('admin.countries.update', $country->CountryID) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             @include('admin.countries.partials._form')
@@ -22,4 +22,5 @@
 
 @section('scripts')
 @parent
+@include('admin.countries.partials._script')
 @endsection

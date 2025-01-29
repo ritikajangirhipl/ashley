@@ -7,7 +7,6 @@
                 name: {
                     required: true,
                     minlength: 3,
-                    maxlength: 255,
                 },
                 description: {
                     required: true,
@@ -21,7 +20,6 @@
                 name: {
                     required: "{{ trans('validation.required', ['attribute' => 'name']) }}",
                     minlength: "{{ trans('validation.min.string', ['attribute' => 'name', 'min' => 3]) }}",
-                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'name', 'max' => 255]) }}",
                 },
                 description: {
                     required: "{{ trans('validation.required', ['attribute' => 'description']) }}",

@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route('admin.sub-categories.update', $subCategory->SubCategoryID) }}" method="POST">
+        <form id="sub-categories-form" action="{{ route('admin.sub-categories.update', $subCategory->SubCategoryID) }}" method="POST">
             @csrf
             @method('PUT')
             @include('admin.sub-categories.partials._form')
@@ -22,4 +22,5 @@
 
 @section('scripts')
 @parent
+@include('admin.sub-categories.partials._script')
 @endsection

@@ -16,6 +16,9 @@ class EvidenceTypeDataTable extends DataTable
                 static $rowNumber = 0;
                 return ++$rowNumber;
             })
+            ->editColumn('status', function ($record) {
+                return config('constant.enums.status.'.$record->status);
+            })            
             ->addColumn('action', function ($evidenceType) {
                 return '<div style="display: flex; gap: 5px;">
                             <a href="'.route('admin.evidence-types.show', $evidenceType->EvidenceTypeID).'" class="btn btn-warning btn-sm" title="View">

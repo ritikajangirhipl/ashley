@@ -2,7 +2,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         // Initialize form validation
-        $("#verification-modes-form").validate({
+        $("#verification-form").validate({
             rules: {
                 name: {
                     required: true,
@@ -70,11 +70,10 @@
                             confirmButtonText: 'OK',
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "{{ route('admin.verification-modes.index') }}"; // Redirect after success
+                                window.location.href = "{{ route('admin.verification-providers.index') }}"; 
                             }
                         });
                     } else {
-                        // If response.success is false or not present, show a general error message
                         Swal.fire({
                             title: 'Error',
                             text: response.message || 'Something went wrong!',

@@ -16,6 +16,9 @@ class CountryDataTable extends DataTable
                 static $rowNumber = 0;
                 return ++$rowNumber;
             })
+            ->editColumn('status', function ($record) {
+                return config('constant.enums.status.'.$record->status);
+            }) 
             ->addColumn('flag', function ($country) {
                 return $country->flag ? '<img src="' . asset('storage/' . $country->flag) . '" width="50" height="30">' : 'No Flag';
             })

@@ -8,6 +8,7 @@ use App\Http\Requests\Category\UpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log; 
 
 class CategoryController extends Controller
 {
@@ -26,88 +27,138 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $pageTitle = trans('panel.page_title.categories.add');
-        $status = $this->status;
-        return view('admin.categories.create', compact('pageTitle', 'status'));
+        try {
+            $pageTitle = trans('panel.page_title.categories.add');
+            $status = $this->status;
+            return view('admin.categories.create', compact('pageTitle', 'status'));
+        } catch (\Exception $e) {
+            Log::error('Error in CategoryController@create: ' . $e->getMessage());
+            return redirect()->route('admin.categories.index')->with('error', 'An error occurred while preparing the create page.');
+        }
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:categories|max:255',
-            'description' => 'required',
-            'status' => 'required|in:active,inactive',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|unique:categories|max:255',
+                'description' => 'required',
+                'status' => 'required|in:active,inactive',
+            ]);
 
-        Category::create($request->all());
+            Category::create($request->all());
 
-        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully!');
+            return response()->json([
+                'success' => true,
+                'message' => 'Category created successfully!',
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error in CategoryController@store: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while creating the category.',
+            ], 500);
+        }
     }
 
     public function show(Category $category)
     {
-        $pageTitle = trans('panel.page_title.categories.show');
-        $status = config('constant.enums.status');
-        return view('admin.categories.show', compact('category', 'pageTitle', 'status'));
+        try {
+            $pageTitle = trans('panel.page_title.categories.show');
+            $status = config('constant.enums.status');
+            return view('admin.categories.show', compact('category', 'pageTitle', 'status'));
+        } catch (\Exception $e) {
+            Log::error('Error in CategoryController@show: ' . $e->getMessage());
+            return redirect()->route('admin.categories.index')->with('error', 'An error occurred while fetching the category details.');
+        }
     }
 
     public function edit(Category $category)
     {
-        $pageTitle = trans('panel.page_title.categories.edit');
-        $status = $this->status;
-        return view('admin.categories.edit', compact('category', 'pageTitle', 'status'));
+        try {
+            $pageTitle = trans('panel.page_title.categories.edit');
+            $status = $this->status;
+            return view('admin.categories.edit', compact('category', 'pageTitle', 'status'));
+        } catch (\Exception $e) {
+            Log::error('Error in CategoryController@edit: ' . $e->getMessage());
+            return redirect()->route('admin.categories.index')->with('error', 'An error occurred while preparing the edit page.');
+        }
     }
 
     public function update(UpdateRequest $request, Category $category)
     {
-        $category->update($request->all());
-        $notification = [
-            'message' => trans('cruds.category.title_singular') . " " . trans('messages.edit_success_message'),
-            'alert-type' => trans('panel.alert-type.success')
-        ];
-        return redirect()->route('admin.categories.index')->with($notification);
+        try {
+            $category->update($request->except('_token', '_method'));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Category updated successfully!',
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error in CategoryController@update: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while updating the category.',
+            ], 500);
+        }
     }
 
     public function destroy(Category $category)
     {
-        $category->delete();
-        return response()->json([
-            'success' => true,
-            'message' => trans('cruds.category.title_singular') . ' ' . trans('messages.delete_success_message')
-        ], 200);
+        try {
+            $category->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('cruds.category.title_singular') . ' ' . trans('messages.delete_success_message'),
+            ], 200);
+        } catch (\Exception $e) {
+            Log::error('Error in CategoryController@destroy: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while deleting the category.',
+            ], 500);
+        }
     }
 
     public function changeStatus(Request $request)
     {
-        if ($request->ajax()) {
-            $validator = Validator::make($request->all(), [
-                'id' => [
-                    'required',
-                    'numeric',
-                    'exists:categories,CategoryID',
-                ],
-                'status' => [
-                    'required',
-                    'in:active,inactive',
-                ],
-            ]);
+        try {
+            if ($request->ajax()) {
+                $validator = Validator::make($request->all(), [
+                    'id' => [
+                        'required',
+                        'numeric',
+                        'exists:categories,CategoryID',
+                    ],
+                    'status' => [
+                        'required',
+                        'in:active,inactive',
+                    ],
+                ]);
 
-            if (!$validator->passes()) {
-                return response()->json([
-                    'success' => false,
-                    'errors' => $validator->getMessageBag()->toArray(),
-                    'message' => 'Error Occurred!',
-                ], 400);
+                if (!$validator->passes()) {
+                    return response()->json([
+                        'success' => false,
+                        'errors' => $validator->getMessageBag()->toArray(),
+                        'message' => 'Error Occurred!',
+                    ], 400);
+                }
+
+                $category = Category::where('CategoryID', $request->id)->update(['status' => $request->status]);
+
+                $response = [
+                    'status' => 'true',
+                    'message' => trans('cruds.category.title_singular') . ' ' . trans('messages.change_status_success_message'),
+                ];
+                return response()->json($response);
             }
-
-            $category = Category::where('CategoryID', $request->id)->update(['status' => $request->status]);
-
-            $response = [
-                'status' => 'true',
-                'message' => trans('cruds.category.title_singular') . ' ' . trans('messages.change_status_success_message'),
-            ];
-            return response()->json($response);
+        } catch (\Exception $e) {
+            Log::error('Error in CategoryController@changeStatus: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while changing the status.',
+            ], 500);
         }
-    
     }
 }

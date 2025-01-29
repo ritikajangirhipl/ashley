@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+<!-- @extends('layouts.admin')
 @section('title', $pageTitle)
 @section('content')
 
@@ -7,16 +7,16 @@
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title float-left">
-                    {{ trans('global.list') }} {{ trans('cruds.verification_provider.title_singular') }}
+                    {{ trans('global.list') }} {{ trans('cruds.verification_provider.title') }}
                 </h4>
-                <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.verification_provider.title_singular') }}" href="{{ route('admin.verification-provider.create') }}">
+                <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.verification_provider.title_singular') }}" href="{{ route('admin.verification-providers.create') }}">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>
             <div class="card-block">
                 <div class="table-responsive">
                     <div class="clearfix"></div>
-                    {{ $dataTable->table(['class' => 'display table nowrap table-hover', 'id' => 'verification-provider-table', 'style' => 'width:100%;']) }}
+                    {{ $dataTable->table(['class' => 'display table nowrap table-hover', 'id' => 'verification-providers-table', 'style' => 'width:100%;']) }}
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     // Update status
-    $(document).on('click', '.verification-provider_status_cb', function() {
+    $(document).on('click', '.verification-providers_status_cb', function() {
         var $this = $(this);
         var dataId = $this.data('id');
         var status = $this.val();
@@ -57,7 +57,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: 'PUT',
-                    url: "{{ route('admin.verification-provider.changeStatus') }}",
+                    url: "{{ route('admin.verification-providers.updateStatus') }}",
                     dataType: 'json',
                     data: { _token: csrf_token, id: dataId, status: status },
                     success: function(response) {
@@ -69,7 +69,7 @@
                                 confirmButtonText: "Okay",
                                 confirmButtonColor: "#04a9f5"
                             });
-                            $('#verification-provider-table').DataTable().ajax.reload(null, false);
+                            $('#verification-providers-table').DataTable().ajax.reload(null, false);
                         }
                     },
                     error: function(response) {
@@ -88,14 +88,13 @@
             }
         });
     });
-
     // Delete record
     $(document).on("click", ".delete-record", function(event) {
-        event.preventDefault();
-        var url = $(this).data('href');
-        var csrf_token = $('meta[name="csrf-token"]').attr('content');
+    event.preventDefault();
+    var url = $(this).data('href');
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-        Swal.fire({
+    Swal.fire({
             title: "{{ trans('global.areYouSure') }}",
             text: "{{ trans('global.onceClickedRecordDeleted') }}",
             icon: "warning",
@@ -112,11 +111,32 @@
                     data: { _token: csrf_token, _method: "DELETE" },
                     success: function(response) {
                         if (response.success) {
-                            toastr.success(response.message, 'Success!');
-                            $('#verification-provider-table').DataTable().ajax.reload(null, false);
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.message,
+                                icon: "success",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
+                            $('#verification-providers-table').DataTable().ajax.reload(null, false);
                         } else {
-                            toastr.error(response.message, 'Error!');
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message,
+                                icon: "error",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
                         }
+                    },
+                    error: function(response) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Something went wrong!',
+                            icon: "error",
+                            confirmButtonText: "Okay",
+                            confirmButtonColor: "#04a9f5"
+                        });
                     }
                 });
             }
@@ -124,4 +144,4 @@
     });
   });
 </script>
-@endsection
+@endsection -->

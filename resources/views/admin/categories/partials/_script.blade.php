@@ -2,7 +2,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         // Initialize form validation
-        $("#verification-modes-form").validate({
+        $("#categories-form").validate({
             rules: {
                 name: {
                     required: true,
@@ -29,15 +29,17 @@
                     required: "{{ trans('validation.required', ['attribute' => 'status']) }}",
                 },
             },
-            errorElement: 'span',
+            errorElement: 'span', 
             errorClass: 'invalid-feedback', 
             errorPlacement: function (error, element) {
-                error.appendTo(element.closest('.form-group')); 
+                error.appendTo(element.closest('.form-group'));
             },
             highlight: function (element, errorClass, validClass) {
+                // Remove 'is-invalid' class from inputs
                 $(element).removeClass('is-invalid');
             },
             unhighlight: function (element, errorClass, validClass) {
+                // Remove 'is-invalid' class from inputs when valid
                 $(element).removeClass('is-invalid');
             },
             submitHandler: function (form) {
@@ -45,11 +47,13 @@
             },
         });
 
+        // Function to handle form submission via AJAX
         function submitForm(form) {
             var formData = new FormData(form);
             var url = $(form).attr('action');
             var method = $(form).attr('method');
 
+            // Disable the submit button to prevent multiple submissions
             $('input[type="submit"]').prop('disabled', true);
 
             $.ajax({
@@ -70,7 +74,7 @@
                             confirmButtonText: 'OK',
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "{{ route('admin.verification-modes.index') }}"; // Redirect after success
+                                window.location.href = "{{ route('admin.categories.index') }}";
                             }
                         });
                     } else {

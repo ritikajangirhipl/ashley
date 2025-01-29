@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route('admin.verification-modes.store') }}" method="POST">
+         <form id="verification-modes-form" action="{{ route('admin.verification-modes.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @include('admin.verification-modes.partials._form')
         </form>
@@ -21,4 +21,5 @@
 
 @section('scripts')
 @parent
+@include('admin.verification-modes.partials._script')
 @endsection

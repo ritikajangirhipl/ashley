@@ -24,3 +24,5 @@
 @parent
 @include('admin.evidence-types.partials._script') 
 @endsection
+
+

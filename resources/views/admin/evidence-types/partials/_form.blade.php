@@ -45,7 +45,6 @@
     </div>
 </div>
 <div>
-    <!-- Submit Button -->
     @if(isset($evidenceType))
         <input class="btn btn-info" type="submit" value="{{ trans('global.update') }}">
     @else

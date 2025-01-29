@@ -1,0 +1,76 @@
+<!-- @extends('layouts.admin')
+@section('title', $pageTitle)
+@section('content')
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title">
+                {{ trans('panel.page_title.verification_provider.show') }}
+            </h4>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ trans('cruds.verification_provider.fields.provider_id') }}</label>
+                        <p>{{ $verificationProvider->ProviderID }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ trans('cruds.verification_provider.fields.name') }}</label>
+                        <p>{{ $verificationProvider->name }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ trans('cruds.verification_provider.fields.description') }}</label>
+                        <p>{{ $verificationProvider->description ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ trans('cruds.verification_provider.fields.country') }}</label>
+                        <p>{{ $verificationProvider->country->name ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ trans('cruds.verification_provider.fields.provider_type') }}</label>
+                        <p>{{ $verificationProvider->providerType->name ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ trans('cruds.verification_provider.fields.contact_address') }}</label>
+                        <p>{{ $verificationProvider->contact_address ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ trans('cruds.verification_provider.fields.email_address') }}</label>
+                        <p>{{ $verificationProvider->email_address ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ trans('cruds.verification_provider.fields.website_address') }}</label>
+                        <p>{{ $verificationProvider->website_address ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ trans('cruds.verification_provider.fields.contact_person') }}</label>
+                        <p>{{ $verificationProvider->contact_person ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ trans('cruds.verification_provider.fields.status') }}</label>
+                        <p>{{ ucfirst($verificationProvider->status) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection -->

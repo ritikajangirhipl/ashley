@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route('admin.verification-modes.update', $verificationMode->ModeID) }}" method="POST">
+        <form id="verification-modes-form" action="{{ route('admin.verification-modes.update', $verificationMode->ModeID) }}" method="POST">
             @csrf
             @method('PUT')
             @include('admin.verification-modes.partials._form')
@@ -22,4 +22,5 @@
 
 @section('scripts')
 @parent
+@include('admin.verification-modes.partials._script')
 @endsection

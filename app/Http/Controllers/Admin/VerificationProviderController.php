@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\VerificationProviderDataTable;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VerificationProvider\UpdateRequest;
 use App\Models\VerificationProvider;
+use App\Models\Country;
+use App\Models\ProviderType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class VerificationProviderController extends Controller
 {
@@ -21,92 +23,133 @@ class VerificationProviderController extends Controller
     public function index(VerificationProviderDataTable $dataTable)
     {
         $pageTitle = trans('panel.page_title.verification_provider.list');
-        return $dataTable->render('admin.verification_provider.index', compact('pageTitle'));
+        return $dataTable->render('admin.verification-providers.index', compact('pageTitle'));
+
     }
 
     public function create()
     {
-        $pageTitle = trans('panel.page_title.verification_provider.add');
-        $status = $this->status;
-        return view('admin.verification-provider.create', compact('pageTitle', 'status'));
+        $countries = Country::where('status', 'active')->pluck('name', 'id'); // Assuming you have a `Country` model
+        $providerTypes = ProviderType::pluck('name', 'id'); // Assuming you have a `ProviderType` model
+        return view('admin.verification-providers.create', compact('countries', 'providerTypes'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:verification_provider|max:255',
-            'description' => 'required',
-            'status' => 'required|in:active,inactive',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|unique:verification_providers|max:255',
+                'description' => 'nullable|max:500',
+                'status' => 'required|in:active,inactive',
+            ]);
 
-        VerificationProvider::create($request->all());
+            VerificationProvider::create($request->all());
 
-        return redirect()->route('admin.verification_provider.index')->with('success', 'Verification Provider created successfully!');
+            return response()->json([
+                'success' => true,
+                'message' => 'Verification Provider created successfully!',
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error in VerificationProviderController@store: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while creating the verification provider.',
+            ], 500);
+        }
     }
 
-    public function show(VerificationProvider $verificationprovider)
+    public function edit(VerificationProvider $verificationProvider)
     {
-        $pageTitle = trans('panel.page_title.verification_provider.show');
-        $status = config('constant.enums.status');
-        return view('admin.verification-provider.show', compact('verificationprovider', 'pageTitle', 'status'));
+        try {
+            $pageTitle = trans('panel.page_title.verification_provider.edit');
+            $status = $this->status;
+            return view('admin.verification-providers.edit', compact('verificationProvider', 'pageTitle', 'status'));
+        } catch (\Exception $e) {
+            Log::error('Error in VerificationProviderController@edit: ' . $e->getMessage());
+            return redirect()->route('admin.verification-providers.index')->with('error', 'An error occurred while preparing the edit page.');
+        }
     }
 
-    public function edit(VerificationProvider $verificationprovider)
+    public function update(Request $request, VerificationProvider $verificationProvider)
     {
-        $pageTitle = trans('panel.page_title.verification_provider.edit');
-        $status = $this->status;
-        return view('admin.verification-provider.edit', compact('verificationprovider', 'pageTitle', 'status'));
+        try {
+            $request->validate([
+                'name' => 'required|unique:verification_providers,name,' . $verificationProvider->id,
+                'description' => 'nullable|max:500',
+                'status' => 'required|in:active,inactive',
+            ]);
+
+            $verificationProvider->update($request->all());
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('messages.edit_success_message'),
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error in VerificationProviderController@update: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while updating the verification provider.',
+            ], 500);
+        }
     }
 
-    public function update(UpdateRequest $request, VerificationProvider $verificationprovider)
+    public function destroy(VerificationProvider $verificationProvider)
     {
-        $verificationprovider->update($request->all());
-        $notification = [
-            'message' => trans('cruds.verification_provider.title_singular') . " " . trans('messages.edit_success_message'),
-            'alert-type' => trans('panel.alert-type.success')
-        ];
-        return redirect()->route('admin.verification-provider.index')->with($notification);
-    }
-
-    public function destroy(VerificationProvider $verificationprovider)
-    {
-        $verificationprovider->delete();
-        return response()->json([
-            'success' => true,
-            'message' => trans('cruds.verification_provider.title_singular') . ' ' . trans('messages.delete_success_message')
-        ], 200);
+        try {
+            $verificationProvider->delete();
+            return response()->json([
+                'success' => true,
+                'message' => trans('messages.delete_success_message'),
+            ], 200);
+        } catch (\Exception $e) {
+            Log::error('Error in VerificationProviderController@destroy: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while deleting the verification provider.',
+            ], 500);
+        }
     }
 
     public function changeStatus(Request $request)
     {
-        if ($request->ajax()) {
-            $validator = Validator::make($request->all(), [
-                'id' => [
-                    'required',
-                    'numeric',
-                    'exists:verification_provider,VerificationProviderID',
-                ],
-                'status' => [
-                    'required',
-                    'in:active,inactive',
-                ],
-            ]);
+        try {
+            if ($request->ajax()) {
+                $validator = Validator::make($request->all(), [
+                    'id' => [
+                        'required',
+                        'numeric',
+                        'exists:verification_providers,id',
+                    ],
+                    'status' => [
+                        'required',
+                        'in:active,inactive',
+                    ],
+                ]);
 
-            if (!$validator->passes()) {
-                return response()->json([
-                    'success' => false,
-                    'errors' => $validator->getMessageBag()->toArray(),
-                    'message' => 'Error Occurred!',
-                ], 400);
+                if (!$validator->passes()) {
+                    return response()->json([
+                        'success' => false,
+                        'errors' => $validator->getMessageBag()->toArray(),
+                        'message' => 'Error Occurred!',
+                    ], 400);
+                }
+
+                $verificationProvider = VerificationProvider::where('id', $request->id)->update(['status' => $request->status]);
+
+                $response = [
+                    'status' => 'true',
+                    'message' => trans('cruds.verification_providers.title_singular') . ' ' . trans('messages.change_status_success_message'),
+                ];
+
+                return response()->json($response);
             }
-
-            $VerificationProvider = VerificationProvider::where('VerificationProviderID', $request->id)->update(['status' => $request->status]);
-
-            $response = [
-                'status' => 'true',
-                'message' => trans('cruds.verification_provider.title_singular') . ' ' . trans('messages.change_status_success_message'),
-            ];
-            return response()->json($response);
+        } catch (\Exception $e) {
+            Log::error('Error in VerificationProviderController@changeStatus: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while changing the status.',
+            ], 500);
         }
     }
 }
