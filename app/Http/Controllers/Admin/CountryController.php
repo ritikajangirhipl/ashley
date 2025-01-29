@@ -27,55 +27,55 @@ class CountryController extends Controller
         }
     }
     public function store(Request $request){
-    try {
-        $validator = \Validator::make($request->all(), [
-            'name' => 'required|unique:countries|max:255',
-            'flag' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'nullable',
-            'currency_name' => 'required|max:255',
-            'currency_symbol' => [
-                'required',
-                'string',
-                'max:10',
-                'regex:/^[\p{Sc}\p{So}]*$/u',
-            ],
-            'status' => 'required|in:active,inactive',
-        ], [
-            'currency_symbol.regex' => 'The currency symbol must contain only valid currency symbols (e.g., $, €, £, ¥). Numbers, letters, and spaces are not allowed.',
-        ]);
-        if ($validator->fails()) {
+        try {
+            $validator = \Validator::make($request->all(), [
+                'name' => 'required|unique:countries|max:255',
+                'flag' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'description' => 'nullable',
+                'currency_name' => 'required|max:255',
+                'currency_symbol' => [
+                    'required',
+                    'string',
+                    'max:10',
+                    'regex:/^[\p{Sc}\p{So}]*$/u',
+                ],
+                'status' => 'required|in:active,inactive',
+            ], [
+                'currency_symbol.regex' => 'The currency symbol must contain only valid currency symbols (e.g., $, €, £, ¥). Numbers, letters, and spaces are not allowed.',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->errors(),
+                ], 422);
+            }
+            $flagPath = null;
+            if ($request->hasFile('flag')) {
+                $file = $request->file('flag');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $flagPath = $file->storeAs('public/flags', $filename);
+                $flagPath = str_replace('public/', '', $flagPath);
+            }
+            Country::create([
+                'name' => $request->name,
+                'flag' => $flagPath,
+                'description' => $request->description,
+                'currency_name' => $request->currency_name,
+                'currency_symbol' => $request->currency_symbol,
+                'status' => $request->status,
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Country created successfully!',
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Error in CountryController@store: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'errors' => $validator->errors(),
-            ], 422);
+                'message' => 'An error occurred while creating the country.',
+            ], 500);
         }
-        $flagPath = null;
-        if ($request->hasFile('flag')) {
-            $file = $request->file('flag');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $flagPath = $file->storeAs('public/flags', $filename);
-            $flagPath = str_replace('public/', '', $flagPath);
-        }
-        Country::create([
-            'name' => $request->name,
-            'flag' => $flagPath,
-            'description' => $request->description,
-            'currency_name' => $request->currency_name,
-            'currency_symbol' => $request->currency_symbol,
-            'status' => $request->status,
-        ]);
-        return response()->json([
-            'success' => true,
-            'message' => 'Country created successfully!',
-        ]);
-    } catch (\Exception $e) {
-        \Log::error('Error in CountryController@store: ' . $e->getMessage());
-        return response()->json([
-            'success' => false,
-            'message' => 'An error occurred while creating the country.',
-        ], 500);
     }
-}
     public function show(Country $country)
     {
         try {
@@ -101,38 +101,57 @@ class CountryController extends Controller
     public function update(Request $request, Country $country)
     {
         try {
-            $request->validate([
+            $validator = \Validator::make($request->all(), [
                 'name' => 'required|unique:countries,name,' . $country->CountryID . ',CountryID',
                 'flag' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'description' => 'nullable',
                 'currency_name' => 'required|max:255',
-                'currency_symbol' => 'required|max:10',
+                'currency_symbol' => [
+                    'required',
+                    'string',
+                    'max:10',
+                    'regex:/^[\p{Sc}\p{So}]*$/u',
+                ],
                 'status' => 'required|in:active,inactive',
+            ], [
+                'currency_symbol.regex' => 'The currency symbol must contain only valid currency symbols (e.g., $, €, £, ¥). Numbers, letters, and spaces are not allowed.',
             ]);
-            $flagPath = $country->flag; 
+    
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->errors(),
+                ], 422);
+            }
+    
+            $flagPath = $country->flag;
             if ($request->hasFile('flag')) {
                 $file = $request->file('flag');
                 $filename = time() . '_' . $file->getClientOriginalName();
-                $flagPath = $file->storeAs('public/flags', $filename); 
-                $flagPath = str_replace('public/', '', $flagPath); 
+                $flagPath = $file->storeAs('public/flags', $filename);
+                $flagPath = str_replace('public/', '', $flagPath);
             }
+    
             $country->update([
                 'name' => $request->name,
-                'flag' => $flagPath, 
+                'flag' => $flagPath,
                 'description' => $request->description,
                 'currency_name' => $request->currency_name,
                 'currency_symbol' => $request->currency_symbol,
                 'status' => $request->status,
             ]);
-            $notification = [
-                'message' => trans('cruds.country.title_singular') . " " . trans('messages.edit_success_message'),
-                'alert-type' => trans('panel.alert-type.success')
-            ];
-
-            return redirect()->route('admin.countries.index')->with($notification);
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Country updated successfully!',
+            ]);
+    
         } catch (\Exception $e) {
-            Log::error('Error in CountryController@update: ' . $e->getMessage());
-            return redirect()->route('admin.countries.index')->with('error', 'An error occurred while updating the country.');
+            \Log::error('Error in CountryController@update: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while updating the country.',
+            ], 500);
         }
     }
     public function destroy(Country $country)

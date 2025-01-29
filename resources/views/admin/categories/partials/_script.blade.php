@@ -88,28 +88,28 @@
                     }
                 },
                 error: function (xhr) {
-                    // Re-enable the submit button in case of error
                     $('input[type="submit"]').prop('disabled', false);
 
-                    // Handle validation errors
-                    var errors = xhr.responseJSON.errors;
-                    var errorMessages = '';
-                    if (errors) {
+                    if (xhr.status === 422) {
+                        // Handle validation errors
+                        var errors = xhr.responseJSON.errors;
                         $.each(errors, function (key, value) {
-                            errorMessages += value[0] + '<br>';
+                            let input = $('[name="' + key + '"]');
+                            input.addClass('is-invalid');
+                            input.closest('.form-group').find('.invalid-feedback').remove();
+                            input.after('<span class="invalid-feedback">' + value[0] + '</span>');
                         });
                     } else {
-                        // If there are no validation errors, show a generic error message
-                        errorMessages = 'An unexpected error occurred!';
+                        // Handle general errors
+                        Swal.fire({
+                            title: 'Error',
+                            text: xhr.responseJSON.message || 'An unexpected error occurred!',
+                            icon: 'error',
+                            confirmButtonText: 'OK',
+                        });
                     }
-
-                    Swal.fire({
-                        title: 'Error',
-                        html: errorMessages,
-                        icon: 'error',
-                        confirmButtonText: 'OK',
-                    });
                 },
+
             });
         }
     });

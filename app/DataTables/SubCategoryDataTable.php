@@ -23,15 +23,17 @@ class SubCategoryDataTable extends DataTable
                 return $subCategory->category_name;
             })
             ->addColumn('action', function ($subCategory) {
-                return '<a href="'.route('admin.sub-categories.show', $subCategory->SubCategoryID).'" class="btn btn-info btn-sm" title="View">
-                    <i class="fas fa-eye"></i>
-                </a>
-                        <a href="'.route('admin.sub-categories.edit', $subCategory->SubCategoryID).'" class="btn btn-warning btn-sm" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.sub-categories.destroy', $subCategory->SubCategoryID).'" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>';
+                return '<div class="group-button d-flex">
+                            <a href="'.route('admin.sub-categories.show', $subCategory->SubCategoryID).'" class="btn btn-info btn-sm" title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="'.route('admin.sub-categories.edit', $subCategory->SubCategoryID).'" class="btn btn-warning btn-sm" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.sub-categories.destroy', $subCategory->SubCategoryID).'" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>';
             })
             ->rawColumns(['action']);
     }

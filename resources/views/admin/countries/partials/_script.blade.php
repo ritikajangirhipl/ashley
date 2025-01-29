@@ -1,12 +1,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
+    // Custom validation methods
+    $.validator.addMethod("currencySymbolOnly", function (value, element) {
+        // Allowing only valid currency symbols and some special characters (no letters or numbers)
+        return this.optional(element) || /^[^\w\d\s]+$/.test(value) && /^[\x24\xA3\x20AC\x20A5\x20E2\x82AC]+$/.test(value);
+    }, "Only valid currency symbols and limited special characters are allowed.");
+
+    $.validator.addMethod("lettersOnly", function (value, element) {
+        return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
+    }, "Only letters are allowed.");
+
     $("#countries-form").validate({
         rules: {
             name: { 
-                required: true
+                required: true,
+                lettersOnly: true
+            },
+            currency_name: { 
+                required: true,
+                lettersOnly: true
+            },
+            currency_symbol: { 
+                required: true,
+                currencySymbolOnly: true
             },
             description: { 
                 required: true
@@ -15,12 +33,21 @@ $(document).ready(function () {
                 required: true 
             },
             flag: { 
-                required: true,
+                required: true
             },
         },
         messages: {
             name: { 
-                required: "Name is required." 
+                required: "Name is required.",
+                lettersOnly: "Only letters are allowed."
+            },
+            currency_name:{
+                required: "Currency name is required.",
+                lettersOnly: "Only letters are allowed."
+            },
+            currency_symbol:{
+                 required: "Currency symbol is required.",
+                 currencySymbolOnly: "Only valid currency symbols and limited special characters are allowed."
             },
             description: { 
                 required: "Description is required."
@@ -48,11 +75,6 @@ $(document).ready(function () {
         },
     });
 
-    // Custom method to validate file size
-    $.validator.addMethod("filesize", function (value, element, param) {
-        return this.optional(element) || (element.files[0].size <= param);
-    }, "File size must be less than 1 MB.");
-
     // Function to handle AJAX form submission
     function submitForm(form) {
         var formData = new FormData(form);
@@ -69,48 +91,44 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
                     Swal.fire({
-                            title: 'Success',
-                            text: response.message,
-                            icon: 'success',
-                            confirmButtonText: 'OK',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = "{{ route('admin.countries.index') }}";
-                            }
-                        });
+                        title: 'Success',
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "{{ route('admin.countries.index') }}";
+                        }
+                    });
                 } else {
                     Swal.fire({
-                            title: 'Error',
-                            text: response.message || 'Something went wrong!',
-                            icon: 'error',
-                            confirmButtonText: 'OK',
-                        });
+                        title: 'Error',
+                        text: response.message || 'Something went wrong!',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
                 }
             },
             error: function (xhr) {
                 var errors = xhr.responseJSON.errors;
                 if (errors) {
+                    // Clear previous errors
+                    $("#countries-form").find('.is-invalid').removeClass('is-invalid');
+                    $("#countries-form").find('.invalid-feedback').text('');
+
+                    // Display new errors below inputs only
                     $.each(errors, function (key, value) {
-                        toastr.error(value[0]);
+                        var element = $("#countries-form").find('[name="' + key + '"]');
+                        element.addClass('is-invalid');
+                        element.closest('.form-group').find('.invalid-feedback').text(value[0]);
                     });
+
+                    // Show Toastr error
+                    toastr.error("Please check the form for errors.");
                 } else {
-                    $('input[type="submit"]').prop('disabled', false);
-
-                    // Handle validation errors
-                    var errors = xhr.responseJSON.errors;
-                    var errorMessages = '';
-                    if (errors) {
-                        $.each(errors, function (key, value) {
-                            errorMessages += value[0] + '<br>';
-                        });
-                    } else {
-                        // If there are no validation errors, show a generic error message
-                        errorMessages = 'An unexpected error occurred!';
-                    }
-
                     Swal.fire({
                         title: 'Error',
-                        html: errorMessages,
+                        text: 'An unexpected error occurred!',
                         icon: 'error',
                         confirmButtonText: 'OK',
                     });
@@ -119,5 +137,5 @@ $(document).ready(function () {
         });
     }
 });
-
 </script>
+

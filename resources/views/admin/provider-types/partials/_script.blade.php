@@ -81,23 +81,27 @@
                 },
                 error: function (xhr) {
                     $('input[type="submit"]').prop('disabled', false);
-                    var errors = xhr.responseJSON.errors;
-                    var errorMessages = '';
-                    if (errors) {
+
+                    if (xhr.status === 422) {
+                        // Handle validation errors
+                        var errors = xhr.responseJSON.errors;
                         $.each(errors, function (key, value) {
-                            errorMessages += value[0] + '<br>';
+                            let input = $('[name="' + key + '"]');
+                            input.addClass('is-invalid'); // Add is-invalid class for invalid fields
+                            input.closest('.form-group').find('.invalid-feedback').remove();
+                            input.after('<span class="invalid-feedback">' + value[0] + '</span>');
                         });
                     } else {
-                        errorMessages = 'An unexpected error occurred!';
+                        // Handle general errors (for 500, etc.)
+                        Swal.fire({
+                            title: 'Error',
+                            text: xhr.responseJSON.message || 'An unexpected error occurred!',
+                            icon: 'error',
+                            confirmButtonText: 'OK',
+                        });
                     }
+                }
 
-                    Swal.fire({
-                        title: 'Error',
-                        html: errorMessages,
-                        icon: 'error',
-                        confirmButtonText: 'OK',
-                    });
-                },
             });
         }
     });

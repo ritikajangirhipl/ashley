@@ -43,37 +43,35 @@ class SubCategoryController extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate([
-                'CategoryID' => 'required|exists:categories,CategoryID',
-                'name' => 'required|unique:sub_categories|max:255',
-                'description' => 'nullable',
+            $validatedData = $request->validate([
+                'name' => 'required|unique:sub_categories,name|max:255', // Make sure 'sub_categories' is the correct table name
+                'description' => 'required',
                 'status' => 'required|in:active,inactive',
-            ], [
-                'CategoryID.exists' => 'The selected category is invalid or does not exist.',
             ]);
-
-            $category = Category::find($request->CategoryID);
-            if (!$category || $category->status !== 'active') {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'The selected category has been deleted or is inactive.',
-                ], 400);
-            }
-
-            SubCategory::create($request->all());
-
+    
+            // Proceed to create the subcategory if validation passes
+            SubCategory::create($validatedData);
+    
             return response()->json([
                 'success' => true,
-                'message' => 'Sub Category created successfully!',
+                'message' => 'Subcategory created successfully!',
             ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Catch validation errors and return as JSON
+            return response()->json([
+                'success' => false,
+                'errors' => $e->validator->errors(),
+            ], 422);
         } catch (\Exception $e) {
+            // Log other errors and return a generic error message
             Log::error('Error in SubCategoryController@store: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while creating the sub-category.',
+                'message' => 'An error occurred while creating the subcategory.',
             ], 500);
         }
     }
+    
 
     public function edit(SubCategory $subCategory)
     {

@@ -20,7 +20,7 @@ class EvidenceTypeDataTable extends DataTable
                 return config('constant.enums.status.'.$record->status);
             })            
             ->addColumn('action', function ($evidenceType) {
-                return '<div style="display: flex; gap: 5px;">
+                return '<div class="group-button d-flex">
                             <a href="'.route('admin.evidence-types.show', $evidenceType->EvidenceTypeID).'" class="btn btn-warning btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>

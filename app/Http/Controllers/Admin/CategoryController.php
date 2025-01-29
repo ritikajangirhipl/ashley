@@ -40,19 +40,26 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate([
-                'name' => 'required|unique:categories|max:255',
+            $validatedData = $request->validate([
+                'name' => 'required|unique:categories,name|max:255',
                 'description' => 'required',
                 'status' => 'required|in:active,inactive',
             ]);
 
-            Category::create($request->all());
+            Category::create($validatedData);
 
             return response()->json([
                 'success' => true,
                 'message' => 'Category created successfully!',
             ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Catch validation errors and return as JSON
+            return response()->json([
+                'success' => false,
+                'errors' => $e->validator->errors(),
+            ], 422);
         } catch (\Exception $e) {
+            // Log other errors and return a generic error message
             Log::error('Error in CategoryController@store: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
@@ -60,6 +67,7 @@ class CategoryController extends Controller
             ], 500);
         }
     }
+
 
     public function show(Category $category)
     {
@@ -86,22 +94,28 @@ class CategoryController extends Controller
     }
 
     public function update(UpdateRequest $request, Category $category)
-    {
-        try {
-            $category->update($request->except('_token', '_method'));
+{
+    try {
+        $category->update($request->except('_token', '_method'));
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Category updated successfully!',
-            ]);
-        } catch (\Exception $e) {
-            Log::error('Error in CategoryController@update: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while updating the category.',
-            ], 500);
-        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Category updated successfully!',
+        ]);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return response()->json([
+            'success' => false,
+            'errors' => $e->validator->errors(),
+        ], 422);
+    } catch (\Exception $e) {
+        Log::error('Error in CategoryController@update: ' . $e->getMessage());
+        return response()->json([
+            'success' => false,
+            'message' => 'An error occurred while updating the category.',
+        ], 500);
     }
+}
+
 
     public function destroy(Category $category)
     {

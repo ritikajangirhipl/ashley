@@ -40,19 +40,28 @@ class ProviderTypeController extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate([
-                'name' => 'required|unique:provider_types|max:255',
+            // Validate the incoming request
+            $validatedData = $request->validate([
+                'name' => 'required|unique:provider_types|max:255',  // Ensure unique validation for provider types
                 'description' => 'required',
                 'status' => 'required|in:active,inactive',
             ]);
 
-            ProviderType::create($request->all());
+            // Proceed to create the provider type if validation passes
+            ProviderType::create($validatedData);
 
             return response()->json([
                 'success' => true,
                 'message' => 'Provider Type created successfully!',
             ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Catch validation errors and return them as JSON
+            return response()->json([
+                'success' => false,
+                'errors' => $e->validator->errors(),
+            ], 422);
         } catch (\Exception $e) {
+            // Log unexpected errors
             Log::error('Error in ProviderTypeController@store: ' . $e->getMessage());
             return response()->json([
                 'success' => false,

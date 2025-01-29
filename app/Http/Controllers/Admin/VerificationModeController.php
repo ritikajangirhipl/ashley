@@ -33,23 +33,28 @@ class VerificationModeController extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate([
-                'name' => 'required|unique:verification_modes|max:255',
-                'description' => 'required|max:255',
+            // Validate the incoming request
+            $validatedData = $request->validate([
+                'name' => 'required|unique:verification_modes,name|max:255', // Ensure the correct table and column name
+                'description' => 'required',
                 'status' => 'required|in:active,inactive',
             ]);
 
-            VerificationMode::create([
-                'name' => $request->name,
-                'description' => $request->description,
-                'status' => $request->status,
-            ]);
+            // Proceed to create the verification mode if validation passes
+            VerificationMode::create($validatedData);
 
             return response()->json([
                 'success' => true,
                 'message' => 'Verification Mode created successfully!',
             ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Catch validation errors and return them as JSON
+            return response()->json([
+                'success' => false,
+                'errors' => $e->validator->errors(),
+            ], 422);
         } catch (\Exception $e) {
+            // Log unexpected errors
             Log::error('Error in VerificationModeController@store: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
@@ -57,6 +62,8 @@ class VerificationModeController extends Controller
             ], 500);
         }
     }
+
+ 
 
     public function show(VerificationMode $verificationMode)
     {

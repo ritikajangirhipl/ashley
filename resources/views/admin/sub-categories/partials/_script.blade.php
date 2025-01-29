@@ -43,6 +43,7 @@
             submitHandler: function (form) {
                 submitForm(form);
             },
+
         });
         function submitForm(form) {
             var formData = new FormData(form);
@@ -82,25 +83,27 @@
                     }
                 },
                 error: function (xhr) {
-                    $('input[type="submit"]').prop('disabled', false);
+                $('input[type="submit"]').prop('disabled', false);
 
+                if (xhr.status === 422) {
+                    // Handle validation errors
                     var errors = xhr.responseJSON.errors;
-                    var errorMessages = '';
-                    if (errors) {
-                        $.each(errors, function (key, value) {
-                            errorMessages += value[0] + '<br>';
-                        });
-                    } else {
-                        errorMessages = 'An unexpected error occurred!';
-                    }
-
+                    $.each(errors, function (key, value) {
+                        let input = $('[name="' + key + '"]');
+                        input.addClass('is-invalid');
+                        input.closest('.form-group').find('.invalid-feedback').remove();
+                        input.after('<span class="invalid-feedback">' + value[0] + '</span>');
+                    });
+                } else {
+                    // Handle general errors
                     Swal.fire({
                         title: 'Error',
-                        html: errorMessages,
+                        text: xhr.responseJSON.message || 'An unexpected error occurred!',
                         icon: 'error',
                         confirmButtonText: 'OK',
                     });
-                },
+                }
+            }
             });
         }
     });

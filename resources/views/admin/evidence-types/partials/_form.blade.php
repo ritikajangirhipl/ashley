@@ -17,7 +17,7 @@
     <!-- Description Field -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="description">{{ trans('cruds.evidence_type.fields.description') }}</label>
+            <label for="description">{{ trans('cruds.evidence_type.fields.description') }}<span class="text-danger">*</span></label>
             <textarea name="description" class="form-control @error('description') is-invalid @enderror" placeholder="{{ trans('cruds.evidence_type.fields.description') }}">{{ old('description', isset($evidenceType) ? $evidenceType->description : '') }}</textarea>
             
             <!-- Display error message for 'description' field -->

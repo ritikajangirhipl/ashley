@@ -1415,8 +1415,9 @@ a.dropdown-item.delete_employee i {
     align-items: center;
 }
 
-
-
+.group-button{
+    align-items: center;
+}
 
 
 

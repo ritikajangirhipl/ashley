@@ -25,7 +25,7 @@
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="description">{{ trans('cruds.sub_category.fields.description') }}</label>
+            <label for="description">{{ trans('cruds.sub_category.fields.description') }}<span class="text-danger">*</span></label>
             <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}">{{ old('description', isset($subCategory) ? $subCategory->description : '') }}</textarea>
             @if($errors->has('description'))
                 <p class="help-block text-danger">

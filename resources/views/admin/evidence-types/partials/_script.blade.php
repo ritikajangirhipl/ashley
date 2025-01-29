@@ -86,19 +86,12 @@
                 error: function (xhr) {
                     // Re-enable the submit button in case of error
                     $('button[type="submit"]').prop('disabled', false);
-
                     if (xhr.status === 422) {
                         var errors = xhr.responseJSON.errors;
-                        var errorMessages = '';
-
-                        // Clear previous error messages
-                        $('.invalid-feedback').remove();
-                        $('.is-invalid').removeClass('is-invalid');
-
-                        // Display new error messages
                         $.each(errors, function (key, value) {
                             var input = $('[name="' + key + '"]');
                             input.addClass('is-invalid');
+                            input.closest('.form-group').find('.invalid-feedback').remove();
                             input.after('<span class="invalid-feedback">' + value[0] + '</span>');
                         });
                     } else {
@@ -109,7 +102,8 @@
                             confirmButtonText: 'OK',
                         });
                     }
-                },
+                }
+
             });
         }
     });

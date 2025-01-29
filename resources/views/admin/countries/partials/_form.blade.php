@@ -13,7 +13,7 @@
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="flag">{{ trans('cruds.country.fields.flag') }}</label>
+            <label for="flag">{{ trans('cruds.country.fields.flag') }}<span class="text-danger">*</span></label>
             <input type="file" id="flag" name="flag" class="form-control {{ $errors->has('flag') ? 'has-error' : '' }}" accept="image/png, image/jpeg, image/jpg, image/svg">
             @if($errors->has('flag'))
                 <p class="help-block text-danger">
@@ -25,7 +25,7 @@
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="description">{{ trans('cruds.country.fields.description') }}</label>
+            <label for="description">{{ trans('cruds.country.fields.description') }}<span class="text-danger">*</span></label>
             <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}">{{ old('description', isset($country) ? $country->description : '') }}</textarea>
             @if($errors->has('description'))
                 <p class="help-block text-danger">

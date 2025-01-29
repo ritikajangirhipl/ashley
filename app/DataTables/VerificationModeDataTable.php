@@ -20,15 +20,17 @@ class VerificationModeDataTable extends DataTable
                 return config('constant.enums.status.'.$record->status);
             }) 
             ->addColumn('action', function ($verificationMode) {
-                return '<a href="'.route('admin.verification-modes.show', $verificationMode->ModeID).'" class="btn btn-warning btn-sm" title="View">
-                    <i class="fas fa-eye"></i>
-                </a>
-                        <a href="'.route('admin.verification-modes.edit', $verificationMode->ModeID).'" class="btn btn-warning btn-sm" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.verification-modes.destroy', $verificationMode->ModeID).'" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>';
+                return '<div class="group-button d-flex">
+                            <a href="'.route('admin.verification-modes.show', $verificationMode->ModeID).'" class="btn btn-warning btn-sm" title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="'.route('admin.verification-modes.edit', $verificationMode->ModeID).'" class="btn btn-warning btn-sm" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.verification-modes.destroy', $verificationMode->ModeID).'" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>';
             })
             ->rawColumns(['action']);
     }

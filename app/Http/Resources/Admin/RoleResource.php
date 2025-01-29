@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Resources\Admin;
+// namespace App\Http\Resources\Admin;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+// use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoleResource extends JsonResource
-{
-    public function toArray($request)
-    {
-        return parent::toArray($request);
+// class RoleResource extends JsonResource
+// {
+//     public function toArray($request)
+//     {
+//         return parent::toArray($request);
 
-    }
-}
+//     }
+// }
