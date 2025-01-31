@@ -2,10 +2,10 @@
     <div class="navbar-wrapper">
         <div class="navbar-brand header-logo b-brand">   
             <div class="menu-logo-small">
-                <img src="{{ asset('assets/admin/images/sm_logo_img.png') }}" alt="Small Logo Here">
+                <img src="{{ asset('assets/admin/images/logo_img.png') }}" alt="Small Logo Here">
             </div>         
             <div class="menu-logo">
-                <img src="{{ asset('assets/admin/images/logo_full_img.png') }}" alt="Logo Here">
+                <img src="{{ asset('assets/admin/images/logo_img.png') }}" alt="Logo Here">
             </div>
             <a class="mobile-menu" id="mobile-collapse" href="javascript:void(0)"><span></span></a>
         </div>
