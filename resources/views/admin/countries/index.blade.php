@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title float-left">
-                    {{ trans('global.list') }} {{ trans('cruds.country.title_singular') }}
+                    {{ __('panel.page_title.country.list') }}
                 </h4>
                 <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.country.title_singular') }}" href="{{ route('admin.countries.create') }}">
                     <i class="fas fa-plus"></i>

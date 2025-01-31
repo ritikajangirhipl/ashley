@@ -23,7 +23,7 @@ class CountryController extends Controller
 
     public function index(CountryDataTable $dataTable)
     {
-        $pageTitle = trans('panel.page_title.countries.list');
+        $pageTitle = trans('panel.page_title.country.list');
         return $dataTable->render('admin.countries.index', compact('pageTitle'));
     }
 

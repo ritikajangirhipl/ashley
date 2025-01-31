@@ -6,13 +6,13 @@
 $(document).ready(function () {
     var isEdit = $("#countries-form").attr('data-isEdit') === 'true';  
 
-    console.log("Is Edit Mode:", isEdit);
     console.log("Existing Flag:", $("#countries-form").data('existing-flag')); 
 
     $.validator.addMethod("currencySymbolOnly", function (value, element) {
-        return this.optional(element) || /^[^\w\d\s]+$/.test(value) && /^[\x24\xA3\x20AC\x20A5\x20E2\x82AC]+$/.test(value);
-    }, "Only valid currency symbols and limited special characters are allowed.");
+        return this.optional(element) || /^[\p{Sc}]+$/u.test(value);
+    }, "Only valid currency symbols are allowed.");
 
+    // Custom validation for letters only
     $.validator.addMethod("lettersOnly", function (value, element) {
         return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
     }, "Only letters are allowed.");
@@ -33,7 +33,8 @@ $(document).ready(function () {
                 currencySymbolOnly: true
             },
             description: { 
-                required: true
+                required: true,
+                maxlength: 255 
             },
             status: { 
                 required: true 
@@ -60,10 +61,11 @@ $(document).ready(function () {
             },
             currency_symbol: {
                 required: "Currency symbol is required.",
-                currencySymbolOnly: "Only valid currency symbols and limited special characters are allowed."
+                currencySymbolOnly: "Only valid currency symbols are allowed."
             },
             description: { 
-                required: "Description is required."
+                required: "Description is required.",
+                maxlength: "Description cannot be longer than 255 characters." 
             },
             status: { 
                 required: "Status is required." 
@@ -123,16 +125,17 @@ $(document).ready(function () {
             },
             error: function (xhr) {
                 var errors = xhr.responseJSON.errors;
-                if (errors) {
+                if (errors) { 
+                    console.log(errors);
                     $("#countries-form").find('.is-invalid').removeClass('is-invalid');
                     $("#countries-form").find('.invalid-feedback').text('');
                     $.each(errors, function (key, value) {
+                        console.log(value);
                         var element = $("#countries-form").find('[name="' + key + '"]');
                         element.addClass('is-invalid');
-                        element.closest('.form-group').find('.invalid-feedback').text(value[0]);
+                        element.closest('.form-group').find('.invalid-feedback').remove();
+                        element.after('<span class="invalid-feedback">' + value[0] + '</span>');
                     });
-
-                    toastr.error("Please check the form for errors.");
                 } else {
                     Swal.fire({
                         title: 'Error',
