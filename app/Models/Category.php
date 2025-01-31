@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,8 +8,6 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'CategoryID'; 
-
     protected $fillable = [
         'name',
         'description',
@@ -18,6 +15,7 @@ class Category extends Model
     ];
     public function subCategories()
     {
-        return $this->hasMany(SubCategory::class, 'CategoryID', 'CategoryID');
+        return $this->hasMany(SubCategory::class, 'category_id', 'id');
     }
 }
+

@@ -8,7 +8,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('provider_types', function (Blueprint $table) {
-            $table->id('ProviderTypeID');
+            $table->id();
             $table->string('name')->unique(); 
             $table->text('description'); 
             $table->enum('status', ['active', 'inactive'])->default('active'); 

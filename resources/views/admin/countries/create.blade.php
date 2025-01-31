@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body">
-        <form id="countries-form" action="{{ route('admin.countries.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="countries-form" action="{{ route('admin.countries.store') }}" method="POST" enctype="multipart/form-data" data-isEdit="false">
             @csrf
             @include('admin.countries.partials._form')
         </form>

@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\VerificationMode;
-use Illuminate\Http\Request;
-use App\Http\Requests\VerificationMode\UpdateRequest;
-use App\Http\Requests\VerificationMode\StoreRequest;
 use App\DataTables\VerificationModeDataTable;
-use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\VerificationMode\StoreRequest;
+use App\Http\Requests\VerificationMode\UpdateRequest;
+use App\Http\Requests\VerificationMode\StatusRequest;
+use App\Models\VerificationMode;
+use App\Helpers\Helper;
+use Illuminate\Http\Request;
 
 class VerificationModeController extends Controller
 {
+    protected $status;
+
+    public function __construct()
+    {
+        $this->status = config('constant.enums.status');
+    }
+
     public function index(VerificationModeDataTable $dataTable)
     {
         $pageTitle = trans('panel.page_title.verification_mode.list');
@@ -22,58 +30,32 @@ class VerificationModeController extends Controller
     {
         try {
             $pageTitle = trans('panel.page_title.verification_mode.add');
-            $status = config('constant.enums.status');
+            $status = $this->status;
             return view('admin.verification-modes.create', compact('pageTitle', 'status'));
         } catch (\Exception $e) {
-            Log::error('Error in VerificationModeController@create: ' . $e->getMessage());
-            return redirect()->route('admin.verification-modes.index')->with('error', 'An error occurred while preparing the create page.');
+            return jsonResponseWithException($e);
         }
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         try {
-            // Validate the incoming request
-            $validatedData = $request->validate([
-                'name' => 'required|unique:verification_modes,name|max:255', // Ensure the correct table and column name
-                'description' => 'required',
-                'status' => 'required|in:active,inactive',
-            ]);
-
-            // Proceed to create the verification mode if validation passes
-            VerificationMode::create($validatedData);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Verification Mode created successfully!',
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Catch validation errors and return them as JSON
-            return response()->json([
-                'success' => false,
-                'errors' => $e->validator->errors(),
-            ], 422);
+            VerificationMode::create($request->all());
+            $status = $this->status;
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.verification_mode')]));
         } catch (\Exception $e) {
-            // Log unexpected errors
-            Log::error('Error in VerificationModeController@store: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while creating the verification mode.',
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
-
- 
 
     public function show(VerificationMode $verificationMode)
     {
         try {
             $pageTitle = trans('panel.page_title.verification_mode.show');
-            $status = config('constant.enums.status');
-            return view('admin.verification-modes.show', compact('verificationMode', 'pageTitle', 'status'));
+            $status = $this->status;
+            return view('admin.verification-modes.show', compact('verificationMode', 'pageTitle'));
         } catch (\Exception $e) {
-            Log::error('Error in VerificationModeController@show: ' . $e->getMessage());
-            return redirect()->route('admin.verification-modes.index')->with('error', 'An error occurred while fetching the verification mode details.');
+            return jsonResponseWithException($e);
         }
     }
 
@@ -81,11 +63,10 @@ class VerificationModeController extends Controller
     {
         try {
             $pageTitle = trans('panel.page_title.verification_mode.edit');
-            $status = config('constant.enums.status');
+            $status = $this->status;
             return view('admin.verification-modes.edit', compact('verificationMode', 'pageTitle', 'status'));
         } catch (\Exception $e) {
-            Log::error('Error in VerificationModeController@edit: ' . $e->getMessage());
-            return redirect()->route('admin.verification-modes.index')->with('error', 'An error occurred while preparing the edit page.');
+            return jsonResponseWithException($e);
         }
     }
 
@@ -93,17 +74,9 @@ class VerificationModeController extends Controller
     {
         try {
             $verificationMode->update($request->except('_token', '_method'));
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Verification Mode updated successfully!',
-            ]);
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.verification_mode')]));
         } catch (\Exception $e) {
-            Log::error('Error in VerificationModeController@update: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while updating the verification mode.',
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
 
@@ -111,59 +84,21 @@ class VerificationModeController extends Controller
     {
         try {
             $verificationMode->delete();
-
-            return response()->json([
-                'success' => true,
-                'message' => trans('cruds.verification_mode.title_singular') . ' ' . trans('messages.delete_success_message'),
-            ], 200);
+            return jsonResponseWithMessage(200, 'Verification Mode deleted successfully!');
         } catch (\Exception $e) {
-            Log::error('Error in VerificationModeController@destroy: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while deleting the verification mode.',
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
 
-    public function changeStatus(Request $request)
+    public function changeStatus(StatusRequest $request)
     {
         try {
-            if ($request->ajax()) {
-                $validator = Validator::make($request->all(), [
-                    'id' => [
-                        'required',
-                        'numeric',
-                        'exists:verification_modes,ModeID',
-                    ],
-                    'status' => [
-                        'required',
-                        'in:active,inactive',
-                    ],
-                ]);
+            $status = $request->status == 1 ? 'active' : 'inactive';
 
-                if (!$validator->passes()) {
-                    return response()->json([
-                        'success' => false,
-                        'errors' => $validator->getMessageBag()->toArray(),
-                        'message' => 'Error Occurred!',
-                    ], 400);
-                }
-
-                $verificationMode = VerificationMode::where('ModeID', $request->id)->update(['status' => $request->status]);
-
-                $response = [
-                    'status' => 'true',
-                    'message' => trans('cruds.verification_mode.title_singular') . ' ' . trans('messages.change_status_success_message'),
-                ];
-
-                return response()->json($response);
-            }
+            $verificationMode = VerificationMode::where('id', $request->id)->update(['status' => $status]);
+            return jsonResponseWithMessage(200, 'Verification Mode status updated successfully!');
         } catch (\Exception $e) {
-            Log::error('Error in VerificationModeController@changeStatus: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while changing the status.',
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
 }

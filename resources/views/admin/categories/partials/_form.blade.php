@@ -2,44 +2,35 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.category.fields.name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name', isset($category) ? $category->name : '') }}" required autofocus>
-            @if($errors->has('name'))
-                <p class="help-block text-danger">
-                    {{ $errors->first('name') }}
-                </p>
-            @endif
+            <input type="text" id="name" name="name" class="form-control" value="{{ isset($category) ? $category->name : '' }}" required autofocus>
         </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.category.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" required>{{ old('description', isset($category) ? $category->description : '') }}</textarea>
-            @if($errors->has('description'))
-                <p class="help-block text-danger">
-                    {{ $errors->first('description') }}
-                </p>
-            @endif
+            <textarea name="description" class="form-control" required>{{ isset($category) ? $category->description : '' }}</textarea>
         </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-6 col-sm-12 mb-3">
         <div class="form-group">
             <label for="status">{{ trans('cruds.category.fields.status') }}<span class="text-danger">*</span></label>
-            {{ Form::select('status', $status, old('status', isset($category) ? $category->status : null), ['class' => 'form-control select2 type ' . ($errors->has('status') ? 'is-invalid' : ''), 'id'=>'status','placeholder'=>'Select '.trans('cruds.category.fields.status'),'required'=>'true']) }}
-            @if($errors->has('status'))
-                <p class="help-block text-danger">
-                    {{ $errors->first('status') }}
-                </p>
-            @endif
+            <select name="status" id="status" required class="form-control select2">
+                @foreach($status as $key => $value)
+                    <option value="{{ $key }}" {{ isset($category) && $category->status == $key ? 'selected' : '' }}>
+                        {{ $value }}
+                    </option>
+                @endforeach
+            </select>
         </div>
     </div>
 </div>
 
-<div>
+<div class="submitbtn-wrapper">
     @if(isset($category))
-        <input class="btn btn-info" type="submit" value="{{ trans('global.update') }}">
+        <button class="btn btn-info" type="submit">{{ trans('global.update') }}</button>
     @else
-        <input class="btn btn-info" type="submit" value="{{ trans('global.create') }}">
+        <button class="btn btn-info" type="submit">{{ trans('global.create') }}</button>
     @endif
 </div>

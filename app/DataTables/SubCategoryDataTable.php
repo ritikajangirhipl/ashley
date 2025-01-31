@@ -12,25 +12,22 @@ class SubCategoryDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('row_number', function ($subCategory) {
-                static $rowNumber = 0;
-                return ++$rowNumber;
-            })
+            ->addIndexColumn()
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.'.$record->status);
-            }) 
+            })
             ->addColumn('category', function ($subCategory) {
-                return $subCategory->category_name;
+                return $subCategory->category ? $subCategory->category->name : 'N/A';
             })
             ->addColumn('action', function ($subCategory) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.sub-categories.show', $subCategory->SubCategoryID).'" class="btn btn-info btn-sm" title="View">
+                            <a href="'.route('admin.sub-categories.show', $subCategory->id).'" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="'.route('admin.sub-categories.edit', $subCategory->SubCategoryID).'" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="'.route('admin.sub-categories.edit', $subCategory->id).'" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.sub-categories.destroy', $subCategory->SubCategoryID).'" title="Delete">
+                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.sub-categories.destroy', $subCategory->id).'" title="Delete">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>';
@@ -40,17 +37,9 @@ class SubCategoryDataTable extends DataTable
 
     public function query(SubCategory $model)
     {
-        return $model->newQuery()
-            ->select([
-                'sub_categories.SubCategoryID',
-                'sub_categories.CategoryID',
-                'sub_categories.name',
-                'sub_categories.description',
-                'sub_categories.status',
-                'categories.name as category_name', 
-            ])
-            ->leftJoin('categories', 'sub_categories.CategoryID', '=', 'categories.CategoryID');
+        return $model->newQuery(); 
     }
+    
 
     public function html()
     {
@@ -68,18 +57,15 @@ class SubCategoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('row_number')
-                  ->title('ID')
-                  ->orderable(false)
-                  ->searchable(false)
+            Column::make('DT_RowIndex')->title('ID')->orderable(false)->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),
             Column::make('name')->title('Name'),
             Column::make('description')->title('Description'),
             Column::make('status')->title('Status'),
-            Column::make('category') 
+            Column::make('category')
                   ->title('Category')
-                  ->orderable(true) 
+                  ->orderable(true)
                   ->searchable(true),
             Column::computed('action')
                   ->title('Action')

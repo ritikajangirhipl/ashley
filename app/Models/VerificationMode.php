@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class VerificationMode extends Model
 {
     use HasFactory;
-
-    protected $primaryKey = 'ModeID'; 
-
     protected $table = 'verification_modes';
 
     protected $fillable = [

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\ProviderType;
 
-use App\Models\ProviderType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -15,21 +14,9 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'     => [
-                'unique:provider_types,name',
-                'required',
-                'string',
-                'max:191',
-            ],
-            'description' => [
-                'required',
-                'string',
-            ],
-            'status' => [
-                'required'
-            ],
-
+            'name' => 'required|unique:provider_types|max:255', 
+            'description' => 'required',
+            'status' => 'required|in:1,0',
         ];
-
     }
 }

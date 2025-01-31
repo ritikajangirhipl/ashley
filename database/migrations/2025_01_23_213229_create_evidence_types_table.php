@@ -8,7 +8,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('evidence_types', function (Blueprint $table) {
-            $table->id('EvidenceTypeID'); 
+            $table->id(); 
             $table->string('name')->unique(); 
             $table->text('description')->nullable(); 
             $table->enum('status', ['active', 'inactive'])->default('active'); 

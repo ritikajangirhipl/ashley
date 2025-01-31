@@ -4,7 +4,7 @@ namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class StatusRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,8 +14,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:255|unique:categories,name,' . $this->category->id,
-            'description' => 'required|string|max:255',
+            'id' => 'required|numeric|exists:categories,id',
             'status' => 'required|in:0,1',
         ];
     }
@@ -23,11 +22,11 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The name field is required.',
-            'name.unique' => 'This category name has already been taken.',
+            'id.required' => 'The category ID is required.',
+            'id.exists' => 'The selected category ID does not exist in our records.',
+            'status.required' => 'The status field is required.',
             'status.in' => 'The status must be either active or inactive.',
         ];
     }
 }
-
 

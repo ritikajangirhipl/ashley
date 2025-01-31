@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,16 +9,15 @@ class SubCategory extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'SubCategoryID'; 
-
     protected $fillable = [
-        'CategoryID',
+        'category_id',
         'name',
         'description',
         'status',
     ];
     public function category()
     {
-        return $this->belongsTo(Category::class, 'CategoryID', 'CategoryID');
+    return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }
+

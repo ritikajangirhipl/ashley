@@ -4,7 +4,7 @@ namespace App\Http\Requests\SubCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class StatusRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,17 +14,17 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:sub_categories,name|max:255',
-            'description' => 'required|max:500',
-            'status' => 'required|in:1,0',
+            'id' => 'required|numeric|exists:sub_categories,id',
+            'status' => 'required|in:0,1',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'The sub-category name is required.',
-            'name.unique' => 'The sub-category name has already been taken.',
+            'id.required' => 'The sub category ID is required.',
+            'id.exists' => 'The selected sub category ID does not exist in our records.',
+            'status.required' => 'The status field is required.',
             'status.in' => 'The status must be either active or inactive.',
         ];
     }

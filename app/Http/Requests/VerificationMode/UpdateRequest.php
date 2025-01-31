@@ -2,34 +2,21 @@
 
 namespace App\Http\Requests\VerificationMode;
 
-use App\Models\VerificationMode;
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
 
 class UpdateRequest extends FormRequest
 {
+
     public function authorize()
     {
-        return true;
+        return true; 
     }
-
     public function rules()
     {
         return [
-            'name'     => [
-                'required',
-                'string',
-                'max:191',
-            ],
-            'description' => [
-                'required',
-                'string',
-            ],
-            'status' => [
-                'required'
-            ],
-
+            'name' => 'required|unique:verification_modes,name,' . $this->Verification_Modes->id . '|max:255',
+            'description' => 'nullable',
+            'status' => 'required|in:1,0',
         ];
-
     }
 }

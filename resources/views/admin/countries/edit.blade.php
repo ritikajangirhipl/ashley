@@ -10,7 +10,9 @@
     </div>
 
     <div class="card-body">
-        <form id="countries-form" action="{{ route('admin.countries.update', $country->CountryID) }}" method="POST" enctype="multipart/form-data">
+        <form id="countries-form" action="{{ route('admin.countries.update', $country->id) }}" method="POST" enctype="multipart/form-data" 
+        data-isEdit="{{ isset($country) ? 'true' : 'false' }}"
+        data-existing-flag="{{ isset($country->flag) ? $country->flag : '' }}">
             @csrf
             @method('PUT')
             @include('admin.countries.partials._form')
@@ -19,7 +21,6 @@
 </div>
 
 @endsection
-
 @section('scripts')
 @parent
 @include('admin.countries.partials._script')

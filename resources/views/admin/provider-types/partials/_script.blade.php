@@ -2,11 +2,15 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $.validator.addMethod("lettersOnly", function (value, element) {
+            return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
+        }, "Only letters are allowed.");
         $("#provider-type-form").validate({
             rules: {
                 name: {
                     required: true,
                     minlength: 3,
+                    lettersOnly: true
                 },
                 description: {
                     required: true,
@@ -20,6 +24,7 @@
                 name: {
                     required: "{{ trans('validation.required', ['attribute' => 'name']) }}",
                     minlength: "{{ trans('validation.min.string', ['attribute' => 'name', 'min' => 3]) }}",
+                    lettersOnly: "Only letters are allowed."
                 },
                 description: {
                     required: "{{ trans('validation.required', ['attribute' => 'description']) }}",
@@ -59,7 +64,7 @@
                 success: function (response) {
                     $('input[type="submit"]').prop('disabled', false);
 
-                    if (response.success) {
+                    if (response.status) {
                         Swal.fire({
                             title: 'Success',
                             text: response.message,
@@ -83,16 +88,14 @@
                     $('input[type="submit"]').prop('disabled', false);
 
                     if (xhr.status === 422) {
-                        // Handle validation errors
                         var errors = xhr.responseJSON.errors;
                         $.each(errors, function (key, value) {
                             let input = $('[name="' + key + '"]');
-                            input.addClass('is-invalid'); // Add is-invalid class for invalid fields
+                            input.addClass('is-invalid');
                             input.closest('.form-group').find('.invalid-feedback').remove();
                             input.after('<span class="invalid-feedback">' + value[0] + '</span>');
                         });
                     } else {
-                        // Handle general errors (for 500, etc.)
                         Swal.fire({
                             title: 'Error',
                             text: xhr.responseJSON.message || 'An unexpected error occurred!',

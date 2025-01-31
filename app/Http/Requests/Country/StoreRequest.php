@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Country;
 
-use App\Models\Country;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -15,20 +14,24 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'     => [
-                'required',
-                'string',
-                'max:191',
-            ],
-            'description' => [
-                'required',
-                'string',
-            ],
-            'status' => [
-                'required'
-            ],
-
+            'name' => 'required|string|max:255|unique:countries,name',
+            'flag' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'description' => 'nullable|string',
+            'currency_name' => 'required|string|max:255',
+            'currency_symbol' => 'required|string|max:10',
+            'status' => 'required|in:0,1',
         ];
+    }
 
+    public function messages()
+    {
+        return [
+            'name.required' => 'Country name is required.',
+            'name.unique' => 'This country name has already been taken.',
+            'flag.image' => 'The flag must be an image.',
+            'currency_name.required' => 'Currency name is required.',
+            'currency_symbol.required' => 'Currency symbol is required.',
+            'status.required' => 'Status is required.',
+        ];
     }
 }

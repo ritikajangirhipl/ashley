@@ -86,8 +86,8 @@ return [
     ],
     'enums' => [
         'status' => [
-            'active'        => 'Active',
-            'inactive'      => 'Inactive',          
+            '0'        => 'Active',
+            '1'      => 'Inactive',          
         ],
         'issuerType'       => [
             'private'       => 'Private University',

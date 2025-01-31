@@ -7,12 +7,12 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('verification_mode', function (Blueprint $table) {
-            $table->id('ModeID'); // Primary key
-            $table->string('name')->unique(); // Unique name
-            $table->text('description'); // Description
-            $table->enum('status', ['active', 'inactive'])->default('active'); // Status
-            $table->timestamps(); // Created at and Updated at
+        Schema::create('verification_modes', function (Blueprint $table) {
+            $table->id(); 
+            $table->string('name')->unique();
+            $table->text('description');
+            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->timestamps();
         });
     }
 

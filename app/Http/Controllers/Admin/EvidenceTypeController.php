@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\EvidenceType;
-use Illuminate\Http\Request;
 use App\DataTables\EvidenceTypeDataTable;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\EvidenceType\StoreRequest;
 use App\Http\Requests\EvidenceType\UpdateRequest;
-use Illuminate\Support\Facades\Log;
+use App\Http\Requests\EvidenceType\StatusRequest;
+use App\Models\EvidenceType;
+use App\Helpers\Helper;
+use Illuminate\Http\Request;
 
 class EvidenceTypeController extends Controller
 {
+    protected $status;
+
+    public function __construct()
+    {
+        $this->status = config('constant.enums.status');
+    }
+
     public function index(EvidenceTypeDataTable $dataTable)
     {
         $pageTitle = trans('panel.page_title.evidence_type.list');
@@ -21,56 +30,32 @@ class EvidenceTypeController extends Controller
     {
         try {
             $pageTitle = trans('panel.page_title.evidence_type.add');
-            $status = config('constant.enums.status'); 
+            $status = $this->status;
             return view('admin.evidence-types.create', compact('pageTitle', 'status'));
         } catch (\Exception $e) {
-            Log::error('Error in EvidenceTypeController@create: ' . $e->getMessage());
-            return redirect()->route('admin.evidence-types.index')->with('error', 'An error occurred while preparing the create page.');
+            return jsonResponseWithException($e);
         }
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         try {
-            // Validate the incoming request
-            $validatedData = $request->validate([
-                'name' => 'required|unique:evidence_types|max:255',  // Ensure unique validation for evidence types
-                'description' => 'nullable|max:255',
-                'status' => 'required|in:active,inactive',
-            ]);
-    
-            // Proceed to create the evidence type if validation passes
-            EvidenceType::create($validatedData);
-    
-            return response()->json([
-                'success' => true,
-                'message' => 'Evidence Type created successfully!',
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Catch validation errors and return them as JSON
-            return response()->json([
-                'success' => false,
-                'errors' => $e->validator->errors(),
-            ], 422);
+            $status = $this->status;
+            EvidenceType::create($request->all());
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.evidence_type')]));
         } catch (\Exception $e) {
-            // Log unexpected errors
-            Log::error('Error in EvidenceTypeController@store: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while creating the evidence type.',
-            ], 500);
+            return jsonResponseWithException($e);
         }
-    }    
+    }
 
     public function show(EvidenceType $evidenceType)
     {
         try {
             $pageTitle = trans('panel.page_title.evidence_type.show');
-            $status = config('constant.enums.status');
-            return view('admin.evidence-types.show', compact('evidenceType', 'pageTitle', 'status'));
+            $status = $this->status;
+            return view('admin.evidence-types.show', compact('evidenceType', 'pageTitle'));
         } catch (\Exception $e) {
-            Log::error('Error in EvidenceTypeController@show: ' . $e->getMessage());
-            return redirect()->route('admin.evidence-types.index')->with('error', 'An error occurred while fetching the evidence type details.');
+            return jsonResponseWithException($e);
         }
     }
 
@@ -78,35 +63,20 @@ class EvidenceTypeController extends Controller
     {
         try {
             $pageTitle = trans('panel.page_title.evidence_type.edit');
-            $status = config('constant.enums.status');
+            $status = $this->status;
             return view('admin.evidence-types.edit', compact('evidenceType', 'pageTitle', 'status'));
         } catch (\Exception $e) {
-            Log::error('Error in EvidenceTypeController@edit: ' . $e->getMessage());
-            return redirect()->route('admin.evidence-types.index')->with('error', 'An error occurred while preparing the edit page.');
+            return jsonResponseWithException($e);
         }
     }
 
-    public function update(Request $request, EvidenceType $evidenceType)
+    public function update(UpdateRequest $request, EvidenceType $evidenceType)
     {
         try {
-            $request->validate([
-                'name' => 'required|unique:evidence_types,name,' . $evidenceType->EvidenceTypeID . ',EvidenceTypeID|max:255',
-                'description' => 'nullable|max:255',
-                'status' => 'required|in:active,inactive',
-            ]);
-
-            $evidenceType->update($request->all());
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Evidence Type updated successfully!',
-            ]);
+            $evidenceType->update($request->except('_token', '_method'));
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.evidence_type')]));
         } catch (\Exception $e) {
-            Log::error('Error in EvidenceTypeController@update: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while updating the evidence type.',
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
 
@@ -114,58 +84,21 @@ class EvidenceTypeController extends Controller
     {
         try {
             $evidenceType->delete();
-
-            return response()->json([
-                'success' => true,
-                'message' => trans('cruds.evidence_type.title_singular') . ' ' . trans('messages.delete_success_message'),
-            ], 200);
+            return jsonResponseWithMessage(200, 'Evidence Type deleted successfully!');
         } catch (\Exception $e) {
-            Log::error('Error in EvidenceTypeController@destroy: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while deleting the evidence type.',
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
 
-    public function changeStatus(Request $request)
+    public function changeStatus(StatusRequest $request)
     {
         try {
-            if ($request->ajax()) {
-                $validator = \Validator::make($request->all(), [
-                    'id' => [
-                        'required',
-                        'numeric',
-                        'exists:evidence_types,EvidenceTypeID',
-                    ],
-                    'status' => [
-                        'required',
-                        'in:active,inactive',
-                    ],
-                ]);
+            $status = $request->status == 1 ? 'active' : 'inactive';
 
-                if (!$validator->passes()) {
-                    return response()->json([
-                        'success' => false,
-                        'errors' => $validator->getMessageBag()->toArray(),
-                        'message' => 'Error Occurred!',
-                    ], 400);
-                }
-
-                $evidenceType = EvidenceType::where('EvidenceTypeID', $request->id)->update(['status' => $request->status]);
-
-                $response = [
-                    'status' => 'true',
-                    'message' => trans('cruds.evidence_type.title_singular') . ' ' . trans('messages.change_status_success_message'),
-                ];
-                return response()->json($response);
-            }
+            $evidenceType = EvidenceType::where('id', $request->id)->update(['status' => $status]);
+            return jsonResponseWithMessage(200, 'Evidence Type status updated successfully!');
         } catch (\Exception $e) {
-            Log::error('Error in EvidenceTypeController@changeStatus: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'An error occurred while changing the status.',
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
 }

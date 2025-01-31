@@ -8,8 +8,6 @@ class ProviderType extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'ProviderTypeID'; 
-
     protected $fillable = [
         'name',
         'description',

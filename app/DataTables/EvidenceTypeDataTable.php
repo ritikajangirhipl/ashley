@@ -12,22 +12,19 @@ class EvidenceTypeDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('row_number', function ($evidenceType) {
-                static $rowNumber = 0;
-                return ++$rowNumber;
-            })
+            ->addIndexColumn()
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.'.$record->status);
             })            
             ->addColumn('action', function ($evidenceType) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.evidence-types.show', $evidenceType->EvidenceTypeID).'" class="btn btn-warning btn-sm" title="View">
+                            <a href="'.route('admin.evidence-types.show', $evidenceType->id).'" class="btn btn-warning btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="'.route('admin.evidence-types.edit', $evidenceType->EvidenceTypeID).'" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="'.route('admin.evidence-types.edit', $evidenceType->id).'" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.evidence-types.destroy', $evidenceType->EvidenceTypeID).'" title="Delete">
+                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.evidence-types.destroy', $evidenceType->id).'" title="Delete">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>';
@@ -37,7 +34,7 @@ class EvidenceTypeDataTable extends DataTable
 
     public function query(EvidenceType $model)
     {
-        return $model->newQuery()->select(['EvidenceTypeID', 'name', 'description', 'status']);
+        return $model->newQuery()->select(['id', 'name', 'description', 'status']);
     }
 
     public function html()
@@ -57,10 +54,7 @@ class EvidenceTypeDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('row_number')
-                  ->title('ID')
-                  ->orderable(false)
-                  ->searchable(false)
+            Column::make('DT_RowIndex')->title('ID')->orderable(false)->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),
             Column::make('name')->title('Name'),

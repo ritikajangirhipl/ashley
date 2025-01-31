@@ -127,7 +127,6 @@
                                 <span class="pcoded-mtext">{{ trans('cruds.evidence_type.title') }}</span>
                             </a>
                         </li>
-
                 </ul>
             @endauth
         </div>

@@ -1,36 +1,32 @@
 <?php
-
 namespace App\Http\Requests\EvidenceType;
 
-use App\Models\EvidenceType;
-use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
 
 class UpdateRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
+        return true; 
     }
 
     public function rules()
     {
         return [
-            'name'     => [
-                'required',
-                'string',
-                'max:191',
-            ],
-            'description' => [
-                'required',
-                'string',
-            ],
-            'status' => [
-                'required'
-            ],
-
+            'name' => 'required|unique:evidence_types,name,' . $this->evidence_type->id . ',id|max:255',
+            'description' => 'nullable|max:255',
+            'status' => 'required|in:1,0',
         ];
+    }
 
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name is required.',
+            'name.unique' => 'This evidence type name already exists.',
+            'status.required' => 'Please select a status.',
+            'status.in' => 'The status must be either active or inactive.',
+        ];
     }
 }
+

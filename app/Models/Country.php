@@ -9,8 +9,6 @@ class Country extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'CountryID'; 
-
     protected $fillable = [
         'name',
         'flag',

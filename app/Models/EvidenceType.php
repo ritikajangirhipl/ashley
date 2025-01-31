@@ -8,8 +8,6 @@ class EvidenceType extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'EvidenceTypeID'; 
-
     protected $fillable = [
         'name',
         'description',

@@ -12,10 +12,7 @@ class CountryDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('row_number', function ($country) {
-                static $rowNumber = 0;
-                return ++$rowNumber;
-            })
+            ->addIndexColumn()
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.'.$record->status);
             }) 
@@ -24,13 +21,13 @@ class CountryDataTable extends DataTable
             })
             ->addColumn('action', function ($country) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.countries.show',$country->CountryID).'" class="btn btn-warning btn-sm" title="View">
+                            <a href="'.route('admin.countries.show',$country->id).'" class="btn btn-warning btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="'.route('admin.countries.edit', $country->CountryID).'" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="'.route('admin.countries.edit', $country->id).'" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.countries.destroy', $country->CountryID).'" title="Delete">
+                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.countries.destroy', $country->id).'" title="Delete">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>';
@@ -40,7 +37,7 @@ class CountryDataTable extends DataTable
 
     public function query(Country $model)
     {
-        return $model->newQuery()->select(['CountryID', 'name', 'flag', 'description', 'currency_name', 'currency_symbol', 'status']);
+        return $model->newQuery()->select(['id', 'name', 'flag', 'description', 'currency_name', 'currency_symbol', 'status']);
     }
 
     public function html()
@@ -60,10 +57,7 @@ class CountryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('row_number')
-                  ->title('ID')
-                  ->orderable(false)
-                  ->searchable(false)
+            Column::make('DT_RowIndex')->title('ID')->orderable(false)->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),
             Column::make('name')->title('Name'),

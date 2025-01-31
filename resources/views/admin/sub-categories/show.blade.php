@@ -14,7 +14,8 @@
             <div class="col-md-6">
                 <div class="form-group d-flex view-listing">
                     <h6 class="mb-0"><b>{{ trans('cruds.sub_category.fields.category') }}:</b></h6>
-                    <p class="ml-2 mb-0">{{ $subCategory->category->name }}</p>
+                    <!-- Updated line with optional() -->
+                    <p class="ml-2 mb-0">{{ optional($subCategory->category)->name ?? 'No Category' }}</p>
                 </div>
                 <div class="form-group d-flex view-listing">
                     <h6 class="mb-0"><b>{{ trans('cruds.sub_category.fields.name') }}:</b></h6>

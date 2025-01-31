@@ -1,10 +1,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script type="text/javascript">
 $(document).ready(function () {
-    // Custom validation methods
+    var isEdit = $("#countries-form").attr('data-isEdit') === 'true';  
+
+    console.log("Is Edit Mode:", isEdit);
+    console.log("Existing Flag:", $("#countries-form").data('existing-flag')); 
+
     $.validator.addMethod("currencySymbolOnly", function (value, element) {
-        // Allowing only valid currency symbols and some special characters (no letters or numbers)
         return this.optional(element) || /^[^\w\d\s]+$/.test(value) && /^[\x24\xA3\x20AC\x20A5\x20E2\x82AC]+$/.test(value);
     }, "Only valid currency symbols and limited special characters are allowed.");
 
@@ -16,7 +21,8 @@ $(document).ready(function () {
         rules: {
             name: { 
                 required: true,
-                lettersOnly: true
+                minlength: 3,
+                lettersOnly: true,
             },
             currency_name: { 
                 required: true,
@@ -33,21 +39,28 @@ $(document).ready(function () {
                 required: true 
             },
             flag: { 
-                required: true
+                required: function (element) {
+                    var existingFlag = $("#countries-form").data('existing-flag');
+                    if (isEdit && !element.files.length && existingFlag) {
+                        return false; 
+                    }
+                    return true;
+                }
             },
         },
         messages: {
             name: { 
                 required: "Name is required.",
+                minlength: "Name must be at least 3 characters long.",
                 lettersOnly: "Only letters are allowed."
             },
-            currency_name:{
+            currency_name: {
                 required: "Currency name is required.",
                 lettersOnly: "Only letters are allowed."
             },
-            currency_symbol:{
-                 required: "Currency symbol is required.",
-                 currencySymbolOnly: "Only valid currency symbols and limited special characters are allowed."
+            currency_symbol: {
+                required: "Currency symbol is required.",
+                currencySymbolOnly: "Only valid currency symbols and limited special characters are allowed."
             },
             description: { 
                 required: "Description is required."
@@ -75,7 +88,6 @@ $(document).ready(function () {
         },
     });
 
-    // Function to handle AJAX form submission
     function submitForm(form) {
         var formData = new FormData(form);
         var url = $(form).attr('action');
@@ -89,7 +101,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                if (response.success) {
+                if (response.status) {
                     Swal.fire({
                         title: 'Success',
                         text: response.message,
@@ -112,18 +124,14 @@ $(document).ready(function () {
             error: function (xhr) {
                 var errors = xhr.responseJSON.errors;
                 if (errors) {
-                    // Clear previous errors
                     $("#countries-form").find('.is-invalid').removeClass('is-invalid');
                     $("#countries-form").find('.invalid-feedback').text('');
-
-                    // Display new errors below inputs only
                     $.each(errors, function (key, value) {
                         var element = $("#countries-form").find('[name="' + key + '"]');
                         element.addClass('is-invalid');
                         element.closest('.form-group').find('.invalid-feedback').text(value[0]);
                     });
 
-                    // Show Toastr error
                     toastr.error("Please check the form for errors.");
                 } else {
                     Swal.fire({

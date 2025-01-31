@@ -23,3 +23,4 @@
 @parent
 @include('admin.categories.partials._script')
 @endsection
+

@@ -12,22 +12,19 @@ class CategoryDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('row_number', function ($category) {
-                static $rowNumber = 0;
-                return ++$rowNumber;
-            })
+            ->addIndexColumn()
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.'.$record->status);
             }) 
             ->addColumn('action', function ($category) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.categories.show',$category->CategoryID).'" class="btn btn-warning btn-sm" title="View">
+                            <a href="'.route('admin.categories.show',$category->id).'" class="btn btn-warning btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="'.route('admin.categories.edit', $category->CategoryID).'" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="'.route('admin.categories.edit', $category->id).'" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.categories.destroy', $category->CategoryID).'" title="Delete">
+                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.categories.destroy', $category->id).'" title="Delete">
                                 <i class="fas fa-trash"></i>
                             </button> 
                         </div>';
@@ -37,7 +34,7 @@ class CategoryDataTable extends DataTable
 
     public function query(Category $model)
     {
-        return $model->newQuery()->select(['CategoryID', 'name', 'description', 'status']);
+        return $model->newQuery()->select(['id', 'name', 'description', 'status']);
     }
 
     public function html()
@@ -56,10 +53,7 @@ class CategoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('row_number')
-                ->title('ID')
-                ->orderable(false)
-                ->searchable(false)
+            Column::make('DT_RowIndex')->title('ID')->orderable(false)->searchable(false)
                 ->width(50)
                 ->addClass('text-center'),
             Column::make('name')->title('Name'),

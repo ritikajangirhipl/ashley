@@ -13,22 +13,19 @@ class ProviderTypeDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('row_number', function ($providerType) {
-                static $rowNumber = 0;
-                return ++$rowNumber;
-            })
+            ->addIndexColumn()
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.'.$record->status);
             }) 
             ->addColumn('action', function ($providerType) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.provider-types.show', $providerType->ProviderTypeID).'" class="btn btn-warning btn-sm" title="View">
+                            <a href="'.route('admin.provider-types.show', $providerType->id).'" class="btn btn-warning btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="'.route('admin.provider-types.edit', $providerType->ProviderTypeID).'" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="'.route('admin.provider-types.edit', $providerType->id).'" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.provider-types.destroy', $providerType->ProviderTypeID).'" title="Delete">
+                            <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.provider-types.destroy', $providerType->id).'" title="Delete">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>';
@@ -38,7 +35,7 @@ class ProviderTypeDataTable extends DataTable
 
     public function query(ProviderType $model)
     {
-        return $model->newQuery()->select(['ProviderTypeID', 'name', 'description', 'status']);
+        return $model->newQuery()->select(['id', 'name', 'description', 'status']);
     }
 
     public function html()
@@ -57,10 +54,7 @@ class ProviderTypeDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('row_number')
-                  ->title('ID') 
-                  ->orderable(false)
-                  ->searchable(false)
+            Column::make('DT_RowIndex')->title('ID')->orderable(false)->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),
             Column::make('name')->title('Name'),

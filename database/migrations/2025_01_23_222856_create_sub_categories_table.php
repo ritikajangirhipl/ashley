@@ -8,13 +8,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sub_categories', function (Blueprint $table) {
-            $table->id('SubCategoryID'); // Primary key
-            $table->unsignedBigInteger('CategoryID'); // Foreign key to categories table
-            $table->string('name')->unique(); // Unique name
-            $table->text('description')->nullable(); // Description
-            $table->enum('status', ['active', 'inactive'])->default('active'); // Status
+            $table->id();
+            $table->unsignedBigInteger('category_id');
+            $table->string('name')->unique();
+            $table->text('description')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
-            $table->foreign('CategoryID')->references('CategoryID')->on('categories')->onDelete('cascade');
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
@@ -23,3 +24,4 @@ return new class extends Migration
         Schema::dropIfExists('sub_categories');
     }
 };
+
