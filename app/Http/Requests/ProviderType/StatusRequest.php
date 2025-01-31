@@ -15,7 +15,7 @@ class StatusRequest extends FormRequest
     {
         return [
             'id' => 'required|numeric|exists:provider_types,id',
-            'status' => 'required|in:0,1',
+            'status' => 'required|in:1,0',
         ];
     }
 

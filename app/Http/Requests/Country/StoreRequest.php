@@ -19,7 +19,7 @@ class StoreRequest extends FormRequest
             'description' => 'nullable|string',
             'currency_name' => 'required|string|max:255',
             'currency_symbol' => 'required|string|max:10',
-            'status' => 'required|in:0,1',
+            'status' => 'required|in:1,0',
         ];
     }
 

@@ -41,7 +41,6 @@ class SubCategoryController extends Controller
     {
         try {
             SubCategory::create($request->all());
-            $status = $this->status;
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.sub_category')]));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);

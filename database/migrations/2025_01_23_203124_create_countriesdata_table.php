@@ -15,7 +15,7 @@ return new class extends Migration
             $table->text('description')->nullable(); 
             $table->string('currency_name'); 
             $table->string('currency_symbol'); 
-            $table->enum('status', ['active', 'inactive'])->default('active'); 
+            $table->tinyInteger('status')->unsigned()->nullable();
             $table->timestamps(); 
         });
     }

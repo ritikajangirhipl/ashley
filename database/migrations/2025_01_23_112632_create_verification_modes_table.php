@@ -11,7 +11,7 @@ return new class extends Migration
             $table->id(); 
             $table->string('name')->unique();
             $table->text('description');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->tinyInteger('status')->unsigned()->nullable();
             $table->timestamps();
         });
     }

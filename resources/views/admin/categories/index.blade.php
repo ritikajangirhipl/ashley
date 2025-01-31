@@ -60,7 +60,7 @@
                     dataType: 'json',
                     data: { _token: csrf_token, id: dataId, status: status },
                     success: function(response) {
-                        if (response.status == 'true') {
+                        if (response.status) {
                             Swal.fire({
                                 title: 'Success',
                                 text: response.message,
@@ -110,7 +110,7 @@
                     dataType: 'json',
                     data: { _token: csrf_token, _method: "DELETE" },
                     success: function(response) {
-                        if (response.success) {
+                        if (response.status) {
                             Swal.fire({
                                 title: 'Success',
                                 text: response.message,

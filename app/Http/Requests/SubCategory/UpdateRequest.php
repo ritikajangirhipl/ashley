@@ -15,7 +15,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             
-            'name' => 'required|unique:sub_categories,name,' . $this->subcategories->id. ',id|max:255',
+            'name' => 'required|unique:sub_categories,name,' . $this->sub_category->id. ',id|max:255',
             'description' => 'nullable|max:500',
             'status' => 'required|in:1,0',
         ];
