@@ -14,7 +14,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:verification_modes,name,' . $this->Verification_Modes->id . '|max:255',
+            'name' => 'required|unique:verification_modes,name,' . $this->verification_mode->id . '|max:255',
             'description' => 'nullable',
             'status' => 'required|in:1,0',
         ];
