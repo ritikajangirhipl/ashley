@@ -50,9 +50,9 @@ return [
         ],
         'evidence_type' => [
             'list' => 'List of Evidence Types',
-            'add' => 'Create Evidence Types',
-            'edit' => 'Edit Evidence Types',
-            'show' => 'View Evidence Types',
+            'add' => 'Create Evidence Type',
+            'edit' => 'Edit Evidence Type',
+            'show' => 'View Evidence Type',
         ],
         'sub_category' => [
            'list' => 'List of Sub Categories',
