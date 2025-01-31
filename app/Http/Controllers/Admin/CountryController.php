@@ -64,7 +64,6 @@ class CountryController extends Controller
     {
         try {
             $pageTitle = trans('panel.page_title.countries.show');
-            $status = $this->status;
             return view('admin.countries.show', compact('country', 'pageTitle'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);

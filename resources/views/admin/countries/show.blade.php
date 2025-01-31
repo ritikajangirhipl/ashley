@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group d-flex view-listing">
                 <h6 class="mb-0"><b>{{ trans('cruds.country.fields.status') }}:</b></h6>
-                    <p class="ml-2 mb-0">{{ ucfirst($country->status) }}</p>
+                    <p class="ml-2 mb-0">{{ config('constant.enums.status.'.$country->status) }}</p>
                 </div>
             </div>
         </div>

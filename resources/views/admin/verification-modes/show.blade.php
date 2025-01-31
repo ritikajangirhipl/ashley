@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group d-flex view-listing">
                     <h6 class="mb-0"><b>{{ trans('cruds.verification_mode.fields.status') }}:</b></h6>
-                    <p class="ml-2 mb-0">{{ ucfirst($verificationMode->status) }}</p>
+                    <p class="ml-2 mb-0">{{ config('constant.enums.status.'.$verificationMode->status) }}</p>
                 </div>
             </div>
         </div>
