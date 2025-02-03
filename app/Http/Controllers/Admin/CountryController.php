@@ -30,7 +30,7 @@ class CountryController extends Controller
     public function create()
     {
         try {
-            $pageTitle = trans('panel.page_title.countries.add');
+            $pageTitle = trans('panel.page_title.country.add');
             $status = $this->status;
             return view('admin.countries.create', compact('pageTitle', 'status'));
         } catch (\Exception $e) {
@@ -63,7 +63,7 @@ class CountryController extends Controller
     public function show(Country $country)
     {
         try {
-            $pageTitle = trans('panel.page_title.countries.show');
+            $pageTitle = trans('panel.page_title.country.show');
             return view('admin.countries.show', compact('country', 'pageTitle'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
@@ -73,7 +73,7 @@ class CountryController extends Controller
     public function edit(Country $country)
     {
         try {
-            $pageTitle = trans('panel.page_title.countries.edit');
+            $pageTitle = trans('panel.page_title.country.edit');
             $status = $this->status;
             return view('admin.countries.edit', compact('country', 'pageTitle', 'status'));
         } catch (\Exception $e) {

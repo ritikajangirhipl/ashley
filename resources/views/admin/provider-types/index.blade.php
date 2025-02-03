@@ -6,9 +6,9 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title float-left">
-                    {{ trans('global.list') }} {{ trans('cruds.provider_type.title_singular') }}
-                </h4>
+            <h4 class="card-title float-left">
+                {{ __('panel.page_title.provider_type.list') }}
+            </h4>
                 <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.provider_type.title_singular') }}" href="{{ route('admin.provider-types.create') }}">
                     <i class="fas fa-plus"></i>
                 </a>

@@ -246,7 +246,7 @@ return [
     ],
     'category'           => [
         'title'          => 'Categories',
-        'title_singular' => 'Category',
+        'title_singular' => 'Categories',
         'fields'         => [
             'name'                  => 'Name',
             'description'           => 'Description',

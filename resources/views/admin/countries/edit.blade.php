@@ -5,7 +5,7 @@
 <div class="card">
     <div class="card-header card-header-primary">
         <h4 class="card-title">
-            {{ trans('global.edit') }} {{ trans('cruds.country.title_singular') }}
+        {{ __('panel.page_title.country.edit') }} 
         </h4>
     </div>
 

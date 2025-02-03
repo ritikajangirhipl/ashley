@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<div class="submitbtn-wrapper">
+<div>
     @if(isset($category))
         <button class="btn btn-info" type="submit">{{ trans('global.update') }}</button>
     @else

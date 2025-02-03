@@ -6,9 +6,9 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title float-left">
-                    {{ trans('global.list') }} {{ trans('cruds.sub_category.title') }}
-                </h4>
+            <h4 class="card-title float-left">
+                {{ __('panel.page_title.sub_category.list') }}
+            </h4>
                 <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.sub_category.title_singular') }}" href="{{ route('admin.sub-categories.create') }}">
                     <i class="fas fa-plus"></i>
                 </a>

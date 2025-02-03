@@ -4,9 +4,9 @@
 
 <div class="card">
     <div class="card-header card-header-primary">
-        <h4 class="card-title">
-            {{ trans('global.create') }} {{ trans('cruds.country.title_singular') }}
-        </h4>
+    <h4 class="card-title">
+        {{ __('panel.page_title.country.add') }} 
+    </h4>
     </div>
 
     <div class="card-body">

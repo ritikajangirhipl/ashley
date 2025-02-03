@@ -9,13 +9,17 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="flag">{{ trans('cruds.country.fields.flag') }}<span class="text-danger">*</span></label>
-            <input type="file" id="flag" name="flag" class="form-control {{ $errors->has('flag') ? 'has-error' : '' }}" accept="image/png, image/jpeg, image/jpg, image/svg">
-            
-            @if(isset($country) && $country->flag)
+            <input type="file" id="flagInput" name="flag" class="form-control {{ $errors->has('flag') ? 'has-error' : '' }}" accept="image/png, image/jpeg, image/jpg, image/svg">
+            @isset($country)
                 <div class="mt-2">
-                    <img src="{{ asset('storage/' . $country->flag) }}" alt="Country Flag" width="100" height="60">
+                    <img id="flagPreview"
+                        src="{{ asset('storage/' . $country->flag) }}"
+                        alt="Country Flag"
+                        width="100"
+                        height="60"
+                        class="img-thumbnail">
                 </div>
-            @endif
+            @endisset
 
             @if($errors->has('flag'))
                 <p class="help-block text-danger">

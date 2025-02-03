@@ -6,10 +6,10 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title float-left">
-                 {{ trans('global.list') }} {{ trans('cruds.category.title_singular') }}
-                </h4>
-                    <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.category.title_singular') }}" href="{{ route('admin.categories.create') }}">
+            <h4 class="card-title float-left">
+                {{ __('panel.page_title.category.list') }}
+            </h4>
+                                <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.category.title_singular') }}" href="{{ route('admin.categories.create') }}">
                         <i class="fas fa-plus"></i>
                     </a>
             </div>
@@ -31,72 +31,15 @@
 <script type="text/javascript" src="{{ asset('assets/admin/js/sweet-alert/sweetalert2@9.js') }}"></script>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-    // Update status
-    $(document).on('click', '.categories_status_cb', function() {
-        var $this = $(this);
-        var dataId = $this.data('id');
-        var status = $this.val();
-        var flag = true;
-        var csrf_token = $('meta[name="csrf-token"]').attr('content');
-
-        if ($this.prop('checked')) {
-            flag = false;
-        }
-
-        Swal.fire({
-            title: "Are you sure?",
-            text: "Do you want to change the status?",
-            icon: "warning",
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: "Yes, I am sure",
-            denyButtonText: "No, cancel it!",
-        }).then(function(result) {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'PUT',
-                    url: "{{ route('admin.categories.updateStatus') }}",
-                    dataType: 'json',
-                    data: { _token: csrf_token, id: dataId, status: status },
-                    success: function(response) {
-                        if (response.status) {
-                            Swal.fire({
-                                title: 'Success',
-                                text: response.message,
-                                icon: "success",
-                                confirmButtonText: "Okay",
-                                confirmButtonColor: "#04a9f5"
-                            });
-                            $('#categories-table').DataTable().ajax.reload(null, false);
-                        }
-                    },
-                    error: function(response) {
-                        $this.prop('checked', flag);
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Something went wrong!',
-                            icon: "warning",
-                            confirmButtonText: "Okay",
-                            confirmButtonColor: "#04a9f5"
-                        });
-                    }
-                });
-            } else {
-                $this.prop('checked', flag);
-            }
-        });
-    });
-
-    // Delete record
+$(document).ready(function() {
     $(document).on("click", ".delete-record", function(event) {
-    event.preventDefault();
+        event.preventDefault();
         var url = $(this).data('href');
         var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
         Swal.fire({
-            title: "{{ trans('global.areYouSure') }}",
-            text: "{{ trans('global.onceClickedRecordDeleted') }}",
+            title: "Are you sure?",
+            text: "Once deleted, this category cannot be recovered.",
             icon: "warning",
             showDenyButton: true,
             showCancelButton: true,
@@ -122,7 +65,7 @@
                         } else {
                             Swal.fire({
                                 title: 'Error',
-                                text: response.message,
+                                text: response.message || 'Category is associated with subcategories and cannot be deleted.',
                                 icon: "error",
                                 confirmButtonText: "Okay",
                                 confirmButtonColor: "#04a9f5"
@@ -130,18 +73,28 @@
                         }
                     },
                     error: function(response) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Something went wrong!',
-                            icon: "error",
-                            confirmButtonText: "Okay",
-                            confirmButtonColor: "#04a9f5"
-                        });
+                        if (response.status === 400) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.responseJSON.message || 'Category is associated with subcategories and cannot be deleted.',
+                                icon: "error",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Something went wrong!',
+                                icon: "error",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
+                        }
                     }
                 });
             }
         });
     });
-  });
+});
 </script>
 @endsection

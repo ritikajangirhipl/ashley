@@ -24,7 +24,7 @@ return [
     'page_title'    => [
     	'dashboard' => 'Dashboard',
         'profile'   => 'Profile',
-        'categories' => [
+        'category' => [
             'list' => 'List of Categories',
             'add' => 'Create Categories',
             'edit' => 'Edit Categories',
@@ -50,9 +50,9 @@ return [
         ],
         'evidence_type' => [
             'list' => 'List of Evidence Types',
-            'add' => 'Create Evidence Type',
-            'edit' => 'Edit Evidence Type',
-            'show' => 'View Evidence Type',
+            'add' => 'Create Evidence Types',
+            'edit' => 'Edit Evidence Types',
+            'show' => 'View Evidence Types',
         ],
         'sub_category' => [
            'list' => 'List of Sub Categories',

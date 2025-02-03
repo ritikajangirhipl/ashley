@@ -1,7 +1,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script type="text/javascript">
 $(document).ready(function () {
     var isEdit = $("#countries-form").attr('data-isEdit') === 'true';  
@@ -12,7 +11,6 @@ $(document).ready(function () {
         return this.optional(element) || /^[\p{Sc}]+$/u.test(value);
     }, "Only valid currency symbols are allowed.");
 
-    // Custom validation for letters only
     $.validator.addMethod("lettersOnly", function (value, element) {
         return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
     }, "Only letters are allowed.");
@@ -90,6 +88,24 @@ $(document).ready(function () {
         },
     });
 
+    let fileInput = document.getElementById('flagInput');
+    let previewImg = document.getElementById('flagPreview');
+    let oldImage = previewImg.src;
+
+    fileInput.addEventListener('change', function(event) {
+        let file = event.target.files[0]; 
+
+        if (file) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewImg.src = oldImage;
+        }
+    });
+
     function submitForm(form) {
         var formData = new FormData(form);
         var url = $(form).attr('action');
@@ -149,4 +165,5 @@ $(document).ready(function () {
     }
 });
 </script>
+
 

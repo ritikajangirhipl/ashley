@@ -37,8 +37,8 @@
 
 <div>
     @if(isset($subCategory))
-        <input class="btn btn-info" type="submit" value="{{ trans('global.update') }}">
+        <button class="btn btn-info" type="submit">{{ trans('global.update') }}</button>
     @else
-        <input class="btn btn-info" type="submit" value="{{ trans('global.create') }}">
+        <button class="btn btn-info" type="submit">{{ trans('global.create') }}</button>
     @endif
 </div>
