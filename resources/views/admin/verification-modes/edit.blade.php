@@ -23,4 +23,5 @@
 @section('scripts')
 @parent
 @include('admin.verification-modes.partials._script')
+<script src="{{ asset('js/common.js') }}"></script>
 @endsection

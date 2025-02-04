@@ -23,4 +23,5 @@
 @section('scripts')
 @parent
 @include('admin.provider-types.partials._script')
+<script src="{{ asset('js/common.js') }}"></script>
 @endsection

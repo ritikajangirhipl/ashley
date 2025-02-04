@@ -42,7 +42,8 @@ class ProviderTypeController extends Controller
         try {
             ProviderType::create($request->all());
             $status = $this->status;
-            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.provider_type')]));
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.provider_type')]),
+            ['redirect_url' => route('admin.provider-types.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

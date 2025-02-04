@@ -42,7 +42,8 @@ class VerificationModeController extends Controller
         try {
             VerificationMode::create($request->all());
             $status = $this->status;
-            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.verification_mode')]));
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.verification_mode')]), 
+            ['redirect_url' => route('admin.verification-modes.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

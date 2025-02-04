@@ -4,9 +4,6 @@
 <script type="text/javascript">
 $(document).ready(function () {
     var isEdit = $("#countries-form").attr('data-isEdit') === 'true';  
-
-    console.log("Existing Flag:", $("#countries-form").data('existing-flag')); 
-
     $.validator.addMethod("currencySymbolOnly", function (value, element) {
         return this.optional(element) || /^[\p{Sc}]+$/u.test(value);
     }, "Only valid currency symbols are allowed.");
@@ -104,65 +101,7 @@ $(document).ready(function () {
         } else {
             previewImg.src = oldImage;
         }
-    });
-
-    function submitForm(form) {
-        var formData = new FormData(form);
-        var url = $(form).attr('action');
-        var method = $(form).attr('method');
-
-        $.ajax({
-            url: url,
-            type: method,
-            data: formData,
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                if (response.status) {
-                    Swal.fire({
-                        title: 'Success',
-                        text: response.message,
-                        icon: 'success',
-                        confirmButtonText: 'OK',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "{{ route('admin.countries.index') }}";
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Error',
-                        text: response.message || 'Something went wrong!',
-                        icon: 'error',
-                        confirmButtonText: 'OK',
-                    });
-                }
-            },
-            error: function (xhr) {
-                var errors = xhr.responseJSON.errors;
-                if (errors) { 
-                    console.log(errors);
-                    $("#countries-form").find('.is-invalid').removeClass('is-invalid');
-                    $("#countries-form").find('.invalid-feedback').text('');
-                    $.each(errors, function (key, value) {
-                        console.log(value);
-                        var element = $("#countries-form").find('[name="' + key + '"]');
-                        element.addClass('is-invalid');
-                        element.closest('.form-group').find('.invalid-feedback').remove();
-                        element.after('<span class="invalid-feedback">' + value[0] + '</span>');
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'An unexpected error occurred!',
-                        icon: 'error',
-                        confirmButtonText: 'OK',
-                    });
-                }
-            },
-        });
-    }
+    });  
 });
 </script>
 

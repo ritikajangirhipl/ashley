@@ -54,7 +54,8 @@ class CountryController extends Controller
                 'status' => $request->status,
             ]);
 
-            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.country')]));
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.country')]),
+            ['redirect_url' => route('admin.countries.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

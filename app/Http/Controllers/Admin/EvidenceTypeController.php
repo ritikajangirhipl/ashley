@@ -40,9 +40,8 @@ class EvidenceTypeController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            $status = $this->status;
             EvidenceType::create($request->all());
-            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.evidence_type')]));
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.evidence_type')]),['redirect_url' => route('admin.evidence-types.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

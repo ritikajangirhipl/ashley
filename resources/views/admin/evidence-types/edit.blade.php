@@ -23,6 +23,7 @@
 @section('scripts')
 @parent
 @include('admin.evidence-types.partials._script') 
+<script src="{{ asset('js/common.js')}}"></script>
 @endsection
 
 

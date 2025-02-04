@@ -22,4 +22,7 @@
 @section('scripts')
 @parent
 @include('admin.countries.partials._script')
+<script src="{{ asset('js/common.js') }}"></script>
 @endsection
+
+

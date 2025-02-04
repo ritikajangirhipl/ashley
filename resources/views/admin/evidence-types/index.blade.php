@@ -28,7 +28,7 @@
 @section('scripts')
 @parent
 {!! $dataTable->scripts() !!}
-
+<script src="{{ asset('js/common.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/admin/js/sweet-alert/sweetalert2@9.js') }}"></script>
 
 <script type="text/javascript">

@@ -41,7 +41,8 @@ class SubCategoryController extends Controller
     {
         try {
             SubCategory::create($request->all());
-            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.sub_category')]));
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.sub_category')]),
+            ['redirect_url' => route('admin.sub-categories.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

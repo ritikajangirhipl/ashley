@@ -1,13 +1,10 @@
 <div class="row">
-    <!-- Name Field -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.evidence_type.fields.name') }}<span class="text-danger">*</span></label>
             <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', isset($evidenceType) ? $evidenceType->name : '') }}" placeholder="{{ trans('cruds.evidence_type.fields.name') }}" autofocus>
         </div>
     </div>
-
-    <!-- Description Field -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.evidence_type.fields.description') }}<span class="text-danger">*</span></label>
@@ -15,8 +12,6 @@
 
         </div>
     </div>
-
-    <!-- Status Field -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="status">{{ trans('cruds.evidence_type.fields.status') }}<span class="text-danger">*</span></label>

@@ -43,7 +43,8 @@ class CategoryController extends Controller
         try {
             Category::create($request->all());
             $status = $this->status;
-            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.category')])); 
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.category')]), 
+            ['redirect_url' => route('admin.categories.index')]); 
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

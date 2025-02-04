@@ -22,5 +22,6 @@
 @section('scripts')
 @parent
 @include('admin.categories.partials._script')
+<script src="{{ asset('js/common.js') }}"></script>
 @endsection
 
