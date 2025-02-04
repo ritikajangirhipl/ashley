@@ -2,7 +2,6 @@
 namespace App\DataTables;
 
 use App\Models\SubCategory;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 

@@ -6,11 +6,7 @@ use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
-use App\Http\Requests\Category\StatusRequest;
 use App\Models\Category;
-use App\Helpers\Helper;
-use Illuminate\Http\Request;
-
 
 class CategoryController extends Controller
 {
@@ -42,7 +38,6 @@ class CategoryController extends Controller
     {
         try {
             Category::create($request->all());
-            $status = $this->status;
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.category')]), 
             ['redirect_url' => route('admin.categories.index')]); 
         } catch (\Exception $e) {
@@ -54,7 +49,6 @@ class CategoryController extends Controller
     {
         try {
             $pageTitle = trans('panel.page_title.category.show');
-            $status = $this->status;
             return view('admin.categories.show', compact('category', 'pageTitle'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
@@ -78,20 +72,16 @@ class CategoryController extends Controller
             if ($request->status == '1' && $category->subCategories()->count() > 0) {
                 return response()->json([
                     'status' => 400,
-                    'message' => 'This category is associated with subcategories and cannot be set to inactive.'
+                    'message' => __('messages.category_associated_with_subcategories', ['attribute' => __('attribute.category')])
                 ], 400);
             }
+    
             $category->update($request->except('_token', '_method'));
     
-            return response()->json([
-                'status' => 200,
-                'message' => 'Category updated successfully!'
-            ]);
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.category')]),
+            ['redirect_url' => route('admin.categories.index')]);
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => 500,
-                'message' => 'An error occurred while updating the category.'
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
 
@@ -101,36 +91,17 @@ class CategoryController extends Controller
             if ($category->subCategories()->count() > 0) {
                 return response()->json([
                     'status' => 400,
-                    'message' => 'This category is associated with subcategories and cannot be deleted.'
+                    'message' => __('messages.category_associated_with_subcategories', ['attribute' => __('attribute.category')])
                 ], 400);
             }
-            $category->delete();
-    
-            return response()->json([
-                'status' => 200,
-                'message' => 'Category deleted successfully!'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 500,
-                'message' => 'An error occurred while deleting the category.'
-            ], 500);
-        }
-    }
-    
 
-    public function changeStatus(StatusRequest $request)
-    {
-        try {
-            $status = $request->status == 1 ? 'active' : 'inactive';
-    
-            $category = Category::where('id', $request->id)->update(['status' => $status]);
-            return jsonResponseWithMessage(200, 'Category status updated successfully!');
+            $category->delete();
+
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.category')]));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
-    
 }
 
 

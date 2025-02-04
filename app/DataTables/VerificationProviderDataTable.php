@@ -28,7 +28,7 @@ class VerificationProviderDataTable extends DataTable
 
     public function query(VerificationProvider $model)
     {
-        return $model->newQuery()->select(['ProviderID', 'name', 'description', 'status']);
+        return $model->newQuery();
     }
 
     public function html()

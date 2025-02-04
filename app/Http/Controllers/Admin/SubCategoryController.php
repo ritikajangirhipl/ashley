@@ -6,7 +6,6 @@ use App\DataTables\SubCategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategory\StoreRequest;
 use App\Http\Requests\SubCategory\UpdateRequest;
-use App\Http\Requests\SubCategory\StatusRequest;
 use App\Models\Category;
 use App\Models\SubCategory;
 
@@ -75,7 +74,8 @@ class SubCategoryController extends Controller
     {
         try {
             $subCategory->update($request->except('_token', '_method'));
-            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.sub_category')]));
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.sub_category')]),
+            ['redirect_url' => route('admin.sub-categories.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -86,18 +86,6 @@ class SubCategoryController extends Controller
         try {
             $subCategory->delete();
             return jsonResponseWithMessage(200, 'Sub Category deleted successfully!');
-        } catch (\Exception $e) {
-            return jsonResponseWithException($e);
-        }
-    }
-
-    public function changeStatus(StatusRequest $request)
-    {
-        try {
-            $status = $request->status == 1 ? 'active' : 'inactive';
-
-            $subCategory = SubCategory::where('id', $request->id)->update(['status' => $status]);
-            return jsonResponseWithMessage(200, 'Sub Category status updated successfully!');
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

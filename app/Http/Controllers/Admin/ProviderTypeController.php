@@ -6,10 +6,8 @@ use App\DataTables\ProviderTypeDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProviderType\StoreRequest;
 use App\Http\Requests\ProviderType\UpdateRequest;
-use App\Http\Requests\ProviderType\StatusRequest;
 use App\Models\ProviderType;
-use App\Helpers\Helper;
-use Illuminate\Http\Request;
+
 
 class ProviderTypeController extends Controller
 {
@@ -41,7 +39,6 @@ class ProviderTypeController extends Controller
     {
         try {
             ProviderType::create($request->all());
-            $status = $this->status;
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.provider_type')]),
             ['redirect_url' => route('admin.provider-types.index')]);
         } catch (\Exception $e) {
@@ -75,7 +72,8 @@ class ProviderTypeController extends Controller
     {
         try {
             $providerType->update($request->except('_token', '_method'));
-            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.provider_type')]));
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.provider_type')]),
+            ['redirect_url' => route('admin.provider-types.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -86,18 +84,6 @@ class ProviderTypeController extends Controller
         try {
             $providerType->delete();
             return jsonResponseWithMessage(200, 'Provider Type deleted successfully!');
-        } catch (\Exception $e) {
-            return jsonResponseWithException($e);
-        }
-    }
-
-    public function changeStatus(StatusRequest $request)
-    {
-        try {
-            $status = $request->status == 1 ? 'active' : 'inactive';
-
-            $providerType = ProviderType::where('id', $request->id)->update(['status' => $status]);
-            return jsonResponseWithMessage(200, 'Provider Type status updated successfully!');
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

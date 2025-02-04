@@ -34,62 +34,6 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    // Update status
-    $(document).on('click', '.provider-types_status_cb', function() {
-        var $this = $(this);
-        var dataId = $this.data('id');
-        var status = $this.val();
-        var flag = true;
-        var csrf_token = $('meta[name="csrf-token"]').attr('content');
-
-        if ($this.prop('checked')) {
-            flag = false;
-        }
-
-        Swal.fire({
-            title: "Are you sure?",
-            text: "Do you want to change the status?",
-            icon: "warning",
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: "Yes, I am sure",
-            denyButtonText: "No, cancel it!",
-        }).then(function(result) {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'PUT',
-                    url: "{{ route('admin.provider-types.updateStatus') }}",
-                    dataType: 'json',
-                    data: { _token: csrf_token, id: dataId, status: status },
-                    success: function(response) {
-                        if (response.status) {
-                            Swal.fire({
-                                title: 'Success',
-                                text: response.message,
-                                icon: "success",
-                                confirmButtonText: "Okay",
-                                confirmButtonColor: "#04a9f5"
-                            });
-                            $('#provider-types-table').DataTable().ajax.reload(null, false);
-                        }
-                    },
-                    error: function(response) {
-                        $this.prop('checked', flag);
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Something went wrong!',
-                            icon: "warning",
-                            confirmButtonText: "Okay",
-                            confirmButtonColor: "#04a9f5"
-                        });
-                    }
-                });
-            } else {
-                $this.prop('checked', flag);
-            }
-        });
-    });
-
     // Delete record
     $(document).on("click", ".delete-record", function(event) {
         event.preventDefault();

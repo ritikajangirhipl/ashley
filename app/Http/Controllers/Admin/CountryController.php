@@ -6,9 +6,7 @@ use App\DataTables\CountryDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Country\StoreRequest;
 use App\Http\Requests\Country\UpdateRequest;
-use App\Http\Requests\Country\StatusRequest;
 use App\Models\Country;
-use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,10 +39,7 @@ class CountryController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            // Handle flag upload
             $flagPath = $this->uploadFlag($request);
-            $status = $this->status;
-            // Create the country
             Country::create([
                 'name' => $request->name,
                 'flag' => $flagPath,
@@ -98,7 +93,8 @@ class CountryController extends Controller
                 'status' => $request->status,
             ]);
 
-            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.country')]));
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.country')]),
+            ['redirect_url' => route('admin.countries.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -114,18 +110,6 @@ class CountryController extends Controller
 
             $country->delete();
             return jsonResponseWithMessage(200, 'Country deleted successfully!');
-        } catch (\Exception $e) {
-            return jsonResponseWithException($e);
-        }
-    }
-
-    public function changeStatus(StatusRequest $request)
-    {
-        try {
-            $status = $request->status == 1 ? 'active' : 'inactive';
-
-            $country = Country::where('id', $request->id)->update(['status' => $status]);
-            return jsonResponseWithMessage(200, 'Country status updated successfully!');
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

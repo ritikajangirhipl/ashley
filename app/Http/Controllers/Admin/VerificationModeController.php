@@ -6,10 +6,7 @@ use App\DataTables\VerificationModeDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VerificationMode\StoreRequest;
 use App\Http\Requests\VerificationMode\UpdateRequest;
-use App\Http\Requests\VerificationMode\StatusRequest;
 use App\Models\VerificationMode;
-use App\Helpers\Helper;
-use Illuminate\Http\Request;
 
 class VerificationModeController extends Controller
 {
@@ -41,7 +38,6 @@ class VerificationModeController extends Controller
     {
         try {
             VerificationMode::create($request->all());
-            $status = $this->status;
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.verification_mode')]), 
             ['redirect_url' => route('admin.verification-modes.index')]);
         } catch (\Exception $e) {
@@ -75,7 +71,8 @@ class VerificationModeController extends Controller
     {
         try {
             $verificationMode->update($request->except('_token', '_method'));
-            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.verification_mode')]));
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.verification_mode')]),
+            ['redirect_url' => route('admin.verification-modes.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -86,18 +83,6 @@ class VerificationModeController extends Controller
         try {
             $verificationMode->delete();
             return jsonResponseWithMessage(200, 'Verification Mode deleted successfully!');
-        } catch (\Exception $e) {
-            return jsonResponseWithException($e);
-        }
-    }
-
-    public function changeStatus(StatusRequest $request)
-    {
-        try {
-            $status = $request->status == 1 ? 'active' : 'inactive';
-
-            $verificationMode = VerificationMode::where('id', $request->id)->update(['status' => $status]);
-            return jsonResponseWithMessage(200, 'Verification Mode status updated successfully!');
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

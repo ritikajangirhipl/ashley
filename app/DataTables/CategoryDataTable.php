@@ -2,7 +2,6 @@
 namespace App\DataTables;
 
 use App\Models\Category;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -34,7 +33,7 @@ class CategoryDataTable extends DataTable
 
     public function query(Category $model)
     {
-        return $model->newQuery()->select(['id', 'name', 'description', 'status']);
+        return $model->newQuery();
     }
 
     public function html()

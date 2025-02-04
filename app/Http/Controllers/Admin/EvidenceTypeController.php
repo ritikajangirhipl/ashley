@@ -6,10 +6,7 @@ use App\DataTables\EvidenceTypeDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EvidenceType\StoreRequest;
 use App\Http\Requests\EvidenceType\UpdateRequest;
-use App\Http\Requests\EvidenceType\StatusRequest;
 use App\Models\EvidenceType;
-use App\Helpers\Helper;
-use Illuminate\Http\Request;
 
 class EvidenceTypeController extends Controller
 {
@@ -41,7 +38,8 @@ class EvidenceTypeController extends Controller
     {
         try {
             EvidenceType::create($request->all());
-            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.evidence_type')]),['redirect_url' => route('admin.evidence-types.index')]);
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.evidence_type')]),
+            ['redirect_url' => route('admin.evidence-types.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -73,7 +71,8 @@ class EvidenceTypeController extends Controller
     {
         try {
             $evidenceType->update($request->except('_token', '_method'));
-            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.evidence_type')]));
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.evidence_type')]), 
+            ['redirect_url' => route('admin.evidence-types.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -84,18 +83,6 @@ class EvidenceTypeController extends Controller
         try {
             $evidenceType->delete();
             return jsonResponseWithMessage(200, 'Evidence Type deleted successfully!');
-        } catch (\Exception $e) {
-            return jsonResponseWithException($e);
-        }
-    }
-
-    public function changeStatus(StatusRequest $request)
-    {
-        try {
-            $status = $request->status == 1 ? 'active' : 'inactive';
-
-            $evidenceType = EvidenceType::where('id', $request->id)->update(['status' => $status]);
-            return jsonResponseWithMessage(200, 'Evidence Type status updated successfully!');
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

@@ -14,6 +14,8 @@ return [
     'submit_success_message'         => 'submitted successfully',
     'generate_success_message'         => 'generated successfully',
     'documents_required_message'         => "You can't deliver report. Please upload all submission documents first!",
+    'category_associated_with_subcategories' => 'This :attribute is associated with subcategories and cannot be modified.',
+
 ];
 
 

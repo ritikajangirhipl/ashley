@@ -2,7 +2,6 @@
 namespace App\DataTables;
 
 use App\Models\VerificationMode;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -34,7 +33,7 @@ class VerificationModeDataTable extends DataTable
 
     public function query(VerificationMode $model)
     {
-        return $model->newQuery()->select(['id', 'name', 'description', 'status']);
+        return $model->newQuery();
     }
 
     public function html()

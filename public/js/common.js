@@ -68,21 +68,21 @@ function submitForm(form) {
 
 // Image Preview Function
 function previewImage(inputId, previewId) {
-    let fileInput = document.getElementById(inputId);
-    let previewImg = document.getElementById(previewId);
-    let oldImage = previewImg.src;
+    let fileInput = $('#' + inputId);
+    let previewImg = $('#' + previewId);
+    let oldImage = previewImg.attr('src');
 
-    fileInput.addEventListener('change', function(event) {
+    fileInput.on('change', function(event) {
         let file = event.target.files[0];
 
         if (file) {
             let reader = new FileReader();
             reader.onload = function(e) {
-                previewImg.src = e.target.result;
+                previewImg.attr('src', e.target.result);
             };
             reader.readAsDataURL(file);
         } else {
-            previewImg.src = oldImage;
+            previewImg.attr('src', oldImage);
         }
     });
 }

@@ -3,7 +3,6 @@
 namespace App\DataTables;
 
 use App\Models\ProviderType;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -35,7 +34,7 @@ class ProviderTypeDataTable extends DataTable
 
     public function query(ProviderType $model)
     {
-        return $model->newQuery()->select(['id', 'name', 'description', 'status']);
+        return $model->newQuery();
     }
 
     public function html()

@@ -2,7 +2,6 @@
 namespace App\DataTables;
 
 use App\Models\Country;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -37,7 +36,7 @@ class CountryDataTable extends DataTable
 
     public function query(Country $model)
     {
-        return $model->newQuery()->select(['id', 'name', 'flag', 'description', 'currency_name', 'currency_symbol', 'status']);
+        return $model->newQuery();
     }
 
     public function html()
