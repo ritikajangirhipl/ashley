@@ -110,14 +110,14 @@
                             </a>
                         </li>
 
-                        <!-- <li data-username="verificationProvider" class="nav-item {{ request()->is('admin/verification-providers') || request()->is('admin/verification-providers/*') ? 'active' : '' }}">
+                        <li data-username="verificationProvider" class="nav-item {{ request()->is('admin/verification-providers') || request()->is('admin/verification-providers/*') ? 'active' : '' }}">
                             <a href="{{ route('admin.verification-providers.index') }}" class="nav-link">
                                 <span class="pcoded-micon">
                                     <i class="feather icon-layers"></i> 
                                 </span>
                                 <span class="pcoded-mtext">{{ trans('cruds.verification_provider.title') }}</span>
                             </a>
-                        </li> -->
+                        </li>
 
                         <li data-username="evidenceType" class="nav-item {{ request()->is('admin/evidence-types') || request()->is('admin/evidence-types/*') ? 'active' : '' }}">
                             <a href="{{ route('admin.evidence-types.index') }}" class="nav-link">

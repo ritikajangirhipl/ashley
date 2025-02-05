@@ -13,4 +13,9 @@ class ProviderType extends Model
         'description',
         'status',
     ];
+
+    public function verificationProviders()
+    {
+        return $this->hasMany(VerificationProvider::class, 'provider_type_id', 'id');
+    }
 }

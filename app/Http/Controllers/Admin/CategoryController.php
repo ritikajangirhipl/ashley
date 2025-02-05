@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
 use App\Models\Category;
+use App\Models\ProviderType;
 
 class CategoryController extends Controller
 {
@@ -84,7 +85,7 @@ class CategoryController extends Controller
             return jsonResponseWithException($e);
         }
     }
-
+    
     public function destroy(Category $category)
     {
         try {

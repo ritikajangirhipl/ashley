@@ -1,4 +1,4 @@
-<!-- @extends('layouts.admin')
+@extends('layouts.admin')
 @section('title', $pageTitle)
 @section('content')
 
@@ -10,15 +10,18 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route('admin.verification-providers.update', $VerificationProvider->VerificationProviderID) }}" method="POST">
+        <form id="verificationProvider-form" action="{{ route('admin.verification-providers.update', $verificationProvider->id) }}" method="POST">
             @csrf
             @method('PUT')
-            @include('admin.verification-providers.partials._form')
+            @include('admin.verification-providers.partials._form', ['verificationProvider' => $verificationProvider])
         </form>
     </div>
 </div>
 
 @endsection
+
 @section('scripts')
 @parent
-@endsection -->
+@include('admin.verification-providers.partials._script')
+<script src="{{ asset('js/common.js') }}"></script>
+@endsection

@@ -1,7 +1,8 @@
-<!-- @extends('layouts.admin')
-@section('title', $pageTitle)
-@section('content')
+@extends('layouts.admin')
 
+@section('title', $pageTitle)
+
+@section('content')
 <div class="card">
     <div class="card-header card-header-primary">
         <h4 class="card-title">
@@ -10,15 +11,17 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route('admin.verification-providers.store') }}" method="POST">
+        <form id="verificationProvider-form" action="{{ route('admin.verification-providers.store') }}" method="POST">
             @csrf
-            @include('admin.verification-providers.partials._form')
+            @include('admin.verification-providers.partials._form', ['verificationProvider' => null])
         </form>
     </div>
 </div>
-
 @endsection
 
 @section('scripts')
 @parent
-@endsection -->
+@include('admin.verification-providers.partials._script')
+<script src="{{ asset('js/common.js') }}"></script>
+@endsection
+

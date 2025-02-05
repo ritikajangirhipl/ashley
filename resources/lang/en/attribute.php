@@ -7,5 +7,6 @@ return [
     'provider_type' => 'Provider Type',
     'sub_category' => 'Sub Category',
     'verification_mode' => 'Verification Mode',
+    'verification_provider' => 'Verification Provider',
     'user' => 'User',
 ];

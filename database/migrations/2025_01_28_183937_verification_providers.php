@@ -1,35 +1,31 @@
 <?php
-// namespace App\Models;
 
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-// class VerificationProvider extends Model
-// {
-//     use HasFactory;
+return new class extends Migration {
+    public function up()
+    {
+        Schema::create('verification_providers', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->text('description')->nullable();
+            $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
+            $table->foreignId('provider_type_id')->constrained('provider_types')->onDelete('cascade');
+            $table->text('contact_address')->nullable();
+            $table->string('email')->unique();
+            $table->string('website')->nullable();
+            $table->string('contact_person')->nullable();
+            $table->tinyInteger('status')->unsigned()->nullable();
+            $table->timestamps();
+        });
+    }
 
-//     protected $primaryKey = 'ProviderID';
+    public function down()
+    {
+        Schema::dropIfExists('verification_providers');
+    }
+};
 
-//     protected $fillable = [
-//         'name',
-//         'description',
-//         'CountryID',
-//         'ProviderTypeID',
-//         'contact_address',
-//         'email_address',
-//         'website_address',
-//         'contact_person',
-//         'status',
-//     ];
-
-//     public function country()
-//     {
-//         return $this->belongsTo(Country::class, 'CountryID');
-//     }
-
-//     public function providerType()
-//     {
-//         return $this->belongsTo(ProviderType::class, 'ProviderTypeID');
-//     }
-// }
 

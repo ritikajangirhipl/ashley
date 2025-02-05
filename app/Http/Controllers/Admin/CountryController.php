@@ -80,10 +80,14 @@ class CountryController extends Controller
     public function update(UpdateRequest $request, Country $country)
     {
         try {
-            // Handle flag upload
+            if ($request->status == 'inactive' && $country->verificationProviders()->exists()) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => __('messages.country_update_error')
+                ], 400);
+            }
             $flagPath = $this->uploadFlag($request, $country);
 
-            // Update the country
             $country->update([
                 'name' => $request->name,
                 'flag' => $flagPath,
@@ -92,36 +96,45 @@ class CountryController extends Controller
                 'currency_symbol' => $request->currency_symbol,
                 'status' => $request->status,
             ]);
-
-            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.country')]),
+    
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.country')]), 
             ['redirect_url' => route('admin.countries.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
+    
 
     public function destroy(Country $country)
     {
         try {
-            // Delete the flag file if it exists
+            if ($country->verificationProviders()->exists()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => __('messages.country_delete_error')
+                ], 400); // Set HTTP status to 400 for error
+            }
+    
             if ($country->flag && Storage::exists('public/' . $country->flag)) {
                 Storage::delete('public/' . $country->flag);
             }
-
+    
             $country->delete();
-            return jsonResponseWithMessage(200, 'Country deleted successfully!');
+    
+            return response()->json([
+                'status' => true,
+                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.country')])
+            ], 200);
         } catch (\Exception $e) {
-            return jsonResponseWithException($e);
+            return response()->json([
+                'status' => false,
+                'message' => __('messages.unexpected_error')
+            ], 500);
         }
     }
+    
+    
 
-    /**
-     * Handle flag upload.
-     *
-     * @param Request $request
-     * @param Country|null $country
-     * @return string|null
-     */
     private function uploadFlag(Request $request, Country $country = null)
     {
         $flagPath = $country ? $country->flag : null;

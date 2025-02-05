@@ -68,17 +68,35 @@ class ProviderTypeController extends Controller
         }
     }
 
+    // public function update(UpdateRequest $request, ProviderType $providerType)
+    // {
+    //     try {
+    //         $providerType->update($request->except('_token', '_method'));
+    //         return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.provider_type')]),
+    //         ['redirect_url' => route('admin.provider-types.index')]);
+    //     } catch (\Exception $e) {
+    //         return jsonResponseWithException($e);
+    //     }
+    // }
+    
     public function update(UpdateRequest $request, ProviderType $providerType)
     {
         try {
+            if ($request->status == '1' && $providerType->verificationProviders()->count() > 0) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => __('messages.providerType_associated_with_verificationProviders', ['attribute' => __('attribute.providerType')])
+                ], 400);
+            }
+    
             $providerType->update($request->except('_token', '_method'));
-            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.provider_type')]),
+    
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.providerType')]),
             ['redirect_url' => route('admin.provider-types.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
-
     public function destroy(ProviderType $providerType)
     {
         try {

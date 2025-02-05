@@ -33,8 +33,7 @@
 <script type="text/javascript" src="{{ asset('assets/admin/js/sweet-alert/sweetalert2@9.js') }}"></script>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-    // Delete record
+$(document).ready(function() {
     $(document).on("click", ".delete-record", function(event) {
         event.preventDefault();
         var url = $(this).data('href');
@@ -65,29 +64,32 @@
                                 confirmButtonColor: "#04a9f5"
                             });
                             $('#countries-table').DataTable().ajax.reload(null, false);
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 400) { 
+                            Swal.fire({
+                                title: 'Error',
+                                text: xhr.responseJSON.message,
+                                icon: "error",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
                         } else {
                             Swal.fire({
                                 title: 'Error',
-                                text: response.message,
+                                text: "{{ trans('messages.unexpected_error') }}",
                                 icon: "error",
                                 confirmButtonText: "Okay",
                                 confirmButtonColor: "#04a9f5"
                             });
                         }
-                    },
-                    error: function(response) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Something went wrong!',
-                            icon: "error",
-                            confirmButtonText: "Okay",
-                            confirmButtonColor: "#04a9f5"
-                        });
                     }
                 });
             }
         });
     });
-  });
+});
+
 </script>
 @endsection

@@ -17,4 +17,9 @@ class Country extends Model
         'currency_symbol',
         'status',
     ];
+
+    public function verificationProviders()
+    {
+        return $this->hasMany(VerificationProvider::class, 'country_id', 'id');
+    }
 }

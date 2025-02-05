@@ -1,35 +1,35 @@
 <?php
 
-// namespace App\Models;
+namespace App\Models;
 
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-// class VerificationProvider extends Model
-// {
-//     use HasFactory;
+class VerificationProvider extends Model
+{
+    use HasFactory;
 
-//     protected $primaryKey = 'ProviderID';
+    protected $fillable = [
+        'name',
+        'description',
+        'country_id',
+        'provider_type_id',
+        'contact_address',
+        'email',
+        'website',
+        'contact_person',
+        'status',
+    ];
 
-//     protected $fillable = [
-//         'name',
-//         'description',
-//         'CountryID',
-//         'ProviderTypeID',
-//         'contact_address',
-//         'email_address',
-//         'website_address',
-//         'contact_person',
-//         'status',
-//     ];
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
 
-//     public function country()
-//     {
-//         return $this->belongsTo(Country::class, 'CountryID');
-//     }
+    public function providerType()
+    {
+        return $this->belongsTo(ProviderType::class, 'provider_type_id', 'id');
+    }
+}
 
-//     public function providerType()
-//     {
-//         return $this->belongsTo(ProviderType::class, 'ProviderTypeID');
-//     }
-// }
+
