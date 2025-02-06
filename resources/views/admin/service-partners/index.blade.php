@@ -1,28 +1,28 @@
 @extends('layouts.admin')
-@section('title', $pageTitle)
-@section('content')
 
+@section('title', $pageTitle)
+
+@section('content')
 <div class="row">
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header card-header-primary">
-            <h4 class="card-title float-left">
-                {{ __('panel.page_title.provider_type.list') }}
-            </h4>
-                <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.provider_type.title_singular') }}" href="{{ route('admin.provider-types.create') }}">
+                <h4 class="card-title float-left">
+                    {{ trans('global.list') }} {{ trans('cruds.service_partner.title') }}
+                </h4>
+                <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.service_partner.title_singular') }}" href="{{ route('admin.service-partners.create') }}">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>
             <div class="card-block">
                 <div class="table-responsive">
                     <div class="clearfix"></div>
-                    {{ $dataTable->table(['class' => 'display table nowrap table-hover', 'id' => 'provider-types-table', 'style' => 'width:100%;']) }}
+                    {{ $dataTable->table(['class' => 'display table nowrap table-hover', 'id' => 'service-partners-table', 'style' => 'width:100%;']) }}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 @endsection
 
 @section('scripts')
@@ -64,29 +64,25 @@
                                 confirmButtonText: "Okay",
                                 confirmButtonColor: "#04a9f5"
                             });
-                            $('#provider-types-table').DataTable().ajax.reload(null, false);
-                        }
-                    },
-                    error: function(xhr){
-                        if(xhr.status === 400){
+                            $('#service-partners-table').DataTable().ajax.reload(null, false);
+                        } else {
                             Swal.fire({
                                 title: 'Error',
-                                text: xhr.responseJSON.message,
+                                text: response.message,
                                 icon: "error",
                                 confirmButtonText: "Okay",
                                 confirmButtonColor: "#04a9f5"
                             });
-                        } else {
-                            Swal.fire({
-                                title: 'Error',
-                                text: "{{ trans('messages.unexpected_error') }}",
-                                icon: "error",
-                                confirmButtonText: "Okay",
-                                confirmButtonColor: "#04a9f5"
-                            })
                         }
-
-
+                    },
+                    error: function(response) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Something went wrong!',
+                            icon: "error",
+                            confirmButtonText: "Okay",
+                            confirmButtonColor: "#04a9f5"
+                        });
                     }
                 });
             }

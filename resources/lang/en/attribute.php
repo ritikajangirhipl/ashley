@@ -8,5 +8,6 @@ return [
     'sub_category' => 'Sub Category',
     'verification_mode' => 'Verification Mode',
     'verification_provider' => 'Verification Provider',
+    'service_partner' => 'Service Partner',
     'user' => 'User',
 ];

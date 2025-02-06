@@ -29,7 +29,7 @@ class SubCategoryController extends Controller
         try {
             $pageTitle = trans('panel.page_title.sub_category.add');
             $status = $this->status;
-            $categories = Category::where('status', 'active')->pluck('name', 'id');
+            $categories = getActiveCategories();
             return view('admin.sub-categories.create', compact('pageTitle', 'status', 'categories'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
@@ -63,7 +63,7 @@ class SubCategoryController extends Controller
         try {
             $pageTitle = trans('panel.page_title.sub_category.edit');
             $status = $this->status;
-            $categories = Category::where('status', 'active')->pluck('name', 'id');
+            $categories = getActiveCategories();
             return view('admin.sub-categories.edit', compact('subCategory', 'pageTitle', 'status', 'categories'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);

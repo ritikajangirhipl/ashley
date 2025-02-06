@@ -13,6 +13,7 @@ return new class extends Migration
             $table->text('description'); 
             $table->tinyInteger('status')->unsigned()->nullable();
             $table->timestamps(); 
+            $table->softDeletes();
         });
     }
 

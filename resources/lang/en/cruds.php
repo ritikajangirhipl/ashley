@@ -315,7 +315,6 @@ return [
         'title' => 'Verification Provider',
         'title_singular' => 'Verification Provider',
         'fields' => [
-            'provider_id' => 'Provider ID',
             'country' => 'Country',
             'name' => 'Name',
             'description' => 'Description',
@@ -327,6 +326,21 @@ return [
             'contact_person' => 'Contact Person',
             'status' => 'Status',
         ],
+    ],
+    'service_partner' => [
+        'title' => 'Service Partners',
+        'title_singular' => 'Service Partner',
+        'fields' => [
+            'country' => 'Country',
+            'name' => 'Name',
+            'description' => 'Description',
+            'country' => 'country',
+            'contact_address' => 'Contact Address',
+            'email_address' => 'Email Address',
+            'website' => 'Website Address',
+            'contact_person' => 'Contact Person',
+            'status' => 'Status',
+        ]
     ],
     'evaluationManagement' => [
         'title'          => 'Evaluations',

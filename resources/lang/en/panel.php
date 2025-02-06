@@ -66,6 +66,12 @@ return [
             'edit' => 'Edit Verification Providers',
             'show' => 'View Verification Providers',
         ],
+        'service_partner' => [
+            'list' => 'List of Service Partners',
+            'add' => 'Create Service Partners',
+            'edit' => 'Edit Service Partners',
+            'show' => 'View Service Partners',
+        ],
         'change_password'   => 'Change Password',
         'change_password'   => 'Change Password',
         'permission'      => [

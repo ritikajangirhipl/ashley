@@ -10,9 +10,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.verification_provider.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea id="description" name="description" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}">
-                {{ old('description', $verificationProvider->description ?? '') }}
-            </textarea>
+            <textarea id="description" name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" required>{{ old('description', $verificationProvider->description ?? '') }}</textarea>
         </div>
     </div>
 

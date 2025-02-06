@@ -14,6 +14,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->tinyInteger('status')->unsigned()->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });

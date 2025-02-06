@@ -7,8 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\VerificationProvider\StoreRequest;
 use App\Http\Requests\VerificationProvider\UpdateRequest;
 use App\Models\VerificationProvider;
-use App\Models\Country;
-use App\Models\ProviderType;
 
 class VerificationProviderController extends Controller
 {
@@ -30,8 +28,8 @@ class VerificationProviderController extends Controller
         try {
             $pageTitle = trans('panel.page_title.verification_provider.add');
             $status = $this->status;
-            $countries = Country::where('status', 'active')->pluck('name', 'id'); 
-            $providerTypes = ProviderType::where('status', 'active')->pluck('name', 'id');
+            $countries = getActiveCountries();
+            $providerTypes = getActiveProviderTypes();
             return view('admin.verification-providers.create', compact('pageTitle','status', 'countries', 'providerTypes'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
@@ -66,8 +64,8 @@ class VerificationProviderController extends Controller
         try {
             $pageTitle = trans('panel.page_title.verification_provider.edit');
             $status = $this->status;
-            $countries = Country::where('status', 'active')->pluck('name', 'id'); 
-            $providerTypes = ProviderType::where('status', 'active')->pluck('name', 'id');
+            $countries = getActiveCountries(); 
+            $providerTypes = getActiveProviderTypes();
             return view('admin.verification-providers.edit', compact('verificationProvider', 'pageTitle', 'status', 'countries', 'providerTypes'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);

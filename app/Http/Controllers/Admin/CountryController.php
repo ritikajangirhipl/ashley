@@ -77,32 +77,51 @@ class CountryController extends Controller
         }
     }
 
+    // public function update(UpdateRequest $request, Country $country)
+    // {
+    //     try {
+    //         if ($request->status == 1 && $country->verificationProviders()->count() > 0) {
+    //             return response()->json([
+    //                 'status' => 400,
+    //                 'message' => __('messages.country_associated_with_verification_providers', ['attribute' => __('attribute.country')])
+    //             ], 400);
+    //         }
+    //         $flagPath = $this->uploadFlag($request, $country);
+    //         $country->update([
+    //             'name' => $request->name,
+    //             'flag' => $flagPath,
+    //             'description' => $request->description,
+    //             'currency_name' => $request->currency_name,
+    //             'currency_symbol' => $request->currency_symbol,
+    //             'status' => $request->status,
+    //         ]);
+    //         return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.country')]), 
+    //         ['redirect_url' => route('admin.countries.index')]);
+    //     } catch (\Exception $e) {
+    //         return jsonResponseWithException($e);
+    //     }
+    // }
+
     public function update(UpdateRequest $request, Country $country)
     {
         try {
-            if ($request->status == 'inactive' && $country->verificationProviders()->exists()) {
+            // Prevent updating to inactive if linked with a VerificationProvider
+            if ($request->status == '0' && $country->verificationProviders()->exists()) {
                 return response()->json([
                     'status' => 400,
-                    'message' => __('messages.country_update_error')
+                    'message' => __('messages.country_associated_with_verificationProviders', ['attribute' => __('attribute.country')])
                 ], 400);
             }
-            $flagPath = $this->uploadFlag($request, $country);
 
-            $country->update([
-                'name' => $request->name,
-                'flag' => $flagPath,
-                'description' => $request->description,
-                'currency_name' => $request->currency_name,
-                'currency_symbol' => $request->currency_symbol,
-                'status' => $request->status,
-            ]);
-    
+            $country->update($request->except('_token', '_method'));
+
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.country')]), 
-            ['redirect_url' => route('admin.countries.index')]);
+                ['redirect_url' => route('admin.countries.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
+
     
 
     public function destroy(Country $country)
@@ -112,7 +131,7 @@ class CountryController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => __('messages.country_delete_error')
-                ], 400); // Set HTTP status to 400 for error
+                ], 400);
             }
     
             if ($country->flag && Storage::exists('public/' . $country->flag)) {

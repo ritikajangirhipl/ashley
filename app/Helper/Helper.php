@@ -4,6 +4,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use App\Models\Country;
+use App\Models\Category;
+use App\Models\ProviderType;
 
 /**
  * Generate and return a standard JSON response.
@@ -40,6 +43,25 @@ function jsonResponseWithMessage(int $code, string $message = null, array $extra
 {
     return jsonResponse($code, $message, $extraData);
 }
+
+
+function getActiveCountries()
+{
+    return Country::where('status', '1')->pluck('name', 'id');
+}
+
+function getActiveProviderTypes()
+{
+    return ProviderType::where('status', '1')->pluck('name', 'id');
+}
+
+function getActiveCategories()
+{
+    return Category::where('status', '1')->pluck('name', 'id');
+}
+
+
+
 
 /**
  * Returns a successful JsonResponse with data but no message.

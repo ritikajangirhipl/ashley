@@ -119,6 +119,15 @@
                             </a>
                         </li>
 
+                        <li data-username="servicePartner" class="nav-item {{ request()->is('admin/service-partners') || request()->is('admin/service-partners/*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.service-partners.index') }}" class="nav-link">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-file-text"></i> 
+                                </span>
+                                <span class="pcoded-mtext">{{ trans('cruds.service_partner.title') }}</span>
+                            </a>
+                        </li>
+
                         <li data-username="evidenceType" class="nav-item {{ request()->is('admin/evidence-types') || request()->is('admin/evidence-types/*') ? 'active' : '' }}">
                             <a href="{{ route('admin.evidence-types.index') }}" class="nav-link">
                                 <span class="pcoded-micon">
@@ -127,6 +136,7 @@
                                 <span class="pcoded-mtext">{{ trans('cruds.evidence_type.title') }}</span>
                             </a>
                         </li>
+                        
                 </ul>
             @endauth
         </div>

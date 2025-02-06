@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('currency_symbol'); 
             $table->tinyInteger('status')->unsigned()->nullable();
             $table->timestamps(); 
+            $table->softDeletes();
         });
     }
 

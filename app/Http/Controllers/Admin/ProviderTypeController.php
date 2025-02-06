@@ -67,17 +67,6 @@ class ProviderTypeController extends Controller
             return jsonResponseWithException($e);
         }
     }
-
-    // public function update(UpdateRequest $request, ProviderType $providerType)
-    // {
-    //     try {
-    //         $providerType->update($request->except('_token', '_method'));
-    //         return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.provider_type')]),
-    //         ['redirect_url' => route('admin.provider-types.index')]);
-    //     } catch (\Exception $e) {
-    //         return jsonResponseWithException($e);
-    //     }
-    // }
     
     public function update(UpdateRequest $request, ProviderType $providerType)
     {
@@ -100,11 +89,25 @@ class ProviderTypeController extends Controller
     public function destroy(ProviderType $providerType)
     {
         try {
+            if ($providerType->verificationProviders()->exists()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => __('messages.provider_type_delete_error')
+                ], 400);
+            }
             $providerType->delete();
-            return jsonResponseWithMessage(200, 'Provider Type deleted successfully!');
+    
+            return response()->json([
+                'status' => true,
+                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.provider_type')])
+            ], 200);
         } catch (\Exception $e) {
-            return jsonResponseWithException($e);
+            return response()->json([
+                'status' => false,
+                'message' => __('messages.unexpected_error')
+            ], 500);
         }
     }
+    
 }
 
