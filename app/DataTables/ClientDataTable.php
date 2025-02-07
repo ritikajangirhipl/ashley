@@ -16,10 +16,10 @@ class ClientDataTable extends DataTable
             ->editColumn('status', function ($client) {
                 return config('constant.enums.status.' . $client->status);
             })
-            ->addColumn('country', function ($client) {
+            ->editColumn('country.name', function ($client) {
                 return $client->country ? $client->country->name : 'N/A';
             })
-            ->addColumn('client_type', function ($client) {
+            ->editColumn('client_type', function ($client) {
                 return $client->client_type == 'individual' ? 'Individual' : 'Organization';
             })
             ->addColumn('action', function ($client) {
@@ -70,11 +70,9 @@ class ClientDataTable extends DataTable
             Column::make('phone_number')->title('Phone Number'), 
             Column::make('website_address')->title('Website Address')->optional(),
             Column::make('contact_address')->title('Contact Address'),
+            Column::make('password')->title('Password'),
             Column::make('status')->title('Status'), 
-            Column::computed('country')
-                  ->title('Country')
-                  ->orderable(true) 
-                  ->searchable(true),
+            Column::make('country.name')->title('Country'), 
             Column::computed('action') 
                   ->title('Action')
                   ->exportable(false) 

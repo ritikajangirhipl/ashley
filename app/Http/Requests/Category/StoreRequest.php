@@ -15,18 +15,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255|unique:categories,name',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'nullable|string|max:500',
             'status' => 'required|in:0,1', 
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'The name field is required.',
-            'name.unique' => 'This category name has already been taken.',
-            'status.in' => 'The status must be either active or inactive.',
         ];
     }
 }

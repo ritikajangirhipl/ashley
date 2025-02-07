@@ -16,8 +16,14 @@
     
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="image">{{ trans('cruds.sub_category.fields.image') }}<span class="text-danger">*</span></label>
-            <input type="file" id="image" name="image" class="form-control {{ $errors->has('image') ? 'has-error' : '' }}" accept="image/*">
+            <label for="image">{{ trans('cruds.sub_category.fields.image') }}</label>
+            <input type="file" name="image" id="image" class="form-control" accept="image/*">
+            
+            @if(isset($subCategory) && $subCategory->image)
+                <div class="mt-2">
+                    <img id="subcategoryImagePreview" src="{{ asset('storage/' . $subCategory->image) }}" alt="SubCategory Image" class="img-thumbnail" width="100">
+                </div>
+            @endif
         </div>
     </div>
 

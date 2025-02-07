@@ -11,6 +11,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->string('name')->unique();
+            $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('status')->unsigned()->nullable();
             $table->timestamps();

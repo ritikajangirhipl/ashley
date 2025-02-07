@@ -23,7 +23,7 @@ return [
     'date'                           => 'The :attribute is not a valid date.',
     'date_format'                    => 'The :attribute does not match the format :format.',
     'different'                      => 'The :attribute and :other must be different.',
-    'digits'                         => 'The :attribute must be :digits digits.',
+    'digits'                         => 'The :attribute must be a valid number.',
     'digits_between'                 => 'The :attribute must be between :min and :max digits.',
     'dimensions'                     => 'The :attribute has invalid image dimensions.',
     'distinct'                       => 'The :attribute field has a duplicate value.',
@@ -64,6 +64,7 @@ return [
         'array'   => 'The :attribute must not have more than :value items.',
     ],
     'max'                            => [
+        'string' => 'The :attribute may not be greater than :max characters.',
         'numeric' => 'The :attribute may not be greater than :max.',
         'file'    => 'The :attribute may not be greater than :max kilobytes.',
         'string'  => 'The :attribute may not be greater than :max characters.',
@@ -72,6 +73,7 @@ return [
     'mimes'                          => 'The :attribute must be a file of type: :values.',
     'mimetypes'                      => 'The :attribute must be a file of type: :values.',
     'min'                            => [
+        'string'  => 'The :attribute must be at least :min characters long.',
         'numeric' => 'The :attribute must be at least :min.',
         'file'    => 'The :attribute must be at least :min kilobytes.',
         'string'  => 'The :attribute must be at least :min characters.',

@@ -89,6 +89,10 @@ return [
             '1'        => 'Active',
             '0'      => 'Inactive',          
         ],
+        'client_type' => [
+            'individual' => 'Individual',
+            'organization' => 'Organization',
+        ],
         'issuerType'       => [
             'private'       => 'Private University',
             'public'        => 'Public University',

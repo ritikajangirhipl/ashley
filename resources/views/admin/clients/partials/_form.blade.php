@@ -66,7 +66,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="password">{{ trans('cruds.client.fields.password') }}<span class="text-danger">*</span></label>
-            <input type="password" id="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" required>
+            <input type="password" id="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" value="{{ old('password', $client->password ?? '') }}" required>
         </div>
     </div>
 

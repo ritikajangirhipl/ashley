@@ -11,10 +11,12 @@ use App\Models\Client;
 class ClientController extends Controller
 {
     protected $status;
+    protected $clientTypes;
 
     public function __construct()
     {
         $this->status = config('constant.enums.status');
+        $this->clientTypes = config('constant.enums.client_type');
     }
 
     public function index(ClientDataTable $dataTable)
@@ -29,7 +31,7 @@ class ClientController extends Controller
             $pageTitle = trans('panel.page_title.client.add');
             $status = $this->status;
             $countries = getActiveCountries();
-            $clientTypes = getActiveClientTypes();
+            $clientTypes = $this->clientTypes;
     
             return view('admin.clients.create', compact('pageTitle', 'status', 'countries', 'clientTypes'));
         } catch (\Exception $e) {
@@ -65,7 +67,7 @@ class ClientController extends Controller
             $pageTitle = trans('panel.page_title.client.edit');
             $status = $this->status;
             $countries = getActiveCountries(); 
-            $clientTypes = getActiveClientTypes();
+            $clientTypes = $this->clientTypes;
             return view('admin.clients.edit', compact('client', 'pageTitle', 'status', 'countries', 'clientTypes'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);

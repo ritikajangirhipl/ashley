@@ -16,10 +16,10 @@ class VerificationProviderDataTable extends DataTable
             ->editColumn('status', function ($verificationProvider) {
                 return config('constant.enums.status.' . $verificationProvider->status);
             })
-            ->addColumn('country', function ($verificationProvider) {
+            ->editColumn('country.name', function ($verificationProvider) {
                 return $verificationProvider->country ? $verificationProvider->country->name : 'N/A';
             })
-            ->addColumn('provider_type', function ($verificationProvider) {
+            ->editColumn('providerType.name', function ($verificationProvider) {
                 return $verificationProvider->providerType ? $verificationProvider->providerType->name : 'N/A';
             })
             ->addColumn('action', function ($verificationProvider) {
@@ -38,9 +38,10 @@ class VerificationProviderDataTable extends DataTable
             ->rawColumns(['action']);
     }
 
+
     public function query(VerificationProvider $model)
     {
-        return $model->newQuery(); 
+        return $model->newQuery()->with(['country', 'providerType']); 
     }
 
     public function html()
@@ -50,7 +51,7 @@ class VerificationProviderDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1, 'asc')
+                    ->orderBy(5, 'asc')
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);
@@ -66,14 +67,8 @@ class VerificationProviderDataTable extends DataTable
             Column::make('description')->title('Description'),
             Column::make('email')->title('Email'),
             Column::make('status')->title('Status'),
-            Column::computed('country')
-                  ->title('Country')
-                  ->orderable(true)
-                  ->searchable(true),
-            Column::computed('provider_type')
-                  ->title('Provider Type')
-                  ->orderable(true)
-                  ->searchable(true),
+            Column::make('country.name')->title('Country'),
+            Column::make('providerType.name')->title('Provider Type'),
             Column::computed('action')
                   ->title('Action')
                   ->exportable(false)

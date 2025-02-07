@@ -5,17 +5,20 @@
             <input type="text" id="name" name="name" class="form-control" value="{{ isset($category) ? $category->name : '' }}" required autofocus>
         </div>
     </div>
-
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="image">{{ trans('cruds.category.fields.image') }}</label>
             <input type="file" id="image" name="image" class="form-control" accept="image/*">
+
             @if(isset($category) && $category->image)
-                <img src="{{ asset('storage/' . $category->image) }}" alt="Category Image" class="img-thumbnail mt-2" width="100">
+                <div class="mt-2">
+                    <img id="categoryImagePreview" src="{{ asset('storage/' . $category->image) }}" alt="Category Image" class="img-thumbnail" width="100">
+                </div>
             @endif
         </div>
     </div>
-    
+
+
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.category.fields.description') }}<span class="text-danger">*</span></label>

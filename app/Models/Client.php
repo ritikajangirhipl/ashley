@@ -17,6 +17,7 @@ class client extends Model
         'contact_address',
         'contact_person',
         'country_id',
+        'password',
         'status',
     ];
 

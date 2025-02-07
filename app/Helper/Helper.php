@@ -60,14 +60,6 @@ function getActiveCategories()
     return Category::where('status', '1')->pluck('name', 'id');
 }
 
-function getActiveClientTypes()
-{
-    return [
-        'individual' => 'Individual',
-        'organization' => 'Organization',
-    ];
-}
-
 
 /**
  * Returns a successful JsonResponse with data but no message.

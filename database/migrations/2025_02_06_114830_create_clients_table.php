@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
             $table->text('contact_address')->nullable();
             $table->string('website_address')->nullable();
-            $table->string('password');
+            $table->string('password')-> nullable();
             $table->tinyInteger('status')->unsigned()->default(1); 
             $table->timestamps();
             $table->softDeletes();

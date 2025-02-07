@@ -21,6 +21,7 @@
                     minlength: 10,
                     maxlength: 15
                 },
+
                 country_id: {
                     required: true
                 },
@@ -30,6 +31,7 @@
                     maxlength: 255
                 },
                 website_address: {
+                    required: true,
                     url: true
                 },
                 password: {
@@ -68,6 +70,7 @@
                     maxlength: "{{ trans('validation.max.string', ['attribute' => 'contact address', 'max' => 255]) }}"
                 },
                 website_address: {
+                    required: "{{ trans('validation.required', ['attribute' => 'website address']) }}",
                     url: "{{ trans('validation.url', ['attribute' => 'website']) }}"
                 },
                 password: {
