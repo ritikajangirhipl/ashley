@@ -350,11 +350,14 @@ return [
         'fields' => [
             'country' => 'Country',
             'name' => 'Name',
+            'client_type' => 'Client Type',
             'country' => 'country',
             'contact_address' => 'Contact Address',
+            'phone_number' => 'Phone Number',
             'email_address' => 'Email Address',
             'website_address' => 'Website Address',
             'contact_person' => 'Contact Person',
+            'password' => 'Password',
             'status' => 'Status',
         ]
     ],
