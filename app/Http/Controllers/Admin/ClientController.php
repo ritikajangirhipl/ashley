@@ -28,8 +28,10 @@ class ClientController extends Controller
         try {
             $pageTitle = trans('panel.page_title.client.add');
             $status = $this->status;
-            $countries = getActiveCountries(); 
-            return view('admin.clients.create', compact('pageTitle', 'status', 'countries'));
+            $countries = getActiveCountries();
+            $clientTypes = getActiveClientTypes();
+    
+            return view('admin.clients.create', compact('pageTitle', 'status', 'countries', 'clientTypes'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -38,7 +40,6 @@ class ClientController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            // Create a new client
             Client::create($request->except('_token'));
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.client')]), 
             ['redirect_url' => route('admin.clients.index')]);
@@ -63,8 +64,9 @@ class ClientController extends Controller
         try {
             $pageTitle = trans('panel.page_title.client.edit');
             $status = $this->status;
-            $countries = getActiveCountries(); // Assuming this helper exists
-            return view('admin.clients.edit', compact('client', 'pageTitle', 'status', 'countries'));
+            $countries = getActiveCountries(); 
+            $clientTypes = getActiveClientTypes();
+            return view('admin.clients.edit', compact('client', 'pageTitle', 'status', 'countries', 'clientTypes'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

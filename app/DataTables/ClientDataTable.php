@@ -59,7 +59,7 @@ class ClientDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('DT_RowIndex')->title('Client ID') 
+            Column::make('DT_RowIndex')->title('ID') 
                   ->orderable(false) 
                   ->searchable(false) 
                   ->width(50)

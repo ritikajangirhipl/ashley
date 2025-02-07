@@ -22,4 +22,14 @@ class Country extends Model
     {
         return $this->hasMany(VerificationProvider::class, 'country_id', 'id');
     }
+
+    public function clients()
+    {
+        return $this->hasMany(Client::class, 'country_id', 'id');
+    }
+
+    public function servicePartners()
+    {
+        return $this->hasMany(ServicePartner::class, 'country_id', 'id');
+    }
 }

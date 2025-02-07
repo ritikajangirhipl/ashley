@@ -11,8 +11,11 @@
             <label for="client_type">{{ trans('cruds.client.fields.client_type') }}<span class="text-danger">*</span></label>
             <select name="client_type" id="client_type" class="form-control select2 {{ $errors->has('client_type') ? 'is-invalid' : '' }}" required>
                 <option value="">{{ 'Select ' . trans('cruds.client.fields.client_type') }}</option>
-                <option value="individual" {{ old('client_type', $client->client_type ?? '') == 'individual' ? 'selected' : '' }}>Individual</option>
-                <option value="organization" {{ old('client_type', $client->client_type ?? '') == 'organization' ? 'selected' : '' }}>Organization</option>
+                @foreach($clientTypes as $key => $type)
+                    <option value="{{ $key }}" {{ old('client_type', $client->client_type ?? '') == $key ? 'selected' : '' }}>
+                        {{ $type }}
+                    </option>
+                @endforeach
             </select>
         </div>
     </div>

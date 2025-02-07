@@ -14,7 +14,7 @@ class StatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|numeric|exists:client,id',
+            'id' => 'required|numeric|exists:clients,id',
             'status' => 'required|in:1,0',
         ];
     }

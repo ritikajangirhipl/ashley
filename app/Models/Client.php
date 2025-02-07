@@ -1,28 +1,27 @@
 <?php
-
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class client extends Model
 {
-    protected $table = 'clients'; 
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'client_type',
         'email_address',
         'phone_number',
-        'country_id',
-        'contact_address',
         'website_address',
-        'password',
-        'status'
+        'contact_address',
+        'contact_person',
+        'country_id',
+        'status',
     ];
-
-
 
     public function country()
     {
-        return $this->belongsTo(Contry::class, 'country_id', 'id');
+        return $this->belongsTo(Country::class, 'country_id', 'id');
     }
 }

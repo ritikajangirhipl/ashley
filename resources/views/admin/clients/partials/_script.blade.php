@@ -8,9 +8,18 @@
                     minlength: 3,
                     maxlength: 255
                 },
-                description: {
+                client_type: {
+                    required: true
+                },
+                email_address: {
                     required: true,
-                    maxlength: 500
+                    email: true
+                },
+                phone_number: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 15
                 },
                 country_id: {
                     required: true
@@ -20,18 +29,12 @@
                     minlength: 5,
                     maxlength: 255
                 },
-                email_address: {
-                    required: true,
-                    email: true 
-                },
                 website_address: {
-                required: true,  
-                url: true
+                    url: true
                 },
-                contact_person: {
+                password: {
                     required: true,
-                    minlength: 3,
-                    maxlength: 255
+                    minlength: 8
                 },
                 status: {
                     required: true
@@ -43,9 +46,18 @@
                     minlength: "{{ trans('validation.min.string', ['attribute' => 'name', 'min' => 3]) }}",
                     maxlength: "{{ trans('validation.max.string', ['attribute' => 'name', 'max' => 255]) }}"
                 },
-                description: {
-                    required: "{{ trans('validation.required', ['attribute' => 'description']) }}",
-                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'description', 'max' => 500]) }}"
+                client_type: {
+                    required: "{{ trans('validation.required', ['attribute' => 'client type']) }}"
+                },
+                email_address: {
+                    required: "{{ trans('validation.required', ['attribute' => 'email']) }}",
+                    email: "{{ trans('validation.email', ['attribute' => 'email']) }}"
+                },
+                phone_number: {
+                    required: "{{ trans('validation.required', ['attribute' => 'phone number']) }}",
+                    digits: "{{ trans('validation.digits', ['attribute' => 'phone number']) }}",
+                    minlength: "{{ trans('validation.min.string', ['attribute' => 'phone number', 'min' => 10]) }}",
+                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'phone number', 'max' => 15]) }}"
                 },
                 country_id: {
                     required: "{{ trans('validation.required', ['attribute' => 'country']) }}"
@@ -55,43 +67,37 @@
                     minlength: "{{ trans('validation.min.string', ['attribute' => 'contact address', 'min' => 5]) }}",
                     maxlength: "{{ trans('validation.max.string', ['attribute' => 'contact address', 'max' => 255]) }}"
                 },
-                email_address: {
-                    required: "{{ trans('validation.required', ['attribute' => 'email']) }}",
-                    email: "{{ trans('validation.email', ['attribute' => 'email']) }}"
-                },
                 website_address: {
-                required: "{{ trans('validation.required', ['attribute' => 'website']) }}",
-                url: "{{ trans('validation.url', ['attribute' => 'website']) }}"
+                    url: "{{ trans('validation.url', ['attribute' => 'website']) }}"
                 },
-                contact_person: {
-                    required: "{{ trans('validation.required', ['attribute' => 'contact person']) }}",
-                    minlength: "{{ trans('validation.min.string', ['attribute' => 'contact person', 'min' => 3]) }}",
-                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'contact person', 'max' => 255]) }}"
+                password: {
+                    required: "{{ trans('validation.required', ['attribute' => 'password']) }}",
+                    minlength: "{{ trans('validation.min.string', ['attribute' => 'password', 'min' => 8]) }}"
                 },
                 status: {
                     required: "{{ trans('validation.required', ['attribute' => 'status']) }}"
                 }
             },
             errorElement: 'span',
-        errorClass: 'invalid-feedback',
-        errorPlacement: function (error, element) {
-            if (element.hasClass("select2")) {
-                error.appendTo(element.parent());
-            } else if (element.is("textarea")) {
-                error.appendTo(element.closest('.form-group'));
-            } else {
-                error.appendTo(element.closest('.form-group'));
+            errorClass: 'invalid-feedback',
+            errorPlacement: function (error, element) {
+                if (element.hasClass("select2")) {
+                    error.appendTo(element.parent());
+                } else if (element.is("textarea")) {
+                    error.appendTo(element.closest('.form-group'));
+                } else {
+                    error.appendTo(element.closest('.form-group'));
+                }
+            },
+            highlight: function (element) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function (form) {
+                submitForm(form);
             }
-        },
-        highlight: function (element) {
-            $(element).addClass('is-invalid');
-        },
-        unhighlight: function (element) {
-            $(element).removeClass('is-invalid');
-        },
-        submitHandler: function (form) {
-            submitForm(form);
-        }
         });
     });
 </script>
