@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ProfileController;
 
-//Clear Cache facade value:
 Route::get('/cache-clear', function() {
     Artisan::call('optimize:clear');
     return '<h1>All Cache cleared</h1>';
@@ -32,5 +31,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
         'sub-categories' => 'SubCategoryController',
         'verification-providers' => 'VerificationProviderController',
         'service-partners' => 'ServicePartnerController',
+        'clients' => 'ClientController',
     ]);
 });

@@ -61,8 +61,6 @@ function getActiveCategories()
 }
 
 
-
-
 /**
  * Returns a successful JsonResponse with data but no message.
  * @param $data - the data to be sent in the 'data' attribute

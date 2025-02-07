@@ -1,16 +1,23 @@
 <div class="row">
-<div class="col-md-6 col-sm-12">
-    <div class="form-group">
-        <label for="category_id">{{ trans('cruds.sub_category.fields.category') }}<span class="text-danger">*</span></label>
-        {{ Form::select('category_id', $categories, old('category_id', isset($subCategory) ? $subCategory->category_id : null), ['class' => 'form-control select2' . ($errors->has('category_id') ? ' has-error' : ''), 'id' => 'category_id', 'placeholder' => 'Select ' . trans('cruds.sub_category.fields.category'), 'required' => true]) }}
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="category_id">{{ trans('cruds.sub_category.fields.category') }}<span class="text-danger">*</span></label>
+            {{ Form::select('category_id', $categories, old('category_id', isset($subCategory) ? $subCategory->category_id : null), ['class' => 'form-control select2' . ($errors->has('category_id') ? ' has-error' : ''), 'id' => 'category_id', 'placeholder' => 'Select ' . trans('cruds.sub_category.fields.category'), 'required' => true]) }}
+        </div>
     </div>
-</div>
-
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.sub_category.fields.name') }}<span class="text-danger">*</span></label>
             <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ old('name', isset($subCategory) ? $subCategory->name : '') }}" required autofocus>
+        </div>
+    </div>
+
+    
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="image">{{ trans('cruds.sub_category.fields.image') }}<span class="text-danger">*</span></label>
+            <input type="file" id="image" name="image" class="form-control {{ $errors->has('image') ? 'has-error' : '' }}" accept="image/*">
         </div>
     </div>
 

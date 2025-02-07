@@ -11,6 +11,9 @@
                     minlength: 3,
                     lettersOnly: true,
                 },
+                image: {
+                    required: true,
+                }
                 description: {
                     required: true,
                     maxlength: 255,
@@ -24,6 +27,9 @@
                     required: "{{ trans('validation.required', ['attribute' => 'name']) }}",
                     minlength: "{{ trans('validation.min.string', ['attribute' => 'name', 'min' => 3]) }}",
                     lettersOnly: "Only letters are allowed."
+                },
+                image: { 
+                    required: "Image is required." 
                 },
                 description: {
                     required: "{{ trans('validation.required', ['attribute' => 'description']) }}",

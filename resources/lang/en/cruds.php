@@ -249,6 +249,7 @@ return [
         'title_singular' => 'Categories',
         'fields'         => [
             'name'                  => 'Name',
+            'image'                 => 'Image',
             'description'           => 'Description',
             'phone_number'          => 'Phone Number',
             'status'                => 'Status',
@@ -307,6 +308,7 @@ return [
         'fields' => [
             'category' => 'Category',
             'name' => 'Name',
+            'image' => 'Image',
             'description' => 'Description',
             'status' => 'Status',
         ],
@@ -337,7 +339,21 @@ return [
             'country' => 'country',
             'contact_address' => 'Contact Address',
             'email_address' => 'Email Address',
-            'website' => 'Website Address',
+            'website_address' => 'Website Address',
+            'contact_person' => 'Contact Person',
+            'status' => 'Status',
+        ]
+    ],
+    'client' => [
+        'title' => 'Clients',
+        'title_singular' => 'Clients',
+        'fields' => [
+            'country' => 'Country',
+            'name' => 'Name',
+            'country' => 'country',
+            'contact_address' => 'Contact Address',
+            'email_address' => 'Email Address',
+            'website_address' => 'Website Address',
             'contact_person' => 'Contact Person',
             'status' => 'Status',
         ]

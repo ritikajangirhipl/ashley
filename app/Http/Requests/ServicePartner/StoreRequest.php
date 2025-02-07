@@ -21,7 +21,7 @@ class StoreRequest extends FormRequest
             'country_id' => 'required|exists:countries,id',
             'contact_address' => 'nullable|string',
             'email_address' => 'required|email|unique:service_partner,email_address',
-            'website' => 'required|url',
+            'website_address' => 'required|url',
             'contact_person' => 'nullable|string|max:255',
             'status' => 'required|in:1,0',
         

@@ -16,10 +16,10 @@ return [
     'generate_success_message'         => 'generated successfully',
     'documents_required_message'         => "You can't deliver report. Please upload all submission documents first!",
     'category_associated_with_subcategories' => 'This :attribute is associated with subcategories and cannot be modified.',
-    'country_update_error' => 'This :attribute is associated with verification providers and cannot be set to inactive.',
+    'country_associated_with_verification_providers' => 'This :attribute is associated with verification providers and cannot be set to inactive.',
     'country_delete_error' => 'This :attribute is associated with verification providers and cannot be deleted.',
-    'provider_type_delete_error' => 'This provider type is associated with verification providers and cannot be deleted.',
-    'providerType_associated_with_verificationProviders' => 'This provider type  is associated with verification providers and cannot be modified'
+    'provider_type_delete_error' => 'This :attribute is associated with verification providers and cannot be deleted.',
+    'providerType_associated_with_verificationProviders' => 'This :attribute is associated with verification providers and cannot be modified'
 
 ];
 

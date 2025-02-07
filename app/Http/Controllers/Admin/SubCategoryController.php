@@ -36,16 +36,37 @@ class SubCategoryController extends Controller
         }
     }
 
+    // public function store(StoreRequest $request)
+    // {
+    //     try {
+    //         SubCategory::create($request->all());
+    //         return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.sub_category')]),
+    //         ['redirect_url' => route('admin.sub-categories.index')]);
+    //     } catch (\Exception $e) {
+    //         return jsonResponseWithException($e);
+    //     }
+    // }
+
     public function store(StoreRequest $request)
     {
         try {
-            SubCategory::create($request->all());
-            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.sub_category')]),
+            $data = $request->except('_token');
+
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                $data['image'] = $request->file('image')->store('subcategories', 'public');
+            }
+
+            // Create subcategory with image
+            SubCategory::create($data);
+
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.sub_category')]), 
             ['redirect_url' => route('admin.sub-categories.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
+
 
     public function show(SubCategory $subCategory)
     {
@@ -70,10 +91,36 @@ class SubCategoryController extends Controller
         }
     }
 
+    // public function update(UpdateRequest $request, SubCategory $subCategory)
+    // {
+    //     try {
+    //         $subCategory->update($request->except('_token', '_method'));
+    //         return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.sub_category')]),
+    //         ['redirect_url' => route('admin.sub-categories.index')]);
+    //     } catch (\Exception $e) {
+    //         return jsonResponseWithException($e);
+    //     }
+    // }
+
     public function update(UpdateRequest $request, SubCategory $subCategory)
     {
         try {
-            $subCategory->update($request->except('_token', '_method'));
+            $data = $request->except('_token', '_method');
+
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                // Delete old image if exists
+                if ($subCategory->image && \Storage::exists('public/' . $subCategory->image)) {
+                    \Storage::delete('public/' . $subCategory->image);
+                }
+
+                // Upload new image
+                $data['image'] = $request->file('image')->store('subcategories', 'public');
+            }
+
+            // Update subcategory with new image (if provided)
+            $subCategory->update($data);
+
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.sub_category')]),
             ['redirect_url' => route('admin.sub-categories.index')]);
         } catch (\Exception $e) {
@@ -81,13 +128,32 @@ class SubCategoryController extends Controller
         }
     }
 
+
+    // public function destroy(SubCategory $subCategory)
+    // {
+    //     try {
+    //         $subCategory->delete();
+    //         return jsonResponseWithMessage(200, 'Sub Category deleted successfully!');
+    //     } catch (\Exception $e) {
+    //         return jsonResponseWithException($e);
+    //     }
+    // }
+
     public function destroy(SubCategory $subCategory)
     {
         try {
+            // Delete image from storage
+            if ($subCategory->image && \Storage::exists('public/' . $subCategory->image)) {
+                \Storage::delete('public/' . $subCategory->image);
+            }
+
+            // Delete the subcategory
             $subCategory->delete();
+
             return jsonResponseWithMessage(200, 'Sub Category deleted successfully!');
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
+
 }

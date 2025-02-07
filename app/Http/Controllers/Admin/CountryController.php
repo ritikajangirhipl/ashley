@@ -77,67 +77,45 @@ class CountryController extends Controller
         }
     }
 
-    // public function update(UpdateRequest $request, Country $country)
-    // {
-    //     try {
-    //         if ($request->status == 1 && $country->verificationProviders()->count() > 0) {
-    //             return response()->json([
-    //                 'status' => 400,
-    //                 'message' => __('messages.country_associated_with_verification_providers', ['attribute' => __('attribute.country')])
-    //             ], 400);
-    //         }
-    //         $flagPath = $this->uploadFlag($request, $country);
-    //         $country->update([
-    //             'name' => $request->name,
-    //             'flag' => $flagPath,
-    //             'description' => $request->description,
-    //             'currency_name' => $request->currency_name,
-    //             'currency_symbol' => $request->currency_symbol,
-    //             'status' => $request->status,
-    //         ]);
-    //         return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.country')]), 
-    //         ['redirect_url' => route('admin.countries.index')]);
-    //     } catch (\Exception $e) {
-    //         return jsonResponseWithException($e);
-    //     }
-    // }
-
     public function update(UpdateRequest $request, Country $country)
     {
         try {
-            // Prevent updating to inactive if linked with a VerificationProvider
-            if ($request->status == '0' && $country->verificationProviders()->exists()) {
+            if ($request->status == 0 && $country->verificationProviders()->count() > 0) {
                 return response()->json([
                     'status' => 400,
-                    'message' => __('messages.country_associated_with_verificationProviders', ['attribute' => __('attribute.country')])
+                    'message' => __('messages.country_associated_with_verification_providers', ['attribute' => __('attribute.country')])
                 ], 400);
             }
 
-            $country->update($request->except('_token', '_method'));
+            $flagPath = $this->uploadFlag($request, $country);
+
+            $country->update([
+                'name' => $request->name,
+                'flag' => $flagPath,
+                'description' => $request->description,
+                'currency_name' => $request->currency_name,
+                'currency_symbol' => $request->currency_symbol,
+                'status' => $request->status,
+            ]);
 
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.country')]), 
-                ['redirect_url' => route('admin.countries.index')]);
+            ['redirect_url' => route('admin.countries.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
-
-    
-
     public function destroy(Country $country)
     {
         try {
             if ($country->verificationProviders()->exists()) {
                 return response()->json([
                     'status' => false,
-                    'message' => __('messages.country_delete_error')
+                    'message' => __('messages.country_delete_error', ['attribute' => __('attribute.country')])
                 ], 400);
             }
-    
             if ($country->flag && Storage::exists('public/' . $country->flag)) {
                 Storage::delete('public/' . $country->flag);
             }
-    
             $country->delete();
     
             return response()->json([
@@ -147,13 +125,11 @@ class CountryController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => __('messages.unexpected_error')
+                'message' => __('messages.unexpected_error') 
             ], 500);
         }
     }
     
-    
-
     private function uploadFlag(Request $request, Country $country = null)
     {
         $flagPath = $country ? $country->flag : null;

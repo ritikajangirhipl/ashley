@@ -19,8 +19,8 @@ class UpdateRequest extends FormRequest
             'description' => 'nullable|string',
             'country_id' => 'required|exists:countries,id',
             'contact_address' => 'nullable|string',
-            'email_address' => 'required|email|unique:service_partner,email_address,' . $this->service_partner->id, // Updated to 'email_address'
-            'website' => 'required|url',
+            'email_address' => 'required|email|unique:service_partner,email_address,' . $this->service_partner->id,
+            'website_address' => 'required|url',
             'contact_person' => 'nullable|string|max:255',
             'status' => 'required|in:1,0',
         ];

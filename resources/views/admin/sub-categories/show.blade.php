@@ -14,12 +14,21 @@
             <div class="col-md-6">
                 <div class="form-group d-flex view-listing">
                     <h6 class="mb-0"><b>{{ trans('cruds.sub_category.fields.category') }}:</b></h6>
-                    <!-- Updated line with optional() -->
                     <p class="ml-2 mb-0">{{ optional($subCategory->category)->name ?? 'No Category' }}</p>
                 </div>
                 <div class="form-group d-flex view-listing">
                     <h6 class="mb-0"><b>{{ trans('cruds.sub_category.fields.name') }}:</b></h6>
                     <p class="ml-2 mb-0">{{ $subCategory->name }}</p>
+                </div>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.sub_category.fields.image') }}:</b></h6>
+                    @if($subCategory->image)
+                        <p class="ml-2 mb-0">
+                            <img src="{{ asset('storage/' . $subCategory->image) }}" alt="{{ $subCategory->name }} Image" class="img-thumbnail" width="150">
+                        </p>
+                    @else
+                        <p class="ml-2 mb-0">No image available</p>
+                    @endif
                 </div>
                 <div class="form-group d-flex view-listing">
                     <h6 class="mb-0"><b>{{ trans('cruds.sub_category.fields.description') }}:</b></h6>

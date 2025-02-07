@@ -8,6 +8,16 @@
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
+            <label for="image">{{ trans('cruds.category.fields.image') }}</label>
+            <input type="file" id="image" name="image" class="form-control" accept="image/*">
+            @if(isset($category) && $category->image)
+                <img src="{{ asset('storage/' . $category->image) }}" alt="Category Image" class="img-thumbnail mt-2" width="100">
+            @endif
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
             <label for="description">{{ trans('cruds.category.fields.description') }}<span class="text-danger">*</span></label>
             <textarea name="description" class="form-control" required>{{ isset($category) ? $category->description : '' }}</textarea>
         </div>

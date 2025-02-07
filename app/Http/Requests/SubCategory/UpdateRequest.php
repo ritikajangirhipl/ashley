@@ -16,6 +16,7 @@ class UpdateRequest extends FormRequest
         return [
             
             'name' => 'required|unique:sub_categories,name,' . $this->sub_category->id. ',id|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable|max:500',
             'status' => 'required|in:1,0',
         ];

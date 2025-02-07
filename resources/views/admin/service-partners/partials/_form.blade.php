@@ -1,5 +1,4 @@
 <div class="row">
-    <!-- Name -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.service_partner.fields.name') }}<span class="text-danger">*</span></label>
@@ -10,8 +9,6 @@
             @endif
         </div>
     </div>
-
-    <!-- Description -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.service_partner.fields.description') }}<span class="text-danger">*</span></label>
@@ -21,8 +18,6 @@
             @endif
         </div>
     </div>
-
-    <!-- Country -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="country_id">{{ trans('cruds.service_partner.fields.country') }}<span class="text-danger">*</span></label>
@@ -39,8 +34,6 @@
             @endif
         </div>
     </div>
-
-    <!-- Contact Address -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="contact_address">{{ trans('cruds.service_partner.fields.contact_address') }}<span class="text-danger">*</span></label>
@@ -50,8 +43,6 @@
             @endif
         </div>
     </div>
-
-    <!-- Email Address -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="email_address">{{ trans('cruds.service_partner.fields.email_address') }}<span class="text-danger">*</span></label>
@@ -62,20 +53,16 @@
             @endif
         </div>
     </div>
-
-    <!-- Website Address -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="website">{{ trans('cruds.service_partner.fields.website') }}<span class="text-danger">*</span></label>
-            <input type="url" id="website" name="website" class="form-control {{ $errors->has('website') ? 'is-invalid' : '' }}"
-                   value="{{ old('website', $servicePartner->website ?? '') }}">
-            @if($errors->has('website'))
-                <span class="text-danger">{{ $errors->first('website') }}</span>
+            <label for="website_address">{{ trans('cruds.service_partner.fields.website_address') }}<span class="text-danger">*</span></label>
+            <input type="url" id="website_address" name="website_address" class="form-control {{ $errors->has('website_address') ? 'is-invalid' : '' }}"
+                   value="{{ old('website_address', $servicePartner->website_address ?? '') }}">
+            @if($errors->has('website_address'))
+                <span class="text-danger">{{ $errors->first('website_address') }}</span>
             @endif
         </div>
     </div>
-
-    <!-- Contact Person -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="contact_person">{{ trans('cruds.service_partner.fields.contact_person') }}<span class="text-danger">*</span></label>
@@ -86,8 +73,6 @@
             @endif
         </div>
     </div>
-
-    <!-- Status -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="status">{{ trans('cruds.service_partner.fields.status') }}<span class="text-danger">*</span></label>
@@ -104,8 +89,6 @@
         </div>
     </div>
 </div>
-
-<!-- Submit Button -->
 <div>
     @if(isset($servicePartner))
         <button class="btn btn-info" type="submit">{{ trans('global.update') }}</button>

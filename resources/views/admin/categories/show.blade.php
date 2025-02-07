@@ -17,6 +17,16 @@
                     <p class="ml-2 mb-0">{{ $category->name }}</p>
                 </div>
                 <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.category.fields.image') }}:</b></h6>
+                    @if($category->image)
+                        <p class="ml-2 mb-0">
+                            <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }} Image" class="img-thumbnail" width="150">
+                        </p>
+                    @else
+                        <p class="ml-2 mb-0">No image available</p>
+                    @endif
+                </div>
+                <div class="form-group d-flex view-listing">
                     <h6 class="mb-0"><b>{{ trans('cruds.category.fields.description') }}:</b></h6>
                     <p class="ml-2 mb-0">{{ $category->description }}</p>
                 </div>
