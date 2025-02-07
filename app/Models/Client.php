@@ -4,20 +4,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ServicePartner extends Model
+class client extends Model
 {
     use HasFactory;
 
-    protected $table = 'service_partner'; 
-
     protected $fillable = [
         'name',
-        'description',
-        'country_id',
-        'contact_address',
+        'client_type',
         'email_address',
+        'phone_number',
         'website_address',
+        'contact_address',
         'contact_person',
+        'country_id',
         'status',
     ];
 

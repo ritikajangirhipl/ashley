@@ -228,29 +228,12 @@ return [
             'deleted_at'            => 'Deleted at',
         ],
     ],
-    'students'           => [
-        'title'          => 'Students',
-        'title_singular' => 'Student',
-        'fields'         => [
-            'id'                    => 'ID',
-            'name'                  => 'Full Name',
-            'email'                 => 'Email',
-            'phone_number'          => 'Phone Number',
-            'dob'                   => 'Date of Birth',
-            'password'              => 'Password',
-            'status'                => 'Status',
-            'created_at'            => 'Created at',
-            'updated_at'            => 'Updated at',
-            'deleted_at'            => 'Deleted at',
-        ],
-    ],
     'category'           => [
         'title'          => 'Categories',
         'title_singular' => 'Categories',
         'fields'         => [
             'name'                  => 'Name',
             'description'           => 'Description',
-            'phone_number'          => 'Phone Number',
             'status'                => 'Status',
             'created_at'            => 'Created at',
             'updated_at'            => 'Updated at',
@@ -339,6 +322,22 @@ return [
             'email_address' => 'Email Address',
             'website' => 'Website Address',
             'contact_person' => 'Contact Person',
+            'status' => 'Status',
+        ]
+    ],
+    'client' => [
+        'title' => 'Clients',
+        'title_singular' => 'Client',
+        'fields' => [
+            'name' => 'Name',
+            'client_type' => 'Client Type',
+            'email_address' => 'Email Address',
+            'phone_number' => 'Phone Number',
+            'website_address' => 'Website Address',
+            'contact_address' => 'Contact Address',
+            'contact_person' => 'Contact Person',
+            'password' => 'Password',
+            'country' => 'country',
             'status' => 'Status',
         ]
     ],

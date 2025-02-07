@@ -32,5 +32,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
         'sub-categories' => 'SubCategoryController',
         'verification-providers' => 'VerificationProviderController',
         'service-partners' => 'ServicePartnerController',
+        'clients' => 'ClientController',
     ]);
 });

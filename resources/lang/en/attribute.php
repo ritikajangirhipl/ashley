@@ -9,5 +9,6 @@ return [
     'verification_mode' => 'Verification Mode',
     'verification_provider' => 'Verification Provider',
     'service_partner' => 'Service Partner',
+    'client' => 'Client',
     'user' => 'User',
 ];
