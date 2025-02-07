@@ -4,7 +4,7 @@ function submitForm(form) {
     var formData = new FormData(form);
     var url = $(form).attr('action');
     var method = $(form).attr('method');
-    console.log("Submitting Category Form to:", url); 
+    console.log("Submitting Form to:", url); 
 
     $.ajax({
         url: url,
@@ -19,7 +19,6 @@ function submitForm(form) {
         success: function (response) {
             console.log(response);
             if (response.status) {
-                console.log(response)
                 Swal.fire({
                     title: 'Success',
                     text: response.message,
@@ -32,12 +31,22 @@ function submitForm(form) {
                     }
                 });
             } else {
-                Swal.fire({
-                    title: 'Error',
-                    text: response.message || 'Something went wrong!',
-                    icon: 'error',
-                    confirmButtonText: 'OK',
-                });
+                // Handle "category not found" message
+                if (response.status === 400 && response.message === 'The selected category does not exist.') {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'The selected category does not exist.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message || 'Something went wrong!',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
+                }
             }
         },
         error: function (xhr) {
@@ -67,6 +76,7 @@ function submitForm(form) {
         }
     });
 }
+
 
 function previewImage(inputId, previewId) {
     let fileInput = $('#' + inputId);

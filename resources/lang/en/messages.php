@@ -19,7 +19,8 @@ return [
     'country_associated_with_verification_providers' => 'This :attribute is associated with verification providers and cannot be set to inactive.',
     'country_delete_error' => 'This :attribute is associated with verification providers and cannot be deleted.',
     'provider_type_delete_error' => 'This :attribute is associated with verification providers and cannot be deleted.',
-    'providerType_associated_with_verificationProviders' => 'This :attribute is associated with verification providers and cannot be modified'
+    'providerType_associated_with_verificationProviders' => 'This :attribute is associated with verification providers and cannot be modified',
+    'category_not_found' => 'The selected category does not exist.',
 
 ];
 
