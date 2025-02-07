@@ -1,28 +1,29 @@
 <?php
 
-namespace App\Http\Requests\client;
+namespace App\Http\Requests\Client;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
 {
-
     public function authorize()
     {
-        return true;
+        return true; 
     }
+
 
     public function rules()
     {
         return [
-            'name' => 'required|unique:client,name,' . $this->client->id . '|max:255',
-            'description' => 'nullable|string',
+            'name' => 'required|string|max:255',
+            'client_type' => 'required|in:individual,organization',
+            'email_address' => 'required|email|unique:clients,email_address,' . $this->client->id,
+            'phone_number' => 'required|numeric',
             'country_id' => 'required|exists:countries,id',
             'contact_address' => 'nullable|string',
-            'email_address' => 'required|email|unique:client,email_address,' . $this->client->id,
-            'website_address' => 'required|url',
-            'contact_person' => 'nullable|string|max:255',
+            'website_address' => 'nullable|url',
             'status' => 'required|in:1,0',
         ];
     }
+
 }
