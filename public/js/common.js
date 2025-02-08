@@ -4,6 +4,8 @@ function submitForm(form) {
     var formData = new FormData(form);
     var url = $(form).attr('action');
     var method = $(form).attr('method');
+    console.log("Submitting Form to:", url); 
+
     $.ajax({
         url: url,
         type: method,
@@ -17,7 +19,6 @@ function submitForm(form) {
         success: function (response) {
             console.log(response);
             if (response.status) {
-                console.log(response)
                 Swal.fire({
                     title: 'Success',
                     text: response.message,
@@ -30,12 +31,22 @@ function submitForm(form) {
                     }
                 });
             } else {
-                Swal.fire({
-                    title: 'Error',
-                    text: response.message || 'Something went wrong!',
-                    icon: 'error',
-                    confirmButtonText: 'OK',
-                });
+                // Handle "category not found" message
+                if (response.status === 400 && response.message === 'The selected category does not exist.') {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'The selected category does not exist.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message || 'Something went wrong!',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
+                }
             }
         },
         error: function (xhr) {
@@ -66,11 +77,11 @@ function submitForm(form) {
     });
 }
 
-// Image Preview Function
+
 function previewImage(inputId, previewId) {
     let fileInput = $('#' + inputId);
     let previewImg = $('#' + previewId);
-    let oldImage = previewImg.attr('src');
+    let oldImage = previewImg.attr('src'); 
 
     fileInput.on('change', function(event) {
         let file = event.target.files[0];
@@ -78,7 +89,7 @@ function previewImage(inputId, previewId) {
         if (file) {
             let reader = new FileReader();
             reader.onload = function(e) {
-                previewImg.attr('src', e.target.result);
+                previewImg.attr('src', e.target.result); 
             };
             reader.readAsDataURL(file);
         } else {
@@ -86,5 +97,9 @@ function previewImage(inputId, previewId) {
         }
     });
 }
-window.previewImage = previewImage;
 
+$(document).ready(function () {
+    previewImage("flag", "countryFlagPreview");
+    previewImage("image", "categoryImagePreview");
+    previewImage("image", "subcategoryImagePreview");
+});

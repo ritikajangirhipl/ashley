@@ -39,7 +39,6 @@ class ServicePartnerController extends Controller
     {
         try {
             ServicePartner::create($request->except('_token'));
-
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.service_partner')]), 
             ['redirect_url' => route('admin.service-partners.index')]);
         } catch (\Exception $e) {

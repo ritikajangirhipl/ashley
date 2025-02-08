@@ -6,11 +6,10 @@
                 name: {
                     required: true,
                     minlength: 3,
-                    maxlength: 255
                 },
                 description: {
                     required: true,
-                    maxlength: 500
+                    maxlength: 255
                 },
                 provider_type_id: {
                     required: true
@@ -44,11 +43,10 @@
                 name: {
                     required: "{{ trans('validation.required', ['attribute' => 'name']) }}",
                     minlength: "{{ trans('validation.min.string', ['attribute' => 'name', 'min' => 3]) }}",
-                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'name', 'max' => 255]) }}"
                 },
                 description: {
                     required: "{{ trans('validation.required', ['attribute' => 'description']) }}",
-                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'description', 'max' => 500]) }}"
+                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'description', 'max' => 255]) }}"
                 },
                 provider_type_id: {
                     required: "{{ trans('validation.required', ['attribute' => 'provider type']) }}"

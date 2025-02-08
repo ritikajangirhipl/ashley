@@ -37,13 +37,13 @@
                 <div class="col-md-6">
                     <div class="form-group d-flex view-listing">
                         <h6 class="mb-0"><b>{{ trans('cruds.service_partner.fields.email_address') }}:</b></h6>
-                        <p class="ml-2 mb-0">{{ $servicePartner->email_address ?? 'N/A' }}</p> <!-- Updated to email_address -->
+                        <p class="ml-2 mb-0">{{ $servicePartner->email_address ?? 'N/A' }}</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0"><b>{{ trans('cruds.service_partner.fields.website') }}:</b></h6>
-                        <p class="ml-2 mb-0">{{ $servicePartner->website ?? 'N/A' }}</p>
+                        <h6 class="mb-0"><b>{{ trans('cruds.service_partner.fields.website_address') }}:</b></h6>
+                        <p class="ml-2 mb-0">{{ $servicePartner->website_address ?? 'N/A' }}</p>
                     </div>
                 </div>
                 <div class="col-md-6">

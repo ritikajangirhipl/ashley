@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\SubCategoryDataTable;
@@ -8,6 +7,8 @@ use App\Http\Requests\SubCategory\StoreRequest;
 use App\Http\Requests\SubCategory\UpdateRequest;
 use App\Models\Category;
 use App\Models\SubCategory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SubCategoryController extends Controller
 {
@@ -29,19 +30,54 @@ class SubCategoryController extends Controller
         try {
             $pageTitle = trans('panel.page_title.sub_category.add');
             $status = $this->status;
-            $categories = getActiveCategories();
+            $categories = getActiveCategories(); 
             return view('admin.sub-categories.create', compact('pageTitle', 'status', 'categories'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
+    // public function store(StoreRequest $request)
+    // {
+    //     try {
+    //         $imagePath = $this->uploadImage($request);
+
+    //         SubCategory::create([
+    //             'name' => $request->name,
+    //             'image' => $imagePath,
+    //             'description' => $request->description,
+    //             'category_id' => $request->category_id, 
+    //             'status' => $request->status,
+    //         ]);
+    //         return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.sub_category')]), 
+    //             ['redirect_url' => route('admin.sub-categories.index')]);
+
+    //     } catch (\Exception $e) {
+    //         return jsonResponseWithException($e);
+    //     }
+    // }
+
     public function store(StoreRequest $request)
     {
         try {
-            SubCategory::create($request->all());
-            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.sub_category')]),
-            ['redirect_url' => route('admin.sub-categories.index')]);
+            $category = Category::find($request->category_id);
+            if (!$category) {
+                return jsonResponseWithMessage(400, __('messages.category_not_found'), []);
+            }
+
+            $imagePath = $this->uploadImage($request);
+
+            SubCategory::create([
+                'name' => $request->name,
+                'image' => $imagePath,
+                'description' => $request->description,
+                'category_id' => $request->category_id, 
+                'status' => $request->status,
+            ]);
+
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.sub_category')]), 
+                ['redirect_url' => route('admin.sub-categories.index')]);
+
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -63,19 +99,72 @@ class SubCategoryController extends Controller
         try {
             $pageTitle = trans('panel.page_title.sub_category.edit');
             $status = $this->status;
-            $categories = getActiveCategories();
+            $categories = getActiveCategories(); 
             return view('admin.sub-categories.edit', compact('subCategory', 'pageTitle', 'status', 'categories'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
+    // public function update(UpdateRequest $request, SubCategory $subCategory)
+    // {
+    //     try {
+    //         $imagePath = $subCategory->image; 
+    //         if ($request->hasFile('image')) {
+    //             if ($subCategory->image && Storage::exists('public/' . $subCategory->image)) {
+    //                 Storage::delete('public/' . $subCategory->image);
+    //             }
+    //             $file = $request->file('image');
+    //             $filename = time() . '_' . $file->getClientOriginalName();
+    //             $imagePath = $file->storeAs('public/subcategory_images', $filename);
+    //             $imagePath = str_replace('public/', '', $imagePath);
+    //         }
+    //         $subCategory->update([
+    //             'name' => $request->name,
+    //             'image' => $imagePath,
+    //             'description' => $request->description,
+    //             'category_id' => $request->category_id, 
+    //             'status' => $request->status,
+    //         ]);
+
+    //         return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.sub_category')]), 
+    //             ['redirect_url' => route('admin.sub-categories.index')]);
+
+    //     } catch (\Exception $e) {
+    //         return jsonResponseWithException($e);
+    //     }
+    // }
+
     public function update(UpdateRequest $request, SubCategory $subCategory)
     {
         try {
-            $subCategory->update($request->except('_token', '_method'));
-            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.sub_category')]),
-            ['redirect_url' => route('admin.sub-categories.index')]);
+            $category = Category::find($request->category_id);
+            if (!$category) {
+                return jsonResponseWithMessage(400, __('messages.category_not_found'), []);
+            }
+
+            $imagePath = $subCategory->image; 
+            if ($request->hasFile('image')) {
+                if ($subCategory->image && Storage::exists('public/' . $subCategory->image)) {
+                    Storage::delete('public/' . $subCategory->image);
+                }
+                $file = $request->file('image');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $imagePath = $file->storeAs('public/subcategory_images', $filename);
+                $imagePath = str_replace('public/', '', $imagePath);
+            }
+
+            $subCategory->update([
+                'name' => $request->name,
+                'image' => $imagePath,
+                'description' => $request->description,
+                'category_id' => $request->category_id, 
+                'status' => $request->status,
+            ]);
+
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.sub_category')]), 
+                ['redirect_url' => route('admin.sub-categories.index')]);
+
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -84,10 +173,39 @@ class SubCategoryController extends Controller
     public function destroy(SubCategory $subCategory)
     {
         try {
+            if ($subCategory->image && Storage::exists('public/' . $subCategory->image)) {
+                Storage::delete('public/' . $subCategory->image);
+            }
+    
             $subCategory->delete();
-            return jsonResponseWithMessage(200, 'Sub Category deleted successfully!');
+    
+            return response()->json([
+                'status' => true,
+                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.sub_category')])
+            ], 200);
         } catch (\Exception $e) {
-            return jsonResponseWithException($e);
+            return response()->json([
+                'status' => false,
+                'message' => __('messages.unexpected_error') 
+            ], 500);
         }
     }
+
+    private function uploadImage(Request $request, SubCategory $subCategory = null)
+    {
+        $imagePath = $subCategory ? $subCategory->image : null;
+
+        if ($request->hasFile('image')) {
+            if ($subCategory && $subCategory->image && Storage::exists('public/' . $subCategory->image)) {
+                Storage::delete('public/' . $subCategory->image);
+            }
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $imagePath = $file->storeAs('public/subcategory_images', $filename);
+            $imagePath = str_replace('public/', '', $imagePath); 
+        }
+
+        return $imagePath;
+    }
 }
+

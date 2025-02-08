@@ -145,6 +145,15 @@
                                 <span class="pcoded-mtext">{{ trans('cruds.services.title') }}</span>
                             </a>
                         </li>
+                        
+                        <li data-username="client" class="nav-item {{ request()->is('admin/clients') || request()->is('admin/clients/*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.clients.index') }}" class="nav-link">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-users"></i> 
+                                </span>
+                                <span class="pcoded-mtext">{{ trans('cruds.client.title') }}</span>
+                            </a>
+                        </li>
                 </ul>
             @endauth
         </div>

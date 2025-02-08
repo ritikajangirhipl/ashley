@@ -33,7 +33,8 @@ class VerificationModeDataTable extends DataTable
 
     public function query(VerificationMode $model)
     {
-        return $model->newQuery();
+        // Order the verification modes by the creation date, latest first
+        return $model->newQuery()->orderBy('created_at', 'desc');
     }
 
     public function html()
@@ -43,11 +44,10 @@ class VerificationModeDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1)
+                    ->orderBy(1)  // Default ordering on load (ID column)
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);
-                    
     }
 
     protected function getColumns()
@@ -66,6 +66,7 @@ class VerificationModeDataTable extends DataTable
                 ->addClass('text-center'),
         ];
     }
+
     protected function filename(): string
     {
         return 'VerificationMode_' . date('YmdHis');

@@ -18,6 +18,9 @@ class SubCategoryDataTable extends DataTable
             ->addColumn('category', function ($subCategory) {
                 return $subCategory->category ? $subCategory->category->name : 'N/A';
             })
+            ->addColumn('image', function ($subCategory) {
+                return $subCategory->image ? '<img src="' . asset('storage/' . $subCategory->image) . '" width="50">' : 'No image';
+            })
             ->addColumn('action', function ($subCategory) {
                 return '<div class="group-button d-flex">
                             <a href="'.route('admin.sub-categories.show', $subCategory->id).'" class="btn btn-info btn-sm" title="View">
@@ -31,7 +34,7 @@ class SubCategoryDataTable extends DataTable
                             </button>
                         </div>';
             })
-            ->rawColumns(['action']);
+            ->rawColumns(['action', 'image']);
     }
 
     public function query(SubCategory $model)
@@ -60,6 +63,7 @@ class SubCategoryDataTable extends DataTable
                   ->width(50)
                   ->addClass('text-center'),
             Column::make('name')->title('Name'),
+            Column::make('image')->title('Image'),
             Column::make('description')->title('Description'),
             Column::make('status')->title('Status'),
             Column::make('category')

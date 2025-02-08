@@ -1,15 +1,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $.validator.addMethod("lettersOnly", function (value, element) {
-            return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
-        }, "Only letters are allowed.");
         $("#verification-modes-form").validate({
             rules: {
                 name: {
                     required: true,
                     minlength: 3,
-                    lettersOnly: true,
                 },
                 description: {
                     required: true,
@@ -23,7 +19,6 @@
                 name: {
                     required: "{{ trans('validation.required', ['attribute' => 'name']) }}",
                     minlength: "{{ trans('validation.min.string', ['attribute' => 'name', 'min' => 3]) }}",
-                    lettersOnly: "Only letters are allowed."
                 },
                 description: {
                     required: "{{ trans('validation.required', ['attribute' => 'description']) }}",

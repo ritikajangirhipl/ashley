@@ -4,28 +4,17 @@
 <script type="text/javascript">
 $(document).ready(function () {
     var isEdit = $("#countries-form").attr('data-isEdit') === 'true';  
-    $.validator.addMethod("currencySymbolOnly", function (value, element) {
-        return this.optional(element) || /^[\p{Sc}]+$/u.test(value);
-    }, "Only valid currency symbols are allowed.");
-
-    $.validator.addMethod("lettersOnly", function (value, element) {
-        return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
-    }, "Only letters are allowed.");
-
     $("#countries-form").validate({
         rules: {
             name: { 
                 required: true,
                 minlength: 3,
-                lettersOnly: true,
             },
             currency_name: { 
                 required: true,
-                lettersOnly: true
             },
             currency_symbol: { 
                 required: true,
-                currencySymbolOnly: true
             },
             description: { 
                 required: true,
@@ -48,15 +37,12 @@ $(document).ready(function () {
             name: { 
                 required: "Name is required.",
                 minlength: "Name must be at least 3 characters long.",
-                lettersOnly: "Only letters are allowed."
             },
             currency_name: {
                 required: "Currency name is required.",
-                lettersOnly: "Only letters are allowed."
             },
             currency_symbol: {
                 required: "Currency symbol is required.",
-                currencySymbolOnly: "Only valid currency symbols are allowed."
             },
             description: { 
                 required: "Description is required.",

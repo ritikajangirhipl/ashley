@@ -98,8 +98,6 @@ function getCurrencies()
     return Country::where('status', '1')->pluck('currency_name', 'currency_name')->unique();
 }
 
-
-
 /**
  * Returns a successful JsonResponse with data but no message.
  * @param $data - the data to be sent in the 'data' attribute

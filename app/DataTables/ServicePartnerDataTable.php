@@ -19,6 +19,7 @@ class ServicePartnerDataTable extends DataTable
             ->addColumn('country', function ($servicePartner) {
                 return $servicePartner->country ? $servicePartner->country->name : 'N/A';
             })
+            
             ->addColumn('action', function ($servicePartner) {
                 return '<div class="group-button d-flex">
                             <a href="' . route('admin.service-partners.show', $servicePartner->id) . '" class="btn btn-info btn-sm" title="View">

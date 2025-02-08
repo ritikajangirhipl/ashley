@@ -72,6 +72,12 @@ return [
             'edit' => 'Edit Service Partners',
             'show' => 'View Service Partners',
         ],
+        'client' => [
+            'list' => 'List of Clients',
+            'add' => 'Create Clients',
+            'edit' => 'Edit Clients',
+            'show' => 'View Clients',
+        ],
         'change_password'   => 'Change Password',
         'change_password'   => 'Change Password',
         'permission'      => [

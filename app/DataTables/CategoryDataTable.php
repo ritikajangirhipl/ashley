@@ -15,6 +15,9 @@ class CategoryDataTable extends DataTable
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.'.$record->status);
             }) 
+            ->addColumn('image', function ($category) {
+                return $category->image ? '<img src="' . asset('storage/' . $category->image) . '" width="50">' : 'No image';
+            })
             ->addColumn('action', function ($category) {
                 return '<div class="group-button d-flex">
                             <a href="'.route('admin.categories.show',$category->id).'" class="btn btn-warning btn-sm" title="View">
@@ -28,7 +31,7 @@ class CategoryDataTable extends DataTable
                             </button> 
                         </div>';
             })
-            ->rawColumns(['action']); 
+            ->rawColumns(['action','image']); 
     }
 
     public function query(Category $model)
@@ -56,6 +59,7 @@ class CategoryDataTable extends DataTable
                 ->width(50)
                 ->addClass('text-center'),
             Column::make('name')->title('Name'),
+            Column::make('image')->title('Image'),
             Column::make('description')->title('Description'),
             Column::make('status')->title('Status'),
             Column::computed('action')->title('Action')
