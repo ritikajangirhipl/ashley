@@ -301,7 +301,7 @@ return [
             'verification_duration'         => 'Verification Duration',
             'evidence_type'              => 'Evidence Type',
             'evidence_summary'              => 'Evidence Summary',
-            'service_partner'            => 'Service Partner',
+            'service_partners'            => 'Service Partners',
             'service_currency'              => 'Service Currency',
             'local_service_price'           => 'Local Service Price',
             'usd_service_price'             => 'USD Service Price',
@@ -350,7 +350,7 @@ return [
             'status' => 'Status',
         ],
     ],
-    'service_partner' => [
+    'service_partners' => [
         'title' => 'Service Partners',
         'title_singular' => 'Service Partner',
         'fields' => [

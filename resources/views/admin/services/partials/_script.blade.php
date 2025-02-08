@@ -15,24 +15,24 @@
                 country_id: {
                     required: true
                 },
-                // contact_address: {
-                //     required: true,
-                //     minlength: 5,
-                //     maxlength: 255
-                // },
-                // email_address: {
-                //     required: true,
-                //     email: true 
-                // },
-                // website_address: {
-                // required: true,  
-                // url: true
-                // },
-                // contact_person: {
-                //     required: true,
-                //     minlength: 3,
-                //     maxlength: 255
-                // },
+                contact_address: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 255
+                },
+                email_address: {
+                    required: true,
+                    email: true 
+                },
+                website_address: {
+                required: true,  
+                url: true
+                },
+                contact_person: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 255
+                },
                 status: {
                     required: true
                 }

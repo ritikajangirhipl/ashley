@@ -10,15 +10,13 @@
     </div>
 
     <div class="card-body">
-        <form id="categories-form" action="{{ route('admin.categories.update', $category->id) }}" method="POST"
-            enctype="multipart/form-data"
+        <form id="categories-form" action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data"
             data-isEdit="{{ isset($category) ? 'true' : 'false' }}"
             data-existing-image="{{ isset($category->image) ? $category->image : '' }}">
             @csrf
             @method('PUT')
             @include('admin.categories.partials._form')
         </form>
-
     </div>
 </div>
 

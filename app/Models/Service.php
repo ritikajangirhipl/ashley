@@ -23,7 +23,7 @@ class Service extends Model
         'verification_duration',
         'evidence_type_id',
         'evidence_summary',
-        'service_partner_id',
+        'service_partners_id',
         'service_currency',
         'local_service_price',
         'usd_service_price',
@@ -66,7 +66,7 @@ class Service extends Model
     
     public function servicePartner()
     {
-        return $this->belongsTo(ServicePartner::class, 'service_partner_id', 'id');
+        return $this->belongsTo(ServicePartner::class, 'service_partners_id', 'id');
     }
 
     

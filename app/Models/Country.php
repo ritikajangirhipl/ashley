@@ -26,7 +26,7 @@ class Country extends Model
     public function clients()
     {
         return $this->hasMany(Client::class, 'country_id', 'id');
-    }
+    }   
 
     public function servicePartners()
     {

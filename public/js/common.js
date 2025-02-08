@@ -31,7 +31,6 @@ function submitForm(form) {
                     }
                 });
             } else {
-                // Handle "category not found" message
                 if (response.status === 400 && response.message === 'The selected category does not exist.') {
                     Swal.fire({
                         title: 'Error',

@@ -124,7 +124,7 @@
                                 <span class="pcoded-micon">
                                     <i class="feather icon-file-text"></i> 
                                 </span>
-                                <span class="pcoded-mtext">{{ trans('cruds.service_partner.title') }}</span>
+                                <span class="pcoded-mtext">{{ trans('cruds.service_partners.title') }}</span>
                             </a>
                         </li>
 

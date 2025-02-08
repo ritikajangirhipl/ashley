@@ -9,7 +9,7 @@ return [
     'verification_mode' => 'Verification Mode',
     'verification_provider' => 'Verification Provider',
     'provider_type' => 'Provider Type',
-    'service_partner' => 'Service Partner',
+    'service_partners' => 'Service Partners',
     'client' => 'Client',
     'user' => 'User',
 ];

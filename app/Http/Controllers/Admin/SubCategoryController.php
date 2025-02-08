@@ -37,26 +37,6 @@ class SubCategoryController extends Controller
         }
     }
 
-    // public function store(StoreRequest $request)
-    // {
-    //     try {
-    //         $imagePath = $this->uploadImage($request);
-
-    //         SubCategory::create([
-    //             'name' => $request->name,
-    //             'image' => $imagePath,
-    //             'description' => $request->description,
-    //             'category_id' => $request->category_id, 
-    //             'status' => $request->status,
-    //         ]);
-    //         return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.sub_category')]), 
-    //             ['redirect_url' => route('admin.sub-categories.index')]);
-
-    //     } catch (\Exception $e) {
-    //         return jsonResponseWithException($e);
-    //     }
-    // }
-
     public function store(StoreRequest $request)
     {
         try {
@@ -106,35 +86,6 @@ class SubCategoryController extends Controller
         }
     }
 
-    // public function update(UpdateRequest $request, SubCategory $subCategory)
-    // {
-    //     try {
-    //         $imagePath = $subCategory->image; 
-    //         if ($request->hasFile('image')) {
-    //             if ($subCategory->image && Storage::exists('public/' . $subCategory->image)) {
-    //                 Storage::delete('public/' . $subCategory->image);
-    //             }
-    //             $file = $request->file('image');
-    //             $filename = time() . '_' . $file->getClientOriginalName();
-    //             $imagePath = $file->storeAs('public/subcategory_images', $filename);
-    //             $imagePath = str_replace('public/', '', $imagePath);
-    //         }
-    //         $subCategory->update([
-    //             'name' => $request->name,
-    //             'image' => $imagePath,
-    //             'description' => $request->description,
-    //             'category_id' => $request->category_id, 
-    //             'status' => $request->status,
-    //         ]);
-
-    //         return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.sub_category')]), 
-    //             ['redirect_url' => route('admin.sub-categories.index')]);
-
-    //     } catch (\Exception $e) {
-    //         return jsonResponseWithException($e);
-    //     }
-    // }
-
     public function update(UpdateRequest $request, SubCategory $subCategory)
     {
         try {
@@ -142,8 +93,8 @@ class SubCategoryController extends Controller
             if (!$category) {
                 return jsonResponseWithMessage(400, __('messages.category_not_found'), []);
             }
-
-            $imagePath = $subCategory->image; 
+            $imagePath = $subCategory->image;
+    
             if ($request->hasFile('image')) {
                 if ($subCategory->image && Storage::exists('public/' . $subCategory->image)) {
                     Storage::delete('public/' . $subCategory->image);
@@ -153,22 +104,22 @@ class SubCategoryController extends Controller
                 $imagePath = $file->storeAs('public/subcategory_images', $filename);
                 $imagePath = str_replace('public/', '', $imagePath);
             }
-
             $subCategory->update([
                 'name' => $request->name,
                 'image' => $imagePath,
                 'description' => $request->description,
-                'category_id' => $request->category_id, 
+                'category_id' => $request->category_id,
                 'status' => $request->status,
             ]);
-
+    
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.sub_category')]), 
                 ['redirect_url' => route('admin.sub-categories.index')]);
-
+    
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
+    
 
     public function destroy(SubCategory $subCategory)
     {

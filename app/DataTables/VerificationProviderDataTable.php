@@ -10,27 +10,26 @@ class VerificationProviderDataTable extends DataTable
 {
     public function dataTable($query)
     {
-        return datatables()
-            ->eloquent($query)
+        return datatables()->eloquent($query)
             ->addIndexColumn()
-            ->editColumn('status', function ($verificationProvider) {
-                return config('constant.enums.status.' . $verificationProvider->status);
+            ->editColumn('status', function ($record) {
+                return config('constant.enums.status.' . $record->status) ?? 'Unknown';
             })
-            ->editColumn('country.name', function ($verificationProvider) {
-                return $verificationProvider->country ? $verificationProvider->country->name : 'N/A';
+            ->editColumn('country.name', function ($record) {
+                return $record->country ? $record->country->name : 'N/A';
             })
-            ->editColumn('providerType.name', function ($verificationProvider) {
-                return $verificationProvider->providerType ? $verificationProvider->providerType->name : 'N/A';
+            ->editColumn('providerType.name', function ($record) {
+                return $record->providerType ? $record->providerType->name : 'N/A';
             })
-            ->addColumn('action', function ($verificationProvider) {
+            ->addColumn('action', function ($record) {
                 return '<div class="group-button d-flex">
-                            <a href="' . route('admin.verification-providers.show', $verificationProvider->id) . '" class="btn btn-info btn-sm" title="View">
+                            <a href="' . route('admin.verification-providers.show', $record->id) . '" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="' . route('admin.verification-providers.edit', $verificationProvider->id) . '" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="' . route('admin.verification-providers.edit', $record->id) . '" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <button class="btn btn-danger btn-sm delete-record" data-href="' . route('admin.verification-providers.destroy', $verificationProvider->id) . '" title="Delete">
+                            <button class="btn btn-danger btn-sm delete-record" data-id="' . $record->id . '" data-url="' . route('admin.verification-providers.destroy', $record->id) . '" title="Delete">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>';
@@ -38,10 +37,9 @@ class VerificationProviderDataTable extends DataTable
             ->rawColumns(['action']);
     }
 
-
     public function query(VerificationProvider $model)
     {
-        return $model->newQuery()->with(['country', 'providerType']); 
+        return $model->newQuery()->with(['country', 'providerType']);
     }
 
     public function html()
@@ -51,7 +49,7 @@ class VerificationProviderDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(5, 'asc')
+                    ->orderBy(1, 'asc')
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);
@@ -83,3 +81,4 @@ class VerificationProviderDataTable extends DataTable
         return 'VerificationProvider_' . date('YmdHis');
     }
 }
+

@@ -1,14 +1,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        var isEdit = $("#sub-categories-form").attr('data-isEdit') === 'true';  
         $("#sub-categories-form").validate({
             rules: {
                 name: {
                     required: true,
                     minlength: 3,
                 },
-                image: {
-                    required: true,
+                image: { 
+                    required: function (element) {
+                        var existingImage = $("#sub-categories-form").data('existing-image');
+                        if (isEdit && !element.files.length && existingImage) {
+                            return false; 
+                        }
+                        return true;
+                    }
                 },
                 description: {
                     required: true,
@@ -50,5 +57,23 @@
             },
 
         });
+
+        let fileInput = document.getElementById('imageInput');
+        let previewImg = document.getElementById('subcategoryImagePreview');
+        let oldImage = previewImg ? previewImg.src : null;
+
+        fileInput.addEventListener('change', function(event) {
+            let file = event.target.files[0]; 
+
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else if (oldImage) {
+                previewImg.src = oldImage;
+            }
+        });  
     });
 </script>

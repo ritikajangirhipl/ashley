@@ -80,9 +80,17 @@ class CountryController extends Controller
     public function update(UpdateRequest $request, Country $country)
     {
         try {
-            // Handle flag update
+            // Prevent updating country to inactive if it's associated with verification providers, clients, or service partners
+            if ($request->status == '0' && ($country->verificationProviders()->exists() || $country->clients()->exists() || $country->servicePartners()->exists())) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => __('messages.country_associated_with_records', ['attribute' => __('attribute.country')])
+                ], 400);
+            }
+    
             $flagPath = $country->flag;
     
+            // Handle flag update
             if ($request->hasFile('flag')) {
                 // Delete old flag if exists
                 if ($country->flag && Storage::exists('public/' . $country->flag)) {
@@ -96,6 +104,7 @@ class CountryController extends Controller
                 $flagPath = str_replace('public/', '', $flagPath);
             }
     
+            // Update country data
             $country->update([
                 'name' => $request->name,
                 'flag' => $flagPath,
@@ -112,6 +121,8 @@ class CountryController extends Controller
             return jsonResponseWithException($e);
         }
     }
+    
+    
     
     public function destroy(Country $country)
     {

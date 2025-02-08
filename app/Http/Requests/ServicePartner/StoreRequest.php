@@ -16,11 +16,11 @@ class StoreRequest extends FormRequest
     {
         return [
 
-            'name' => 'required|unique:service_partner,name|max:255',
+            'name' => 'required|unique:service_partners,name|max:255',
             'description' => 'nullable|string',
             'country_id' => 'required|exists:countries,id',
             'contact_address' => 'nullable|string',
-            'email_address' => 'required|email|unique:service_partner,email_address',
+            'email_address' => 'required|email|unique:service_partners,email_address',
             'website_address' => 'required|url',
             'contact_person' => 'nullable|string|max:255',
             'status' => 'required|in:1,0',

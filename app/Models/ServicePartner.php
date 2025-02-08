@@ -8,7 +8,7 @@ class ServicePartner extends Model
 {
     use HasFactory;
 
-    protected $table = 'service_partner'; 
+    protected $table = 'service_partners'; 
 
     protected $fillable = [
         'name',

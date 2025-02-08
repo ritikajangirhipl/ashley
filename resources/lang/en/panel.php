@@ -66,11 +66,17 @@ return [
             'edit' => 'Edit Verification Providers',
             'show' => 'View Verification Providers',
         ],
-        'service_partner' => [
+        'service_partners' => [
             'list' => 'List of Service Partners',
             'add' => 'Create Service Partners',
             'edit' => 'Edit Service Partners',
             'show' => 'View Service Partners',
+        ],
+        'service' => [
+            'list' => 'List of Services',
+            'add' => 'Create Services',
+            'edit' => 'Edit Services',
+            'show' => 'View Services',
         ],
         'client' => [
             'list' => 'List of Clients',

@@ -6,11 +6,12 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::create('service_partner', function (Blueprint $table) {
+        Schema::create('service_partners', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->text('description')->nullable();
-            $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
+            $table->unsignedBigInteger('country_id'); 
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->text('contact_address')->nullable();
             $table->string('email_address')->unique();
             $table->string('website_address')->nullable();
@@ -23,6 +24,6 @@ return new class extends Migration {
 
     public function down()
     {
-        Schema::dropIfExists('service_partner');
+        Schema::dropIfExists('service_partners');
     }
 };

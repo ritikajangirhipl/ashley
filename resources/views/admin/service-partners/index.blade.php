@@ -8,9 +8,9 @@
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title float-left">
-                    {{ trans('global.list') }} {{ trans('cruds.service_partner.title') }}
+                    {{ trans('global.list') }} {{ trans('cruds.service_partners.title') }}
                 </h4>
-                <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.service_partner.title_singular') }}" href="{{ route('admin.service-partners.create') }}">
+                <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.service_partners.title_singular') }}" href="{{ route('admin.service-partners.create') }}">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>

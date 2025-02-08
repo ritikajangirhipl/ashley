@@ -18,7 +18,6 @@
         </div>
     </div>
 
-
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.category.fields.description') }}<span class="text-danger">*</span></label>

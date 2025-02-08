@@ -55,6 +55,17 @@ class CategoryController extends Controller
         }
     }
 
+    public function show(Category $category)
+    {
+        try {
+            $pageTitle = trans('panel.page_title.category.show');
+            $status = $this->status;
+            return view('admin.categories.show', compact('category', 'pageTitle'));
+        } catch (\Exception $e) {
+            return jsonResponseWithException($e);
+        }
+    }
+
     public function edit(Category $category)
     {
         try {
@@ -69,22 +80,28 @@ class CategoryController extends Controller
     public function update(UpdateRequest $request, Category $category)
     {
         try {
-            // Handle image update
+            // Prevent updating category to inactive if it's associated with subcategories
+            if ($request->status == '0' && $category->subCategories()->exists()) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => __('messages.category_associated_with_subcategories', ['attribute' => __('attribute.category')])
+                ], 400);
+            }
+    
             $imagePath = $category->image;
     
+            // Handle image upload
             if ($request->hasFile('image')) {
-                // Delete old image if exists
                 if ($category->image && Storage::exists('public/' . $category->image)) {
                     Storage::delete('public/' . $category->image);
                 }
-    
-                // Upload new image
                 $file = $request->file('image');
                 $filename = time() . '_' . $file->getClientOriginalName();
                 $imagePath = $file->storeAs('public/category_images', $filename);
                 $imagePath = str_replace('public/', '', $imagePath);
             }
     
+            // Update category data
             $category->update([
                 'name' => $request->name,
                 'image' => $imagePath,
@@ -93,22 +110,34 @@ class CategoryController extends Controller
             ]);
     
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.category')]), 
-            ['redirect_url' => route('admin.categories.index')]);
+                ['redirect_url' => route('admin.categories.index')]);
     
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
     
+    
 
     public function destroy(Category $category)
     {
         try {
+            // Check if the category has related subcategories
+            if ($category->subCategories()->exists()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => __('messages.category_delete_error', ['attribute' => __('attribute.category')])
+                ], 400);
+            }
+
+            // Delete the category image if it exists
             if ($category->image && Storage::exists('public/' . $category->image)) {
                 Storage::delete('public/' . $category->image);
             }
+
+            // Delete the category
             $category->delete();
-    
+
             return response()->json([
                 'status' => true,
                 'message' => __('messages.delete_success_message', ['attribute' => __('attribute.category')])
@@ -116,10 +145,11 @@ class CategoryController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'message' => __('messages.unexpected_error') 
+                'message' => __('messages.unexpected_error')
             ], 500);
         }
     }
+
 
     private function uploadImage(Request $request, Category $category = null)
     {

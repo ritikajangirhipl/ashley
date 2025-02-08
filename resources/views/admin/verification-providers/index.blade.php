@@ -36,11 +36,11 @@
   $(document).ready(function() {
     // Delete record
     $(document).on("click", ".delete-record", function(event) {
-    event.preventDefault();
-    var url = $(this).data('href');
-    var csrf_token = $('meta[name="csrf-token"]').attr('content');
+        event.preventDefault();
+        var url = $(this).data('url');
+        var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
-    Swal.fire({
+        Swal.fire({
             title: "{{ trans('global.areYouSure') }}",
             text: "{{ trans('global.onceClickedRecordDeleted') }}",
             icon: "warning",

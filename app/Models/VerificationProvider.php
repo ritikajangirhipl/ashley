@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class VerificationProvider extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+    protected $primaryKey = "id";
+    
+    protected $table = "verification_providers";
 
     protected $fillable = [
         'name',
@@ -30,6 +35,7 @@ class VerificationProvider extends Model
     {
         return $this->belongsTo(ProviderType::class, 'provider_type_id', 'id');
     }
+
 }
 
 
