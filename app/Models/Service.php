@@ -1,0 +1,73 @@
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Service extends Model
+{
+    use HasFactory;
+
+    protected $table = 'services';  // Explicitly define table name (singular)
+
+    protected $fillable = [
+        'country_id',
+        'category_id',
+        'sub_category_id',
+        'name',
+        'description',
+        'subject',
+        'verification_mode_id',
+        'verification_summary',
+        'verification_provider_id',
+        'verification_duration',
+        'evidence_type_id',
+        'evidence_summary',
+        'service_partner_id',
+        'service_currency',
+        'local_service_price',
+        'usd_service_price',
+        'subject_name',
+        'copy_of_document_to_verify',
+        'reason_for_request',
+        'subject_consent_requirement',
+        'name_of_reference_provider',
+        'address_information',
+        'location',
+        'gender',
+        'marital_status',
+        'registration_number',
+        'field_name',
+        'field_type',
+        'combo_values',
+        'field_required',
+        'status',
+    ];
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function verificationMode()
+    {
+        return $this->belongsTo(VerificationMode::class, 'verification_mode_id', 'id');
+    }
+
+    public function verificationProvider()
+    {
+        return $this->belongsTo(VerificationProvider::class, 'verification_provider_id', 'id');
+    }
+    
+    public function servicePartner()
+    {
+        return $this->belongsTo(ServicePartner::class, 'service_partner_id', 'id');
+    }
+
+    
+}

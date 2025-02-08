@@ -137,6 +137,14 @@
                             </a>
                         </li>
                         
+                        <li data-username="services" class="nav-item {{ request()->is('admin/services') || request()->is('admin/services/*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.services.index') }}" class="nav-link">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-file-text"></i> 
+                                </span>
+                                <span class="pcoded-mtext">{{ trans('cruds.services.title') }}</span>
+                            </a>
+                        </li>
                 </ul>
             @endauth
         </div>

@@ -301,6 +301,44 @@ return [
         ],
     ],
 
+    'services' => [
+        'title' => 'Services',
+        'title_singular' => 'Service',
+        'fields' => [
+            'country'                       => 'Country',
+            'category'                      => 'Category',
+            'sub_category'                  => 'Sub Category',
+            'name'                          => 'Name',
+            'description'                   => 'Description',
+            'subject'                       => 'Subject',
+            'verification_mode'             => 'Verification Mode',
+            'verification_summary'          => 'Verification Summary',
+            'verification_provider'         => 'Verification Provider',
+            'verification_duration'         => 'Verification Duration',
+            'evidence_type'              => 'Evidence Type',
+            'evidence_summary'              => 'Evidence Summary',
+            'service_partner'            => 'Service Partner',
+            'service_currency'              => 'Service Currency',
+            'local_service_price'           => 'Local Service Price',
+            'usd_service_price'             => 'USD Service Price',
+            'subject_name'                  => 'Name of Subject',
+            'copy_of_document_to_verify'    => 'Copy of Document to Verify',
+            'reason_for_request'            => 'Reason for Request',
+            'subject_consent_requirement'   => 'Subject Consent Requirement',
+            'name_of_reference_provider'    => 'Name of Reference Provider',
+            'address_information'           => 'Address Information',
+            'location'                      => 'Location',
+            'gender'                        => 'Gender',
+            'marital_status'                => 'Marital Status',
+            'registration_number'           => 'Registration Number',
+            'field_name'                    => 'Field Name',
+            'field_type'                    => 'Field Type',
+            'combo_values'                  => 'Combo Values',
+            'field_required'                => 'Field Required',
+            'status'                        => 'Status',
+        ]
+    ],
+
     'sub_category' => [
         'title' => 'Sub Categories',
         'title_singular' => 'Sub Category',
@@ -383,6 +421,7 @@ return [
             'deleted_at'                       => 'Deleted at',
         ],
     ],
+   
 
     'holderSubmissionsManagement' => [
         'title'          => 'Holder Submissions Management',

@@ -121,5 +121,20 @@ return [
         'page_length' => [
             'lengthMenu' => [[10, 25, 50, 100, 500, 1000, -1], [10, 25, 50, 100, 500, 1000]],
         ],
+        'subjects' => [
+            1   => 'Individual',
+            2   => 'Organization',
+        ],
+        'input_details' => [
+            1   => 'Yes',
+            2   => 'No',
+        ],
+        'field_types' => [
+            1   => 'Text',
+            2   => 'Combo',
+            3   => 'Memo',
+            4   => 'Date',
+        ],
+
     ],
 ];

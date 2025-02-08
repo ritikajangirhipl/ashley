@@ -5,7 +5,12 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use App\Models\Country;
+use App\Models\VerificationMode;
+use App\Models\VerificationProvider;
+use App\Models\EvidenceType;
+use App\Models\ServicePartner;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\ProviderType;
 
 /**
@@ -60,6 +65,38 @@ function getActiveCategories()
     return Category::where('status', '1')->pluck('name', 'id');
 }
 
+function getActiveSubCategories($parentCatId=null)
+{
+    $query = SubCategory::where('status', '1');
+    if($parentCatId){
+        $query = $query->where('category_id',$parentCatId);
+    }
+    return $query->pluck('name', 'id');
+}
+
+function getVerificationModes()
+{
+    return VerificationMode::where('status', '1')->pluck('name', 'id');
+}
+
+function getVerificationProviders()
+{
+    return VerificationProvider::where('status', '1')->pluck('name', 'id');
+}
+
+function getEvidenceTypes()
+{
+    return EvidenceType::where('status', '1')->pluck('name', 'id');
+}
+
+function getServicePartners()
+{
+    return ServicePartner::where('status', '1')->pluck('name', 'id');
+}
+function getCurrencies()
+{
+    return Country::where('status', '1')->pluck('currency_name', 'currency_name')->unique();
+}
 
 
 
