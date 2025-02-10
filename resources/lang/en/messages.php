@@ -16,13 +16,16 @@ return [
     'generate_success_message'         => 'generated successfully',
     'documents_required_message'         => "You can't deliver report. Please upload all submission documents first!",
     'category_associated_with_subcategories' => 'This :attribute is associated with subcategories and cannot be modified.',
-    'country_associated_with_verification_providers' => 'This :attribute is associated with verification providers and cannot be set to inactive.',
-    'country_delete_error' => 'This :attribute is associated with verification providers and cannot be deleted.',
+    'country_cannot_be_inactive_due_to_verification_provider' => 'This country is associated with a Verification Provider and cannot be set to inactive.',
+    'country_cannot_be_deleted_due_to_verification_provider' => 'This country is associated with a Verification Provider and cannot be deleted.',
     'provider_type_delete_error' => 'This :attribute is associated with verification providers and cannot be deleted.',
     'providerType_associated_with_verificationProviders' => 'This :attribute is associated with verification providers and cannot be modified',
     'category_not_found' => 'The selected category does not exist.',
     'category_delete_error' => 'This :attribute is associated with subcategories and cannot be deleted.',
-    'country_associated_with_records' => 'This :attribute is associated with Clients and cannot be set to inactive.',
+    'country_cannot_be_inactive_due_to_client' => 'This country is associated with a Client and cannot be set to inactive.',
+    'country_cannot_be_deleted_due_to_client' => 'This country is associated with a Client and cannot be deleted.',
+    'country_cannot_be_inactive_due_to_service_partner' => 'This country is associated with a Service Partner and cannot be set to inactive.',
+    'country_cannot_be_deleted_due_to_service_partner' => 'This country is associated with a Service Partner and cannot be deleted.',
 
 ];
 

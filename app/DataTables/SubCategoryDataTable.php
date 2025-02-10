@@ -39,7 +39,7 @@ class SubCategoryDataTable extends DataTable
 
     public function query(SubCategory $model)
     {
-        return $model->newQuery(); 
+        return $model->newQuery()->orderBy('created_at', 'desc');; 
     }
     
 

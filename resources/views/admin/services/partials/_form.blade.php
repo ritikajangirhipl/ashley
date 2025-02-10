@@ -192,9 +192,6 @@
                     </option>
                 @endforeach
             </select>
-            @if($errors->has('service_partner_id'))
-                <span class="text-danger">{{ $errors->first('service_partner_id') }}</span>
-            @endif
         </div>
     </div>
 

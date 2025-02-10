@@ -38,7 +38,7 @@ class ServicePartnerDataTable extends DataTable
 
     public function query(ServicePartner $model)
     {
-        return $model->newQuery()->with(['country']);
+        return $model->newQuery()->orderBy('created_at', 'desc');;
     }
 
     public function html()

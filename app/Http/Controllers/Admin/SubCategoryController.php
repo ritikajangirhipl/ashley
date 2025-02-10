@@ -40,9 +40,14 @@ class SubCategoryController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            $category = Category::find($request->category_id);
+            // Check if the category exists and is active before creating subcategory
+            $category = Category::where('id', $request->category_id)->where('status', 1)->first();
+
             if (!$category) {
-                return jsonResponseWithMessage(400, __('messages.category_not_found'), []);
+                return response()->json([
+                    'status' => 400,
+                    'message' => __('messages.category_not_found')
+                ], 400);
             }
 
             $imagePath = $this->uploadImage($request);
@@ -51,7 +56,7 @@ class SubCategoryController extends Controller
                 'name' => $request->name,
                 'image' => $imagePath,
                 'description' => $request->description,
-                'category_id' => $request->category_id, 
+                'category_id' => $request->category_id,
                 'status' => $request->status,
             ]);
 
@@ -62,6 +67,7 @@ class SubCategoryController extends Controller
             return jsonResponseWithException($e);
         }
     }
+
 
     public function show(SubCategory $subCategory)
     {

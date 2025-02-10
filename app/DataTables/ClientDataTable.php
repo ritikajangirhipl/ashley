@@ -40,7 +40,7 @@ class ClientDataTable extends DataTable
 
     public function query(Client $model)
     {
-        return $model->newQuery()->with(['country']);
+        return $model->newQuery()->orderBy('created_at', 'desc');;
     }
 
     public function html()

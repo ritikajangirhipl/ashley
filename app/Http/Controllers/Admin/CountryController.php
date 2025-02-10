@@ -80,24 +80,38 @@ class CountryController extends Controller
     public function update(UpdateRequest $request, Country $country)
     {
         try {
-            // Prevent updating country to inactive if it's associated with verification providers, clients, or service partners
-            if ($request->status == '0' && ($country->verificationProviders()->exists() || $country->clients()->exists() || $country->servicePartners()->exists())) {
-                return response()->json([
-                    'status' => 400,
-                    'message' => __('messages.country_associated_with_records', ['attribute' => __('attribute.country')])
-                ], 400);
+            // Check each relationship separately and show a specific message
+            if ($request->status == '0') {
+                if ($country->verificationProviders()->exists()) {
+                    return response()->json([
+                        'status' => 400,
+                        'message' => __('messages.country_cannot_be_inactive_due_to_verification_provider')
+                    ], 400);
+                }
+    
+                if ($country->clients()->exists()) {
+                    return response()->json([
+                        'status' => 400,
+                        'message' => __('messages.country_cannot_be_inactive_due_to_client')
+                    ], 400);
+                }
+    
+                if ($country->servicePartners()->exists()) {
+                    return response()->json([
+                        'status' => 400,
+                        'message' => __('messages.country_cannot_be_inactive_due_to_service_partner')
+                    ], 400);
+                }
             }
     
             $flagPath = $country->flag;
     
             // Handle flag update
             if ($request->hasFile('flag')) {
-                // Delete old flag if exists
                 if ($country->flag && Storage::exists('public/' . $country->flag)) {
                     Storage::delete('public/' . $country->flag);
                 }
     
-                // Upload new flag
                 $file = $request->file('flag');
                 $filename = time() . '_' . $file->getClientOriginalName();
                 $flagPath = $file->storeAs('public/country_flags', $filename);
@@ -121,34 +135,45 @@ class CountryController extends Controller
             return jsonResponseWithException($e);
         }
     }
-    
-    
-    
+
     public function destroy(Country $country)
     {
         try {
+            // Prevent deletion if associated with records
             if ($country->verificationProviders()->exists()) {
                 return response()->json([
-                    'status' => false,
-                    'message' => __('messages.country_delete_error', ['attribute' => __('attribute.country')])
+                    'status' => 400,
+                    'message' => __('messages.country_cannot_be_deleted_due_to_verification_provider')
                 ], 400);
             }
+    
+            if ($country->clients()->exists()) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => __('messages.country_cannot_be_deleted_due_to_client')
+                ], 400);
+            }
+    
+            if ($country->servicePartners()->exists()) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => __('messages.country_cannot_be_deleted_due_to_service_partner')
+                ], 400);
+            }
+    
+            // Delete flag if exists
             if ($country->flag && Storage::exists('public/' . $country->flag)) {
                 Storage::delete('public/' . $country->flag);
             }
+    
             $country->delete();
     
-            return response()->json([
-                'status' => true,
-                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.country')])
-            ], 200);
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.country')]));
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => __('messages.unexpected_error') 
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
+    
     
     private function uploadFlag(Request $request, Country $country = null)
     {

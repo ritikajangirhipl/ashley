@@ -33,7 +33,6 @@ class VerificationModeDataTable extends DataTable
 
     public function query(VerificationMode $model)
     {
-        // Order the verification modes by the creation date, latest first
         return $model->newQuery()->orderBy('created_at', 'desc');
     }
 
@@ -44,7 +43,7 @@ class VerificationModeDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1)  // Default ordering on load (ID column)
+                    ->orderBy(1) 
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);

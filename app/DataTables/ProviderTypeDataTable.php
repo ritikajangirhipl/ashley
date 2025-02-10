@@ -34,7 +34,7 @@ class ProviderTypeDataTable extends DataTable
 
     public function query(ProviderType $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('created_at', 'desc');;
     }
 
     public function html()

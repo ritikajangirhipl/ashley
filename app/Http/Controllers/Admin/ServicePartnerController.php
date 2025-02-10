@@ -18,14 +18,14 @@ class ServicePartnerController extends Controller
 
     public function index(ServicePartnerDataTable $dataTable)
     {
-        $pageTitle = trans('panel.page_title.service_partner.list');
+        $pageTitle = trans('panel.page_title.service_partners.list');
         return $dataTable->render('admin.service-partners.index', compact('pageTitle'));
     }
 
     public function create()
     {
         try {
-            $pageTitle = trans('panel.page_title.service_partner.add');
+            $pageTitle = trans('panel.page_title.service_partners.add');
             $status = $this->status;
             $countries = getActiveCountries();
             return view('admin.service-partners.create', compact('pageTitle', 'status', 'countries'));
@@ -38,7 +38,7 @@ class ServicePartnerController extends Controller
     {
         try {
             ServicePartner::create($request->except('_token'));
-            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.service_partner')]), 
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.service_partners')]), 
             ['redirect_url' => route('admin.service-partners.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
@@ -48,7 +48,7 @@ class ServicePartnerController extends Controller
     public function show(ServicePartner $servicePartner)
     {
         try {
-            $pageTitle = trans('panel.page_title.service_partner.show');
+            $pageTitle = trans('panel.page_title.service_partners.show');
             $status = $this->status;
             return view('admin.service-partners.show', compact('servicePartner', 'pageTitle', 'status'));
         } catch (\Exception $e) {
@@ -59,7 +59,7 @@ class ServicePartnerController extends Controller
     public function edit(ServicePartner $servicePartner)
     {
         try {
-            $pageTitle = trans('panel.page_title.service_partner.edit');
+            $pageTitle = trans('panel.page_title.service_partners.edit');
             $status = $this->status;
             $countries = getActiveCountries();
             return view('admin.service-partners.edit', compact('servicePartner', 'pageTitle', 'status', 'countries'));
@@ -72,7 +72,7 @@ class ServicePartnerController extends Controller
     {
         try {
             $servicePartner->update($request->except('_token', '_method'));
-            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.service_partner')]), 
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.service_partners')]), 
             ['redirect_url' => route('admin.service-partners.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
@@ -84,7 +84,7 @@ class ServicePartnerController extends Controller
         try {
             $servicePartner->delete();
 
-            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service_partner')]));
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service_partners')]));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

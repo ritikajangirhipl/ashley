@@ -33,7 +33,7 @@ class EvidenceTypeDataTable extends DataTable
 
     public function query(EvidenceType $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('created_at', 'desc');;
     }
 
     public function html()

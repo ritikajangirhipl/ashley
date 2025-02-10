@@ -37,7 +37,7 @@ class ServiceDataTable extends DataTable
 
     public function query(Service $model)
     {
-        return $model->newQuery()->with(['country']);
+        return $model->newQuery()->orderBy('created_at', 'desc');;
     }
 
     public function html()
