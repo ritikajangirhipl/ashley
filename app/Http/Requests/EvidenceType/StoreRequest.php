@@ -18,15 +18,5 @@ class StoreRequest extends FormRequest
             'status' => 'required|in:1,0',
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'Name is required.',
-            'name.unique' => 'This evidence type name already exists.',
-            'status.required' => 'Please select a status.',
-            'status.in' => 'The status must be either active or inactive.',
-        ];
-    }
 }
 

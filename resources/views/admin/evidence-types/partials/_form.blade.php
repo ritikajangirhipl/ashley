@@ -2,13 +2,13 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.evidence_type.fields.name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', isset($evidenceType) ? $evidenceType->name : '') }}" placeholder="{{ trans('cruds.evidence_type.fields.name') }}" autofocus>
+            <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ old('name', isset($evidenceType) ? $evidenceType->name : '') }}" placeholder="{{ trans('cruds.evidence_type.fields.name') }}" autofocus>
         </div>
     </div>
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.evidence_type.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control @error('description') is-invalid @enderror" placeholder="{{ trans('cruds.evidence_type.fields.description') }}">{{ old('description', isset($evidenceType) ? $evidenceType->description : '') }}</textarea>
+            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" placeholder="{{ trans('cruds.evidence_type.fields.description') }}">{{ old('description', isset($evidenceType) ? $evidenceType->description : '') }}</textarea>
 
         </div>
     </div>

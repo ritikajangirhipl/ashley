@@ -80,7 +80,6 @@ class CategoryController extends Controller
     public function update(UpdateRequest $request, Category $category)
     {
         try {
-            // Prevent updating category to inactive if it's associated with subcategories
             if ($request->status == '0' && $category->subCategories()->exists()) {
                 return response()->json([
                     'status' => 400,
@@ -89,8 +88,7 @@ class CategoryController extends Controller
             }
     
             $imagePath = $category->image;
-    
-            // Handle image upload
+
             if ($request->hasFile('image')) {
                 if ($category->image && Storage::exists('public/' . $category->image)) {
                     Storage::delete('public/' . $category->image);
@@ -100,8 +98,7 @@ class CategoryController extends Controller
                 $imagePath = $file->storeAs('public/category_images', $filename);
                 $imagePath = str_replace('public/', '', $imagePath);
             }
-    
-            // Update category data
+
             $category->update([
                 'name' => $request->name,
                 'image' => $imagePath,
@@ -116,8 +113,6 @@ class CategoryController extends Controller
             return jsonResponseWithException($e);
         }
     }
-    
-    
 
     public function destroy(Category $category)
     {

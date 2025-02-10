@@ -23,15 +23,4 @@ class UpdateRequest extends FormRequest
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'name.required' => 'Country name is required.',
-            'name.unique' => 'This country name has already been taken.',
-            'flag.image' => 'The flag must be an image.',
-            'currency_name.required' => 'Currency name is required.',
-            'currency_symbol.required' => 'Currency symbol is required.',
-            'status.required' => 'Status is required.',
-        ];
-    }
 }

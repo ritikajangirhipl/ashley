@@ -16,7 +16,6 @@
 <script src="{{ asset('assets/admin/plugins/data-tables/js/datatables.min.js') }}" defer></script>
 <script src="{{ asset('vendor/datatables/buttons.server-side.js')}}" defer></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" defer></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
 <!-- End Datatables -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>

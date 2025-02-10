@@ -80,7 +80,6 @@ class CountryController extends Controller
     public function update(UpdateRequest $request, Country $country)
     {
         try {
-            // Check each relationship separately and show a specific message
             if ($request->status == '0') {
                 if ($country->verificationProviders()->exists()) {
                     return response()->json([
@@ -139,7 +138,6 @@ class CountryController extends Controller
     public function destroy(Country $country)
     {
         try {
-            // Prevent deletion if associated with records
             if ($country->verificationProviders()->exists()) {
                 return response()->json([
                     'status' => 400,
@@ -160,8 +158,6 @@ class CountryController extends Controller
                     'message' => __('messages.country_cannot_be_deleted_due_to_service_partner')
                 ], 400);
             }
-    
-            // Delete flag if exists
             if ($country->flag && Storage::exists('public/' . $country->flag)) {
                 Storage::delete('public/' . $country->flag);
             }
@@ -180,12 +176,10 @@ class CountryController extends Controller
         $flagPath = $country ? $country->flag : null;
 
         if ($request->hasFile('flag')) {
-            // Delete the old flag file if it exists
             if ($country && $country->flag && Storage::exists('public/' . $country->flag)) {
                 Storage::delete('public/' . $country->flag);
             }
 
-            // Upload the new flag file
             $file = $request->file('flag');
             $filename = time() . '_' . $file->getClientOriginalName();
             $flagPath = $file->storeAs('public/flags', $filename);

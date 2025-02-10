@@ -20,13 +20,4 @@ class StoreRequest extends FormRequest
             'status' => 'required|in:1,0',
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'The sub-category name is required.',
-            'name.unique' => 'The sub-category name has already been taken.',
-            'status.in' => 'The status must be either active or inactive.',
-        ];
-    }
 }

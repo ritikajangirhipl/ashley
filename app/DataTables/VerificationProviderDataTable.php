@@ -39,7 +39,7 @@ class VerificationProviderDataTable extends DataTable
 
     public function query(VerificationProvider $model)
     {
-        return $model->newQuery()->orderBy('created_at', 'desc');
+        return $model->newQuery()->with(['country', 'providerType'])->orderBy('verification_providers.created_at', 'desc');
     }
 
     public function html()

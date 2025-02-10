@@ -47,7 +47,7 @@
                 error.appendTo(element.closest('.form-group'));
             },
             highlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
+                $(element).addClass('is-invalid');
             },
             unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');
@@ -60,18 +60,18 @@
         let previewImg = document.getElementById('categoryImagePreview');
         let oldImage = previewImg ? previewImg.src : null;
 
-        fileInput.addEventListener('change', function(event) {
-            let file = event.target.files[0]; 
+        $("#fileInput").on("change", function(event) {
+            let file = event.target.files[0];
 
             if (file) {
                 let reader = new FileReader();
                 reader.onload = function(e) {
-                    previewImg.src = e.target.result;
+                    $("#previewImg").attr("src", e.target.result);
                 };
                 reader.readAsDataURL(file);
-            } else if (oldImage) {
-                previewImg.src = oldImage;
+            } else if (typeof oldImage !== "undefined") {
+                $("#previewImg").attr("src", oldImage);
             }
-        }); 
+        });
     });
 </script>

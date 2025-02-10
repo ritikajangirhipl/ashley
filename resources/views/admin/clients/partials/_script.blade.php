@@ -84,18 +84,12 @@
             errorElement: 'span',
             errorClass: 'invalid-feedback',
             errorPlacement: function (error, element) {
-                if (element.hasClass("select2")) {
-                    error.appendTo(element.parent());
-                } else if (element.is("textarea")) {
-                    error.appendTo(element.closest('.form-group'));
-                } else {
-                    error.appendTo(element.closest('.form-group'));
-                }
+                error.appendTo(element.closest('.form-group'));
             },
-            highlight: function (element) {
+            highlight: function (element, errorClass, validClass) {
                 $(element).addClass('is-invalid');
             },
-            unhighlight: function (element) {
+            unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');
             },
             submitHandler: function (form) {

@@ -15,7 +15,7 @@ class SubCategoryDataTable extends DataTable
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.'.$record->status);
             })
-            ->addColumn('category', function ($subCategory) {
+            ->addColumn('category.name', function ($subCategory) {
                 return $subCategory->category ? $subCategory->category->name : 'N/A';
             })
             ->addColumn('image', function ($subCategory) {
@@ -39,7 +39,7 @@ class SubCategoryDataTable extends DataTable
 
     public function query(SubCategory $model)
     {
-        return $model->newQuery()->orderBy('created_at', 'desc');; 
+        return $model->newQuery()->orderBy('sub_categories.created_at', 'desc');; 
     }
     
 
@@ -66,9 +66,7 @@ class SubCategoryDataTable extends DataTable
             Column::make('image')->title('Image'),
             Column::make('description')->title('Description'),
             Column::make('status')->title('Status'),
-            Column::make('category')
-                  ->title('Category')
-                  ->orderable(true)
+            Column::make('category.name')->title('Category')
                   ->searchable(true),
             Column::computed('action')
                   ->title('Action')

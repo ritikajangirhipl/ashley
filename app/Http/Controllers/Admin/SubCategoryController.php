@@ -40,7 +40,6 @@ class SubCategoryController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            // Check if the category exists and is active before creating subcategory
             $category = Category::where('id', $request->category_id)->where('status', 1)->first();
 
             if (!$category) {

@@ -79,11 +79,7 @@
             errorElement: 'span',
             errorClass: 'invalid-feedback',
             errorPlacement: function (error, element) {
-                if (element.hasClass("select2")) {
-                    error.appendTo(element.parent());
-                } else {
-                    error.appendTo(element.closest('.form-group'));
-                }
+                error.appendTo(element.closest('.form-group'));
             },
             highlight: function (element) {
                 $(element).addClass('is-invalid');

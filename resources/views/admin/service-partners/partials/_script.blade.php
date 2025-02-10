@@ -71,25 +71,19 @@
                 }
             },
             errorElement: 'span',
-        errorClass: 'invalid-feedback',
-        errorPlacement: function (error, element) {
-            if (element.hasClass("select2")) {
-                error.appendTo(element.parent());
-            } else if (element.is("textarea")) {
+            errorClass: 'invalid-feedback',
+            errorPlacement: function (error, element) {
                 error.appendTo(element.closest('.form-group'));
-            } else {
-                error.appendTo(element.closest('.form-group'));
+            },
+            highlight: function (element) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function (form) {
+                submitForm(form);
             }
-        },
-        highlight: function (element) {
-            $(element).addClass('is-invalid');
-        },
-        unhighlight: function (element) {
-            $(element).removeClass('is-invalid');
-        },
-        submitHandler: function (form) {
-            submitForm(form);
-        }
-        });
+            });
     });
 </script>

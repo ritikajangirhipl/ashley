@@ -35,7 +35,7 @@
                 error.appendTo(element.closest('.form-group'));
             },
             highlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
+                $(element).addClass('is-invalid');
             },
             unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');

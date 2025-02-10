@@ -2,7 +2,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.verification_provider.fields.name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+            <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}"
                    value="{{ old('name', $verificationProvider->name ?? '') }}" required autofocus>
         </div>
     </div>
@@ -17,7 +17,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="provider_type_id">{{ trans('cruds.verification_provider.fields.provider_type') }}<span class="text-danger">*</span></label>
-            <select name="provider_type_id" id="provider_type_id" class="form-control select2 {{ $errors->has('provider_type_id') ? 'is-invalid' : '' }}" required>
+            <select name="provider_type_id" id="provider_type_id" class="form-control select2 {{ $errors->has('provider_type_id') ? 'has-error' : '' }}" required>
                 <option value="">{{ 'Select ' . trans('cruds.verification_provider.fields.provider_type') }}</option>
                 @foreach($providerTypes as $id => $name)
                     <option value="{{ $id }}" {{ old('provider_type_id', $verificationProvider->provider_type_id ?? '') == $id ? 'selected' : '' }}>
@@ -31,7 +31,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="country_id">{{ trans('cruds.verification_provider.fields.country') }}<span class="text-danger">*</span></label>
-            <select name="country_id" id="country_id" class="form-control select2 {{ $errors->has('country_id') ? 'is-invalid' : '' }}" required>
+            <select name="country_id" id="country_id" class="form-control select2 {{ $errors->has('country_id') ? 'has-error' : '' }}" required>
                 <option value="">{{ 'Select ' . trans('cruds.verification_provider.fields.country') }}</option>
                 @foreach($countries as $id => $name)
                     <option value="{{ $id }}" {{ old('country_id', $verificationProvider->country_id ?? '') == $id ? 'selected' : '' }}>
@@ -45,14 +45,14 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="contact_address">{{ trans('cruds.verification_provider.fields.contact_address') }}<span class="text-danger">*</span></label>
-            <textarea id="contact_address" name="contact_address" class="form-control {{ $errors->has('contact_address') ? 'is-invalid' : '' }}">{{ old('contact_address', $verificationProvider->contact_address ?? '') }}</textarea>
+            <textarea id="contact_address" name="contact_address" class="form-control {{ $errors->has('contact_address') ? 'has-error' : '' }}">{{ old('contact_address', $verificationProvider->contact_address ?? '') }}</textarea>
         </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="email">{{ trans('cruds.verification_provider.fields.email_address') }}<span class="text-danger">*</span></label>
-            <input type="email" id="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+            <input type="email" id="email" name="email" class="form-control {{ $errors->has('email') ? 'has-error' : '' }}"
                    value="{{ old('email', $verificationProvider->email ?? '') }}" required>
         </div>
     </div>
@@ -60,7 +60,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="website">{{ trans('cruds.verification_provider.fields.website') }}<span class="text-danger">*</span></label>
-            <input type="url" id="website" name="website" class="form-control {{ $errors->has('website') ? 'is-invalid' : '' }}"
+            <input type="url" id="website" name="website" class="form-control {{ $errors->has('website') ? 'has-error' : '' }}"
                    value="{{ old('website', $verificationProvider->website ?? '') }}">
         </div>
     </div>
@@ -68,7 +68,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="contact_person">{{ trans('cruds.verification_provider.fields.contact_person') }}<span class="text-danger">*</span></label>
-            <input type="text" id="contact_person" name="contact_person" class="form-control {{ $errors->has('contact_person') ? 'is-invalid' : '' }}"
+            <input type="text" id="contact_person" name="contact_person" class="form-control {{ $errors->has('contact_person') ? 'has-error' : '' }}"
                    value="{{ old('contact_person', $verificationProvider->contact_person ?? '') }}">
         </div>
     </div>
