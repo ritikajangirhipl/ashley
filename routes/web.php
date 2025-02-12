@@ -39,7 +39,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
         'service-partners' => 'ServicePartnerController',
         'services' => 'ServicesController',
         'clients' => 'ClientController',
-        // 'orders' => 'OrderController',
-        // 'payments' => 'PaymentController',
+        'orders' => 'OrderController',
+        'payments' => 'PaymentController',
     ]);
 });
