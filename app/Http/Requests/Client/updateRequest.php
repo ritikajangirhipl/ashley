@@ -17,7 +17,12 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'client_type' => 'required|in:individual,organization',
-            'email_address' => 'required|email|unique:clients,email_address,' . $this->client->id,
+            'email_address' => [
+                'required',
+                'email',
+                'unique:clients,email_address,' . $this->client->id, 
+                'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', 
+            ],
             'phone_number' => 'required|numeric',
             'country_id' => 'required|exists:countries,id',
             'contact_address' => 'nullable|string',

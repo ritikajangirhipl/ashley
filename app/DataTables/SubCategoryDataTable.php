@@ -15,11 +15,14 @@ class SubCategoryDataTable extends DataTable
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.'.$record->status);
             })
-            ->addColumn('category.name', function ($subCategory) {
+            ->editColumn('category.name', function ($subCategory) {
                 return $subCategory->category ? $subCategory->category->name : 'N/A';
             })
-            ->addColumn('image', function ($subCategory) {
+            ->editColumn('image', function ($subCategory) {
                 return $subCategory->image ? '<img src="' . asset('storage/' . $subCategory->image) . '" width="50">' : 'No image';
+            })
+            ->editColumn('created_at', function ($subCategory) {
+                return $subCategory->created_at->format('Y-m-d H:i:s'); // Format created_at
             })
             ->addColumn('action', function ($subCategory) {
                 return '<div class="group-button d-flex">
@@ -39,9 +42,10 @@ class SubCategoryDataTable extends DataTable
 
     public function query(SubCategory $model)
     {
-        return $model->newQuery()->orderBy('sub_categories.created_at', 'desc');; 
+        return $model->newQuery()
+                     ->with(['category']);
+                   
     }
-    
 
     public function html()
     {
@@ -50,7 +54,7 @@ class SubCategoryDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1, 'asc')
+                    ->orderBy(6, 'desc')
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);
@@ -59,7 +63,9 @@ class SubCategoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('DT_RowIndex')->title('ID')->orderable(false)->searchable(false)
+            Column::make('DT_RowIndex')->title('ID')
+                  ->orderable(false)
+                  ->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),
             Column::make('name')->title('Name'),
@@ -67,7 +73,11 @@ class SubCategoryDataTable extends DataTable
             Column::make('description')->title('Description'),
             Column::make('status')->title('Status'),
             Column::make('category.name')->title('Category')
-                  ->searchable(true),
+                  ->searchable(true)
+                  ->orderable(true),
+            Column::make('created_at')->title('Created At') // Sorting applied here
+                  ->searchable(false)
+                  ->orderable(true),
             Column::computed('action')
                   ->title('Action')
                   ->exportable(false)

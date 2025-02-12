@@ -15,19 +15,6 @@
                     required: true,
                 },
             },
-            messages: {
-                name: {
-                    required: "{{ trans('validation.required', ['attribute' => 'name']) }}",
-                    minlength: "{{ trans('validation.min.string', ['attribute' => 'name', 'min' => 3]) }}",
-                },
-                description: {
-                    required: "{{ trans('validation.required', ['attribute' => 'description']) }}",
-                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'description', 'max' => 255]) }}",
-                },
-                status: {
-                    required: "{{ trans('validation.required', ['attribute' => 'status']) }}",
-                },
-            },
             errorElement: 'span',
             errorClass: 'invalid-feedback',
             errorPlacement: function (error, element) {

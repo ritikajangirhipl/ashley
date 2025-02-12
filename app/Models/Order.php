@@ -1,0 +1,45 @@
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Order extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'client_id',
+        'service_id',
+        'name_of_subject',
+        'copy_of_document',
+        'reason_for_request',
+        'subject_consent',
+        'name_of_reference_provider',
+        'address_information',
+        'location_id',
+        'gender',
+        'marital_status',
+        'registration_number',
+        'others',
+        'preferred_currency',
+        'order_amount',
+        'order_payment_status',
+        'order_processing_status',
+    ];
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id', 'id');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id', 'id');
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Country::class, 'location_id', 'id');
+    }
+}

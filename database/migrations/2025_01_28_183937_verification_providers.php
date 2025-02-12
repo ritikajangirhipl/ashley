@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('verification_providers', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->text('description')->nullable();
             $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
             $table->foreignId('provider_type_id')->constrained('provider_types')->onDelete('cascade');

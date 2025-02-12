@@ -14,9 +14,14 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|unique:clients,name',
+            'name' => 'required|string|max:255|',
             'client_type' => 'required|in:individual,organization',
-            'email_address' => 'required|email|unique:clients,email_address',
+            'email_address' => [
+                'required',
+                'email',
+                'unique:clients,email_address',
+                'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+            ],
             'phone_number' => 'required|numeric',
             'country_id' => 'required|exists:countries,id',
             'contact_address' => 'required|string',

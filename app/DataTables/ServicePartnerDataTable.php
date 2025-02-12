@@ -16,10 +16,12 @@ class ServicePartnerDataTable extends DataTable
             ->editColumn('status', function ($servicePartner) {
                 return config('constant.enums.status.' . $servicePartner->status);
             })
-            ->addColumn('country', function ($servicePartner) {
+            ->editColumn('country.name', function ($servicePartner) {
                 return $servicePartner->country ? $servicePartner->country->name : 'N/A';
             })
-            
+            ->addColumn('created_at', function ($servicePartner) {
+                return $servicePartner->created_at->format('Y-m-d H:i:s'); 
+            })
             ->addColumn('action', function ($servicePartner) {
                 return '<div class="group-button d-flex">
                             <a href="' . route('admin.service-partners.show', $servicePartner->id) . '" class="btn btn-info btn-sm" title="View">
@@ -33,12 +35,13 @@ class ServicePartnerDataTable extends DataTable
                             </button>
                         </div>';
             })
-            ->rawColumns(['action']); 
+            ->rawColumns(['action']);
     }
 
     public function query(ServicePartner $model)
     {
-        return $model->newQuery()->orderBy('created_at', 'desc');;
+        return $model->newQuery()
+                     ->with(['country']);
     }
 
     public function html()
@@ -48,32 +51,30 @@ class ServicePartnerDataTable extends DataTable
                     ->columns($this->getColumns()) 
                     ->minifiedAjax()
                     ->dom('frtip') 
-                    ->orderBy(1, 'asc')
+                    ->orderBy(6, 'desc') 
                     ->language([
-                        'emptyTable' => 'No records found', 
+                        'emptyTable' => 'No records found',
                     ]);
     }
 
     protected function getColumns()
     {
         return [
-            Column::make('DT_RowIndex')->title('ID') 
-                  ->orderable(false) 
-                  ->searchable(false) 
+            Column::make('DT_RowIndex')->title('ID')
+                  ->orderable(false)
+                  ->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),    
             Column::make('name')->title('Name'), 
             Column::make('email_address')->title('Email'),
             Column::make('website_address')->title('Website'),
+            Column::make('country.name')->title('Country'),
             Column::make('status')->title('Status'), 
-            Column::computed('country') 
-                  ->title('Country')
-                  ->orderable(true) 
-                  ->searchable(true), 
-            Column::computed('action') 
+            Column::make('created_at')->title('Created At'),
+            Column::computed('action')
                   ->title('Action')
-                  ->exportable(false) 
-                  ->printable(false) 
+                  ->exportable(false)
+                  ->printable(false)
                   ->width(150)
                   ->addClass('text-center'),
         ];

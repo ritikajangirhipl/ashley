@@ -38,8 +38,8 @@ $(document).ready(function() {
         var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
         Swal.fire({
-            title: "Are you sure?",
-            text: "Once deleted, this category cannot be recovered.",
+            title: "{{ trans('global.areYouSure') }}",
+            text: "{{ trans('global.onceClickedRecordDeleted') }}",
             icon: "warning",
             showDenyButton: true,
             showCancelButton: true,

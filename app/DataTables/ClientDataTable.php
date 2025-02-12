@@ -40,7 +40,7 @@ class ClientDataTable extends DataTable
 
     public function query(Client $model)
     {
-        return $model->newQuery()->with(['country'])->orderBy('clients.created_at', 'desc');
+        return $model->newQuery()->with(['country']);
     }
 
     public function html()
@@ -50,7 +50,7 @@ class ClientDataTable extends DataTable
                     ->columns($this->getColumns()) 
                     ->minifiedAjax()
                     ->dom('frtip') 
-                    ->orderBy(1, 'asc')
+                    ->orderBy(10, 'desc')
                     ->language([
                         'emptyTable' => 'No records found', 
                     ]);
@@ -73,6 +73,7 @@ class ClientDataTable extends DataTable
             Column::make('password')->title('Password'),
             Column::make('status')->title('Status'), 
             Column::make('country.name')->title('Country'), 
+            Column::make('created_at')->title('Created At'), 
             Column::computed('action') 
                   ->title('Action')
                   ->exportable(false) 

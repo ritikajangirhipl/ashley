@@ -154,7 +154,24 @@
                                 <span class="pcoded-mtext">{{ trans('cruds.client.title') }}</span>
                             </a>
                         </li>
-                </ul>
+
+                        <li data-username="order" class="nav-item {{ request()->is('admin/orders') || request()->is('admin/orders/*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.orders.index') }}" class="nav-link">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-users"></i> 
+                                </span>
+                                <span class="pcoded-mtext">{{ trans('cruds.order.title') }}</span>
+                            </a>
+                        </li>
+                        <li data-username="payment" class="nav-item {{ request()->is('admin/payments') || request()->is('admin/payments/*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.payments.index') }}" class="nav-link">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-credit-card"></i> 
+                                </span>
+                                <span class="pcoded-mtext">{{ trans('cruds.payment.title') }}</span>
+                            </a>
+                        </li>
+                    </ul>
             @endauth
         </div>
     </div>

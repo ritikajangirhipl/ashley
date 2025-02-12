@@ -33,7 +33,7 @@ class VerificationModeDataTable extends DataTable
 
     public function query(VerificationMode $model)
     {
-        return $model->newQuery()->orderBy('created_at', 'desc');
+        return $model->newQuery();
     }
 
     public function html()

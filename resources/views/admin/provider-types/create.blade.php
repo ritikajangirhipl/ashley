@@ -7,6 +7,7 @@
         <h4 class="card-title">
             {{ __('panel.page_title.provider_type.add') }}
         </h4>
+        <a href="{{ route('admin.provider-types.index') }}" class="btn btn-secondary">Back</a>
     </div>
 
     <div class="card-body">

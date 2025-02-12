@@ -1,6 +1,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $.validator.addMethod("customEmail", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+        }, "Please enter a valid email address.");
         $("#client-form").validate({
             rules: {
                 name: {
@@ -13,7 +16,8 @@
                 },
                 email_address: {
                     required: true,
-                    email: true
+                    email: true,
+                    customEmail: true  
                 },
                 phone_number: {
                     required: true,
@@ -40,45 +44,6 @@
                 },
                 status: {
                     required: true
-                }
-            },
-            messages: {
-                name: {
-                    required: "{{ trans('validation.required', ['attribute' => 'name']) }}",
-                    minlength: "{{ trans('validation.min.string', ['attribute' => 'name', 'min' => 3]) }}",
-                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'name', 'max' => 255]) }}"
-                },
-                client_type: {
-                    required: "{{ trans('validation.required', ['attribute' => 'client type']) }}"
-                },
-                email_address: {
-                    required: "{{ trans('validation.required', ['attribute' => 'email']) }}",
-                    email: "{{ trans('validation.email', ['attribute' => 'email']) }}"
-                },
-                phone_number: {
-                    required: "{{ trans('validation.required', ['attribute' => 'phone number']) }}",
-                    digits: "{{ trans('validation.digits', ['attribute' => 'phone number']) }}",
-                    minlength: "{{ trans('validation.min.string', ['attribute' => 'phone number', 'min' => 10]) }}",
-                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'phone number', 'max' => 15]) }}"
-                },
-                country_id: {
-                    required: "{{ trans('validation.required', ['attribute' => 'country']) }}"
-                },
-                contact_address: {
-                    required: "{{ trans('validation.required', ['attribute' => 'contact address']) }}",
-                    minlength: "{{ trans('validation.min.string', ['attribute' => 'contact address', 'min' => 5]) }}",
-                    maxlength: "{{ trans('validation.max.string', ['attribute' => 'contact address', 'max' => 255]) }}"
-                },
-                website_address: {
-                    required: "{{ trans('validation.required', ['attribute' => 'website address']) }}",
-                    url: "{{ trans('validation.url', ['attribute' => 'website']) }}"
-                },
-                password: {
-                    required: "{{ trans('validation.required', ['attribute' => 'password']) }}",
-                    minlength: "{{ trans('validation.min.string', ['attribute' => 'password', 'min' => 8]) }}"
-                },
-                status: {
-                    required: "{{ trans('validation.required', ['attribute' => 'status']) }}"
                 }
             },
             errorElement: 'span',

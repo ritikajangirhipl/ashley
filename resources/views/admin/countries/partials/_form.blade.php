@@ -46,16 +46,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="currency_symbol">{{ trans('cruds.country.fields.currency_symbol') }}<span class="text-danger">*</span></label>
-            <input 
-                type="text" 
-                id="currency_symbol" 
-                name="currency_symbol" 
-                class="form-control  {{ $errors->has('currency_symbol') ? 'has-error' : '' }}" 
-                value="{{ old('currency_symbol', isset($country) ? $country->currency_symbol : '') }}" 
-                pattern="[\p{Sc}\p{So}]*" 
-                title="Only valid currency symbols (e.g., $, €, £, ¥) are allowed. Numbers, letters, and spaces are not allowed." 
-                required
-            >
+            <input type="text" id="currency_symbol" name="currency_symbol" class="form-control" value="{{ isset($country) ? $country->currency_symbol : '' }}" required>
         </div>
     </div>
 

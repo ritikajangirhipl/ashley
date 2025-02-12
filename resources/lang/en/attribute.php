@@ -11,5 +11,6 @@ return [
     'provider_type' => 'Provider Type',
     'service_partners' => 'Service Partners',
     'client' => 'Client',
+    'order' => 'Order',
     'user' => 'User',
 ];

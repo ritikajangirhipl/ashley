@@ -1,6 +1,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 <script type="text/javascript">
 $(document).ready(function () {
     var isEdit = $("#countries-form").attr('data-isEdit') === 'true';  
@@ -33,28 +33,7 @@ $(document).ready(function () {
                 }
             },
         },
-        messages: {
-            name: { 
-                required: "Name is required.",
-                minlength: "Name must be at least 3 characters long.",
-            },
-            currency_name: {
-                required: "Currency name is required.",
-            },
-            currency_symbol: {
-                required: "Currency symbol is required.",
-            },
-            description: { 
-                required: "Description is required.",
-                maxlength: "Description cannot be longer than 255 characters." 
-            },
-            status: { 
-                required: "Status is required." 
-            },
-            flag: { 
-                required: "Flag is required." 
-            },
-        },
+
         errorElement: 'span',
         errorClass: 'invalid-feedback',
         errorPlacement: function (error, element) {

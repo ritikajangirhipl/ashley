@@ -4,8 +4,9 @@
     <div class="card">
         <div class="card-header card-header-primary">
             <h4 class="card-title">
-                {{ __('panel.page_title.service_partner.show') }}
+                {{ __('panel.page_title.service_partners.show') }}
             </h4>
+            <a href="{{ route('admin.service-partners.index') }}" class="btn btn-secondary">Back</a>
         </div>
 
         <div class="card-body">

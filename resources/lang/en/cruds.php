@@ -230,7 +230,7 @@ return [
     ],
     'category'           => [
         'title'          => 'Categories',
-        'title_singular' => 'Categories',
+        'title_singular' => 'Category',
         'fields'         => [
             'name'                  => 'Name',
             'image'                 => 'Image',
@@ -338,11 +338,10 @@ return [
         'title' => 'Verification Provider',
         'title_singular' => 'Verification Provider',
         'fields' => [
-            'country' => 'Country',
             'name' => 'Name',
             'description' => 'Description',
             'provider_type' => 'Provider Type',
-            'country' => 'country',
+            'country' => 'Country',
             'contact_address' => 'Contact Address',
             'email_address' => 'Email Address',
             'website' => 'Website Address',
@@ -354,10 +353,9 @@ return [
         'title' => 'Service Partners',
         'title_singular' => 'Service Partner',
         'fields' => [
-            'country' => 'Country',
             'name' => 'Name',
             'description' => 'Description',
-            'country' => 'country',
+            'country' => 'Country',
             'contact_address' => 'Contact Address',
             'email_address' => 'Email Address',
             'website_address' => 'Website Address',
@@ -377,7 +375,43 @@ return [
             'contact_address' => 'Contact Address',
             'contact_person' => 'Contact Person',
             'password' => 'Password',
-            'country' => 'country',
+            'country' => 'Country',
+            'status' => 'Status',
+        ]
+    ],
+
+    'order' => [
+        'title' => 'orders',
+        'title_singular' => 'order',
+        'fields' => [
+            'client' => 'Client',
+            'service' => 'Service',
+            'name_of_subject' => 'Name Of Subject',
+            'copy_of_document' => 'Copy of Document',
+            'reason_for_request' => 'Reason for Request',
+            'subject_consent' => 'Subject Requirement',
+            'name_of_reference_provider' => 'Name of Reference Provider',
+            'address_information' => 'Address Information',
+            'location_id' => 'Location',
+            'gender' => 'Gender',
+            'marital_status' => 'Marital Status',
+            'registration_number' => 'Registration Number',
+            'others' => 'Others',
+            'preferred_currency' => 'Preferred Currency',
+            'order_amount' => 'Order Amount',
+            'order_payment_status' => 'Order Payment Status',
+            'order_processing_status' => 'Order Processing Status',
+        ]
+    ],
+    'payment' => [
+        'title' => 'Payments',
+        'title_singular' => 'Payment',
+        'fields' => [
+            'order_id' => 'Order ID',
+            'reference_number' => 'Reference Number',
+            'evidence' => 'Evidence',
+            'amount' => 'Amount',
+            'currency' => 'Currency',
             'status' => 'Status',
         ]
     ],

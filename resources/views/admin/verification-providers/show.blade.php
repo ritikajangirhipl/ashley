@@ -6,6 +6,7 @@
             <h4 class="card-title">
                 {{ trans('panel.page_title.verification_provider.show') }}
             </h4>
+            <a href="{{ route('admin.verification-providers.index') }}" class="btn btn-secondary">Back</a>
         </div>
 
         <div class="card-body">

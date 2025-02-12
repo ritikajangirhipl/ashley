@@ -4,7 +4,7 @@ return [
 	'process'    					       => 'Process',
     'select_type'                          => 'Select :attribute Name.',
     'actions'                              => 'Actions',
-    'onceClickedRecordDeleted'             => 'Once deleted, this record cannot be restored',
+    'onceClickedRecordDeleted'             => 'This record cannot be recovered once deleted',
     'add'                                  => 'Add',
     'allRightsReserved'                    => 'All rights reserved.',
     'areYouSure'                           => 'Are you sure?',

@@ -15,15 +15,22 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:verification_providers,name,' . $this->verification_provider->id . '|max:255',
+            'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'country_id' => 'required|exists:countries,id',
             'provider_type_id' => 'required|exists:provider_types,id',
             'contact_address' => 'nullable|string',
-            'email' => 'required|email|unique:verification_providers,email,' . $this->verification_provider->id,
+            'email' => [
+                'required',
+                'email',
+                'unique:verification_providers,email,' . $this->verification_provider->id, 
+                'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', 
+            ],
             'website' => 'nullable|url',
             'contact_person' => 'nullable|string|max:255',
             'status' => 'required|in:1,0',
         ];
     }
 }
+
+

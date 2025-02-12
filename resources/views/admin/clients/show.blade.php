@@ -8,6 +8,7 @@
             <h4 class="card-title">
                 {{ __('panel.page_title.client.show') }}
             </h4>
+            <a href="{{ route('admin.clients.index') }}" class="btn btn-secondary">Back</a>
         </div>
 
         <div class="card-body">

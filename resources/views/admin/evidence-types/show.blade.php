@@ -7,6 +7,7 @@
         <h4 class="card-title">
             {{ __('panel.page_title.evidence_type.show') }}
         </h4>
+        <a href="{{ route('admin.evidence-types.index') }}" class="btn btn-secondary">Back</a>
     </div>
 
     <div class="card-body">

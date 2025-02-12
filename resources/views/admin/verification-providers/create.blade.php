@@ -8,6 +8,7 @@
         <h4 class="card-title">
             {{ trans('global.create') }} {{ trans('cruds.verification_provider.title_singular') }}
         </h4>
+        <a href="{{ route('admin.verification-providers.index') }}" class="btn btn-secondary">Back</a>
     </div>
 
     <div class="card-body">

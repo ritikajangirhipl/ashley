@@ -16,7 +16,7 @@
     
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="image">{{ trans('cruds.sub_category.fields.image') }}</label>
+            <label for="image">{{ trans('cruds.sub_category.fields.image') }}<span class="text-danger">*</span></label>
             <input type="file" name="image" id="imageInput" class="form-control" accept="image/*">
 
             @isset($subCategory)

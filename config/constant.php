@@ -93,6 +93,10 @@ return [
             'individual' => 'Individual',
             'organization' => 'Organization',
         ],
+        'payment_status' => [
+            '1' => 'Successful',
+            '0' => 'Failed',
+        ],
         'issuerType'       => [
             'private'       => 'Private University',
             'public'        => 'Public University',
@@ -116,11 +120,6 @@ return [
         'type' => [
             '1'   => 'Issuer',
             '2'   => 'Receiver',
-        ],
-        'paymentStatus' => [
-            'fully_paid'        => 'Fully Paid',
-            'partially_paid'    => 'Partially Paid',          
-            'not_paid'          => 'Not Paid',          
         ],
         'page_length' => [
             'lengthMenu' => [[10, 25, 50, 100, 500, 1000, -1], [10, 25, 50, 100, 500, 1000]],

@@ -8,7 +8,7 @@ return new class extends Migration {
     {
         Schema::create('service_partners', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('country_id'); 
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');

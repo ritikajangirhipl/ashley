@@ -4,9 +4,10 @@
 
 <div class="card">
     <div class="card-header card-header-primary">
-    <h4 class="card-title">
-        {{ __('panel.page_title.country.add') }} 
-    </h4>
+        <h4 class="card-title">
+            {{ __('panel.page_title.country.add') }} 
+        </h4>
+        <a href="{{ route('admin.countries.index') }}" class="btn btn-secondary">Back</a>
     </div>
 
     <div class="card-body">

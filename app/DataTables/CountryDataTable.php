@@ -36,7 +36,7 @@ class CountryDataTable extends DataTable
 
     public function query(Country $model)
     {
-        return $model->newQuery()->orderBy('created_at', 'desc');;
+        return $model->newQuery();
     }
 
     public function html()

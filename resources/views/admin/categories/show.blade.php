@@ -7,6 +7,7 @@
         <h4 class="card-title">
             {{ __('panel.page_title.category.show') }}  
         </h4>
+        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Back</a>  
     </div>
 
     <div class="card-body">
