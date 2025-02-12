@@ -1,7 +1,149 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script type="text/javascript">
+    function setComboValuesOptions(element=null){
+        var elementSelector = ".services_combo_values";
+        if(element){
+            elementSelector = "#"+element;
+            if($(document).find(elementSelector).find('option').length > 0){
+                $(document).find(elementSelector).find('option').remove();
+            }
+        }
+
+        if($(document).find(elementSelector).siblings('.select2-container').length > 0){
+            $(document).find(elementSelector).siblings('.select2-container').remove();            
+        }
+        $(document).find(elementSelector).select2({
+            tags: true,
+            width:"100%",
+        });
+    }
+
+    function addServiceFields(thisElement){
+        console.log('thisElement',thisElement);
+        var counter = $(thisElement).attr('data-counter');
+        
+        counter = parseInt(counter)+1;
+        $(thisElement).attr('data-counter',counter);
+        var rowToCopy =  $(document).find('.repeatable-content-service-fields').last();
+        
+        var rowNumber = rowToCopy.data('row');
+        rowToCopy.clone().attr('data-row',counter).removeClass('service-field-'+rowNumber)
+        .find(".validation-error").remove().end()
+        .find(".service_additional_field_id").remove().end()
+        .find(".services_field_name").attr('name',"additional_fields["+counter+"][field_name]").attr('id',"services_field_name_"+counter).val("").end()
+
+        .find(".services_combo_values").attr('name',"additional_fields["+counter+"][combo_values][]").attr('id',"services_combo_values_"+counter).removeClass("is-valid select2-hidden-accessible survey-input").addClass("services_combo_values_"+counter).attr('data-select2-id',"services_combo_values_"+counter).val("").end()
+
+        .find(".services_field_type").attr('name',"additional_fields["+counter+"][field_type]").attr('id',"services_field_type_"+counter).removeClass("is-valid").val("").end()   
+
+        .find(".services_field_required").attr('name',"additional_fields["+counter+"][field_required]").attr('id',"services_field_required_"+counter).removeClass("is-valid").val("").end()
+        .find(".del-field-btn").removeClass('delete_record').addClass('del_field').removeAttr('data-url').attr('data-services',"service-field-"+counter).end()
+        .removeClass('service-field-0')
+        .addClass("service-field-"+counter)
+        .appendTo($('.service-fields-details'));
+
+        setComboValuesOptions("services_combo_values_"+counter);    
+       
+        $("#services_field_type_"+counter).val("");
+
+        thisElement.remove();
+    } 
     $(document).ready(function () {
-        $("#service-form").validate({
+
+        $('#country_id').on('change', function(){
+            var country_id = $(this).val();
+            $.ajax({
+                url: "{{ route('admin.countries.getCountryDetail') }}",
+                type: "POST",
+                data: {'country_id' : country_id},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                beforeSend: function () {
+                    console.log("Request is being sent...");
+                },
+                success: function (response) {
+                    console.log(response);
+                    $('#service_currency').val(response.data.currency_name);
+                },
+                error: function (xhr) {
+                    console.log('ajax error:', xhr);
+                    
+                },
+                complete: function () {
+                    console.log("Request completed.");
+                }
+            });
+        });
+
+        $(document).on('change','.services_field_type',function(){
+            var _this_element = $(this);
+            console.log(_this_element.val());
+            console.log(_this_element.parents('.services_field_type_wrap').siblings('.combo_values_wrap'));
+            if(_this_element.val() == 2){
+                _this_element.parents('.services_field_type_wrap').siblings('.combo_values_wrap').show();
+            }else{
+                _this_element.parents('.services_field_type_wrap').siblings('.combo_values_wrap').hide();
+            }
+        });
+
+        setComboValuesOptions();
+        
+        $('#category_id').on('change', function(){
+            var category_id = $(this).val();
+            console.log('category_id',category_id);
+            $.ajax({
+                url: "{{ route('admin.subcategories.getSubCategories') }}",
+                type: "POST",
+                data: {category_id : category_id},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                beforeSend: function () {
+                    console.log("Request is being sent...");
+                },
+                success: function (response) {
+                    console.log(response);
+                    let emptyTxt = "{{ 'Select ' . trans('cruds.services.fields.sub_category') }}";
+                    html = '<option value="">'+emptyTxt+'</option>';
+                    $.each(response.sub_categories, function(key, value) {
+                        html += '<option value="'+key+'">' + value + '</option>';
+                    });
+                    $('#sub_category_id').html(html);
+                },
+                error: function (xhr) {
+                    console.log('ajax error:', xhr);
+                    
+                },
+                complete: function () {
+                    console.log("Request completed.");
+                }
+            });
+
+        });
+
+        $(document).on('click' , '.del_field' , function(event){
+            event.preventDefault();
+            if($('.repeatable-content-service-fields').length <= 1){
+                toastr.warning("{{ trans('messages.social_media_delete_warning') }}",'Warning!');
+            }else{          
+                var dataId = $(this).data("services");
+                console.log('dataId',dataId);
+                console.log($(document).find('.service-fields-details').find("."+dataId));
+                $(document).find('.service-fields-details').find("."+dataId).remove();
+
+                var isAddMoreExists = $(this).siblings('.add_additional_field');
+                console.log('isAddMoreExists',isAddMoreExists);
+                if(isAddMoreExists.length > 0){
+                    var lastRow = $(document).find('.repeatable-content-service-fields').last();
+
+                    isAddMoreExists.clone().appendTo(lastRow.find('.service-field-actions'));
+                }
+            }
+        });
+
+
+        $("#services-form").validate({
             rules: {
                 name: {
                     required: true,
@@ -15,23 +157,77 @@
                 country_id: {
                     required: true
                 },
-                contact_address: {
-                    required: true,
-                    minlength: 5,
-                    maxlength: 255
+                category_id: {
+                    required: true
                 },
-                email_address: {
-                    required: true,
-                    email: true 
+                sub_category_id: {
+                    required: true
                 },
-                website_address: {
-                required: true,  
-                url: true
+                subject: {
+                    required: true
                 },
-                contact_person: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 255
+                verification_mode_id: {
+                    required: true
+                },
+                verification_summary: {
+                    required: true
+                },
+                verification_provider_id: {
+                    required: true
+                },
+                verification_duration: {
+                    required: true
+                },
+                evidence_type_id: {
+                    required: true
+                },
+                evidence_summary: {
+                    required: true
+                },
+                service_partner_id: {
+                    required: true
+                },
+                service_currency: {
+                    required: true
+                },
+                local_service_price: {
+                    required: true
+                },
+                usd_service_price: {
+                    required: true
+                },
+                subject_name: {
+                    required: true
+                },
+                copy_of_document_to_verify: {
+                    required: true
+                },
+                reason_for_request: {
+                    required: true
+                },
+                subject_consent_requirement: {
+                    required: true
+                },
+                name_of_reference_provider: {
+                    required: true
+                },
+                address_information: {
+                    required: true
+                },
+                location: {
+                    required: true
+                },
+                gender: {
+                    required: true
+                },
+                marital_status: {
+                    required: true
+                },
+                registration_number: {
+                    required: true
+                },
+                marital_status: {
+                    required: true
                 },
                 status: {
                     required: true

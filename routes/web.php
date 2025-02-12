@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\SubCategoryController;
 
 Route::get('/cache-clear', function() {
     Artisan::call('optimize:clear');
@@ -21,6 +23,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::get('change-password', [ProfileController::class, 'showChangePasswordForm'])->name('changePasswordForm');
     Route::post('change-password', [ProfileController::class, 'changePassword'])->name('changePassword');
+    
+    Route::post('country/get-details', [CountryController::class, 'getCountryDetail'])->name('countries.getCountryDetail');
+    
+    Route::post('sub-categories/get', [SubCategoryController::class, 'getSubCategories'])->name('subcategories.getSubCategories');
 
     Route::resources([
         'categories' => 'CategoryController',

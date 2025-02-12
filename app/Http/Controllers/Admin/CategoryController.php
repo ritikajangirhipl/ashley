@@ -163,6 +163,7 @@ class CategoryController extends Controller
 
         return $imagePath;
     }
+    
 }
 
 

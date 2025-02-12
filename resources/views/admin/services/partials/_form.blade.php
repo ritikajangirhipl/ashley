@@ -3,7 +3,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="country_id">{{ trans('cruds.services.fields.country') }}<span class="text-danger">*</span></label>
-            <select name="country_id" id="country_id" class="form-control select2 {{ $errors->has('country_id') ? 'is-invalid' : '' }}" required autofocus>
+            <select name="country_id" id="country_id" class="form-control select2 {{ $errors->has('country_id') ? 'is-invalid' : '' }}" required>
                 <option value="">{{ 'Select ' . trans('cruds.services.fields.country') }}</option>
                 @foreach($countries as $id => $name)
                     <option value="{{ $id }}" {{ old('country_id', $service->country_id ?? '') == $id ? 'selected' : '' }}>
@@ -199,14 +199,9 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="service_currency">{{ trans('cruds.services.fields.service_currency') }}<span class="text-danger">*</span></label>
-            <select name="service_currency" id="service_currency" class="form-control select2 {{ $errors->has('service_currency') ? 'is-invalid' : '' }}" required>
-                <option value="">{{ 'Select ' . trans('cruds.services.fields.service_currency') }}</option>
-                @foreach($currencies as $id => $name)
-                    <option value="{{ $id }}" {{ old('service_currency', $service->service_currency ?? '') == $id ? 'selected' : '' }}>
-                        {{ $name }}
-                    </option>
-                @endforeach
-            </select>
+            <input type="text" id="service_currency" name="service_currency" class="form-control {{ $errors->has('service_currency') ? 'is-invalid' : '' }}"
+                   value="{{ old('service_currency', $service->service_currency ?? '') }}" required readonly disable>
+            
             @if($errors->has('service_currency'))
                 <span class="text-danger">{{ $errors->first('service_currency') }}</span>
             @endif
@@ -447,67 +442,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 col-sm-12">
-            <div class="row m-2">
-                <div class="col-md-12 col-sm-12">
-                    <h4>Add New </h4>
-                </div>
-
-                <div class="col-md-6 col-sm-12">
-                    <div class="form-group">
-                        <label for="field_name">{{ trans('cruds.services.fields.field_name') }}<span class="text-danger">*</span></label>
-                        <input type="text" id="field_name" name="field_name" class="form-control {{ $errors->has('field_name') ? 'is-invalid' : '' }}"
-                            value="{{ old('field_name', $service->field_name ?? '') }}" required >
-                        @if($errors->has('field_name'))
-                            <span class="text-danger">{{ $errors->first('field_name') }}</span>
-                        @endif
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-sm-12">
-                    <div class="form-group">
-                        <label for="field_type">{{ trans('cruds.services.fields.field_type') }}<span class="text-danger">*</span></label>
-                        <select name="field_type" id="field_type" class="form-control select2 {{ $errors->has('field_type') ? 'is-invalid' : '' }}" required>
-                            <option value="">{{ 'Select ' . trans('cruds.services.fields.field_type') }}</option>
-                            @foreach($fieldTypes as $id => $name)
-                                <option value="{{ $id }}" {{ old('field_type', $service->field_type ?? '') == $id ? 'selected' : '' }}>
-                                    {{ $name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @if($errors->has('field_type'))
-                            <span class="text-danger">{{ $errors->first('field_type') }}</span>
-                        @endif
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-sm-12">
-                    <div class="form-group">
-                        <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}<span class="text-danger">*</span></label>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-sm-12">
-                    <div class="form-group">
-                        <label for="field_required">{{ trans('cruds.services.fields.field_required') }}<span class="text-danger">*</span></label>
-
-                        <select name="field_required" id="field_required" class="form-control select2 {{ $errors->has('field_required') ? 'is-invalid' : '' }}" required>
-                            <option value="">{{ 'Select ' . trans('cruds.services.fields.field_required') }}</option>
-                            @foreach($inputDetailsOpts as $id => $name)
-                                <option value="{{ $id }}" {{ old('field_required', $service->field_required ?? '') == $id ? 'selected' : '' }}>
-                                    {{ $name }}
-                                </option>
-                            @endforeach
-                        </select>
-
-                        @if($errors->has('field_required'))
-                            <span class="text-danger">{{ $errors->first('field_required') }}</span>
-                        @endif
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        @include('admin.services.partials._additional_fields')
     </div>
 
     <!-- status -->
