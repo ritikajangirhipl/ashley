@@ -38,6 +38,7 @@
     $(document).on("click", ".delete-record", function(event) {
     event.preventDefault();
     var url = $(this).data('href');
+    var subCategoryId = $(this).data('id');
     var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
     Swal.fire({
@@ -54,24 +55,24 @@
                     type: 'POST',
                     url: url,
                     dataType: 'json',
-                    data: { _token: csrf_token, _method: "DELETE" },
+                    data: { _token: csrf_token, _method: "DELETE" ,  sub_category_id: subCategoryId},
                     success: function(response) {
                         if (response.status) {
                             Swal.fire({
-                                title: 'Success',
-                                text: response.message,
-                                icon: "success",
-                                confirmButtonText: "Okay",
-                                confirmButtonColor: "#04a9f5"
+                            title: 'Success',
+                            text: response.message,
+                            icon: "success",
+                            confirmButtonText: "Okay",
+                            confirmButtonColor: "#04a9f5"
                             });
-                            $('#sub-categories-table').DataTable().ajax.reload(null, false);
+                            $('#sub-categories-table').DataTable().ajax.reload(null, false); 
                         } else {
                             Swal.fire({
-                                title: 'Error',
-                                text: response.message,
-                                icon: "error",
-                                confirmButtonText: "Okay",
-                                confirmButtonColor: "#04a9f5"
+                            title: 'Error',
+                            text: response.message,
+                            icon: "error",
+                            confirmButtonText: "Okay",
+                            confirmButtonColor: "#04a9f5"
                             });
                         }
                     },

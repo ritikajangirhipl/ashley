@@ -16,6 +16,9 @@ class ClientDataTable extends DataTable
             ->editColumn('status', function ($client) {
                 return config('constant.enums.status.' . $client->status);
             })
+            ->editColumn('name', function ($client) {
+                return $client->name ?? 'N/A';
+            })
             ->editColumn('country.name', function ($client) {
                 return $client->country ? $client->country->name : 'N/A';
             })
@@ -40,7 +43,9 @@ class ClientDataTable extends DataTable
 
     public function query(Client $model)
     {
-        return $model->newQuery()->with(['country']);
+        return $model->newQuery()
+                    ->select('clients.*', 'countries.name as country_name')
+                    ->leftJoin('countries', 'countries.id', '=', 'clients.country_id');
     }
 
     public function html()
@@ -72,8 +77,7 @@ class ClientDataTable extends DataTable
             Column::make('contact_address')->title('Contact Address'),
             Column::make('password')->title('Password'),
             Column::make('status')->title('Status'), 
-            Column::make('country.name')->title('Country'), 
-            Column::make('created_at')->title('Created At'), 
+            Column::make('country_name')->title('Country'),  
             Column::computed('action') 
                   ->title('Action')
                   ->exportable(false) 

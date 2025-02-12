@@ -14,7 +14,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:sub_categories,name|max:255',
+
+            'name' => 'required|unique:sub_categories,name,' . $this->sub_category->id. '|max:255',
             'description' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
             'status' => 'nullable|in:0,1',

@@ -15,11 +15,14 @@ class VerificationProviderDataTable extends DataTable
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.' . $record->status) ?? 'Unknown';
             })
-            ->editColumn('country.name', function ($record) {
-                return $record->country ? $record->country->name : 'N/A';
+            ->editColumn('name', function ($verificationProvider) {
+                return $verificationProvider->name ?? 'N/A';
             })
-            ->editColumn('providerType.name', function ($record) {
-                return $record->providerType ? $record->providerType->name : 'N/A';
+            ->editColumn('country_name', function ($verificationProvider) {
+                return $verificationProvider->country ? $verificationProvider->country->name : 'N/A';
+            })
+            ->editColumn('provider_type_name', function ($verificationProvider) {
+                return $verificationProvider->providerType ? $verificationProvider->providerType->name : 'N/A';
             })
             ->addColumn('action', function ($record) {
                 return '<div class="group-button d-flex">
@@ -39,7 +42,10 @@ class VerificationProviderDataTable extends DataTable
 
     public function query(VerificationProvider $model)
     {
-        return $model->newQuery()->with(['country', 'providerType']);
+        return $model->newQuery()
+        ->select('verification_providers.*', 'countries.name as country_name', 'provider_types.name as provider_type_name')
+        ->join('countries', 'countries.id', '=', 'verification_providers.country_id') 
+        ->join('provider_types', 'provider_types.id', '=', 'verification_providers.provider_type_id'); 
     }
 
     public function html()
@@ -65,8 +71,8 @@ class VerificationProviderDataTable extends DataTable
             Column::make('description')->title('Description'),
             Column::make('email')->title('Email'),
             Column::make('status')->title('Status'),
-            Column::make('country.name')->title('Country'),
-            Column::make('providerType.name')->title('Provider Type'),
+            Column::make('country_name')->title('Country'),
+            Column::make('provider_type_name')->title('Provider Type'),
             Column::computed('action')
                   ->title('Action')
                   ->exportable(false)

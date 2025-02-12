@@ -15,14 +15,14 @@ class SubCategoryDataTable extends DataTable
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.'.$record->status);
             })
-            ->editColumn('category.name', function ($subCategory) {
-                return $subCategory->category ? $subCategory->category->name : 'N/A';
+            ->editColumn('name', function ($subCategory) {
+                return $subCategory->name ?? 'N/A';
+            })
+            ->editColumn('category_name', function ($subCategory) {
+                return $subCategory->category_name ? $subCategory->category_name : 'N/A';
             })
             ->editColumn('image', function ($subCategory) {
                 return $subCategory->image ? '<img src="' . asset('storage/' . $subCategory->image) . '" width="50">' : 'No image';
-            })
-            ->editColumn('created_at', function ($subCategory) {
-                return $subCategory->created_at->format('Y-m-d H:i:s'); // Format created_at
             })
             ->addColumn('action', function ($subCategory) {
                 return '<div class="group-button d-flex">
@@ -43,7 +43,8 @@ class SubCategoryDataTable extends DataTable
     public function query(SubCategory $model)
     {
         return $model->newQuery()
-                     ->with(['category']);
+                 ->select('sub_categories.*', 'categories.name as category_name') 
+                 ->join('categories', 'categories.id', '=', 'sub_categories.category_id');
                    
     }
 
@@ -71,13 +72,10 @@ class SubCategoryDataTable extends DataTable
             Column::make('name')->title('Name'),
             Column::make('image')->title('Image'),
             Column::make('description')->title('Description'),
-            Column::make('status')->title('Status'),
-            Column::make('category.name')->title('Category')
+            Column::make('category_name')->title('Category')
                   ->searchable(true)
                   ->orderable(true),
-            Column::make('created_at')->title('Created At') // Sorting applied here
-                  ->searchable(false)
-                  ->orderable(true),
+            Column::make('status')->title('Status'),
             Column::computed('action')
                   ->title('Action')
                   ->exportable(false)

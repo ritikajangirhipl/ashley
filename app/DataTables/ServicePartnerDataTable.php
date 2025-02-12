@@ -16,11 +16,11 @@ class ServicePartnerDataTable extends DataTable
             ->editColumn('status', function ($servicePartner) {
                 return config('constant.enums.status.' . $servicePartner->status);
             })
-            ->editColumn('country.name', function ($servicePartner) {
-                return $servicePartner->country ? $servicePartner->country->name : 'N/A';
+            ->editColumn('name', function ($servicePartner) {
+                return $servicePartner->name ?? 'N/A';
             })
-            ->addColumn('created_at', function ($servicePartner) {
-                return $servicePartner->created_at->format('Y-m-d H:i:s'); 
+            ->editColumn('country_name', function ($servicePartner) {
+                return $servicePartner->country ? $servicePartner->country->name : 'N/A';
             })
             ->addColumn('action', function ($servicePartner) {
                 return '<div class="group-button d-flex">
@@ -41,7 +41,8 @@ class ServicePartnerDataTable extends DataTable
     public function query(ServicePartner $model)
     {
         return $model->newQuery()
-                     ->with(['country']);
+                    ->select('service_partners.*', 'countries.name as country_name')
+                    ->leftJoin('countries', 'countries.id', '=', 'service_partners.country_id');
     }
 
     public function html()
@@ -68,9 +69,8 @@ class ServicePartnerDataTable extends DataTable
             Column::make('name')->title('Name'), 
             Column::make('email_address')->title('Email'),
             Column::make('website_address')->title('Website'),
-            Column::make('country.name')->title('Country'),
+            Column::make('country_name')->title('Country'),
             Column::make('status')->title('Status'), 
-            Column::make('created_at')->title('Created At'),
             Column::computed('action')
                   ->title('Action')
                   ->exportable(false)

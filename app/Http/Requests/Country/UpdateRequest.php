@@ -14,7 +14,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|unique:countries,name',
+            'name' => 'required|unique:countries,name,'. $this->country->id.'|max:255 ',
             'flag' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'description' => 'nullable|string',
             'currency_name' => 'required|string|max:255',

@@ -337,7 +337,7 @@ return [
         ],
     ],
     'verification_provider' => [
-        'title' => 'Verification Provider',
+        'title' => 'Verification Providers',
         'title_singular' => 'Verification Provider',
         'fields' => [
             'name' => 'Name',

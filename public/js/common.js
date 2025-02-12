@@ -25,7 +25,7 @@ function submitForm(form) {
                     icon: 'success',
                     confirmButtonText: 'OK',
                 }).then((result) => {
-                    if (result.isConfirmed && response.redirect_url) {
+                    if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
                         console.log('Redirection to :',response.redirect_url);
                         window.location.href = response.redirect_url;
                     }

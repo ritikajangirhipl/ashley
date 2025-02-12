@@ -36,7 +36,7 @@ class CategoryDataTable extends DataTable
 
     public function query(Category $model)
     {
-        return $model->newQuery()->orderBy('created_at', 'desc');;
+        return $model->newQuery();
     }
 
     public function html()
@@ -46,7 +46,7 @@ class CategoryDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1)
+                    ->orderBy(6, 'desc')
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);
@@ -62,6 +62,7 @@ class CategoryDataTable extends DataTable
             Column::make('image')->title('Image'),
             Column::make('description')->title('Description'),
             Column::make('status')->title('Status'),
+            Column::make('created_at')->title('Created At'),
             Column::computed('action')->title('Action')
                 ->exportable(false)
                 ->printable(false)
