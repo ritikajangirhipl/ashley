@@ -299,9 +299,9 @@ return [
             'verification_summary'          => 'Verification Summary',
             'verification_provider'         => 'Verification Provider',
             'verification_duration'         => 'Verification Duration',
-            'evidence_type'              => 'Evidence Type',
+            'evidence_type'                 => 'Evidence Type',
             'evidence_summary'              => 'Evidence Summary',
-            'service_partners'            => 'Service Partners',
+            'service_partner'               => 'Service Partner',
             'service_currency'              => 'Service Currency',
             'local_service_price'           => 'Local Service Price',
             'usd_service_price'             => 'USD Service Price',
@@ -320,6 +320,8 @@ return [
             'combo_values'                  => 'Combo Values',
             'field_required'                => 'Field Required',
             'status'                        => 'Status',
+            'add_new'                       => 'Add New',
+            'input_details'                 => 'Input Details',
         ]
     ],
 

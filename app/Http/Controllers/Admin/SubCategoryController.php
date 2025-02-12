@@ -163,5 +163,24 @@ class SubCategoryController extends Controller
 
         return $imagePath;
     }
+
+    public function getSubCategories(Request $request)
+    {
+        $subCategories = getActiveSubCategories($request->category_id);
+        if($subCategories){
+
+            return response()->json([
+                'status' => 400,
+                'message' => __('attribute.sub_category'),
+                'sub_categories' => $subCategories,
+            ], 200);
+        }else{
+            return response()->json([
+                'status' => 400,
+                'message' => __('messages.record_not_found',['record' => __('attribute.country')])
+            ], 400);
+        }
+
+    }
 }
 

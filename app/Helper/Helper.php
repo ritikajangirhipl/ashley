@@ -93,10 +93,11 @@ function getServicePartners()
 {
     return ServicePartner::where('status', '1')->pluck('name', 'id');
 }
-function getCurrencies()
-{
-    return Country::where('status', '1')->pluck('currency_name', 'currency_name')->unique();
-}
+
+// function getCurrencies()
+// {
+//     return Country::where('status', '1')->pluck('currency_name', 'currency_name')->unique();
+// }
 
 /**
  * Returns a successful JsonResponse with data but no message.

@@ -188,4 +188,23 @@ class CountryController extends Controller
 
         return $flagPath;
     }
+
+    public function getCountryDetail(Request $request)
+    {
+        $country = Country::select('id','name','currency_name')->where('id',$request->country_id)->first();
+        if($country){
+
+            return response()->json([
+                'status' => 400,
+                'message' => __('attribute.country'),
+                'data' => $country,
+            ], 200);
+        }else{
+            return response()->json([
+                'status' => 400,
+                'message' => __('messages.record_not_found',['record' => __('attribute.country')])
+            ], 400);
+        }
+
+    }
 }

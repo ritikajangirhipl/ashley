@@ -26,6 +26,18 @@ return [
     'country_cannot_be_deleted_due_to_service_partner' => 'This country is associated with a Service Partner and cannot be deleted.',
     'provider_type_delete_error' => 'This :attribute is associated with verification providers and cannot be deleted.',
     'providerType_associated_with_verificationProviders' => 'This :attribute is associated with verification providers and cannot be modified',
+<<<<<<< Updated upstream
+=======
+    'record_not_found' => 'The selected :record does not exist.',
+    'category_not_found' => 'The selected category does not exist.',
+    'category_delete_error' => 'This :attribute is associated with subcategories and cannot be deleted.',
+    'country_cannot_be_inactive_due_to_client' => 'This country is associated with a Client and cannot be set to inactive.',
+    'country_cannot_be_deleted_due_to_client' => 'This country is associated with a Client and cannot be deleted.',
+    'country_cannot_be_inactive_due_to_service_partner' => 'This country is associated with a Service Partner and cannot be set to inactive.',
+    'country_cannot_be_deleted_due_to_service_partner' => 'This country is associated with a Service Partner and cannot be deleted.',
+    'social_media_delete_warning' => 'You cannot delete this field details. Need to add atleast one field detail.',
+
+>>>>>>> Stashed changes
 ];
 
 

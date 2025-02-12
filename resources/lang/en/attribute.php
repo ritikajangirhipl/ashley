@@ -12,4 +12,5 @@ return [
     'service_partners' => 'Service Partners',
     'client' => 'Client',
     'user' => 'User',
+    'service' => 'Service',
 ];

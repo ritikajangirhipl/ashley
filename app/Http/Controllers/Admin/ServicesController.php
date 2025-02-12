@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\ServiceDataTable;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Services\StoreRequest;
-use App\Http\Requests\Services\UpdateRequest;
+use App\Http\Requests\Service\StoreRequest;
+use App\Http\Requests\Service\UpdateRequest;
 use App\Models\Service;
 
 class ServicesController extends Controller
@@ -43,8 +43,8 @@ class ServicesController extends Controller
             $verificationProviders = getVerificationProviders();
             $evidenceTypes = getEvidenceTypes();
             $servicePartners = getServicePartners();
-            $currencies = getCurrencies();
-            return view('admin.services.create', compact('pageTitle', 'status', 'countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','currencies','inputDetailsOpts','fieldTypes'));
+            // $currencies = getCurrencies();
+            return view('admin.services.create', compact('pageTitle', 'status', 'countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -53,7 +53,18 @@ class ServicesController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            Service::create($request->except('_token'));
+            $service = Service::create($request->except('_token','additional_fields'));
+            $additionalFields = $request->additional_fields;
+            if(!empty($additionalFields)){
+                foreach($additionalFields as $key => $field){
+                    $service->additionalFields()->create([
+                        'field_name' => $field['field_name'],
+                        'field_type' => $field['field_type'],
+                        'combo_values' => (isset($field['combo_values']) && !is_null($field['combo_values'])) ? json_encode($field['combo_values']) : NULL,
+                        'field_required' => $field['field_required'],
+                    ]);
+                }
+            }
 
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.service')]), 
             ['redirect_url' => route('admin.services.index')]);
@@ -78,8 +89,16 @@ class ServicesController extends Controller
         try {
             $pageTitle = trans('panel.page_title.service.edit');
             $status = $this->status;
+            $subjects = $this->subjects;
+            $inputDetailsOpts = $this->input_details;
+            $fieldTypes = $this->field_types;
             $countries = getActiveCountries();
-            return view('admin.services.edit', compact('service', 'pageTitle', 'status', 'countries'));
+            $categories = getActiveCategories();
+            $verificationModes = getVerificationModes();
+            $verificationProviders = getVerificationProviders();
+            $evidenceTypes = getEvidenceTypes();
+            $servicePartners = getServicePartners();
+            return view('admin.services.edit', compact('service', 'pageTitle', 'status','countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -106,5 +125,7 @@ class ServicesController extends Controller
             return jsonResponseWithException($e);
         }
     }
+
+    
 }
 
