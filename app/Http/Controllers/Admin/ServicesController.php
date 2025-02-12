@@ -43,8 +43,9 @@ class ServicesController extends Controller
             $verificationProviders = getVerificationProviders();
             $evidenceTypes = getEvidenceTypes();
             $servicePartners = getServicePartners();
+            $subCategories = [];
             // $currencies = getCurrencies();
-            return view('admin.services.create', compact('pageTitle', 'status', 'countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes'));
+            return view('admin.services.create', compact('pageTitle', 'status', 'countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes','subCategories'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -78,7 +79,10 @@ class ServicesController extends Controller
         try {
             $pageTitle = trans('panel.page_title.service.show');
             $status = $this->status;
-            return view('admin.services.show', compact('service', 'pageTitle', 'status'));
+            $subjects = $this->subjects;
+            $input_details = $this->input_details;
+            $field_types = $this->field_types;
+            return view('admin.services.show', compact('service', 'pageTitle', 'status','subjects','input_details','field_types'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -87,18 +91,19 @@ class ServicesController extends Controller
     public function edit(Service $service)
     {
         try {
-            $pageTitle = trans('panel.page_title.service.edit');
-            $status = $this->status;
-            $subjects = $this->subjects;
-            $inputDetailsOpts = $this->input_details;
-            $fieldTypes = $this->field_types;
-            $countries = getActiveCountries();
-            $categories = getActiveCategories();
-            $verificationModes = getVerificationModes();
-            $verificationProviders = getVerificationProviders();
-            $evidenceTypes = getEvidenceTypes();
-            $servicePartners = getServicePartners();
-            return view('admin.services.edit', compact('service', 'pageTitle', 'status','countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes'));
+            $pageTitle              = trans('panel.page_title.service.edit');
+            $status                 = $this->status;
+            $subjects               = $this->subjects;
+            $inputDetailsOpts       = $this->input_details;
+            $fieldTypes             = $this->field_types;
+            $countries              = getActiveCountries();
+            $categories             = getActiveCategories();
+            $verificationModes      = getVerificationModes();
+            $verificationProviders  = getVerificationProviders();
+            $evidenceTypes          = getEvidenceTypes();
+            $servicePartners        = getServicePartners();
+            $subCategories          = getActiveSubCategories($service->category_id);
+            return view('admin.services.edit', compact('service', 'pageTitle', 'status','countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes','subCategories'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -107,7 +112,29 @@ class ServicesController extends Controller
     public function update(UpdateRequest $request, Service $service)
     {
         try {
-            $service->update($request->except('_token', '_method'));
+            $service->update($request->except('_token', '_method','additional_fields','deleted_fields'));
+
+            $additionalFields = $request->additional_fields;
+            if(!empty($additionalFields)){
+                foreach($additionalFields as $key => $field){
+                    $additionalFieldId = $field['additional_field_id'] ?? NULL;
+
+                    $service->additionalFields()->updateOrCreate(['id' => $additionalFieldId],[
+                        'field_name' => $field['field_name'],
+                        'field_type' => $field['field_type'],
+                        'combo_values' => (isset($field['combo_values']) && !is_null($field['combo_values'])) ? json_encode($field['combo_values']) : NULL,
+                        'field_required' => $field['field_required'],
+                    ]);
+                }
+            }
+
+            if($request->deleted_fields){
+                $deletedFields = explode(',',$request->deleted_fields);
+                if(count($deletedFields) > 0){
+                    $service->additionalFields()->whereIn('id',$deletedFields)->delete();
+                }
+            }
+
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.service')]), 
             ['redirect_url' => route('admin.services.index')]);
         } catch (\Exception $e) {
@@ -118,6 +145,7 @@ class ServicesController extends Controller
     public function destroy(Service $service)
     {
         try {
+            $service->additionalFields()->delete();
             $service->delete();
 
             return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service')]));

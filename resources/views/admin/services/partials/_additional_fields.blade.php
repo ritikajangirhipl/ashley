@@ -19,16 +19,19 @@
     <div class="row">
         <div class="service-fields-details col-md-12 ml-2 mr-2"> 
             @if($serviceAdditionalFields && $serviceAdditionalFields->count() > 0)
+                
+                {{ Form::hidden('deleted_fields', null,['id' => 'delete-additional-fields']) }}
+
                 @foreach($serviceAdditionalFields as $key => $serviceField)
                     @php
                         $number = $key+1;
                     @endphp
                     <div class="row mb-3 position-relative repeatable-content-service-fields service-field-{{ $number }} service-fields-row" data-row="{{ $number }}" >
-                
+                        <input type="hidden" class="service_additional_field_id" name="additional_fields[{{ $number }}][additional_field_id]" value="{{ $serviceField->id }}">
                         <div class="col-md-5 col-sm-12">
                             <div class="form-group">
-                                <label for="services_field_name_{{ $number }}">{{ trans('cruds.services.fields.field_name') }}<span class="text-danger">*</span></label>
-                                <input type="text" id="services_field_name_{{ $number }}" name="additional_fields[{{ $number }}][field_name]" value="{{ $serviceField->field_name ?? '' }}" class="form-control services_field_name {{ $errors->has('additional_fields.'.$number.'.field_name') ? 'is-invalid' : '' }}" required >
+                                <label>{{ trans('cruds.services.fields.field_name') }}<span class="text-danger">*</span></label>
+                                <input type="text" id="services_field_name_{{ $number }}" name="additional_fields[{{ $number }}][field_name]" value="{{ $serviceField->field_name ?? '' }}" placeholder="{{ trans('cruds.services.fields.field_name') }}" class="form-control services_field_name {{ $errors->has('additional_fields.'.$number.'.field_name') ? 'is-invalid' : '' }}" required >
                                 @if($errors->has('additional_fields.'.$number.'.field_name'))
                                     <span class="text-danger">{{ $errors->first('additional_fields.'.$number.'.field_name') }}</span>
                                 @endif
@@ -37,7 +40,7 @@
                         
                         <div class="col-md-5 col-sm-12 services_field_type_wrap">
                             <div class="form-group">
-                                <label for="services_field_type_{{ $number }}">{{ trans('cruds.services.fields.field_type') }}<span class="text-danger">*</span></label>
+                                <label >{{ trans('cruds.services.fields.field_type') }}<span class="text-danger">*</span></label>
                                 <select name="additional_fields[{{ $number }}][field_type]" id="services_field_type_{{ $number }}" class="form-control services_field_type {{ $errors->has('additional_fields.'.$number.'.field_type') ? 'is-invalid' : '' }}" required>
                                     <option value="">{{ 'Select ' . trans('cruds.services.fields.field_type') }}</option>
                                     @foreach($fieldTypes as $id => $name)
@@ -60,13 +63,14 @@
 
                                 $tempOptions = json_decode($serviceField->combo_values);
                                 $options = array_values($tempOptions);
+                                $options = array_combine($tempOptions,$options);
                             }
                         @endphp
                         <div class="col-md-5 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
                             <div class="form-group">
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}<span class="text-danger">*</span></label>
 
-                                {{ Form::select('additional_fields['.$number.'][combo_values][]', $options, $options,['class' => "form-control services_combo_values multi-select", 'id' => 'services_combo_values_'.$number, 'required' => true, 'multiple' => "multiple"]) }}
+                                {{ Form::select('additional_fields['.$number.'][combo_values][]', $options, $options,['class' => "form-control services_combo_values multi-select", 'id' => 'services_combo_values_'.$number, 'required' => false, 'multiple' => "multiple"]) }}
 
                                 </select>
                             </div>
@@ -74,7 +78,7 @@
 
                         <div class="col-md-5 col-sm-12">
                             <div class="form-group">
-                                <label for="services_field_required_{{ $number }}">{{ trans('cruds.services.fields.field_required') }}<span class="text-danger">*</span></label>
+                                <label >{{ trans('cruds.services.fields.field_required') }}<span class="text-danger">*</span></label>
 
                                 <select name="additional_fields[{{ $number }}][field_required]" id="services_field_required_{{ $number }}" class="form-control services_field_required {{ $errors->has('additional_fields.'.$number.'.field_required') ? 'is-invalid' : '' }}" required>
                                     <option value="">{{ 'Select ' . trans('cruds.services.fields.field_required') }}</option>
@@ -96,9 +100,11 @@
                             <a href="javascript:void(0);" class="del-field-btn del_field btn btn-sm btn-danger" title="Remove" data-services="service-field-{{ $number }}" >
                                 <i class="fa fa-minus"></i>
                             </a>
-                            <a href="javascript:void(0);" onclick="addServiceFields($(this))" id="addAdditionalField add-more-field" class="btn btn-sm btn-success add_additional_field" data-counter="{{ $counter }}" title="Add More">
-                                <i class="fa fa-plus"></i>
-                            </a>
+                            @if($number == $counter)
+                                <a href="javascript:void(0);" onclick="addServiceFields($(this))" id="addAdditionalField add-more-field" class="btn btn-sm btn-success add_additional_field" data-counter="{{ $counter }}" title="Add More">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
 
@@ -108,8 +114,8 @@
                 
                     <div class="col-md-5 col-sm-12">
                         <div class="form-group">
-                            <label for="services_field_name_0">{{ trans('cruds.services.fields.field_name') }}<span class="text-danger">*</span></label>
-                            <input type="text" id="services_field_name_0" name="additional_fields[0][field_name]" class="form-control services_field_name {{ $errors->has('additional_fields.0.field_name') ? 'is-invalid' : '' }}" required >
+                            <label >{{ trans('cruds.services.fields.field_name') }}<span class="text-danger">*</span></label>
+                            <input type="text" placeholder="{{ trans('cruds.services.fields.field_name') }}" id="services_field_name_0" name="additional_fields[0][field_name]" class="form-control services_field_name {{ $errors->has('additional_fields.0.field_name') ? 'is-invalid' : '' }}" required >
                             @if($errors->has('additional_fields.0.field_name'))
                                 <span class="text-danger">{{ $errors->first('additional_fields.0.field_name') }}</span>
                             @endif
@@ -118,7 +124,7 @@
                     
                     <div class="col-md-5 col-sm-12 services_field_type_wrap">
                         <div class="form-group">
-                            <label for="services_field_type_0">{{ trans('cruds.services.fields.field_type') }}<span class="text-danger">*</span></label>
+                            <label>{{ trans('cruds.services.fields.field_type') }}<span class="text-danger">*</span></label>
                             <select name="additional_fields[0][field_type]" id="services_field_type_0" class="form-control services_field_type {{ $errors->has('additional_fields.0.field_type') ? 'is-invalid' : '' }}" required>
                                 <option value="">{{ 'Select ' . trans('cruds.services.fields.field_type') }}</option>
                                 @foreach($fieldTypes as $id => $name)
@@ -144,7 +150,7 @@
 
                     <div class="col-md-5 col-sm-12">
                         <div class="form-group">
-                            <label for="services_field_required_0">{{ trans('cruds.services.fields.field_required') }}<span class="text-danger">*</span></label>
+                            <label>{{ trans('cruds.services.fields.field_required') }}<span class="text-danger">*</span></label>
 
                             <select name="additional_fields[0][field_required]" id="services_field_required_0" class="form-control services_field_required {{ $errors->has('additional_fields.0.field_required') ? 'is-invalid' : '' }}" required>
                                 <option value="">{{ 'Select ' . trans('cruds.services.fields.field_required') }}</option>

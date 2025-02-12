@@ -41,6 +41,12 @@
             <label for="sub_category_id">{{ trans('cruds.services.fields.sub_category') }}<span class="text-danger">*</span></label>
             <select name="sub_category_id" id="sub_category_id" class="form-control select2 {{ $errors->has('sub_category_id') ? 'is-invalid' : '' }}" required>
                 <option value="">{{ 'Select ' . trans('cruds.services.fields.sub_category') }}</option>
+                
+                @foreach($subCategories as $id => $name)
+                    <option value="{{ $id }}" {{ old('category_id', $service->sub_category_id ?? '') == $id ? 'selected' : '' }}>
+                        {{ $name }}
+                    </option>
+                @endforeach
             </select>
             @if($errors->has('sub_category_id'))
                 <span class="text-danger">{{ $errors->first('sub_category_id') }}</span>

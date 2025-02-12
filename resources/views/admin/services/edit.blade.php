@@ -11,7 +11,7 @@
     </div>
 
     <div class="card-body">
-        <form id="servicePartner-form" action="{{ route('admin.services.update', $service->id) }}" method="POST">
+        <form id="services-form" action="{{ route('admin.services.update', $service->id) }}" method="POST">
             @csrf
             @method('PUT')
             @include('admin.services.partials._form', ['service' => $service])

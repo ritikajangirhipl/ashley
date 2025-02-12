@@ -34,6 +34,8 @@
 
         .find(".services_combo_values").attr('name',"additional_fields["+counter+"][combo_values][]").attr('id',"services_combo_values_"+counter).removeClass("is-valid select2-hidden-accessible survey-input").addClass("services_combo_values_"+counter).attr('data-select2-id',"services_combo_values_"+counter).val("").end()
 
+        .find(".combo_values_wrap").attr('id','combo_values_wrap_'+counter).end()
+        
         .find(".services_field_type").attr('name',"additional_fields["+counter+"][field_type]").attr('id',"services_field_type_"+counter).removeClass("is-valid").val("").end()   
 
         .find(".services_field_required").attr('name',"additional_fields["+counter+"][field_required]").attr('id',"services_field_required_"+counter).removeClass("is-valid").val("").end()
@@ -45,9 +47,12 @@
         setComboValuesOptions("services_combo_values_"+counter);    
        
         $("#services_field_type_"+counter).val("");
+        $(".services_combo_values"+counter).val("");
 
         thisElement.remove();
     } 
+
+    var deletedFields = [];
     $(document).ready(function () {
 
         $('#country_id').on('change', function(){
@@ -131,6 +136,15 @@
                 console.log('dataId',dataId);
                 console.log($(document).find('.service-fields-details').find("."+dataId));
                 $(document).find('.service-fields-details').find("."+dataId).remove();
+                
+                if($(this).parents('.service-fields-row').find('.service_additional_field_id').length > 0){
+                    let fieldId = $(this).parents('.service-fields-row').find('.service_additional_field_id').val();
+                    if(fieldId){
+                        deletedFields.push(fieldId);
+                    }
+                    console.log('deletedFields',deletedFields);
+                    $('#service-fields-block').find('#delete-additional-fields').val(deletedFields);
+                }
 
                 var isAddMoreExists = $(this).siblings('.add_additional_field');
                 console.log('isAddMoreExists',isAddMoreExists);
