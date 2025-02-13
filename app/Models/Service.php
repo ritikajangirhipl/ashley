@@ -50,9 +50,19 @@ class Service extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
+    public function subCategory()
+    {
+        return $this->belongsTo(SubCategory::class, 'sub_category_id', 'id');
+    }
+
     public function verificationMode()
     {
         return $this->belongsTo(VerificationMode::class, 'verification_mode_id', 'id');
+    }
+
+    public function evidenceType()
+    {
+        return $this->belongsTo(EvidenceType::class, 'evidence_type_id', 'id');
     }
 
     public function verificationProvider()

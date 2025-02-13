@@ -17,3 +17,4 @@ vendor/*
 /vendor/composer/package-versions-deprecated/src/PackageVersions/Versions.php
 error_log
 /storage/framework/sessions/*
+/storage/logs

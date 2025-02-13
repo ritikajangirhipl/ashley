@@ -30,5 +30,5 @@ class UpdateRequest extends FormRequest
             'status' => 'required|in:1,0',
         ];
     }
-
+ 
 }
