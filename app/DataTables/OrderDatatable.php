@@ -19,14 +19,14 @@ class OrderDataTable extends DataTable
             ->editColumn('service.name', function ($order) {
                 return $order->service ? $order->service->name : 'N/A';
             })
-            ->editColumn('location.name', function ($order) {
-                return $order->location ? $order->location->name : 'N/A';
+            ->editColumn('payment_status', function ($order) {
+                return $order->paymentStatus ? $order->paymentStatus->name : 'N/A';
             })
-            ->editColumn('order_payment_status', function ($order) {
-                return config('constant.enums.payment_status.' . $order->order_payment_status);
+            ->editColumn('processing_status', function ($order) {
+                return $order->processingStatus ? $order->processingStatus->name : 'N/A';
             })
-            ->editColumn('order_processing_status', function ($order) {
-                return config('constant.enums.processing_status.' . $order->order_processing_status);
+            ->editColumn('reason', function ($order) {
+                return ucfirst($order->reason);
             })
             ->addColumn('action', function ($order) {
                 return '<div class="group-button d-flex">
@@ -41,12 +41,17 @@ class OrderDataTable extends DataTable
                             </button>
                         </div>';
             })
-            ->rawColumns(['action']); 
+            ->rawColumns(['action']);
     }
 
     public function query(Order $model)
     {
-        return $model->newQuery()->with(['client', 'service', 'location']);
+        return $model->newQuery()
+                    ->select('orders.*', 'clients.name as client_name', 'services.name as service_name', 'payment_status.name as payment_status_name', 'processing_status.name as processing_status_name')
+                    ->leftJoin('clients', 'clients.id', '=', 'orders.client_id')
+                    ->leftJoin('services', 'services.id', '=', 'orders.service_id')
+                    ->leftJoin('payment_status', 'payment_status.id', '=', 'orders.payment_status')
+                    ->leftJoin('processing_status', 'processing_status.id', '=', 'orders.processing_status');
     }
 
     public function html()
@@ -56,7 +61,7 @@ class OrderDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1, 'asc')
+                    ->orderBy(10, 'desc')
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);
@@ -70,21 +75,12 @@ class OrderDataTable extends DataTable
                   ->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),
-            Column::make('id')->title('Order ID'),
-            Column::make('client.name')->title('Client'),
-            Column::make('service.name')->title('Service'),
-            Column::make('name_of_subject')->title('Subject Name'),
-            Column::make('reason_for_request')->title('Reason for Request'),
-            Column::make('name_of_reference_provider')->title('Reference Provider'),
-            Column::make('address_information')->title('Address Info'),
-            Column::make('location.name')->title('Location'),
-            Column::make('gender')->title('Gender'),
-            Column::make('marital_status')->title('Marital Status'),
-            Column::make('registration_number')->title('Registration Number'),
-            Column::make('preferred_currency')->title('Preferred Currency'),
-            Column::make('order_amount')->title('Order Amount'),
-            Column::make('order_payment_status')->title('Payment Status'),
-            Column::make('order_processing_status')->title('Processing Status'),
+            Column::make('client_name')->title('Client'),
+            Column::make('service_name')->title('Service'),
+            Column::make('subject_name')->title('Subject'),
+            Column::make('reason')->title('Reason'),
+            Column::make('payment_status_name')->title('Payment Status'),
+            Column::make('processing_status_name')->title('Processing Status'),
             Column::computed('action')
                   ->title('Action')
                   ->exportable(false)
@@ -99,3 +95,4 @@ class OrderDataTable extends DataTable
         return 'Order_' . date('YmdHis');
     }
 }
+

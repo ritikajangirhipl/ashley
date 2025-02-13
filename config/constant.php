@@ -97,6 +97,16 @@ return [
             '1' => 'Successful',
             '0' => 'Failed',
         ],
+        'processing_status' => [
+            'not_started' => 'Not Started',
+            'processing' => 'Processing',
+            'complete' => 'Complete',
+            'cancelled' => 'Cancelled',
+        ],
+        'verification_outcome' => [
+            'passed' => 'Passed',
+            'failed' => 'Failed',
+        ],
         'issuerType'       => [
             'private'       => 'Private University',
             'public'        => 'Public University',

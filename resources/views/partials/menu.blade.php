@@ -171,6 +171,15 @@
                                 <span class="pcoded-mtext">{{ trans('cruds.payment.title') }}</span>
                             </a>
                         </li>
+                        <li data-username="processing" class="nav-item {{ request()->is('admin/processings') || request()->is('admin/processings/*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.processings.index') }}" class="nav-link">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-package"></i> 
+                                </span>
+                                <span class="pcoded-mtext">{{ trans('cruds.processing.title') }}</span>
+                            </a>
+                        </li>
+
                     </ul>
             @endauth
         </div>

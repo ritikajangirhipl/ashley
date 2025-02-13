@@ -383,8 +383,8 @@ return [
     ],
 
     'order' => [
-        'title' => 'orders',
-        'title_singular' => 'order',
+        'title' => 'Orders',
+        'title_singular' => 'Order',
         'fields' => [
             'client' => 'Client',
             'service' => 'Service',
@@ -414,6 +414,16 @@ return [
             'evidence' => 'Evidence',
             'amount' => 'Amount',
             'currency' => 'Currency',
+            'status' => 'Status',
+        ]
+    ],
+    'processing' => [
+        'title' => 'Processings',
+        'title_singular' => 'Processing',
+        'fields' => [
+            'order_id' => 'Order ID',
+            'verification_outcome' => 'Verification Outcomes',
+            'outcome_evidence' => 'Outcome Evidence',
             'status' => 'Status',
         ]
     ],

@@ -96,6 +96,12 @@ return [
             'edit' => 'Edit Payment',
             'show' => 'View Payment',
         ],
+        'processing' => [
+            'list' => 'List of Processings',
+            'add' => 'Create Processing',
+            'edit' => 'Edit Processing',
+            'show' => 'View Processing',
+        ],
 
         'change_password'   => 'Change Password',
         'change_password'   => 'Change Password',

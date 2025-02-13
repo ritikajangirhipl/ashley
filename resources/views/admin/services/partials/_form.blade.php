@@ -246,7 +246,7 @@
         </div>
     
         <!-- Name of Subject -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <div class="form-group">
                 <label for="subject_name">{{ trans('cruds.services.fields.subject_name') }}<span class="text-danger">*</span></label>
 
@@ -265,7 +265,7 @@
         </div>
 
         <!-- Name of Subject -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <div class="form-group">
                 <label for="copy_of_document_to_verify">{{ trans('cruds.services.fields.copy_of_document_to_verify') }}<span class="text-danger">*</span></label>
 
@@ -286,7 +286,7 @@
 
 
         <!-- reason for request -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <div class="form-group">
                 <label for="reason_for_request">{{ trans('cruds.services.fields.reason_for_request') }}<span class="text-danger">*</span></label>
                 
@@ -307,7 +307,7 @@
 
 
         <!-- subject consent requirement -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <div class="form-group">
                 <label for="subject_consent_requirement">{{ trans('cruds.services.fields.subject_consent_requirement') }}<span class="text-danger">*</span></label>
 
@@ -328,7 +328,7 @@
 
 
         <!-- Name of Subject -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <div class="form-group">
                 <label for="name_of_reference_provider">{{ trans('cruds.services.fields.name_of_reference_provider') }}<span class="text-danger">*</span></label>
 
@@ -348,7 +348,7 @@
         </div>
 
         <!-- address_information -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <div class="form-group">
                 <label for="address_information">{{ trans('cruds.services.fields.address_information') }}<span class="text-danger">*</span></label>
 
@@ -369,7 +369,7 @@
 
 
         <!-- location -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <div class="form-group">
                 <label for="location">{{ trans('cruds.services.fields.location') }}<span class="text-danger">*</span></label>
 
@@ -389,7 +389,7 @@
         </div>
 
         <!-- gender -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <div class="form-group">
                 <label for="gender">{{ trans('cruds.services.fields.gender') }}<span class="text-danger">*</span></label>
 
@@ -409,7 +409,7 @@
         </div>
 
         <!-- marital_status -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <div class="form-group">
                 <label for="marital_status">{{ trans('cruds.services.fields.marital_status') }}<span class="text-danger">*</span></label>
 
@@ -429,7 +429,7 @@
         </div>
 
         <!-- registration_number -->
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <div class="form-group">
                 <label for="registration_number">{{ trans('cruds.services.fields.registration_number') }}<span class="text-danger">*</span></label>
 

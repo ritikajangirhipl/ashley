@@ -13,13 +13,11 @@ use App\Models\Country;
 
 class OrderController extends Controller
 {
-    protected $statuses;
-    protected $currencies;
+    protected $status;
 
     public function __construct()
     {
-        $this->statuses = config('constant.enums.order_status');
-        $this->currencies = ['Service Currency', 'USD'];
+        $this->status = config('constant.enums.status');
     }
 
     public function index(OrderDataTable $dataTable)
@@ -32,13 +30,12 @@ class OrderController extends Controller
     {
         try {
             $pageTitle = trans('panel.page_title.order.add');
-            $statuses = $this->statuses;
+            $status = $this->status;
             $clients = Client::all();
             $services = Service::all();
             $countries = Country::all();
-            $currencies = $this->currencies;
             
-            return view('admin.orders.create', compact('pageTitle', 'statuses', 'clients', 'services', 'countries', 'currencies'));
+            return view('admin.orders.create', compact('pageTitle', 'status', 'clients', 'services', 'countries'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -69,13 +66,12 @@ class OrderController extends Controller
     {
         try {
             $pageTitle = trans('panel.page_title.order.edit');
-            $statuses = $this->statuses;
+            $status = $this->status;
             $clients = Client::all();
             $services = Service::all();
             $countries = Country::all();
-            $currencies = $this->currencies;
             
-            return view('admin.orders.edit', compact('order', 'pageTitle', 'statuses', 'clients', 'services', 'countries', 'currencies'));
+            return view('admin.orders.edit', compact('order', 'pageTitle', 'status', 'clients', 'services', 'countries'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

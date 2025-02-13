@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,23 +10,27 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
             $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
-            $table->string('name_of_subject');
-            $table->string('copy_of_document')->nullable();
-            $table->enum('reason_for_request', ['Admission', 'Employment', 'Other']);
-            $table->string('subject_consent')->nullable();
-            $table->string('name_of_reference_provider');
+            $table->string('subject_name');
+            $table->text('document')->nullable();
+            $table->enum('reason', ['admission', 'employment', 'other']);
+            $table->text('subject_consent')->nullable();
+            $table->string('reference_provider_name')->nullable();
             $table->text('address_information')->nullable();
-            $table->foreignId('location_id')->constrained('countries')->onDelete('cascade');
-            $table->enum('gender', ['Male', 'Female', 'Other']);
-            $table->enum('marital_status', ['Married', 'Single', 'Other']);
+            $table->foreignId('location')->constrained('countries')->onDelete('cascade');
+            $table->enum('gender', ['male', 'female', 'other']);
+            $table->enum('marital_status', ['married', 'single', 'other']);
             $table->string('registration_number')->nullable();
             $table->text('others')->nullable();
-            $table->enum('preferred_currency', ['Service Currency', 'USD']);
-            $table->decimal('order_amount', 10, 2);
-            $table->enum('order_payment_status', ['Pending', 'Paid', 'Failed']);
-            $table->enum('order_processing_status', ['Pending', 'Processing', 'Completed', 'Cancelled']);
+            $table->enum('preferred_currency', ['USD', 'service_currency']);
+            $table->decimal('order_amount', 15, 2);
+            $table->unsignedBigInteger('payment_status')->nullable();
+            $table->unsignedBigInteger('processing_status')->nullable();
+
+            // Explicitly defining foreign key constraints
+            $table->foreign('payment_status')->references('id')->on('payments')->onDelete('set null');
+            $table->foreign('processing_status')->references('id')->on('processings')->onDelete('set null');
+
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
