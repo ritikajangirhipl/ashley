@@ -25,7 +25,6 @@ class OrderController extends Controller
         $pageTitle = trans('panel.page_title.order.list');
         return $dataTable->render('admin.orders.index', compact('pageTitle'));
     }
-
     public function create()
     {
         try {
@@ -33,11 +32,23 @@ class OrderController extends Controller
             $clients = getClients();
             $services = getServices();
             $countries = getActiveCountries();
-            return view('admin.orders.create', compact('pageTitle', 'clients', 'services', 'countries'));
+
+            $maritalStatusOpts = config('constant.enums.marital_status');
+            $genderOpts = config('constant.enums.gender');
+
+            return view('admin.orders.create', compact(
+                'pageTitle', 
+                'clients', 
+                'services', 
+                'countries',
+                'maritalStatusOpts',
+                'genderOpts'
+            ));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
     }
+
 
     public function store(StoreRequest $request)
     {

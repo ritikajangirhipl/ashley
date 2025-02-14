@@ -19,12 +19,12 @@ class OrderDataTable extends DataTable
             ->editColumn('service.name', function ($order) {
                 return $order->service ? $order->service->name : 'N/A';
             })
-            ->editColumn('payment_status', function ($order) {
-                return $order->paymentStatus ? $order->paymentStatus->name : 'N/A';
-            })
-            ->editColumn('processing_status', function ($order) {
-                return $order->processingStatus ? $order->processingStatus->name : 'N/A';
-            })
+            // ->editColumn('payment_status', function ($order) {
+            //     return $order->paymentStatus ? $order->paymentStatus->name : 'N/A';
+            // })
+            // ->editColumn('processing_status', function ($order) {
+            //     return $order->processingStatus ? $order->processingStatus->name : 'N/A';
+            // })
             ->editColumn('reason', function ($order) {
                 return ucfirst($order->reason);
             })
@@ -49,9 +49,9 @@ class OrderDataTable extends DataTable
         return $model->newQuery()
                     ->select('orders.*', 'clients.name as client_name', 'services.name as service_name', 'payment_status.name as payment_status_name', 'processing_status.name as processing_status_name')
                     ->leftJoin('clients', 'clients.id', '=', 'orders.client_id')
-                    ->leftJoin('services', 'services.id', '=', 'orders.service_id')
-                    ->leftJoin('payment_status', 'payment_status.id', '=', 'orders.payment_status')
-                    ->leftJoin('processing_status', 'processing_status.id', '=', 'orders.processing_status');
+                    ->leftJoin('services', 'services.id', '=', 'orders.service_id');
+                    // ->leftJoin('payment_status', 'payment_status.id', '=', 'orders.payment_status')
+                    // ->leftJoin('processing_status', 'processing_status.id', '=', 'orders.processing_status');
     }
 
     public function html()
