@@ -22,22 +22,28 @@ if (url.indexOf('employees/add') ==  -1 && (url.indexOf('employees/') ==  -1)) {
 
 
 $(document).ready(function(){
-	$('#mobile-collapse').click(function(){
-		console.log($('#pcoded-navbar').hasClass('navbar-collapsed'));
-		if($('#pcoded-navbar').hasClass('navbar-collapsed')){
-			$(".pcoded-navbar" ).hover(function(){
-			     $(this).toggleClass('active');
-			});
-		}else{
-			$(".pcoded-navbar" ).hover(function(){
-			     $(this).removeClass('active');
-			});					
-			$('#pcoded-navbar').removeClass('active');
- 				
-			 				
-		}
-	});
-	
+  $('#mobile-collapse').click(function(){
+      console.log($('#pcoded-navbar').hasClass('navbar-collapsed'));
+      
+      if($('#pcoded-navbar').hasClass('navbar-collapsed')) {
+          // Add hover effect when collapsed
+          addHoverEffect();
+      } else {
+          // Remove hover effect when expanded
+          removeHoverEffect();
+      }
+  });
+
+  function addHoverEffect() {
+      $(".pcoded-navbar").hover(function(){
+          $(this).toggleClass('active');
+      });
+  }
+
+  function removeHoverEffect() {
+      $(".pcoded-navbar").off('mouseenter mouseleave'); // Remove any previously bound hover events
+      $(".pcoded-navbar").removeClass('active');
+  }
 });
 
 

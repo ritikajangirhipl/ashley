@@ -22,6 +22,9 @@ class ServicePartnerDataTable extends DataTable
             ->editColumn('country_name', function ($servicePartner) {
                 return $servicePartner->country ? $servicePartner->country->name : 'N/A';
             })
+            ->editColumn('created_at', function ($record) {
+                return date("Y-m-d", strtotime($record['created_at'])) ?? __('global.N/A');;
+            })
             ->addColumn('action', function ($servicePartner) {
                 return '<div class="group-button d-flex">
                             <a href="' . route('admin.service-partners.show', $servicePartner->id) . '" class="btn btn-info btn-sm" title="View">
@@ -52,7 +55,7 @@ class ServicePartnerDataTable extends DataTable
                     ->columns($this->getColumns()) 
                     ->minifiedAjax()
                     ->dom('frtip') 
-                    ->orderBy(6, 'desc') 
+                    ->orderBy(6) 
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);
@@ -66,7 +69,7 @@ class ServicePartnerDataTable extends DataTable
                   ->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),    
-            Column::make('name')->title('Name'), 
+            Column::make('name')->title(trans('cruds.service_partners.fields.name')), 
             Column::make('email_address')->title('Email'),
             Column::make('website_address')->title('Website'),
             Column::make('country_name')->title('Country'),

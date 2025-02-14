@@ -2,14 +2,14 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.provider_type.fields.name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ old('name', isset($providerType) ? $providerType->name : '') }}" required autofocus>
+            <input type="text" id="name" name="name" class="form-control" value="{{ isset($providerType) ? $providerType->name : '' }}" required autofocus>
         </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.provider_type.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" required>{{ old('description', isset($providerType) ? $providerType->description : '') }}</textarea>
+            <textarea name="description" class="form-control" required>{{ isset($providerType) ? $providerType->description : '' }}</textarea>
         </div>
     </div>
 
@@ -28,9 +28,5 @@
 </div>
 
 <div>
-    @if(isset($providerType))
-        <button class="btn btn-info" type="submit">{{ trans('global.update') }}</button>
-    @else
-        <button class="btn btn-info" type="submit">{{ trans('global.create') }}</button>
-    @endif
+    <button class="btn btn-info" type="submit">{{ (isset($providerType)) ? trans('global.update') : trans('global.create') }}</button>
 </div>

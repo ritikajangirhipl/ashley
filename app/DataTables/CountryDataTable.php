@@ -15,6 +15,9 @@ class CountryDataTable extends DataTable
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.'.$record->status);
             }) 
+            ->editColumn('created_at', function ($record) {
+                return date("Y-m-d", strtotime($record['created_at'])) ?? __('global.N/A');;
+            }) 
             ->addColumn('flag', function ($country) {
                 return $country->flag ? '<img src="' . asset('storage/' . $country->flag) . '" width="50" height="30">' : 'No Flag';
             })
@@ -46,7 +49,7 @@ class CountryDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1)
+                    ->orderBy(6)
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);
@@ -59,13 +62,13 @@ class CountryDataTable extends DataTable
             Column::make('DT_RowIndex')->title('ID')->orderable(false)->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),
-            Column::make('name')->title('Name'),
-            Column::make('flag')->title('Flag'),
-            Column::make('description')->title('Description'),
-            Column::make('currency_name')->title('Currency Name'),
-            Column::make('currency_symbol')->title('Currency Symbol'),
-            Column::make('status')->title('Status'),
-            Column::computed('action')->title('Action')
+            Column::make('name')->title(trans('cruds.country.fields.name')),
+            Column::make('flag')->title(trans('cruds.country.fields.flag')),
+            Column::make('currency_name')->title(trans('cruds.country.fields.currency_name')),
+            Column::make('currency_symbol')->title(trans('cruds.country.fields.currency_symbol')),
+            Column::make('status')->title(trans('cruds.country.fields.status')),
+            Column::make('created_at')->title(trans('cruds.country.fields.created_at')),
+            Column::computed('action')->title(trans('cruds.country.fields.action'))
                   ->exportable(false)
                   ->printable(false)
                   ->width(150)

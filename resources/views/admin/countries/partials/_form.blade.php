@@ -2,14 +2,14 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.country.fields.name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ old('name', isset($country) ? $country->name : '') }}" autofocus>
+            <input type="text" id="name" name="name" class="form-control" value="{{ isset($country) ? $country->name : '' }}" autofocus>
         </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="flag">{{ trans('cruds.country.fields.flag') }}<span class="text-danger">*</span></label>
-            <input type="file" id="flagInput" name="flag" class="form-control {{ $errors->has('flag') ? 'has-error' : '' }}" accept="image/png, image/jpeg, image/jpg, image/svg">
+            <input type="file" id="flagInput" name="flag" class="form-control" accept="image/png, image/jpeg, image/jpg, image/svg">
             @isset($country)
                 <div class="mt-2">
                     <img id="flagPreview"
@@ -20,26 +20,13 @@
                         class="img-thumbnail">
                 </div>
             @endisset
-
-            @if($errors->has('flag'))
-                <p class="help-block text-danger">
-                    {{ $errors->first('flag') }}
-                </p>
-            @endif
-        </div>
-    </div>
-
-    <div class="col-md-6 col-sm-12">
-        <div class="form-group">
-            <label for="description">{{ trans('cruds.country.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}">{{ old('description', isset($country) ? $country->description : '') }}</textarea>
         </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="currency_name">{{ trans('cruds.country.fields.currency_name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="currency_name" name="currency_name" class="form-control {{ $errors->has('currency_name') ? 'has-error' : '' }}" value="{{ old('currency_name', isset($country) ? $country->currency_name : '') }}">
+            <input type="text" id="currency_name" name="currency_name" class="form-control" value="{{ isset($country) ? $country->currency_name : '' }}">
         </div>
     </div>
 
@@ -47,6 +34,13 @@
         <div class="form-group">
             <label for="currency_symbol">{{ trans('cruds.country.fields.currency_symbol') }}<span class="text-danger">*</span></label>
             <input type="text" id="currency_symbol" name="currency_symbol" class="form-control" value="{{ isset($country) ? $country->currency_symbol : '' }}" required>
+        </div>
+    </div>    
+
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="description">{{ trans('cruds.country.fields.description') }}<span class="text-danger">*</span></label>
+            <textarea name="description" class="form-control">{{ isset($country) ? $country->description : '' }}</textarea>
         </div>
     </div>
 
@@ -64,9 +58,5 @@
     </div>
 </div>
 <div>
-    @if(isset($country))
-        <button class="btn btn-info" type="submit">{{ trans('global.update') }}</button>
-    @else
-        <button class="btn btn-info" type="submit">{{ trans('global.create') }}</button>
-    @endif
+    <button class="btn btn-info" type="submit">{{ (isset($country)) ? trans('global.update') : trans('global.create') }}</button>
 </div>

@@ -39,6 +39,10 @@
                     <h6 class="mb-0"><b>{{ trans('cruds.sub_category.fields.status') }}:</b></h6>
                     <p class="ml-2 mb-0">{{ config('constant.enums.status.'.$subCategory->status) }}</p>
                 </div>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.sub_category.fields.created_at') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ date("Y-m-d", strtotime($subCategory->created_at)) ?? __('global.N/A') }}</p>
+                </div>
             </div>
         </div>
     </div>

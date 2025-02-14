@@ -239,6 +239,7 @@ return [
             'created_at'            => 'Created at',
             'updated_at'            => 'Updated at',
             'deleted_at'            => 'Deleted at',
+            'action'                => 'Action',
         ],
     ],
 
@@ -261,6 +262,8 @@ return [
             'name' => 'Name',
             'description' => 'Description',
             'status' => 'Status',
+            'created_at' => 'Created at',
+            'action'        => 'Action',
         ],
     ],
     'country' => [
@@ -273,6 +276,8 @@ return [
             'currency_name' => 'Currency Name',
             'currency_symbol' => 'Currency Symbol',
             'status' => 'Status',
+            'created_at'        => 'Created at',
+            'action'        => 'Action',
         ],
     ],
     'evidence_type' => [
@@ -334,6 +339,8 @@ return [
             'image' => 'Image',
             'description' => 'Description',
             'status' => 'Status',
+            'created_at'        => 'Created at',
+            'action'        => 'Action',
         ],
     ],
     'verification_provider' => [
@@ -349,6 +356,8 @@ return [
             'website' => 'Website Address',
             'contact_person' => 'Contact Person',
             'status' => 'Status',
+            'created_at'        => 'Created at',
+            'action'        => 'Action',
         ],
     ],
     'service_partners' => [

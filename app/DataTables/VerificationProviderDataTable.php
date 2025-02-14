@@ -24,9 +24,12 @@ class VerificationProviderDataTable extends DataTable
             ->editColumn('provider_type_name', function ($verificationProvider) {
                 return $verificationProvider->providerType ? $verificationProvider->providerType->name : 'N/A';
             })
+            ->editColumn('created_at', function ($record) {
+                return date("Y-m-d", strtotime($record['created_at'])) ?? __('global.N/A');;
+            })
             ->addColumn('action', function ($record) {
                 return '<div class="group-button d-flex">
-                            <a href="' . route('admin.verification-providers.show', $record->id) . '" class="btn btn-info btn-sm" title="View">
+                            <a href="' . route('admin.verification-providers.show', $record->id) . '" class="btn btn-warning btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
                             <a href="' . route('admin.verification-providers.edit', $record->id) . '" class="btn btn-warning btn-sm" title="Edit">
@@ -55,7 +58,7 @@ class VerificationProviderDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1, 'asc')
+                    ->orderBy(7)
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);
@@ -67,14 +70,15 @@ class VerificationProviderDataTable extends DataTable
             Column::make('DT_RowIndex')->title('ID')->orderable(false)->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),    
-            Column::make('name')->title('Name'),
-            Column::make('description')->title('Description'),
-            Column::make('email')->title('Email'),
-            Column::make('status')->title('Status'),
-            Column::make('country_name')->title('Country'),
-            Column::make('provider_type_name')->title('Provider Type'),
+            Column::make('name')->title(trans('cruds.verification_provider.fields.name')),
+            Column::make('description')->title(trans('cruds.verification_provider.fields.description')),
+            Column::make('email')->title(trans('cruds.verification_provider.fields.email_address')),
+            Column::make('country_name')->title(trans('cruds.verification_provider.fields.country')),
+            Column::make('provider_type_name')->title(trans('cruds.verification_provider.fields.provider_type')),
+            Column::make('status')->title(trans('cruds.verification_provider.fields.status')),
+            Column::make('created_at')->title(trans('cruds.verification_provider.fields.created_at')),
             Column::computed('action')
-                  ->title('Action')
+                  ->title(trans('cruds.verification_provider.fields.action'))
                   ->exportable(false)
                   ->printable(false)
                   ->width(150)

@@ -2,13 +2,13 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.category.fields.name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ isset($category) ? $category->name : '' }}" required autofocus>
+            <input type="text" id="name" name="name" class="form-control" value="{{ isset($category) ? $category->name : '' }}" required autofocus>
         </div>
     </div>
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="image">{{ trans('cruds.category.fields.image') }}<span class="text-danger">*</span></label>
-            <input type="file" id="image" name="image" class="form-control {{ $errors->has('image') ? 'has-error' : '' }}" accept="image/*">
+            <input type="file" id="image" name="image" class="form-control" accept="image/*">
 
             @if(isset($category) && $category->image)
                 <div class="mt-2">
@@ -21,7 +21,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.category.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" required>{{ isset($category) ? $category->description : '' }}</textarea>
+            <textarea name="description" class="form-control" required>{{ isset($category) ? $category->description : '' }}</textarea>
         </div>
     </div>
 
@@ -40,9 +40,5 @@
 </div>
 
 <div>
-    @if(isset($category))
-        <button class="btn btn-info" type="submit">{{ trans('global.update') }}</button>
-    @else
-        <button class="btn btn-info" type="submit">{{ trans('global.create') }}</button>
-    @endif
+    <button class="btn btn-info" type="submit">{{ (isset($category)) ? trans('global.update') : trans('global.create') }}</button>
 </div>
