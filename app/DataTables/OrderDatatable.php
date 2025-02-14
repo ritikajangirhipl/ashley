@@ -14,16 +14,16 @@ class OrderDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->editColumn('client.name', function ($order) {
-                return $order->client ? $order->client->name : 'N/A';
+                return $order->client ? $order->client->name : __('global.N/A');
             })
             ->editColumn('service.name', function ($order) {
-                return $order->service ? $order->service->name : 'N/A';
+                return $order->service ? $order->service->name : __('global.N/A');
             })
             // ->editColumn('payment_status', function ($order) {
-            //     return $order->paymentStatus ? $order->paymentStatus->name : 'N/A';
+            //     return $order->paymentStatus ? $order->paymentStatus->name : __('global.N/A');
             // })
             // ->editColumn('processing_status', function ($order) {
-            //     return $order->processingStatus ? $order->processingStatus->name : 'N/A';
+            //     return $order->processingStatus ? $order->processingStatus->name : __('global.N/A');
             // })
             ->editColumn('reason', function ($order) {
                 return ucfirst($order->reason);

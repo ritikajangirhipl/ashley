@@ -23,10 +23,10 @@ class CategoryDataTable extends DataTable
             })
             ->addColumn('action', function ($category) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.categories.show',$category->id).'" class="btn btn-warning btn-sm" title="View">
+                            <a href="'.route('admin.categories.show', encrypt($category->id)).'" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="'.route('admin.categories.edit', $category->id).'" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="'.route('admin.categories.edit', encrypt($category->id)).'" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.categories.destroy', $category->id).'" title="Delete">

@@ -19,19 +19,19 @@
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.service_partners.fields.country') }}:</h6>
-                            <p>{{ $servicePartner->country->name ?? 'N/A' }}</p>
+                            <p>{{ $servicePartner->country->name ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.service_partners.fields.email_address') }}:</h6>
-                            <p>{{ $servicePartner->email_address ?? 'N/A' }}</p>
+                            <p>{{ $servicePartner->email_address ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.service_partners.fields.website_address') }}:</h6>
-                            <p>{{ $servicePartner->website_address ?? 'N/A' }}</p>
+                            <p>{{ $servicePartner->website_address ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.service_partners.fields.contact_person') }}:</h6>
-                            <p>{{ $servicePartner->contact_person ?? 'N/A' }}</p>
+                            <p>{{ $servicePartner->contact_person ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.service_partners.fields.status') }}:</h6>
@@ -39,18 +39,16 @@
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.service_partners.fields.contact_address') }}:</h6>
-                            <p>{{ $servicePartner->contact_address ?? 'N/A' }}</p>
+                            <p>{{ $servicePartner->contact_address ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.service_partners.fields.description') }}:</h6>
-                            <p>{{ $servicePartner->description ?? 'N/A' }}</p>
+                            <p>{{ $servicePartner->description ?? __('global.N/A') }}</p>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0"><b>{{ trans('cruds.service_partners.fields.created_at') }}:</b></h6>
-                        <p class="ml-2 mb-0">{{ date("Y-m-d", strtotime($servicePartner->created_at)) ?? __('global.N/A') }}</p>
+                        <div class="form-group d-flex view-listing">
+                            <h6 class="mb-0">{{ trans('cruds.service_partners.fields.created_at') }}:</h6>
+                            <p>{{ date("Y-m-d", strtotime($servicePartner->created_at)) ?? __('global.N/A') }}</p>
+                        </div>
                     </div>
                 </div>
             </div>

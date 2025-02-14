@@ -19,7 +19,6 @@
     }
 
     function addServiceFields(thisElement){
-        console.log('thisElement',thisElement);
         var counter = $(thisElement).attr('data-counter');
         
         counter = parseInt(counter)+1;

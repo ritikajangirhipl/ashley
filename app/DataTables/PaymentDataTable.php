@@ -17,10 +17,10 @@ class PaymentDataTable extends DataTable
                 return $payment->status == 'successful' ? 'Successful' : 'Failed';
             })
             ->editColumn('order.currency', function ($payment) {
-                return $payment->order ? $payment->order->currency : 'N/A';
+                return $payment->order ? $payment->order->currency : __('global.N/A');
             })
             ->editColumn('order.amount', function ($payment) {
-                return $payment->order ? $payment->order->amount : 'N/A';
+                return $payment->order ? $payment->order->amount : __('global.N/A');
             })
             ->addColumn('action', function ($payment) {
                 return '<div class="group-button d-flex">

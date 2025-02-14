@@ -28,7 +28,7 @@
                 <div class="col-md-6">
                     <div class="form-group d-flex view-listing">
                         <h6 class="mb-0"><b>{{ trans('cruds.processing.fields.verification_outcome') }}:</b></h6>
-                        <p class="ml-2 mb-0">{{ $processing->verification_outcome ?? 'N/A' }}</p>
+                        <p class="ml-2 mb-0">{{ $processing->verification_outcome ?? __('global.N/A') }}</p>
                     </div>
                 </div>
                 <div class="col-md-6">

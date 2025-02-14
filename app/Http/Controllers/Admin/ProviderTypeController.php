@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProviderType\StoreRequest;
 use App\Http\Requests\ProviderType\UpdateRequest;
 use App\Models\ProviderType;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
 
 
 class ProviderTypeController extends Controller
@@ -30,7 +32,7 @@ class ProviderTypeController extends Controller
             $pageTitle = trans('panel.page_title.provider_type.add');
             $status = $this->status;
             return view('admin.provider-types.create', compact('pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -41,29 +43,35 @@ class ProviderTypeController extends Controller
             ProviderType::create($request->all());
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.provider_type')]),
             ['redirect_url' => route('admin.provider-types.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function show(ProviderType $providerType)
+    public function show($id)
     {
         try {
+            $providerType = ProviderType::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.provider_type.show');
             $status = $this->status;
             return view('admin.provider-types.show', compact('providerType', 'pageTitle'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function edit(ProviderType $providerType)
+    public function edit($id)
     {
         try {
+            $providerType = ProviderType::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.provider_type.edit');
             $status = $this->status;
             return view('admin.provider-types.edit', compact('providerType', 'pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -82,7 +90,7 @@ class ProviderTypeController extends Controller
     
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.provider_type')]),
             ['redirect_url' => route('admin.provider-types.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -104,7 +112,7 @@ class ProviderTypeController extends Controller
                 'status' => true,
                 'message' => __('messages.delete_success_message', ['attribute' => __('attribute.provider_type')])
             ], 200);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => __('messages.unexpected_error')

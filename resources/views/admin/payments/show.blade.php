@@ -16,13 +16,13 @@
                 <div class="col-md-6">
                     <div class="form-group d-flex view-listing">
                         <h6 class="mb-0"><b>{{ trans('cruds.payment.fields.order_id') }}:</b></h6>
-                        <p class="ml-2 mb-0">{{ $payment->order->id ?? 'N/A' }}</p>
+                        <p class="ml-2 mb-0">{{ $payment->order->id ?? __('global.N/A') }}</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group d-flex view-listing">
                         <h6 class="mb-0"><b>{{ trans('cruds.payment.fields.reference_number') }}:</b></h6>
-                        <p class="ml-2 mb-0">{{ $payment->reference_number ?? 'N/A' }}</p>
+                        <p class="ml-2 mb-0">{{ $payment->reference_number ?? __('global.N/A') }}</p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -41,7 +41,7 @@
                     <div class="form-group d-flex view-listing">
                         <h6 class="mb-0"><b>{{ trans('cruds.payment.fields.status') }}:</b></h6>
                         <p class="ml-2 mb-0">
-                            {{ config('constant.enums.payment_status.'.$payment->status, 'N/A') }}
+                            {{ config('constant.enums.payment_status.'.$payment->status, __('global.N/A')) }}
                         </p>
                     </div>
                 </div>

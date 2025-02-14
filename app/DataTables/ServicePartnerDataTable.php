@@ -17,20 +17,20 @@ class ServicePartnerDataTable extends DataTable
                 return config('constant.enums.status.' . $servicePartner->status);
             })
             ->editColumn('name', function ($servicePartner) {
-                return $servicePartner->name ?? 'N/A';
+                return $servicePartner->name ?? __('global.N/A');
             })
             ->editColumn('country_name', function ($servicePartner) {
-                return $servicePartner->country ? $servicePartner->country->name : 'N/A';
+                return $servicePartner->country ? $servicePartner->country->name : __('global.N/A');
             })
             ->editColumn('created_at', function ($record) {
                 return date("Y-m-d", strtotime($record['created_at'])) ?? __('global.N/A');;
             })
             ->addColumn('action', function ($servicePartner) {
                 return '<div class="group-button d-flex">
-                            <a href="' . route('admin.service-partners.show', $servicePartner->id) . '" class="btn btn-warning btn-sm" title="View">
+                            <a href="' . route('admin.service-partners.show', encrypt($servicePartner->id)) . '" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="' . route('admin.service-partners.edit', $servicePartner->id) . '" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="' . route('admin.service-partners.edit', encrypt($servicePartner->id)) . '" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button class="btn btn-danger btn-sm delete-record" data-href="' . route('admin.service-partners.destroy', $servicePartner->id) . '" title="Delete">

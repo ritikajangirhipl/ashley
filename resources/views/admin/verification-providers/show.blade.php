@@ -19,23 +19,23 @@
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.verification_provider.fields.country') }}:</h6>
-                            <p>{{ $verificationProvider->country->name ?? 'N/A' }}</p>
+                            <p>{{ $verificationProvider->country->name ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.verification_provider.fields.provider_type') }}:</h6>
-                            <p>{{ $verificationProvider->providerType->name ?? 'N/A' }}</p>
+                            <p>{{ $verificationProvider->providerType->name ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.verification_provider.fields.email_address') }}:</h6>
-                            <p>{{ $verificationProvider->email ?? 'N/A' }}</p>
+                            <p>{{ $verificationProvider->email ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.verification_provider.fields.website') }}:</h6>
-                            <p>{{ $verificationProvider->website ?? 'N/A' }}</p>
+                            <p>{{ $verificationProvider->website ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.verification_provider.fields.contact_person') }}:</h6>
-                            <p>{{ $verificationProvider->contact_person ?? 'N/A' }}</p>
+                            <p>{{ $verificationProvider->contact_person ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.verification_provider.fields.status') }}:</h6>
@@ -43,21 +43,18 @@
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.verification_provider.fields.contact_address') }}:</h6>
-                            <p>{{ $verificationProvider->contact_address ?? 'N/A' }}</p>
+                            <p>{{ $verificationProvider->contact_address ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.verification_provider.fields.description') }}:</h6>
-                            <p>{{ $verificationProvider->description ?? 'N/A' }}</p>
+                            <p>{{ $verificationProvider->description ?? __('global.N/A') }}</p>
+                        </div>
+                        <div class="form-group d-flex view-listing">
+                            <h6 class="mb-0">{{ trans('cruds.verification_provider.fields.created_at') }}:</h6>
+                            <p>{{ date("Y-m-d", strtotime($verificationProvider->created_at)) ?? __('global.N/A') }}</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0"><b>{{ trans('cruds.verification_provider.fields.created_at') }}:</b></h6>
-                        <p class="ml-2 mb-0">{{ date("Y-m-d", strtotime($verificationProvider->created_at)) ?? __('global.N/A') }}</p>
-                    </div>
-                </div>
-                
+                </div>                
             </div>
         </div>
     </div>

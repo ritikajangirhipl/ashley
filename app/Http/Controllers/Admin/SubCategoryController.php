@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
 
 class SubCategoryController extends Controller
 {
@@ -32,7 +34,7 @@ class SubCategoryController extends Controller
             $status = $this->status;
             $categories = getActiveCategories(); 
             return view('admin.sub-categories.create', compact('pageTitle', 'status', 'categories'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -62,31 +64,37 @@ class SubCategoryController extends Controller
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.sub_category')]), 
                 ['redirect_url' => route('admin.sub-categories.index')]);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
 
-    public function show(SubCategory $subCategory)
+    public function show($id)
     {
         try {
+            $subCategory = SubCategory::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.sub_category.show');
             $status = $this->status;
             return view('admin.sub-categories.show', compact('subCategory', 'pageTitle'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function edit(SubCategory $subCategory)
+    public function edit($id)
     {
         try {
+            $subCategory = SubCategory::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.sub_category.edit');
             $status = $this->status;
             $categories = getActiveCategories(); 
             return view('admin.sub-categories.edit', compact('subCategory', 'pageTitle', 'status', 'categories'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -120,7 +128,7 @@ class SubCategoryController extends Controller
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.sub_category')]), 
                 ['redirect_url' => route('admin.sub-categories.index')]);
     
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -152,7 +160,7 @@ class SubCategoryController extends Controller
                 'status' => true,
                 'message' => __('messages.delete_success_message', ['attribute' => __('attribute.sub_category')])
             ], 200); // 200: Success
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => __('messages.unexpected_error')

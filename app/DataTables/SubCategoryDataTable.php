@@ -16,10 +16,10 @@ class SubCategoryDataTable extends DataTable
                 return config('constant.enums.status.'.$record->status);
             })
             ->editColumn('name', function ($subCategory) {
-                return $subCategory->name ?? 'N/A';
+                return $subCategory->name ?? __('global.N/A');
             })
             ->editColumn('category_name', function ($subCategory) {
-                return $subCategory->category_name ? $subCategory->category_name : 'N/A';
+                return $subCategory->category_name ? $subCategory->category_name : __('global.N/A');
             })
             ->editColumn('image', function ($subCategory) {
                 return $subCategory->image ? '<img src="' . asset('storage/' . $subCategory->image) . '" width="50">' : 'No image';
@@ -29,10 +29,10 @@ class SubCategoryDataTable extends DataTable
             })
             ->addColumn('action', function ($subCategory) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.sub-categories.show', $subCategory->id).'" class="btn btn-warning btn-sm" title="View">
+                            <a href="'.route('admin.sub-categories.show', encrypt($subCategory->id)).'" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="'.route('admin.sub-categories.edit', $subCategory->id).'" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="'.route('admin.sub-categories.edit', encrypt($subCategory->id)).'" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.sub-categories.destroy', $subCategory->id).'" title="Delete">

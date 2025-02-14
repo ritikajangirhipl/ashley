@@ -17,10 +17,10 @@ class ClientDataTable extends DataTable
                 return config('constant.enums.status.' . $client->status);
             })
             ->editColumn('name', function ($client) {
-                return $client->name ?? 'N/A';
+                return $client->name ?? __('global.N/A');
             })
             ->editColumn('country.name', function ($client) {
-                return $client->country ? $client->country->name : 'N/A';
+                return $client->country ? $client->country->name : __('global.N/A');
             })
             ->editColumn('client_type', function ($client) {
                 return $client->client_type == 'individual' ? 'Individual' : 'Organization';
@@ -30,10 +30,10 @@ class ClientDataTable extends DataTable
             })  
             ->addColumn('action', function ($client) {
                 return '<div class="group-button d-flex">
-                            <a href="' . route('admin.clients.show', $client->id) . '" class="btn btn-info btn-sm" title="View">
+                            <a href="' . route('admin.clients.show', encrypt($client->id)) . '" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="' . route('admin.clients.edit', $client->id) . '" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="' . route('admin.clients.edit', encrypt($client->id)) . '" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button class="btn btn-danger btn-sm delete-record" data-href="' . route('admin.clients.destroy', $client->id) . '" title="Delete">
@@ -58,7 +58,7 @@ class ClientDataTable extends DataTable
                     ->columns($this->getColumns()) 
                     ->minifiedAjax()
                     ->dom('frtip') 
-                    ->orderBy(10, 'desc')
+                    ->orderBy(9)
                     ->language([
                         'emptyTable' => 'No records found', 
                     ]);
@@ -72,18 +72,17 @@ class ClientDataTable extends DataTable
                   ->searchable(false) 
                   ->width(50)
                   ->addClass('text-center'),    
-            Column::make('name')->title('Client Name'), 
-            Column::make('client_type')->title('Client Type'), 
-            Column::make('email_address')->title('Email Address'),
-            Column::make('phone_number')->title('Phone Number'), 
-            Column::make('website_address')->title('Website Address')->optional(),
-            Column::make('contact_address')->title('Contact Address'),
-            Column::make('password')->title('Password'),
-            Column::make('status')->title('Status'), 
-            Column::make('country_name')->title('Country'),  
-            Column::make('created_at')->title(trans('cruds.evidence_type.fields.created_at')),
+            Column::make('name')->title(trans('cruds.client.fields.name')), 
+            Column::make('client_type')->title(trans('cruds.client.fields.client_type')), 
+            Column::make('email_address')->title(trans('cruds.client.fields.email_address')),
+            Column::make('phone_number')->title(trans('cruds.client.fields.phone_number')), 
+            Column::make('website_address')->title(trans('cruds.client.fields.website_address'))->optional(),
+            Column::make('contact_address')->title(trans('cruds.client.fields.contact_address')),
+            Column::make('status')->title(trans('cruds.client.fields.status')), 
+            Column::make('country_name')->title(trans('cruds.client.fields.country')),  
+            Column::make('created_at')->title(trans('cruds.client.fields.created_at')),
             Column::computed('action') 
-                  ->title('Action')
+                  ->title(trans('cruds.client.fields.action'))
                   ->exportable(false) 
                   ->printable(false) 
                   ->width(150)

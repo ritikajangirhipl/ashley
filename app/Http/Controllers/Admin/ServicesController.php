@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Service\StoreRequest;
 use App\Http\Requests\Service\UpdateRequest;
 use App\Models\Service;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
 
 class ServicesController extends Controller
 {
@@ -46,7 +48,7 @@ class ServicesController extends Controller
             $subCategories = [];
             // $currencies = getCurrencies();
             return view('admin.services.create', compact('pageTitle', 'status', 'countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes','subCategories'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -69,28 +71,32 @@ class ServicesController extends Controller
 
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.service')]), 
             ['redirect_url' => route('admin.services.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function show(Service $service)
+    public function show($id)
     {
         try {
+            $service = Service::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.service.show');
             $status = $this->status;
             $subjects = $this->subjects;
             $input_details = $this->input_details;
             $field_types = $this->field_types;
             return view('admin.services.show', compact('service', 'pageTitle', 'status','subjects','input_details','field_types'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function edit(Service $service)
+    public function edit($id)
     {
         try {
+            $service = Service::where('id', decrypt($id))->firstOrFail();
             $pageTitle              = trans('panel.page_title.service.edit');
             $status                 = $this->status;
             $subjects               = $this->subjects;
@@ -104,7 +110,9 @@ class ServicesController extends Controller
             $servicePartners        = getServicePartners();
             $subCategories          = getActiveSubCategories($service->category_id);
             return view('admin.services.edit', compact('service', 'pageTitle', 'status','countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes','subCategories'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -137,7 +145,7 @@ class ServicesController extends Controller
 
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.service')]), 
             ['redirect_url' => route('admin.services.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -149,7 +157,7 @@ class ServicesController extends Controller
             $service->delete();
 
             return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service')]));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }

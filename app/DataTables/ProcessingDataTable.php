@@ -17,11 +17,11 @@ class ProcessingDataTable extends DataTable
             })
             ->editColumn('verification_outcome', function ($processing) {
                 // Show outcome based on status
-                return $processing->status == 'Complete' ? ($processing->verification_outcome ?: 'N/A') : 'N/A';
+                return $processing->status == 'Complete' ? ($processing->verification_outcome ?: __('global.N/A')) : __('global.N/A');
             })
             ->editColumn('outcome_evidence', function ($processing) {
-                // Show evidence link or 'N/A' based on status
-                return $processing->status == 'Complete' ? ($processing->outcome_evidence ?: 'N/A') : 'N/A';
+                // Show evidence link or __('global.N/A') based on status
+                return $processing->status == 'Complete' ? ($processing->outcome_evidence ?: __('global.N/A')) : __('global.N/A');
             })
             ->addColumn('action', function ($processing) {
                 return '<div class="group-button d-flex">

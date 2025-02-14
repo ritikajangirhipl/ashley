@@ -20,10 +20,10 @@ class EvidenceTypeDataTable extends DataTable
             })      
             ->addColumn('action', function ($evidenceType) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.evidence-types.show', $evidenceType->id).'" class="btn btn-warning btn-sm" title="View">
+                            <a href="'.route('admin.evidence-types.show', encrypt($evidenceType->id)).'" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="'.route('admin.evidence-types.edit', $evidenceType->id).'" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="'.route('admin.evidence-types.edit', encrypt($evidenceType->id)).'" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.evidence-types.destroy', $evidenceType->id).'" title="Delete">

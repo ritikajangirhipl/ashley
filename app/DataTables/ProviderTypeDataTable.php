@@ -21,10 +21,10 @@ class ProviderTypeDataTable extends DataTable
             })
             ->addColumn('action', function ($providerType) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.provider-types.show', $providerType->id).'" class="btn btn-warning btn-sm" title="View">
+                            <a href="'.route('admin.provider-types.show', encrypt($providerType->id)).'" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="'.route('admin.provider-types.edit', $providerType->id).'" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="'.route('admin.provider-types.edit', encrypt($providerType->id)).'" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.provider-types.destroy', $providerType->id).'" title="Delete">

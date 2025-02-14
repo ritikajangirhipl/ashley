@@ -255,4 +255,5 @@ return [
     'no_alerts'                            => 'No alerts',
     'profile'                              => 'Profile',
     'account'                              => 'Account',
+    'N/A'                                  => 'Not Available'
 ];

@@ -20,10 +20,10 @@ class VerificationModeDataTable extends DataTable
             })
             ->addColumn('action', function ($verificationMode) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.verification-modes.show', $verificationMode->id).'" class="btn btn-warning btn-sm" title="View">
+                            <a href="'.route('admin.verification-modes.show', encrypt($verificationMode->id)).'" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="'.route('admin.verification-modes.edit', $verificationMode->id).'" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="'.route('admin.verification-modes.edit', encrypt($verificationMode->id)).'" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.verification-modes.destroy', $verificationMode->id).'" title="Delete">

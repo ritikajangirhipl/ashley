@@ -16,23 +16,23 @@ class VerificationProviderDataTable extends DataTable
                 return config('constant.enums.status.' . $record->status) ?? 'Unknown';
             })
             ->editColumn('name', function ($verificationProvider) {
-                return $verificationProvider->name ?? 'N/A';
+                return $verificationProvider->name ?? __('global.N/A');
             })
             ->editColumn('country_name', function ($verificationProvider) {
-                return $verificationProvider->country ? $verificationProvider->country->name : 'N/A';
+                return $verificationProvider->country ? $verificationProvider->country->name : __('global.N/A');
             })
             ->editColumn('provider_type_name', function ($verificationProvider) {
-                return $verificationProvider->providerType ? $verificationProvider->providerType->name : 'N/A';
+                return $verificationProvider->providerType ? $verificationProvider->providerType->name : __('global.N/A');
             })
             ->editColumn('created_at', function ($record) {
                 return date("Y-m-d", strtotime($record['created_at'])) ?? __('global.N/A');;
             })
             ->addColumn('action', function ($record) {
                 return '<div class="group-button d-flex">
-                            <a href="' . route('admin.verification-providers.show', $record->id) . '" class="btn btn-warning btn-sm" title="View">
+                            <a href="' . route('admin.verification-providers.show', encrypt($record->id)) . '" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="' . route('admin.verification-providers.edit', $record->id) . '" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="' . route('admin.verification-providers.edit', encrypt($record->id)) . '" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button class="btn btn-danger btn-sm delete-record" data-id="' . $record->id . '" data-url="' . route('admin.verification-providers.destroy', $record->id) . '" title="Delete">

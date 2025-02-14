@@ -23,10 +23,10 @@ class CountryDataTable extends DataTable
             })
             ->addColumn('action', function ($country) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.countries.show',$country->id).'" class="btn btn-warning btn-sm" title="View">
+                            <a href="'.route('admin.countries.show', encrypt($country->id)).'" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="'.route('admin.countries.edit', $country->id).'" class="btn btn-warning btn-sm" title="Edit">
+                            <a href="'.route('admin.countries.edit', encrypt($country->id)).'" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <button class="btn btn-danger btn-sm delete-record" data-href="'.route('admin.countries.destroy', $country->id).'" title="Delete">

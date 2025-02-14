@@ -10,6 +10,7 @@ use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CountryController extends Controller
 {
@@ -57,22 +58,28 @@ class CountryController extends Controller
         }
     }
 
-    public function show(Country $country)
+    public function show($id)
     {
         try {
+            $country = Country::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.country.show');
             return view('admin.countries.show', compact('country', 'pageTitle'));
+        } catch (ModelNotFoundException) {
+            abort(404);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function edit(Country $country)
+    public function edit($id)
     {
         try {
+            $country = Country::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.country.edit');
             $status = $this->status;
             return view('admin.countries.edit', compact('country', 'pageTitle', 'status'));
+        } catch (ModelNotFoundException) {
+            abort(404);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }

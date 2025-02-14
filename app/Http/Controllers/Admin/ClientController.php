@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\StoreRequest;
 use App\Http\Requests\Client\UpdateRequest;
 use App\Models\Client;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
 
 class ClientController extends Controller
 {
@@ -34,7 +36,7 @@ class ClientController extends Controller
             $clientTypes = $this->clientTypes;
     
             return view('admin.clients.create', compact('pageTitle', 'status', 'countries', 'clientTypes'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -45,31 +47,37 @@ class ClientController extends Controller
             Client::create($request->except('_token'));
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.client')]), 
             ['redirect_url' => route('admin.clients.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function show(Client $client)
+    public function show($id)
     {
         try {
+            $client = Client::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.client.show');
             $status = $this->status;
             return view('admin.clients.show', compact('client', 'pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function edit(Client $client)
+    public function edit($id)
     {
         try {
+            $client = Client::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.client.edit');
             $status = $this->status;
             $countries = getActiveCountries(); 
             $clientTypes = $this->clientTypes;
             return view('admin.clients.edit', compact('client', 'pageTitle', 'status', 'countries', 'clientTypes'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -80,7 +88,7 @@ class ClientController extends Controller
             $client->update($request->except('_token', '_method'));
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.client')]), 
             ['redirect_url' => route('admin.clients.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -91,7 +99,7 @@ class ClientController extends Controller
             $client->delete();
 
             return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.client')]));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }

@@ -9,6 +9,8 @@ use App\Http\Requests\Category\UpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
 
 class CategoryController extends Controller
 {
@@ -31,7 +33,7 @@ class CategoryController extends Controller
             $pageTitle = trans('panel.page_title.category.add');
             $status = $this->status;
             return view('admin.categories.create', compact('pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -50,29 +52,35 @@ class CategoryController extends Controller
 
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.category')]),
             ['redirect_url' => route('admin.categories.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function show(Category $category)
+    public function show($id)
     {
         try {
+            $category = Category::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.category.show');
             $status = $this->status;
             return view('admin.categories.show', compact('category', 'pageTitle'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function edit(Category $category)
+    public function edit($id)
     {
         try {
+            $category = Category::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.category.edit');
             $status = $this->status;
             return view('admin.categories.edit', compact('category', 'pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -109,7 +117,7 @@ class CategoryController extends Controller
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.category')]), 
                 ['redirect_url' => route('admin.categories.index')]);
     
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -137,7 +145,7 @@ class CategoryController extends Controller
                 'status' => true,
                 'message' => __('messages.delete_success_message', ['attribute' => __('attribute.category')])
             ], 200);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => __('messages.unexpected_error')

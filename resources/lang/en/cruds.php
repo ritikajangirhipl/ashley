@@ -329,6 +329,8 @@ return [
             'status'                        => 'Status',
             'add_new'                       => 'Add New',
             'input_details'                 => 'Input Details',
+            'created_at'        => 'Created at',
+            'action'        => 'Action',
         ]
     ],
 
@@ -392,6 +394,8 @@ return [
             'password' => 'Password',
             'country' => 'Country',
             'status' => 'Status',
+            'created_at'        => 'Created at',
+            'action'        => 'Action',
         ]
     ],
 

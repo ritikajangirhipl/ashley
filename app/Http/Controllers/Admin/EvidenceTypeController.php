@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EvidenceType\StoreRequest;
 use App\Http\Requests\EvidenceType\UpdateRequest;
 use App\Models\EvidenceType;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
 
 class EvidenceTypeController extends Controller
 {
@@ -29,7 +31,7 @@ class EvidenceTypeController extends Controller
             $pageTitle = trans('panel.page_title.evidence_type.add');
             $status = $this->status;
             return view('admin.evidence-types.create', compact('pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -40,29 +42,35 @@ class EvidenceTypeController extends Controller
             EvidenceType::create($request->all());
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.evidence_type')]),
             ['redirect_url' => route('admin.evidence-types.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function show(EvidenceType $evidenceType)
+    public function show($id)
     {
         try {
+            $evidenceType = EvidenceType::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.evidence_type.show');
             $status = $this->status;
             return view('admin.evidence-types.show', compact('evidenceType', 'pageTitle'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function edit(EvidenceType $evidenceType)
+    public function edit($id)
     {
         try {
+            $evidenceType = EvidenceType::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.evidence_type.edit');
             $status = $this->status;
             return view('admin.evidence-types.edit', compact('evidenceType', 'pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -73,7 +81,7 @@ class EvidenceTypeController extends Controller
             $evidenceType->update($request->except('_token', '_method'));
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.evidence_type')]), 
             ['redirect_url' => route('admin.evidence-types.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -83,7 +91,7 @@ class EvidenceTypeController extends Controller
         try {
             $evidenceType->delete();
             return jsonResponseWithMessage(200, 'Evidence Type deleted successfully!');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }

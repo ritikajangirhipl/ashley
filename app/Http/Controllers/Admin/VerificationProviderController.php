@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\VerificationProvider\StoreRequest;
 use App\Http\Requests\VerificationProvider\UpdateRequest;
 use App\Models\VerificationProvider;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
 
 class VerificationProviderController extends Controller
 {
@@ -31,7 +33,7 @@ class VerificationProviderController extends Controller
             $countries = getActiveCountries();
             $providerTypes = getActiveProviderTypes();
             return view('admin.verification-providers.create', compact('pageTitle','status', 'countries', 'providerTypes'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -43,31 +45,37 @@ class VerificationProviderController extends Controller
 
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.verification_provider')]), 
             ['redirect_url' => route('admin.verification-providers.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
 
-    public function show(VerificationProvider $verificationProvider){
+    public function show($id){
         try{
+            $verificationProvider = VerificationProvider::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.verification_provider.show');
             $status = $this->status;
             return view('admin.verification-providers.show', compact('verificationProvider', 'pageTitle'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function edit(VerificationProvider $verificationProvider)
+    public function edit($id)
     {
         try {
+            $verificationProvider = VerificationProvider::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.verification_provider.edit');
             $status = $this->status;
             $countries = getActiveCountries(); 
             $providerTypes = getActiveProviderTypes();
             return view('admin.verification-providers.edit', compact('verificationProvider', 'pageTitle', 'status', 'countries', 'providerTypes'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -79,7 +87,7 @@ class VerificationProviderController extends Controller
             $verificationProvider->update($request->except('_token', '_method'));
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.verification_provider')]), 
             ['redirect_url' => route('admin.verification-providers.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -90,7 +98,7 @@ class VerificationProviderController extends Controller
             $verificationProvider->delete();
 
             return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.verification_provider')]));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }

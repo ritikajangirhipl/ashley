@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ServicePartner\StoreRequest;
 use App\Http\Requests\ServicePartner\UpdateRequest;
 use App\Models\ServicePartner;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
 
 class ServicePartnerController extends Controller
 {
@@ -29,7 +31,7 @@ class ServicePartnerController extends Controller
             $status = $this->status;
             $countries = getActiveCountries();
             return view('admin.service-partners.create', compact('pageTitle', 'status', 'countries'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -40,30 +42,36 @@ class ServicePartnerController extends Controller
             ServicePartner::create($request->except('_token'));
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.service_partners')]), 
             ['redirect_url' => route('admin.service-partners.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function show(ServicePartner $servicePartner)
+    public function show($id)
     {
         try {
+            $servicePartner = ServicePartner::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.service_partners.show');
             $status = $this->status;
             return view('admin.service-partners.show', compact('servicePartner', 'pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function edit(ServicePartner $servicePartner)
+    public function edit($id)
     {
         try {
+            $servicePartner = ServicePartner::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.service_partners.edit');
             $status = $this->status;
             $countries = getActiveCountries();
             return view('admin.service-partners.edit', compact('servicePartner', 'pageTitle', 'status', 'countries'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -74,7 +82,7 @@ class ServicePartnerController extends Controller
             $servicePartner->update($request->except('_token', '_method'));
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.service_partners')]), 
             ['redirect_url' => route('admin.service-partners.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -85,7 +93,7 @@ class ServicePartnerController extends Controller
             $servicePartner->delete();
 
             return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service_partners')]));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }

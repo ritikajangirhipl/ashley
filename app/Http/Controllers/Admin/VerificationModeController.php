@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\VerificationMode\StoreRequest;
 use App\Http\Requests\VerificationMode\UpdateRequest;
 use App\Models\VerificationMode;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
 
 class VerificationModeController extends Controller
 {
@@ -29,7 +31,7 @@ class VerificationModeController extends Controller
             $pageTitle = trans('panel.page_title.verification_mode.add');
             $status = $this->status;
             return view('admin.verification-modes.create', compact('pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -40,29 +42,35 @@ class VerificationModeController extends Controller
             VerificationMode::create($request->all());
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.verification_mode')]), 
             ['redirect_url' => route('admin.verification-modes.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function show(VerificationMode $verificationMode)
+    public function show($id)
     {
         try {
+            $verificationMode = VerificationMode::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.verification_mode.show');
             $status = $this->status;
             return view('admin.verification-modes.show', compact('verificationMode', 'pageTitle'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
-    public function edit(VerificationMode $verificationMode)
+    public function edit($id)
     {
         try {
+            $verificationMode = VerificationMode::where('id', decrypt($id))->firstOrFail();
             $pageTitle = trans('panel.page_title.verification_mode.edit');
             $status = $this->status;
             return view('admin.verification-modes.edit', compact('verificationMode', 'pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException) {
+            abort(404);
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -73,7 +81,7 @@ class VerificationModeController extends Controller
             $verificationMode->update($request->except('_token', '_method'));
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.verification_mode')]),
             ['redirect_url' => route('admin.verification-modes.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -83,7 +91,7 @@ class VerificationModeController extends Controller
         try {
             $verificationMode->delete();
             return jsonResponseWithMessage(200, 'Verification Mode deleted successfully!');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }

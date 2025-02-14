@@ -65,7 +65,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="password">{{ trans('cruds.client.fields.password') }}<span class="text-danger">*</span></label>
-            <input type="password" id="password" name="password" class="form-control {{ $errors->has('password') ? 'has-error' : '' }}" value="{{ old('password', $client->password ?? '') }}" required>
+            <input type="password" id="password" name="password" class="form-control" value="{{ isset($client) ? $client->password : '' }}" required>
         </div>
     </div>
 
@@ -74,7 +74,7 @@
             <label for="status">{{ trans('cruds.client.fields.status') }}<span class="text-danger">*</span></label>
             <select name="status" id="status" required class="form-control select2">
                 @foreach($status as $key => $value)
-                    <option value="{{ $key }}" {{ old('status', $client->status ?? '') == $key ? 'selected' : '' }}>
+                    <option value="{{ $key }}" {{ isset($client) && $client->status == $key ? 'selected' : '' }}>
                         {{ $value }}
                     </option>
                 @endforeach
@@ -84,9 +84,5 @@
 </div>
 
 <div>
-    @if(isset($client))
-        <button class="btn btn-info" type="submit">{{ trans('global.update') }}</button>
-    @else
-        <button class="btn btn-info" type="submit">{{ trans('global.create') }}</button>
-    @endif
+    <button class="btn btn-info" type="submit">{{ (isset($client)) ? trans('global.update') : trans('global.create') }}</button>
 </div>
