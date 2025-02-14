@@ -25,6 +25,9 @@ class ClientDataTable extends DataTable
             ->editColumn('client_type', function ($client) {
                 return $client->client_type == 'individual' ? 'Individual' : 'Organization';
             })
+            ->editColumn('created_at', function ($record) {
+                return date("Y-m-d", strtotime($record['created_at'])) ?? __('global.N/A');
+            })  
             ->addColumn('action', function ($client) {
                 return '<div class="group-button d-flex">
                             <a href="' . route('admin.clients.show', $client->id) . '" class="btn btn-info btn-sm" title="View">
@@ -78,6 +81,7 @@ class ClientDataTable extends DataTable
             Column::make('password')->title('Password'),
             Column::make('status')->title('Status'), 
             Column::make('country_name')->title('Country'),  
+            Column::make('created_at')->title(trans('cruds.evidence_type.fields.created_at')),
             Column::computed('action') 
                   ->title('Action')
                   ->exportable(false) 

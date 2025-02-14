@@ -47,6 +47,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group d-flex view-listing">
+                        <h6 class="mb-0"><b>{{ trans('cruds.service_partners.fields.created_at') }}:</b></h6>
+                        <p class="ml-2 mb-0">{{ date("Y-m-d", strtotime($servicePartner->created_at)) ?? __('global.N/A') }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

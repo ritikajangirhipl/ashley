@@ -27,6 +27,10 @@
                         <p>{{ $evidenceType->description }}</p>
                     </div>
                 </div>
+                <div class="form-group d-flex view-listing">
+                    <h6 class="mb-0"><b>{{ trans('cruds.evidence_type.fields.created_at') }}:</b></h6>
+                    <p class="ml-2 mb-0">{{ date("Y-m-d", strtotime($evidenceType->created_at)) ?? __('global.N/A') }}</p>
+                </div>
             </div>
         </div>
     </div>

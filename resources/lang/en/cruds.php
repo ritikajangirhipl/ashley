@@ -287,6 +287,8 @@ return [
             'name' => 'Name',
             'description' => 'Description',
             'status' => 'Status',
+            'created_at'        => 'Created at',
+            'action'        => 'Action',
         ],
     ],
 
@@ -372,6 +374,8 @@ return [
             'website_address' => 'Website Address',
             'contact_person' => 'Contact Person',
             'status' => 'Status',
+            'created_at'        => 'Created at',
+            'action'        => 'Action',
         ]
     ],
     'client' => [

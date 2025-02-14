@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title float-left">
-                    {{ trans('global.list') }} {{ trans('cruds.client.title') }}
+                    {{ trans('panel.page_title.client.list') }}
                 </h4>
                 <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.client.title_singular') }}" href="{{ route('admin.clients.create') }}">
                     <i class="fas fa-plus"></i>

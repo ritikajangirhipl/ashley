@@ -14,7 +14,10 @@ class EvidenceTypeDataTable extends DataTable
             ->addIndexColumn()
             ->editColumn('status', function ($record) {
                 return config('constant.enums.status.'.$record->status);
-            })            
+            })      
+            ->editColumn('created_at', function ($record) {
+                return date("Y-m-d", strtotime($record['created_at'])) ?? __('global.N/A');
+            })      
             ->addColumn('action', function ($evidenceType) {
                 return '<div class="group-button d-flex">
                             <a href="'.route('admin.evidence-types.show', $evidenceType->id).'" class="btn btn-warning btn-sm" title="View">
@@ -43,7 +46,7 @@ class EvidenceTypeDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(1)
+                    ->orderBy(4)
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);
@@ -56,10 +59,11 @@ class EvidenceTypeDataTable extends DataTable
             Column::make('DT_RowIndex')->title('ID')->orderable(false)->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),
-            Column::make('name')->title('Name'),
-            Column::make('description')->title('Description'),
-            Column::make('status')->title('Status'),
-            Column::computed('action')->title('Action')
+            Column::make('name')->title(trans('cruds.evidence_type.fields.name')),
+            Column::make('description')->title(trans('cruds.evidence_type.fields.description')),
+            Column::make('status')->title(trans('cruds.evidence_type.fields.status')),
+            Column::make('created_at')->title(trans('cruds.evidence_type.fields.created_at')),
+            Column::computed('action')->title(trans('cruds.evidence_type.fields.action'))
                   ->exportable(false)
                   ->printable(false)
                   ->width(150)

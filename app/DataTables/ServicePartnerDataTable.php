@@ -27,7 +27,7 @@ class ServicePartnerDataTable extends DataTable
             })
             ->addColumn('action', function ($servicePartner) {
                 return '<div class="group-button d-flex">
-                            <a href="' . route('admin.service-partners.show', $servicePartner->id) . '" class="btn btn-info btn-sm" title="View">
+                            <a href="' . route('admin.service-partners.show', $servicePartner->id) . '" class="btn btn-warning btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
                             <a href="' . route('admin.service-partners.edit', $servicePartner->id) . '" class="btn btn-warning btn-sm" title="Edit">
@@ -70,12 +70,13 @@ class ServicePartnerDataTable extends DataTable
                   ->width(50)
                   ->addClass('text-center'),    
             Column::make('name')->title(trans('cruds.service_partners.fields.name')), 
-            Column::make('email_address')->title('Email'),
-            Column::make('website_address')->title('Website'),
-            Column::make('country_name')->title('Country'),
-            Column::make('status')->title('Status'), 
+            Column::make('email_address')->title(trans('cruds.service_partners.fields.email_address')),
+            Column::make('website_address')->title(trans('cruds.service_partners.fields.website_address')),
+            Column::make('country_name')->title(trans('cruds.service_partners.fields.country')),
+            Column::make('status')->title(trans('cruds.service_partners.fields.status')), 
+            Column::make('created_at')->title(trans('cruds.service_partners.fields.created_at')), 
             Column::computed('action')
-                  ->title('Action')
+                  ->title(trans('cruds.service_partners.fields.action'))
                   ->exportable(false)
                   ->printable(false)
                   ->width(150)

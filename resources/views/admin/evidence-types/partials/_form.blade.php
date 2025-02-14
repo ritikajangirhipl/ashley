@@ -2,7 +2,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.evidence_type.fields.name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ old('name', isset($evidenceType) ? $evidenceType->name : '') }}" placeholder="{{ trans('cruds.evidence_type.fields.name') }}" autofocus>
+            <input type="text" id="name" name="name" class="form-control" value="{{ isset($evidenceType) ? $evidenceType->name : '' }}" placeholder="{{ trans('cruds.evidence_type.fields.name') }}" autofocus>
         </div>
     </div>
     <div class="col-md-6 col-sm-12">
@@ -20,16 +20,11 @@
     <div class="col-md-12 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.evidence_type.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" placeholder="{{ trans('cruds.evidence_type.fields.description') }}">{{ old('description', isset($evidenceType) ? $evidenceType->description : '') }}</textarea>
-
+            <textarea name="description" class="form-control" placeholder="{{ trans('cruds.evidence_type.fields.description') }}">{{ isset($evidenceType) ? $evidenceType->description : '' }}</textarea>
         </div>
     </div>
 </div>
 <div>
-    @if(isset($evidenceType))
-        <button class="btn btn-info" type="submit">{{ trans('global.update') }}</button>
-    @else
-        <button class="btn btn-info" type="submit">{{ trans('global.create') }}</button>
-    @endif
+    <button class="btn btn-info" type="submit">{{ (isset($evidenceType)) ? trans('global.update') : trans('global.create') }}</button>
 </div>
 

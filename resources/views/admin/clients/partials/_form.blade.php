@@ -2,17 +2,17 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.client.fields.name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ old('name', $client->name ?? '') }}" required autofocus>
+            <input type="text" id="name" name="name" class="form-control" value="{{ isset($client) ? $client->name : '' }}" required autofocus>
         </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="client_type">{{ trans('cruds.client.fields.client_type') }}<span class="text-danger">*</span></label>
-            <select name="client_type" id="client_type" class="form-control select2 {{ $errors->has('client_type') ? 'has-error' : '' }}" required>
+            <select name="client_type" id="client_type" class="form-control select2" required>
                 <option value="">{{ 'Select ' . trans('cruds.client.fields.client_type') }}</option>
                 @foreach($clientTypes as $key => $type)
-                    <option value="{{ $key }}" {{ old('client_type', $client->client_type ?? '') == $key ? 'selected' : '' }}>
+                    <option value="{{ $key }}" {{ isset($client) && $client->client_type == $key ? 'selected' : '' }}>
                         {{ $type }}
                     </option>
                 @endforeach
@@ -23,15 +23,14 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="email_address">{{ trans('cruds.client.fields.email_address') }}<span class="text-danger">*</span></label>
-            <input type="email" id="email_address" name="email_address" class="form-control  {{ $errors->has('email_address') ? 'has-error' : '' }}"
-                value="{{ old('email_address', $client->email_address ?? '') }}" required>
+            <input type="email" id="email_address" name="email_address" class="form-control" value="{{ isset($client) ? $client->email_address : '' }}" required>
         </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="phone_number">{{ trans('cruds.client.fields.phone_number') }}<span class="text-danger">*</span></label>
-            <input type="text" id="phone_number" name="phone_number" class="form-control {{ $errors->has('phone_number') ? 'has-error' : '' }}" value="{{ old('phone_number', $client->phone_number ?? '') }}" required>
+            <input type="text" id="phone_number" name="phone_number" class="form-control" value="{{ isset($client) ? $client->phone_number : '' }}" required>
         </div>
     </div>
 
@@ -41,7 +40,7 @@
             <select name="country_id" id="country_id" class="form-control select2 {{ $errors->has('country_id') ? 'has-error' : '' }}" required>
                 <option value="">{{ 'Select ' . trans('cruds.client.fields.country') }}</option>
                 @foreach($countries as $id => $name)
-                    <option value="{{ $id }}" {{ old('country_id', $client->country_id ?? '') == $id ? 'selected' : '' }}>
+                    <option value="{{ $id }}" {{ isset($client) && $client->country_id == $id ? 'selected' : '' }}>
                         {{ $name }}
                     </option>
                 @endforeach
@@ -52,14 +51,14 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="contact_address">{{ trans('cruds.client.fields.contact_address') }}<span class="text-danger">*</span></label>
-            <textarea id="contact_address" name="contact_address" class="form-control {{ $errors->has('contact_address') ? 'has-error' : '' }}">{{ old('contact_address', $client->contact_address ?? '') }}</textarea>
+            <textarea id="contact_address" name="contact_address" class="form-control">{{ isset($client) ? $client->contact_address : '' }}</textarea>
         </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="website_address">{{ trans('cruds.client.fields.website_address') }}<span class="text-danger">*</span></label>
-            <input type="url" id="website_address" name="website_address" class="form-control {{ $errors->has('website_address') ? 'has-error' : '' }}" value="{{ old('website_address', $client->website_address ?? '') }}">
+            <input type="url" id="website_address" name="website_address" class="form-control" value="{{ isset($client) ? $client->website_address : '' }}">
         </div>
     </div>
 
