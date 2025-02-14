@@ -12,6 +12,8 @@ use App\Models\ServicePartner;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\ProviderType;
+use App\Models\Client;
+use App\Models\Service;
 
 /**
  * Generate and return a standard JSON response.
@@ -93,7 +95,14 @@ function getServicePartners()
 {
     return ServicePartner::where('status', '1')->pluck('name', 'id');
 }
-
+function getClients()
+{
+    return Client::where('status', '1')->pluck('name', 'id');
+}
+function getServices()
+{
+    return Service::where('status', '1')->pluck('name', 'id');
+}
 // function getCurrencies()
 // {
 //     return Country::where('status', '1')->pluck('currency_name', 'currency_name')->unique();

@@ -8,49 +8,42 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+
+    protected $table = 'orders';
+
     protected $fillable = [
+        'order_id',
         'client_id',
         'service_id',
         'subject_name',
-        'document',
-        'reason',
-        'subject_consent',
-        'reference_provider_name',
+        'copy_of_document_to_verify',
+        'reason_for_request',
+        'subject_consent_requirement',
+        'name_of_reference_provider',
         'address_information',
-        'location',
+        'location_id',
         'gender',
         'marital_status',
         'registration_number',
-        'others',
         'preferred_currency',
         'order_amount',
-        'payment_status',
-        'processing_status',
+        'order_payment_status',
+        'order_processing_status',
+        'status',
     ];
 
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class, 'client_id', 'id');
     }
 
     public function service()
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(Service::class, 'service_id', 'id');
     }
 
-    public function location()
+    public function country()
     {
-        return $this->belongsTo(Country::class, 'location');
-    }
-
-    public function paymentStatus()
-    {
-        return $this->belongsTo(Payment::class, 'payment_status');
-    }
-
-    public function processingStatus()
-    {
-        return $this->belongsTo(Processing::class, 'processing_status');
+        return $this->belongsTo(Country::class, 'location_id', 'id');
     }
 }
-

@@ -7,13 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\StoreRequest;
 use App\Http\Requests\Order\UpdateRequest;
 use App\Models\Order;
-use App\Models\Client;
-use App\Models\Service;
-use App\Models\Country;
 
 class OrderController extends Controller
 {
     protected $status;
+    protected $currencies;
+    protected $processing_status;
+    protected $payment_status;
 
     public function __construct()
     {
@@ -30,12 +30,10 @@ class OrderController extends Controller
     {
         try {
             $pageTitle = trans('panel.page_title.order.add');
-            $status = $this->status;
-            $clients = Client::all();
-            $services = Service::all();
-            $countries = Country::all();
-            
-            return view('admin.orders.create', compact('pageTitle', 'status', 'clients', 'services', 'countries'));
+            $clients = getClients();
+            $services = getServices();
+            $countries = getActiveCountries();
+            return view('admin.orders.create', compact('pageTitle', 'clients', 'services', 'countries'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -44,9 +42,8 @@ class OrderController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            Order::create($request->except('_token'));
-            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.order')]), 
-            ['redirect_url' => route('admin.orders.index')]);
+            $order = Order::create($request->validated());
+            return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.order')]), ['redirect_url' => route('admin.orders.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -66,12 +63,10 @@ class OrderController extends Controller
     {
         try {
             $pageTitle = trans('panel.page_title.order.edit');
-            $status = $this->status;
-            $clients = Client::all();
-            $services = Service::all();
-            $countries = Country::all();
-            
-            return view('admin.orders.edit', compact('order', 'pageTitle', 'status', 'clients', 'services', 'countries'));
+            $clients = getClients();
+            $services = getServices();
+            $countries = getActiveCountries();
+            return view('admin.orders.edit', compact('order', 'pageTitle', 'clients', 'services', 'countries'));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -80,9 +75,8 @@ class OrderController extends Controller
     public function update(UpdateRequest $request, Order $order)
     {
         try {
-            $order->update($request->except('_token', '_method'));
-            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.order')]), 
-            ['redirect_url' => route('admin.orders.index')]);
+            $order->update($request->validated());
+            return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.order')]), ['redirect_url' => route('admin.orders.index')]);
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -92,7 +86,6 @@ class OrderController extends Controller
     {
         try {
             $order->delete();
-
             return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.order')]));
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
