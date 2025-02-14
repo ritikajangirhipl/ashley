@@ -1,6 +1,6 @@
 <div class="row">
     <!-- Country -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="country_id">{{ trans('cruds.services.fields.country') }}<span class="text-danger">*</span></label>
             <select name="country_id" id="country_id" class="form-control select2 {{ $errors->has('country_id') ? 'is-invalid' : '' }}" required>
@@ -18,7 +18,7 @@
     </div>
 
     <!-- Category -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="category_id">{{ trans('cruds.services.fields.category') }}<span class="text-danger">*</span></label>
             <select name="category_id" id="category_id" class="form-control select2 {{ $errors->has('category_id') ? 'is-invalid' : '' }}" required>
@@ -36,7 +36,7 @@
     </div>
 
     <!-- Sub Category -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="sub_category_id">{{ trans('cruds.services.fields.sub_category') }}<span class="text-danger">*</span></label>
             <select name="sub_category_id" id="sub_category_id" class="form-control select2 {{ $errors->has('sub_category_id') ? 'is-invalid' : '' }}" required>
@@ -55,7 +55,7 @@
     </div>
     
     <!-- Name -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.services.fields.name') }}<span class="text-danger">*</span></label>
             <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
@@ -66,19 +66,8 @@
         </div>
     </div>
 
-    <!-- Description -->
-    <div class="col-md-6 col-sm-12">
-        <div class="form-group">
-            <label for="description">{{ trans('cruds.services.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea id="description" name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" required>{{ old('description', $service->description ?? '') }}</textarea>
-            @if($errors->has('description'))
-                <span class="text-danger">{{ $errors->first('description') }}</span>
-            @endif
-        </div>
-    </div>
-
     <!-- Subject -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="subject">{{ trans('cruds.services.fields.subject') }}<span class="text-danger">*</span></label>
             <select name="subject" id="subject" class="form-control select2 {{ $errors->has('subject') ? 'is-invalid' : '' }}" required>
@@ -96,7 +85,7 @@
     </div>
     
     <!-- Verification Mode -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="verification_mode_id">{{ trans('cruds.services.fields.verification_mode') }}<span class="text-danger">*</span></label>
             <select name="verification_mode_id" id="verification_mode_id" class="form-control select2 {{ $errors->has('verification_mode_id') ? 'is-invalid' : '' }}" required>
@@ -115,7 +104,7 @@
 
 
     <!-- verification summary -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="verification_summary">{{ trans('cruds.services.fields.verification_summary') }}<span class="text-danger">*</span></label>
             <input type="text" id="verification_summary" name="verification_summary" class="form-control {{ $errors->has('verification_summary') ? 'is-invalid' : '' }}"
@@ -127,7 +116,7 @@
     </div>
 
     <!-- Verification Mode -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="verification_provider_id">{{ trans('cruds.services.fields.verification_provider') }}<span class="text-danger">*</span></label>
             <select name="verification_provider_id" id="verification_provider_id" class="form-control select2 {{ $errors->has('verification_provider_id') ? 'is-invalid' : '' }}" required>
@@ -145,7 +134,7 @@
     </div>
 
     <!-- verification duration -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="verification_duration">{{ trans('cruds.services.fields.verification_duration') }}<span class="text-danger">*</span></label>
             <input type="text" id="verification_duration" name="verification_duration" class="form-control {{ $errors->has('verification_duration') ? 'is-invalid' : '' }}"
@@ -157,7 +146,7 @@
     </div>
 
     <!-- Evidence Type -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="evidence_type_id">{{ trans('cruds.services.fields.evidence_type') }}<span class="text-danger">*</span></label>
             <select name="evidence_type_id" id="evidence_type_id" class="form-control select2 {{ $errors->has('evidence_type_id') ? 'is-invalid' : '' }}" required>
@@ -175,7 +164,7 @@
     </div>
 
     <!-- evidence summary -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="evidence_summary">{{ trans('cruds.services.fields.evidence_summary') }}<span class="text-danger">*</span></label>
             <input type="text" id="evidence_summary" name="evidence_summary" class="form-control {{ $errors->has('evidence_summary') ? 'is-invalid' : '' }}"
@@ -187,7 +176,7 @@
     </div>
 
     <!-- Service Partner -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="service_partner_id">{{ trans('cruds.services.fields.service_partner') }}<span class="text-danger">*</span></label>
             <select name="service_partner_id" id="service_partner_id" class="form-control select2 {{ $errors->has('service_partner_id') ? 'is-invalid' : '' }}" required>
@@ -202,7 +191,7 @@
     </div>
 
     <!-- Service Partner -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="service_currency">{{ trans('cruds.services.fields.service_currency') }}<span class="text-danger">*</span></label>
             <input type="text" id="service_currency" name="service_currency" class="form-control {{ $errors->has('service_currency') ? 'is-invalid' : '' }}"
@@ -215,7 +204,7 @@
     </div>
 
     <!-- Local Service Price -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="local_service_price">{{ trans('cruds.services.fields.local_service_price') }}<span class="text-danger">*</span></label>
             <input type="number" step="0.01" id="local_service_price" name="local_service_price" class="form-control {{ $errors->has('local_service_price') ? 'is-invalid' : '' }}"
@@ -227,13 +216,24 @@
     </div>
 
     <!-- usd Service Price -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="usd_service_price">{{ trans('cruds.services.fields.usd_service_price') }}<span class="text-danger">*</span></label>
             <input type="number" step="0.01" id="usd_service_price" name="usd_service_price" class="form-control {{ $errors->has('usd_service_price') ? 'is-invalid' : '' }}"
                    value="{{ old('usd_service_price', $service->usd_service_price ?? '') }}" required >
             @if($errors->has('usd_service_price'))
                 <span class="text-danger">{{ $errors->first('usd_service_price') }}</span>
+            @endif
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="description">{{ trans('cruds.services.fields.description') }}<span class="text-danger">*</span></label>
+            <textarea id="description" name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" required>{{ old('description', $service->description ?? '') }}</textarea>
+            @if($errors->has('description'))
+                <span class="text-danger">{{ $errors->first('description') }}</span>
             @endif
         </div>
     </div>
@@ -369,7 +369,7 @@
 
 
         <!-- location -->
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="location">{{ trans('cruds.services.fields.location') }}<span class="text-danger">*</span></label>
 
@@ -389,7 +389,7 @@
         </div>
 
         <!-- gender -->
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="gender">{{ trans('cruds.services.fields.gender') }}<span class="text-danger">*</span></label>
 
@@ -409,7 +409,7 @@
         </div>
 
         <!-- marital_status -->
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="marital_status">{{ trans('cruds.services.fields.marital_status') }}<span class="text-danger">*</span></label>
 
@@ -429,7 +429,7 @@
         </div>
 
         <!-- registration_number -->
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="registration_number">{{ trans('cruds.services.fields.registration_number') }}<span class="text-danger">*</span></label>
 

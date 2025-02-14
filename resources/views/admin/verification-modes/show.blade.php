@@ -12,18 +12,20 @@
 
     <div class="card-body">
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group d-flex view-listing">
-                    <h6 class="mb-0"><b>{{ trans('cruds.verification_mode.fields.name') }}:</b></h6>
-                    <p class="ml-2 mb-0">{{ $verificationMode->name }}</p>
-                </div>
-                <div class="form-group d-flex view-listing">
-                     <h6 class="mb-0"><b>{{ trans('cruds.verification_mode.fields.description') }}:</b></h6>
-                     <p class="ml-2 mb-0">{{ $verificationMode->description }}</p>
-                </div>
-                <div class="form-group d-flex view-listing">
-                    <h6 class="mb-0"><b>{{ trans('cruds.verification_mode.fields.status') }}:</b></h6>
-                    <p class="ml-2 mb-0">{{ config('constant.enums.status.'.$verificationMode->status) }}</p>
+            <div class="col-md-12">
+                <div class="form_view_outer">
+                    <div class="form-group d-flex view-listing">
+                        <h6 class="mb-0">{{ trans('cruds.verification_mode.fields.name') }}:</h6>
+                        <p>{{ $verificationMode->name }}</p>
+                    </div>
+                    <div class="form-group d-flex view-listing">
+                        <h6 class="mb-0">{{ trans('cruds.verification_mode.fields.description') }}:</h6>
+                        <p>{{ $verificationMode->description }}</p>
+                    </div>
+                    <div class="form-group d-flex view-listing">
+                        <h6 class="mb-0">{{ trans('cruds.verification_mode.fields.status') }}:</h6>
+                        <p>{{ config('constant.enums.status.'.$verificationMode->status) }}</p>
+                    </div>
                 </div>
             </div>
         </div>

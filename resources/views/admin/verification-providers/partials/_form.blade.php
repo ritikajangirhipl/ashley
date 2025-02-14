@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.verification_provider.fields.name') }}<span class="text-danger">*</span></label>
             <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}"
@@ -7,14 +7,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
-        <div class="form-group">
-            <label for="description">{{ trans('cruds.verification_provider.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea id="description" name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" required>{{ old('description', $verificationProvider->description ?? '') }}</textarea>
-        </div>
-    </div>
-
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="provider_type_id">{{ trans('cruds.verification_provider.fields.provider_type') }}<span class="text-danger">*</span></label>
             <select name="provider_type_id" id="provider_type_id" class="form-control select2 {{ $errors->has('provider_type_id') ? 'has-error' : '' }}" required>
@@ -28,7 +21,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="country_id">{{ trans('cruds.verification_provider.fields.country') }}<span class="text-danger">*</span></label>
             <select name="country_id" id="country_id" class="form-control select2 {{ $errors->has('country_id') ? 'has-error' : '' }}" required>
@@ -39,13 +32,6 @@
                     </option>
                 @endforeach
             </select>
-        </div>
-    </div>
-
-    <div class="col-md-6 col-sm-12">
-        <div class="form-group">
-            <label for="contact_address">{{ trans('cruds.verification_provider.fields.contact_address') }}<span class="text-danger">*</span></label>
-            <textarea id="contact_address" name="contact_address" class="form-control {{ $errors->has('contact_address') ? 'has-error' : '' }}">{{ old('contact_address', $verificationProvider->contact_address ?? '') }}</textarea>
         </div>
     </div>
 
@@ -83,6 +69,21 @@
                     </option>
                 @endforeach
             </select>
+        </div>
+    </div>
+    
+
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="contact_address">{{ trans('cruds.verification_provider.fields.contact_address') }}<span class="text-danger">*</span></label>
+            <textarea id="contact_address" name="contact_address" class="form-control {{ $errors->has('contact_address') ? 'has-error' : '' }}">{{ old('contact_address', $verificationProvider->contact_address ?? '') }}</textarea>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="description">{{ trans('cruds.verification_provider.fields.description') }}<span class="text-danger">*</span></label>
+            <textarea id="description" name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" required>{{ old('description', $verificationProvider->description ?? '') }}</textarea>
         </div>
     </div>
 </div>

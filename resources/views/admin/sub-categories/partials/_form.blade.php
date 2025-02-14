@@ -16,33 +16,28 @@
     
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="image">{{ trans('cruds.sub_category.fields.image') }}<span class="text-danger">*</span></label>
-            <input type="file" name="image" id="imageInput" class="form-control" accept="image/*">
-
-            @isset($subCategory)
-                <div class="mt-2">
-                    <img id="subcategoryImagePreview"
-                        src="{{ asset('storage/' . $subCategory->image) }}"
-                        alt="SubCategory Image"
-                        width="100"
-                        height="60"
-                        class="img-thumbnail">
+            <div class="choose-image">
+                <div>
+                    <label for="image">{{ trans('cruds.sub_category.fields.image') }}<span class="text-danger">*</span></label>
+                    <input type="file" name="image" id="imageInput" class="form-control" accept="image/*">
                 </div>
-            @endisset
+                @isset($subCategory)
+                    <div class="mt-2">
+                        <img id="subcategoryImagePreview"
+                            src="{{ asset('storage/' . $subCategory->image) }}"
+                            alt="SubCategory Image"
+                            width="100"
+                            height="60"
+                            class="img-thumbnail">
+                    </div>
+                @endisset
 
-            @if($errors->has('image'))
-                <p class="help-block text-danger">
-                    {{ $errors->first('image') }}
-                </p>
-            @endif
-        </div>
-    </div>
-
-
-    <div class="col-md-6 col-sm-12">
-        <div class="form-group">
-            <label for="description">{{ trans('cruds.sub_category.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}">{{ old('description', isset($subCategory) ? $subCategory->description : '') }}</textarea>
+                @if($errors->has('image'))
+                    <p class="help-block text-danger">
+                        {{ $errors->first('image') }}
+                    </p>
+                @endif
+            </div>
         </div>
     </div>
 
@@ -56,6 +51,12 @@
                     </option>
                 @endforeach
             </select>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="description">{{ trans('cruds.sub_category.fields.description') }}<span class="text-danger">*</span></label>
+            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}">{{ old('description', isset($subCategory) ? $subCategory->description : '') }}</textarea>
         </div>
     </div>
 </div>

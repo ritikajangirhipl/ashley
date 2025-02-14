@@ -7,13 +7,6 @@
     </div>
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="description">{{ trans('cruds.evidence_type.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" placeholder="{{ trans('cruds.evidence_type.fields.description') }}">{{ old('description', isset($evidenceType) ? $evidenceType->description : '') }}</textarea>
-
-        </div>
-    </div>
-    <div class="col-md-6 col-sm-12">
-        <div class="form-group">
             <label for="status">{{ trans('cruds.evidence_type.fields.status') }}<span class="text-danger">*</span></label>
             <select name="status" id="status" required class="form-control select2">
             @foreach($status as $key => $value)
@@ -22,6 +15,13 @@
                 </option>
             @endforeach
             </select>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="description">{{ trans('cruds.evidence_type.fields.description') }}<span class="text-danger">*</span></label>
+            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" placeholder="{{ trans('cruds.evidence_type.fields.description') }}">{{ old('description', isset($evidenceType) ? $evidenceType->description : '') }}</textarea>
+
         </div>
     </div>
 </div>

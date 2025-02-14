@@ -1,25 +1,35 @@
 <div class="row">
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.country.fields.name') }}<span class="text-danger">*</span></label>
             <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ old('name', isset($country) ? $country->name : '') }}" autofocus>
         </div>
     </div>
-
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
-            <label for="flag">{{ trans('cruds.country.fields.flag') }}<span class="text-danger">*</span></label>
-            <input type="file" id="flagInput" name="flag" class="form-control {{ $errors->has('flag') ? 'has-error' : '' }}" accept="image/png, image/jpeg, image/jpg, image/svg">
-            @isset($country)
-                <div class="mt-2">
-                    <img id="flagPreview"
-                        src="{{ asset('storage/' . $country->flag) }}"
-                        alt="Country Flag"
-                        width="100"
-                        height="60"
-                        class="img-thumbnail">
+            <label for="currency_name">{{ trans('cruds.country.fields.currency_name') }}<span class="text-danger">*</span></label>
+            <input type="text" id="currency_name" name="currency_name" class="form-control {{ $errors->has('currency_name') ? 'has-error' : '' }}" value="{{ old('currency_name', isset($country) ? $country->currency_name : '') }}">
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <div class="choose-image">
+                <div>
+                    <label for="flag">{{ trans('cruds.country.fields.flag') }}<span class="text-danger">*</span></label>
+                    <input type="file" id="flagInput" name="flag" class="form-control {{ $errors->has('flag') ? 'has-error' : '' }}" accept="image/png, image/jpeg, image/jpg, image/svg">
                 </div>
-            @endisset
+                @isset($country)
+                    <div class="mt-2">
+                        <img id="flagPreview"
+                            src="{{ asset('storage/' . $country->flag) }}"
+                            alt="Country Flag"
+                            width="100"
+                            height="60"
+                            class="img-thumbnail">
+                    </div>
+                @endisset
+            </div>
 
             @if($errors->has('flag'))
                 <p class="help-block text-danger">
@@ -29,19 +39,6 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
-        <div class="form-group">
-            <label for="description">{{ trans('cruds.country.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}">{{ old('description', isset($country) ? $country->description : '') }}</textarea>
-        </div>
-    </div>
-
-    <div class="col-md-6 col-sm-12">
-        <div class="form-group">
-            <label for="currency_name">{{ trans('cruds.country.fields.currency_name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="currency_name" name="currency_name" class="form-control {{ $errors->has('currency_name') ? 'has-error' : '' }}" value="{{ old('currency_name', isset($country) ? $country->currency_name : '') }}">
-        </div>
-    </div>
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
@@ -60,6 +57,12 @@
                     </option>
                 @endforeach
             </select>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="description">{{ trans('cruds.country.fields.description') }}<span class="text-danger">*</span></label>
+            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}">{{ old('description', isset($country) ? $country->description : '') }}</textarea>
         </div>
     </div>
 </div>
