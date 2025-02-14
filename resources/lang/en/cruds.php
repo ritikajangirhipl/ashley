@@ -239,6 +239,7 @@ return [
             'created_at'            => 'Created at',
             'updated_at'            => 'Updated at',
             'deleted_at'            => 'Deleted at',
+            'action'                => 'Action',
         ],
     ],
 
@@ -261,6 +262,8 @@ return [
             'name' => 'Name',
             'description' => 'Description',
             'status' => 'Status',
+            'created_at' => 'Created at',
+            'action'        => 'Action',
         ],
     ],
     'country' => [
@@ -273,6 +276,8 @@ return [
             'currency_name' => 'Currency Name',
             'currency_symbol' => 'Currency Symbol',
             'status' => 'Status',
+            'created_at'        => 'Created at',
+            'action'        => 'Action',
         ],
     ],
     'evidence_type' => [
@@ -334,6 +339,8 @@ return [
             'image' => 'Image',
             'description' => 'Description',
             'status' => 'Status',
+            'created_at'        => 'Created at',
+            'action'        => 'Action',
         ],
     ],
     'verification_provider' => [
@@ -349,6 +356,8 @@ return [
             'website' => 'Website Address',
             'contact_person' => 'Contact Person',
             'status' => 'Status',
+            'created_at'        => 'Created at',
+            'action'        => 'Action',
         ],
     ],
     'service_partners' => [
@@ -386,23 +395,26 @@ return [
         'title' => 'Orders',
         'title_singular' => 'Order',
         'fields' => [
+            'order_id' => 'Order Id',
             'client' => 'Client',
             'service' => 'Service',
-            'name_of_subject' => 'Name Of Subject',
-            'copy_of_document' => 'Copy of Document',
+            'name_of_subject' => 'Name of Service',
+            'document_to_verify' => 'Document to Verify',
             'reason_for_request' => 'Reason for Request',
-            'subject_consent' => 'Subject Requirement',
-            'name_of_reference_provider' => 'Name of Reference Provider',
+            'reason_for_request_admission' => 'Reason for Request Admission',
+            'reason_for_request_employment' => 'Reason for Request Employment',
+            'reason_for_request_other' => 'Reason For Request Other',
+            'consent_document' => 'Consent Document',
+            'reference_provider' => 'Reference Provider',
             'address_information' => 'Address Information',
-            'location_id' => 'Location',
+            'location' => 'Location',
             'gender' => 'Gender',
-            'marital_status' => 'Marital Status',
+            'marital_status' => 'Merital Status',
             'registration_number' => 'Registration Number',
             'others' => 'Others',
             'preferred_currency' => 'Preferred Currency',
             'order_amount' => 'Order Amount',
-            'order_payment_status' => 'Order Payment Status',
-            'order_processing_status' => 'Order Processing Status',
+       
         ]
     ],
     'payment' => [

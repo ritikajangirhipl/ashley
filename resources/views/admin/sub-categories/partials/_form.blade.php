@@ -2,14 +2,14 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="category_id">{{ trans('cruds.sub_category.fields.category') }}<span class="text-danger">*</span></label>
-            {{ Form::select('category_id', $categories, old('category_id', isset($subCategory) ? $subCategory->category_id : null), ['class' => 'form-control select2' . ($errors->has('category_id') ? ' has-error' : ''), 'id' => 'category_id', 'placeholder' => 'Select ' . trans('cruds.sub_category.fields.category'), 'required' => true]) }}
+            {{ Form::select('category_id', $categories, (isset($subCategory) ? $subCategory->category_id : null), ['class' => 'form-control select2', 'id' => 'category_id', 'placeholder' => 'Select ' . trans('cruds.sub_category.fields.category'), 'required' => true]) }}
         </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.sub_category.fields.name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ old('name', isset($subCategory) ? $subCategory->name : '') }}" required autofocus>
+            <input type="text" id="name" name="name" class="form-control" value="{{ isset($subCategory) ? $subCategory->name : '' }}" required autofocus>
         </div>
     </div>
 
@@ -31,12 +31,6 @@
                             class="img-thumbnail">
                     </div>
                 @endisset
-
-                @if($errors->has('image'))
-                    <p class="help-block text-danger">
-                        {{ $errors->first('image') }}
-                    </p>
-                @endif
             </div>
         </div>
     </div>
@@ -56,15 +50,11 @@
     <div class="col-md-12 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.sub_category.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}">{{ old('description', isset($subCategory) ? $subCategory->description : '') }}</textarea>
+            <textarea name="description" class="form-control">{{ isset($subCategory) ? $subCategory->description : '' }}</textarea>
         </div>
     </div>
 </div>
 
 <div>
-    @if(isset($subCategory))
-        <button class="btn btn-info" type="submit">{{ trans('global.update') }}</button>
-    @else
-        <button class="btn btn-info" type="submit">{{ trans('global.create') }}</button>
-    @endif
+    <button class="btn btn-info" type="submit">{{ (isset($subCategory)) ? trans('global.update') : trans('global.create') }}</button>
 </div>

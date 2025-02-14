@@ -40,7 +40,6 @@ class UpdateRequest extends FormRequest
             "gender" => 'required',
             "marital_status" => 'required',
             "registration_number" => 'required',
-            "marital_status" => 'required',
             'status' => 'required|in:0,1', 
         ];
     }

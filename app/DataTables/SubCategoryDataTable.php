@@ -24,9 +24,12 @@ class SubCategoryDataTable extends DataTable
             ->editColumn('image', function ($subCategory) {
                 return $subCategory->image ? '<img src="' . asset('storage/' . $subCategory->image) . '" width="50">' : 'No image';
             })
+            ->editColumn('created_at', function ($record) {
+                return date("Y-m-d", strtotime($record['created_at'])) ?? __('global.N/A');;
+            })
             ->addColumn('action', function ($subCategory) {
                 return '<div class="group-button d-flex">
-                            <a href="'.route('admin.sub-categories.show', $subCategory->id).'" class="btn btn-info btn-sm" title="View">
+                            <a href="'.route('admin.sub-categories.show', $subCategory->id).'" class="btn btn-warning btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
                             <a href="'.route('admin.sub-categories.edit', $subCategory->id).'" class="btn btn-warning btn-sm" title="Edit">
@@ -69,15 +72,16 @@ class SubCategoryDataTable extends DataTable
                   ->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),
-            Column::make('name')->title('Name'),
-            Column::make('image')->title('Image'),
-            Column::make('description')->title('Description'),
-            Column::make('category_name')->title('Category')
+            Column::make('name')->title(trans('cruds.sub_category.fields.name')),
+            Column::make('image')->title(trans('cruds.sub_category.fields.image')),
+            Column::make('description')->title(trans('cruds.sub_category.fields.description')),
+            Column::make('category_name')->title(trans('cruds.sub_category.fields.category'))
                   ->searchable(true)
                   ->orderable(true),
-            Column::make('status')->title('Status'),
+            Column::make('status')->title(trans('cruds.sub_category.fields.status')),
+            Column::make('created_at')->title(trans('cruds.sub_category.fields.created_at')),
             Column::computed('action')
-                  ->title('Action')
+                  ->title(trans('cruds.sub_category.fields.action'))
                   ->exportable(false)
                   ->printable(false)
                   ->width(150)

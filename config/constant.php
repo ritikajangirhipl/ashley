@@ -148,6 +148,16 @@ return [
             3   => 'Memo',
             4   => 'Date',
         ],
+        'marital_status' => [
+            'married' => 'Married',
+            'single' => 'Single',
+            'other' => 'Other',
+        ],
+        'gender' => [
+            'male' => 'Male',
+            'female' => 'Female',
+            'other' => 'Other',
+        ],
 
     ],
 ];

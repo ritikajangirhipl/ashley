@@ -14,6 +14,8 @@ use App\Models\SubCategory;
 use App\Models\ProviderType;
 use App\Models\Client;
 use App\Models\Service;
+use App\Models\Payment;
+use App\Models\Processing;
 
 /**
  * Generate and return a standard JSON response.
@@ -97,16 +99,26 @@ function getServicePartners()
 }
 function getClients()
 {
-    return Client::where('status', '1')->pluck('name', 'id');
+    return Client::where('status', '1')->get();
 }
 function getServices()
 {
-    return Service::where('status', '1')->pluck('name', 'id');
+    return Service::where('status', '1')->get();
 }
-// function getCurrencies()
-// {
-//     return Country::where('status', '1')->pluck('currency_name', 'currency_name')->unique();
-// }
+function getCurrencies()
+{
+    return Country::where('status', '1')->get();
+}
+
+function getActivePaymentStatuses()
+{
+    return Payment::where('status', 1)->pluck('status', 'id');
+}
+
+function getActiveProcessingStatuses()
+{
+    return Processing::where('status', 1)->pluck('status', 'id');
+}
 
 /**
  * Returns a successful JsonResponse with data but no message.

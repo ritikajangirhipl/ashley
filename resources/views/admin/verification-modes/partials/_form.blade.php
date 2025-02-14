@@ -2,7 +2,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.verification_mode.fields.name') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name" name="name" class="form-control {{ $errors->has('name') ? 'has-error' : '' }}" value="{{ old('name', isset($verificationMode) ? $verificationMode->name : '') }}" required autofocus>
+            <input type="text" id="name" name="name" class="form-control" value="{{ isset($verificationMode) ? $verificationMode->name : '' }}" required autofocus>
         </div>
     </div>
 
@@ -22,15 +22,11 @@
     <div class="col-md-12 col-sm-12">
         <div class="form-group">
             <label for="description">{{ trans('cruds.verification_mode.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control {{ $errors->has('description') ? 'has-error' : '' }}" required>{{ old('description', isset($verificationMode) ? $verificationMode->description : '') }}</textarea>
+            <textarea name="description" class="form-control" required>{{ isset($verificationMode) ? $verificationMode->description : '' }}</textarea>
         </div>
     </div>
 </div>
 
 <div>
-    @if(isset($verificationMode))
-        <button class="btn btn-info" type="submit">{{ trans('global.update') }}</button>
-    @else
-        <button class="btn btn-info" type="submit">{{ trans('global.create') }}</button>
-    @endif
+    <button class="btn btn-info" type="submit">{{ (isset($verificationMode)) ? trans('global.update') : trans('global.create') }}</button>
 </div>

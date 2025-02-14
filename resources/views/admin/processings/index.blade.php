@@ -10,9 +10,9 @@
                 <h4 class="card-title float-left">
                     {{ __('panel.page_title.processing.list') }}
                 </h4>
-                <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.processing.title_singular') }}" href="{{ route('admin.processings.create') }}">
+                {{--<a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.processing.title_singular') }}" href="{{ route('admin.processings.create') }}">
                     <i class="fas fa-plus"></i>
-                </a>
+                </a>--}}
             </div>
             <div class="card-body">
                 <div class="table-responsive">

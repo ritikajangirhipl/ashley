@@ -14,4 +14,5 @@ return [
     'order' => 'Order',
     'user' => 'User',
     'service' => 'Service',
+    'order' => 'Order',
 ];

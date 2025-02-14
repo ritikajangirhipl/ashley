@@ -27,8 +27,8 @@ class Order extends Model
         'registration_number',
         'preferred_currency',
         'order_amount',
-        'order_payment_status',
-        'order_processing_status',
+        // 'order_payment_status',
+        // 'order_processing_status',
         'status',
     ];
 

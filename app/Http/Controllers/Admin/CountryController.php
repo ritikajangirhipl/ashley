@@ -9,6 +9,7 @@ use App\Http\Requests\Country\UpdateRequest;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class CountryController extends Controller
 {
@@ -31,7 +32,7 @@ class CountryController extends Controller
             $pageTitle = trans('panel.page_title.country.add');
             $status = $this->status;
             return view('admin.countries.create', compact('pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -51,7 +52,7 @@ class CountryController extends Controller
 
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.country')]),
             ['redirect_url' => route('admin.countries.index')]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -61,7 +62,7 @@ class CountryController extends Controller
         try {
             $pageTitle = trans('panel.page_title.country.show');
             return view('admin.countries.show', compact('country', 'pageTitle'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -72,7 +73,7 @@ class CountryController extends Controller
             $pageTitle = trans('panel.page_title.country.edit');
             $status = $this->status;
             return view('admin.countries.edit', compact('country', 'pageTitle', 'status'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -81,26 +82,7 @@ class CountryController extends Controller
     {
         try {
             if ($request->status == '0') {
-                if ($country->verificationProviders()->exists()) {
-                    return response()->json([
-                        'status' => 400,
-                        'message' => __('messages.country_cannot_be_inactive_due_to_verification_provider')
-                    ], 400);
-                }
-    
-                if ($country->clients()->exists()) {
-                    return response()->json([
-                        'status' => 400,
-                        'message' => __('messages.country_cannot_be_inactive_due_to_client')
-                    ], 400);
-                }
-    
-                if ($country->servicePartners()->exists()) {
-                    return response()->json([
-                        'status' => 400,
-                        'message' => __('messages.country_cannot_be_inactive_due_to_service_partner')
-                    ], 400);
-                }
+                $this->checkExistance($country);
             }
     
             $flagPath = $country->flag;
@@ -130,7 +112,7 @@ class CountryController extends Controller
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.country')]), 
             ['redirect_url' => route('admin.countries.index')]);
     
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
@@ -138,26 +120,8 @@ class CountryController extends Controller
     public function destroy(Country $country)
     {
         try {
-            if ($country->verificationProviders()->exists()) {
-                return response()->json([
-                    'status' => 400,
-                    'message' => __('messages.country_cannot_be_deleted_due_to_verification_provider')
-                ], 400);
-            }
-    
-            if ($country->clients()->exists()) {
-                return response()->json([
-                    'status' => 400,
-                    'message' => __('messages.country_cannot_be_deleted_due_to_client')
-                ], 400);
-            }
-    
-            if ($country->servicePartners()->exists()) {
-                return response()->json([
-                    'status' => 400,
-                    'message' => __('messages.country_cannot_be_deleted_due_to_service_partner')
-                ], 400);
-            }
+            $this->checkExistance($country);
+
             if ($country->flag && Storage::exists('public/' . $country->flag)) {
                 Storage::delete('public/' . $country->flag);
             }
@@ -165,11 +129,34 @@ class CountryController extends Controller
             $country->delete();
     
             return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.country')]));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
     
+    private function checkExistance($country)
+    {
+        if ($country->verificationProviders()->exists()) {
+            return response()->json([
+                'status' => 400,
+                'message' => __('messages.country_cannot_be_deleted_due_to_verification_provider')
+            ], 400);
+        }
+
+        if ($country->clients()->exists()) {
+            return response()->json([
+                'status' => 400,
+                'message' => __('messages.country_cannot_be_deleted_due_to_client')
+            ], 400);
+        }
+
+        if ($country->servicePartners()->exists()) {
+            return response()->json([
+                'status' => 400,
+                'message' => __('messages.country_cannot_be_deleted_due_to_service_partner')
+            ], 400);
+        }
+    }
     
     private function uploadFlag(Request $request, Country $country = null)
     {
