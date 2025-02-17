@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+<!-- @extends('layouts.admin')
 
 @section('title', $pageTitle)
 
@@ -90,4 +90,4 @@
     });
   });
 </script>
-@endsection
+@endsection -->

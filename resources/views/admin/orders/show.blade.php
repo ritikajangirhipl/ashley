@@ -1,13 +1,12 @@
 @extends('layouts.admin')
-@section('title', $pageTitle)
+
+@section('title', 'Order Details')
+
 @section('content')
     <div class="card">
         <div class="card-header card-header-primary">
-            <h4 class="card-title">
-                {{ __('panel.page_title.order.show') }}
-            </h4>
+            <h4 class="card-title">{{ trans('cruds.order.fields.order_details') }}</h4>
         </div>
-
         <div class="card-body">
             <div class="row">
                 <!-- Client -->
@@ -122,15 +121,39 @@
                     </div>
                 </div>
 
-                <!-- Status -->
-                <div class="col-md-6">
-                    <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0"><b>{{ trans('cruds.order.fields.status') }}:</b></h6>
-                        <p class="ml-2 mb-0">{{ config('constant.enums.status.' . $order->status) }}</p>
+                <!-- Others -->
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="others">{{ trans('cruds.order.fields.others') }}</label>
+                        <p>{{ $order->others ?? 'N/A' }}</p>
                     </div>
                 </div>
+
+                <!-- Preferred Currency -->
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="preferred_currency">{{ trans('cruds.order.fields.preferred_currency') }}</label>
+                        <p>{{ $order->preferred_currency ?? 'N/A' }}</p>
+                    </div>
+                </div>
+
+                <!-- Order Amount -->
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="order_amount">{{ trans('cruds.order.fields.order_amount') }}</label>
+                        <p>{{ $order->order_amount ?? 'N/A' }}</p>
+                    </div>
+                </div>
+
+                <!-- Order Date -->
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="created_at">{{ trans('cruds.order.fields.created_at') }}</label>
+                        <p>{{ $order->created_at->format('Y-m-d H:i') }}</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 @endsection
-

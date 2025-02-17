@@ -53,8 +53,24 @@ class OrderController extends Controller
     public function store(StoreRequest $request)
     {
         try {
+            // Fetch valid options from config
+            $validMaritalStatus = config('constant.enums.marital_status');
+            $validGender = config('constant.enums.gender');
+
+            // Validate marital_status & gender manually
+            if (!array_key_exists($request->marital_status, $validMaritalStatus)) {
+                return jsonResponse(422, 'Invalid marital status selected.');
+            }
+
+            if (!array_key_exists($request->gender, $validGender)) {
+                return jsonResponse(422, 'Invalid gender selected.');
+            }
+
+            // If valid, create the order
             $order = Order::create($request->validated());
+
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.order')]), ['redirect_url' => route('admin.orders.index')]);
+
         } catch (\Exception $e) {
             return jsonResponseWithException($e);
         }

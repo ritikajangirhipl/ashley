@@ -9,9 +9,9 @@
             <h4 class="card-title float-left">
                 {{ __('panel.page_title.category.list') }}
             </h4>
-                                <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.category.title_singular') }}" href="{{ route('admin.categories.create') }}">
-                        <i class="fas fa-plus"></i>
-                    </a>
+                <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.category.title_singular') }}" href="{{ route('admin.categories.create') }}">
+                    <i class="fas fa-plus"></i>
+                </a>
             </div>
             <div class="card-block">
                 <div class="table-responsive">
