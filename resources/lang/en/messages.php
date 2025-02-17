@@ -34,6 +34,7 @@ return [
     'country_cannot_be_inactive_due_to_service_partner' => 'This country is associated with a Service Partner and cannot be set to inactive.',
     'country_cannot_be_deleted_due_to_service_partner' => 'This country is associated with a Service Partner and cannot be deleted.',
     'social_media_delete_warning' => 'You cannot delete this field details. Need to add atleast one field detail.',
+    'sub_category_already_deleted' => 'sub category already deleted.',
 
 ];
 

@@ -1,10 +1,8 @@
 
 function submitForm(form) {
-    console.log(form);
     var formData = new FormData(form);
     var url = $(form).attr('action');
     var method = $(form).attr('method');
-    console.log("Submitting Form to:", url); 
 
     $.ajax({
         url: url,
@@ -14,10 +12,8 @@ function submitForm(form) {
         contentType: false,
         beforeSend: function () {
             $('button[type="submit"], input[type="submit"]').prop('disabled', true);
-            console.log("Request is being sent...");
         },
         success: function (response) {
-            console.log(response);
             if (response.status) {
                 Swal.fire({
                     title: 'Success',
@@ -26,7 +22,6 @@ function submitForm(form) {
                     confirmButtonText: 'OK',
                 }).then((result) => {
                     if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
-                        console.log('Redirection to :',response.redirect_url);
                         window.location.href = response.redirect_url;
                     }
                 });
@@ -49,7 +44,6 @@ function submitForm(form) {
             }
         },
         error: function (xhr) {
-            console.log('ajax error:', xhr);
             $('button[type="submit"], input[type="submit"]').prop('disabled', false);
 
             if (xhr.status === 422) {
@@ -71,7 +65,6 @@ function submitForm(form) {
         },
         complete: function () {
             $('button[type="submit"], input[type="submit"]').prop('disabled', false);
-            console.log("Request completed.");
         }
     });
 }
