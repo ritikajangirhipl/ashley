@@ -21,14 +21,21 @@
                 </div>
                 @isset($country)
                     <div class="mt-2">
-                        <img id="flagPreview"
-                            src="{{ asset('storage/' . $country->flag) }}"
-                            alt="Country Flag"
-                            width="100"
-                            height="60"
-                            class="img-thumbnail">
+                        <a href="{{ asset('storage/' . $country->flag) }}" data-fancybox="gallery">
+                            <img id="flagPreview"
+                                src="{{ asset('storage/' . $country->flag) }}"
+                                alt="Country Flag"
+                                width="100"
+                                height="60"
+                                class="img-thumbnail">
+                        </a>
                     </div>
                 @endisset
+                <div class="mt-2">
+                    <a id="newFlagPreviewLink" href="#" data-fancybox="gallery" style="display: none;">
+                        <img id="newFlagPreview" src="#" alt="Flag Preview" class="img-thumbnail" width="100" height="60" style="display: none;">
+                    </a>
+                </div>
             </div>
         </div>
     </div>

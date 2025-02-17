@@ -102,7 +102,7 @@ class CountryController extends Controller
     
                 $file = $request->file('flag');
                 $filename = time() . '_' . $file->getClientOriginalName();
-                $flagPath = $file->storeAs('public/country_flags', $filename);
+                $flagPath = $file->storeAs('public/flags', $filename);
                 $flagPath = str_replace('public/', '', $flagPath);
             }
     

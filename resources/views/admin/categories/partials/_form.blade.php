@@ -17,6 +17,7 @@
             </select>
         </div>
     </div>
+
     <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <div class="choose-image">
@@ -26,9 +27,16 @@
                 </div>
                 @if(isset($category) && $category->image)
                     <div class="mt-2">
-                        <img id="categoryImagePreview" src="{{ asset('storage/' . $category->image) }}" alt="Category Image" class="img-thumbnail" width="100">
+                        <a href="{{ asset('storage/' . $category->image) }}" data-fancybox="gallery">
+                            <img id="categoryImagePreview" src="{{ asset('storage/' . $category->image) }}" alt="Category Image" class="img-thumbnail" width="100">
+                        </a>
                     </div>
                 @endif
+                <div class="mt-2">
+                    <a id="imagePreviewLink" href="#" data-fancybox="gallery" style="display: none;">
+                        <img id="imagePreview" src="#" alt="Image Preview" class="img-thumbnail" width="100" style="display: none;">
+                    </a>
+                </div>
             </div>
         </div>
     </div>
