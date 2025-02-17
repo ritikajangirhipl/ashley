@@ -33,12 +33,6 @@ class OrderDataTable extends DataTable
                             <a href="' . route('admin.orders.show', $order->id) . '" class="btn btn-info btn-sm" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="' . route('admin.orders.edit', $order->id) . '" class="btn btn-warning btn-sm" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <button class="btn btn-danger btn-sm delete-record" data-href="' . route('admin.orders.destroy', $order->id) . '" title="Delete">
-                                <i class="fas fa-trash"></i>
-                            </button>
                         </div>';
             })
             ->rawColumns(['action']);
@@ -46,12 +40,7 @@ class OrderDataTable extends DataTable
 
     public function query(Order $model)
     {
-        return $model->newQuery()
-                    ->select('orders.*', 'clients.name as client_name', 'services.name as service_name', 'payment_status.name as payment_status_name', 'processing_status.name as processing_status_name')
-                    ->leftJoin('clients', 'clients.id', '=', 'orders.client_id')
-                    ->leftJoin('services', 'services.id', '=', 'orders.service_id');
-                    // ->leftJoin('payment_status', 'payment_status.id', '=', 'orders.payment_status')
-                    // ->leftJoin('processing_status', 'processing_status.id', '=', 'orders.processing_status');
+        return $model->newQuery();
     }
 
     public function html()
@@ -61,7 +50,7 @@ class OrderDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
-                    ->orderBy(10, 'desc')
+                    ->orderBy(0)
                     ->language([
                         'emptyTable' => 'No records found',
                     ]);
@@ -79,8 +68,6 @@ class OrderDataTable extends DataTable
             Column::make('service_name')->title('Service'),
             Column::make('subject_name')->title('Subject'),
             Column::make('reason')->title('Reason'),
-            Column::make('payment_status_name')->title('Payment Status'),
-            Column::make('processing_status_name')->title('Processing Status'),
             Column::computed('action')
                   ->title('Action')
                   ->exportable(false)

@@ -1,12 +1,4 @@
 <div class="row">
-    <!-- Order ID (Auto-generated) -->
-    <!-- <div class="col-md-6 col-sm-12">
-        <div class="form-group">
-            <label for="order_id">{{ trans('cruds.order.fields.order_id') }}</label>
-            <input type="text" id="order_id" name="order_id" class="form-control" value="{{ old('order_id', $order->order_id ?? 'Auto-generated') }}" disabled>
-        </div>
-    </div> -->
-
     <!-- Client -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
@@ -39,8 +31,8 @@
     <!-- Input Details -->
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="name_of_subject">{{ trans('cruds.order.fields.name_of_subject') }}<span class="text-danger">*</span></label>
-            <input type="text" id="name_of_subject" name="name_of_subject" class="form-control {{ $errors->has('name_of_subject') ? 'is-invalid' : '' }}" value="{{ old('name_of_subject', $order->name_of_subject ?? '') }}" required>
+            <label for="name_subject">{{ trans('cruds.order.fields.name_subject') }}<span class="text-danger">*</span></label>
+            <input type="text" id="name_subject" name="name_subject" class="form-control {{ $errors->has('name_subject') ? 'is-invalid' : '' }}" value="{{ old('name_subject', $order->name_subject ?? '') }}" required>
         </div>
     </div>
 
@@ -103,12 +95,12 @@
     </div>
 
     <!-- Gender -->
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="gender">{{ trans('cruds.orders.fields.gender') }}<span class="text-danger">*</span></label>
+            <label for="gender">{{ trans('cruds.order.fields.gender') }}<span class="text-danger">*</span></label>
 
             <select name="gender" id="gender" class="form-control select2 {{ $errors->has('gender') ? 'is-invalid' : '' }}" required>
-                <option value="">{{ 'Select ' . trans('cruds.orders.fields.gender') }}</option>
+                <option value="">{{ 'Select ' . trans('cruds.order.fields.gender') }}</option>
                 @foreach($genderOpts as $key => $value)
                     <option value="{{ $key }}" {{ old('gender', $order->gender ?? '') == $key ? 'selected' : '' }}>
                         {{ $value }}
@@ -119,12 +111,12 @@
     </div>
 
     <!-- Marital Status -->
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="marital_status">{{ trans('cruds.orders.fields.marital_status') }}<span class="text-danger">*</span></label>
+            <label for="marital_status">{{ trans('cruds.order.fields.marital_status') }}<span class="text-danger">*</span></label>
 
             <select name="marital_status" id="marital_status" class="form-control select2 {{ $errors->has('marital_status') ? 'is-invalid' : '' }}" required>
-                <option value="">{{ 'Select ' . trans('cruds.orders.fields.marital_status') }}</option>
+                <option value="">{{ 'Select ' . trans('cruds.order.fields.marital_status') }}</option>
                 @foreach($maritalStatusOpts as $key => $value)
                     <option value="{{ $key }}" {{ old('marital_status', $order->marital_status ?? '') == $key ? 'selected' : '' }}>
                         {{ $value }}

@@ -1,12 +1,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#category_id').on('change', function() {
-            var category_id = $(this).val();
-            console.log('Selected Category:', category_id);
-        });
-
-        // Form Validation
         $("#order-form").validate({
             rules: {
                 client_id: {

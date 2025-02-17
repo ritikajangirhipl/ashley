@@ -6,7 +6,7 @@
 <div class="card">
     <div class="card-header card-header-primary">
         <h4 class="card-title">
-            {{ trans('global.create') }} {{ trans('cruds.order.title_singular') }}
+                {{ __('panel.page_title.order.add') }} 
         </h4>
         <a href="{{ route('admin.orders.index') }}" class="btn btn-secondary">Back</a>
     </div>

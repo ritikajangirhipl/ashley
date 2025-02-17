@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+<!-- @extends('layouts.admin')
 
 @section('title', $pageTitle)
 
@@ -25,4 +25,4 @@
 @parent
 @include('admin.orders.partials._script')
 <script src="{{ asset('js/common.js') }}"></script>
-@endsection
+@endsection -->
