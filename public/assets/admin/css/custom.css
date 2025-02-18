@@ -1458,5 +1458,15 @@ a.dropdown-item.delete_employee i {
 
 
 
+@media (max-width: 991px) {
+    .form_view_outer > div {
+        width: calc(50% - 12px);
+    }
+}
+@media (max-width: 767px) {
+    .form_view_outer > div {
+        width:100%;
+    }
+}
 
 

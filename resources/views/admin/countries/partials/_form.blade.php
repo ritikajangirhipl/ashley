@@ -41,12 +41,7 @@
         </div>
     </div>    
 
-    <div class="col-md-6 col-sm-12">
-        <div class="form-group">
-            <label for="description">{{ trans('cruds.country.fields.description') }}<span class="text-danger">*</span></label>
-            <textarea name="description" class="form-control">{{ isset($country) ? $country->description : '' }}</textarea>
-        </div>
-    </div>
+    
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">

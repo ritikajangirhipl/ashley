@@ -35,7 +35,7 @@
 
                 <!-- Category -->
                 <div class="col-md-6">
-                    <div class="form-group d-flex view-listing">
+                    <div class="form-group d-flex view-listing"> @dd($order)
                         <h6 class="mb-0"><b>{{ trans('cruds.order.fields.category') }}:</b></h6>
                         <p class="ml-2 mb-0">{{ ucwords($order->category->name) ?? __('global.N/A') }}</p>
                     </div>

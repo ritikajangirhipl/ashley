@@ -158,7 +158,7 @@
                         <li data-username="order" class="nav-item {{ request()->is('admin/orders') || request()->is('admin/orders/*') ? 'active' : '' }}">
                             <a href="{{ route('admin.orders.index') }}" class="nav-link">
                                 <span class="pcoded-micon">
-                                    <i class="feather icon-users"></i> 
+                                    <i class="feather icon-clipboard"></i> 
                                 </span>
                                 <span class="pcoded-mtext">{{ trans('cruds.order.title') }}</span>
                             </a>

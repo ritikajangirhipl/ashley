@@ -78,7 +78,7 @@
                     console.log("Request completed.");
                 }
             });
-        });
+        }).change();
 
         $(document).on('change','.services_field_type',function(){
             var _this_element = $(this);
