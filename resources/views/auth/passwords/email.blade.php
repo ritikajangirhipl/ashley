@@ -34,7 +34,7 @@
                     <div class="d-flex justify-content-between custombutton">
                         <button type="submit" class="btn btn-secondary shadow-2 mb-2 mr-1">{{ trans('global.reset_password') }}</button>
     
-                        <a href="{{ route('login') }}" class="btn btn-primary shadow-2 mb-2 mr-0">
+                        <a href="{{ route('admin.login') }}" class="btn btn-primary shadow-2 mb-2 mr-0">
                             Back to Login
                         </a>
                     </div>

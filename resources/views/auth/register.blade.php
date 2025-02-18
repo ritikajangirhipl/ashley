@@ -55,7 +55,7 @@
 
                 </form>
 
-                <a href="{{ route('login') }}" class="btn btn-info shadow-2 mt-2">
+                <a href="{{ route('admin.login') }}" class="btn btn-info shadow-2 mt-2">
                     Back to Login
                 </a>
                 
