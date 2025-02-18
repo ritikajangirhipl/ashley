@@ -23,7 +23,7 @@
         
         counter = parseInt(counter)+1;
         $(thisElement).attr('data-counter',counter);
-        var rowToCopy =  $(document).find('.repeatable-content-service-fields').last();
+        var rowToCopy =  $(document).find('.service-fields-outer').last();
         
         var rowNumber = rowToCopy.data('row');
         rowToCopy.clone().attr('data-row',counter).removeClass('service-field-'+rowNumber)
