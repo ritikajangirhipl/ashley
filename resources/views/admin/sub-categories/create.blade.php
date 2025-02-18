@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 @section('title', $pageTitle)
+@section('styles')
+<link rel="stylesheet" href="{{ asset('assets/admin/css/jquery.fancybox.min.css') }}">
+@endsection
 @section('content')
 
 <div class="card">
@@ -24,4 +27,12 @@
 @parent
 @include('admin.sub-categories.partials._script')
 <script src="{{ asset('js/common.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/js/jquery.fancybox.min.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('[data-fancybox="gallery"]').fancybox({
+            loop: false
+        });
+    });    
+</script>
 @endsection

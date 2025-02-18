@@ -89,24 +89,25 @@ class CountryController extends Controller
     {
         try {
             if ($request->status == '0') {
-                $this->checkExistance($country);
+                $existenceCheck = $this->checkExistance($country);
+                if ($existenceCheck) {
+                    return $existenceCheck;
+                }
             }
-    
+
             $flagPath = $country->flag;
-    
-            // Handle flag update
+
             if ($request->hasFile('flag')) {
                 if ($country->flag && Storage::exists('public/' . $country->flag)) {
                     Storage::delete('public/' . $country->flag);
                 }
-    
+
                 $file = $request->file('flag');
                 $filename = time() . '_' . $file->getClientOriginalName();
-                $flagPath = $file->storeAs('public/country_flags', $filename);
+                $flagPath = $file->storeAs('public/flags', $filename);
                 $flagPath = str_replace('public/', '', $flagPath);
             }
-    
-            // Update country data
+
             $country->update([
                 'name' => $request->name,
                 'flag' => $flagPath,
@@ -115,10 +116,10 @@ class CountryController extends Controller
                 'currency_symbol' => $request->currency_symbol,
                 'status' => $request->status,
             ]);
-    
+
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.country')]), 
             ['redirect_url' => route('admin.countries.index')]);
-    
+
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -127,20 +128,23 @@ class CountryController extends Controller
     public function destroy(Country $country)
     {
         try {
-            $this->checkExistance($country);
+            $existenceCheck = $this->checkExistance($country);
+            if ($existenceCheck) {
+                return $existenceCheck; 
+            }
 
             if ($country->flag && Storage::exists('public/' . $country->flag)) {
                 Storage::delete('public/' . $country->flag);
             }
-    
+
             $country->delete();
-    
+
             return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.country')]));
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
-    
+        
     private function checkExistance($country)
     {
         if ($country->verificationProviders()->exists()) {
@@ -163,8 +167,9 @@ class CountryController extends Controller
                 'message' => __('messages.country_cannot_be_deleted_due_to_service_partner')
             ], 400);
         }
+
+        return null;
     }
-    
     private function uploadFlag(Request $request, Country $country = null)
     {
         $flagPath = $country ? $country->flag : null;

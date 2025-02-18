@@ -19,18 +19,20 @@
             <div class="choose-image">
                 <div>
                     <label for="image">{{ trans('cruds.sub_category.fields.image') }}<span class="text-danger">*</span></label>
-                    <input type="file" name="image" id="imageInput" class="form-control" accept="image/*">
+                    <input type="file" name="image" id="imageInput" class="form-control {{ $errors->has('image') ? 'has-error' : '' }}" accept="image/*">
                 </div>
-                @isset($subCategory)
+                @if(isset($subCategory) && $subCategory->image)
                     <div class="mt-2">
-                        <img id="subcategoryImagePreview"
-                            src="{{ asset('storage/' . $subCategory->image) }}"
-                            alt="SubCategory Image"
-                            width="100"
-                            height="60"
-                            class="img-thumbnail">
+                        <a href="{{ asset('storage/' . $subCategory->image) }}" data-fancybox="gallery">
+                            <img id="subcategoryImagePreview" src="{{ asset('storage/' . $subCategory->image) }}" alt="SubCategory Image" class="img-thumbnail" width="100">
+                        </a>
                     </div>
-                @endisset
+                @endif
+                <div class="mt-2">
+                    <a id="previewImgLink" href="#" data-fancybox="gallery" style="display: none;">
+                        <img id="previewImg" src="#" alt="Image Preview" class="img-thumbnail" width="100" style="display: none;">
+                    </a>
+                </div>
             </div>
         </div>
     </div>

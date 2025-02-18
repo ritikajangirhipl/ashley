@@ -44,21 +44,55 @@
         });
 
         let fileInput = document.getElementById('imageInput');
-        let previewImg = document.getElementById('subcategoryImagePreview');
-        let oldImage = previewImg ? previewImg.src : null;
+        let previewImg = document.getElementById('previewImg');
+        let previewImgLink = document.getElementById('previewImgLink');
+        let oldImagePreview = document.getElementById('subcategoryImagePreview');
+        let oldImage = oldImagePreview ? oldImagePreview.src : null;
 
         fileInput.addEventListener('change', function(event) {
-            let file = event.target.files[0]; 
+            let file = event.target.files[0];
 
             if (file) {
                 let reader = new FileReader();
                 reader.onload = function(e) {
-                    previewImg.src = e.target.result;
+                    if (previewImg) {
+                        previewImg.src = e.target.result;
+                        previewImgLink.href = e.target.result;
+                        previewImg.style.display = 'block';
+                        previewImgLink.style.display = 'block';
+                    }
+                    if (oldImagePreview) {
+                        oldImagePreview.style.display = 'none';
+                    }
+
+                    $('[data-fancybox="gallery"]').fancybox({
+                        loop: false
+                    });
                 };
                 reader.readAsDataURL(file);
             } else if (oldImage) {
-                previewImg.src = oldImage;
+                if (previewImg) {
+                    previewImg.src = oldImage;
+                    previewImgLink.href = oldImage; 
+                    previewImg.style.display = 'block'; 
+                    previewImgLink.style.display = 'block';
+                }
+                if (oldImagePreview) {
+                    oldImagePreview.style.display = 'none'; 
+                }
+
+                $('[data-fancybox="gallery"]').fancybox({
+                    loop: false
+                });
             }
-        });  
+        });
+
+        $('[data-fancybox="gallery"]').fancybox({
+            loop: false
+        });
     });
+
+    function submitForm(form) {
+        form.submit();
+    }
 </script>

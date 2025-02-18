@@ -134,18 +134,16 @@ class SubCategoryController extends Controller
     }
     
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
         try {
-            // Find the subcategory by ID
-            $subCategory = SubCategory::find($request->sub_category_id);
-    
-            // If the subcategory doesn't exist, return a message saying it's already deleted
+            $subCategory = SubCategory::find($id);
+
             if (!$subCategory) {
                 return response()->json([
                     'status' => false,
-                    'message' => __('messages.sub_category_already_deleted') // You can define this in your translation file
-                ], 400); // 400: Bad Request (subcategory already deleted)
+                    'message' => __('messages.sub_category_already_deleted') 
+                ], 400); 
             }
     
             // Delete the image if it exists
