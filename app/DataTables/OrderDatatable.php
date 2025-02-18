@@ -64,8 +64,8 @@ class OrderDataTable extends DataTable
                   ->searchable(false)
                   ->width(50)
                   ->addClass('text-center'),
-            Column::make('client_name')->title('Client'),
-            Column::make('service_name')->title('Service'),
+            Column::make('client.name')->title('Client'),
+            Column::make('service.name')->title('Service'),
             Column::make('subject_name')->title('Subject'),
             Column::make('reason')->title('Reason'),
             Column::computed('action')

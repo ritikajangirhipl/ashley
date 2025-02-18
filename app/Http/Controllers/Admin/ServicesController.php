@@ -45,7 +45,7 @@ class ServicesController extends Controller
             $verificationProviders = getVerificationProviders();
             $evidenceTypes = getEvidenceTypes();
             $servicePartners = getServicePartners();
-            $subCategories = [];
+            $subCategories = getActiveSubCategories();
             // $currencies = getCurrencies();
             return view('admin.services.create', compact('pageTitle', 'status', 'countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes','subCategories'));
         } catch (Exception $e) {

@@ -3153,7 +3153,7 @@ div.dataTables_wrapper div.dataTables_filter {
   float: unset;
   right: 0;
   margin-left: 264px;
-  min-height: 100vh;
+  min-height: calc(100vh - 122px);
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }

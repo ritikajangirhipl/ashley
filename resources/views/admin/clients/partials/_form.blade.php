@@ -1,12 +1,12 @@
 <div class="row">
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="name">{{ trans('cruds.client.fields.name') }}<span class="text-danger">*</span></label>
             <input type="text" id="name" name="name" class="form-control" value="{{ isset($client) ? $client->name : '' }}" required autofocus>
         </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="client_type">{{ trans('cruds.client.fields.client_type') }}<span class="text-danger">*</span></label>
             <select name="client_type" id="client_type" class="form-control select2" required>
@@ -20,21 +20,21 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="email_address">{{ trans('cruds.client.fields.email_address') }}<span class="text-danger">*</span></label>
             <input type="email" id="email_address" name="email_address" class="form-control" value="{{ isset($client) ? $client->email_address : '' }}" required>
         </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="phone_number">{{ trans('cruds.client.fields.phone_number') }}<span class="text-danger">*</span></label>
             <input type="text" id="phone_number" name="phone_number" class="form-control" value="{{ isset($client) ? $client->phone_number : '' }}" required>
         </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="country_id">{{ trans('cruds.client.fields.country') }}<span class="text-danger">*</span></label>
             <select name="country_id" id="country_id" class="form-control select2 {{ $errors->has('country_id') ? 'has-error' : '' }}" required>
@@ -48,14 +48,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
-        <div class="form-group">
-            <label for="contact_address">{{ trans('cruds.client.fields.contact_address') }}<span class="text-danger">*</span></label>
-            <textarea id="contact_address" name="contact_address" class="form-control">{{ isset($client) ? $client->contact_address : '' }}</textarea>
-        </div>
-    </div>
-
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="website_address">{{ trans('cruds.client.fields.website_address') }}<span class="text-danger">*</span></label>
             <input type="url" id="website_address" name="website_address" class="form-control" value="{{ isset($client) ? $client->website_address : '' }}">
@@ -79,6 +72,13 @@
                     </option>
                 @endforeach
             </select>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="contact_address">{{ trans('cruds.client.fields.contact_address') }}<span class="text-danger">*</span></label>
+            <textarea id="contact_address" name="contact_address" class="form-control">{{ isset($client) ? $client->contact_address : '' }}</textarea>
         </div>
     </div>
 </div>
