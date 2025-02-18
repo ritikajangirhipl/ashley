@@ -6,21 +6,32 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\Auth\LoginController;
 
 Route::get('/cache-clear', function() {
     Artisan::call('optimize:clear');
     return '<h1>All Cache cleared</h1>';
 });
+Route::redirect('/', '/home');
 
-Auth::routes(['register' => false]);
+//Auth::routes(['register' => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
-    Auth::routes(['register' => false]);
+    //Auth::routes(['register' => false]);
+    // 
+    Route::namespace('Auth')->group(function () {
+        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+        Route::post('/login', [LoginController::class, 'login'])->name('loginSubmit');
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+        
+    });
+});
 
-    Route::redirect('/', 'admin/login');
-    Route::group(['middleware' => ['auth:admin','preventBackHistory']], function () {
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
+    Route::group(['middleware' => ['auth.admin','preventBackHistory']], function () {
         Route::get('/', [AdminHomeController::class, 'index'])->name('home');
 
         Route::get('update-profile', [ProfileController::class, 'profile'])->name('profile');

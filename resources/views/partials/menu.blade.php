@@ -11,7 +11,7 @@
         </div>
 
         <div class="navbar-content scroll-div">
-            @auth
+            @auth('admin')
                 <ul class="nav pcoded-inner-navbar">            
                     <li data-username="admin_dashboard" class="nav-item {{ request()->is('admin') ? 'active' : '' }}">
                       <a href="{{ route('admin.home') }}" class="nav-link">

@@ -28,10 +28,11 @@
                         <div class="dropdown-menu dropdown-menu-right profile-notification">
                             <div class="pro-head">
                                 <img src="{{ asset('assets/admin/images/user/user.png') }}" class="img-radius" alt="User-Profile-Image">
-                                <span>{{ auth()->user()->profile->full_name ?? auth()->user()->name }}</span>
-                                <p>{{ auth()->user()->email }}</p>
+                                
+                                <span>{{ auth()->guard('admin')->user()->profile->full_name ?? auth()->guard('admin')->user()->name }}</span>
+                                <p>{{ auth()->guard('admin')->user()->email }}</p>
 
-                                <form action="{{ route('logout') }}" method="POST">
+                                <form action="{{ route('admin.logout') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn bg-transparent dud-logout" title="Logout"><i class="fa fa-sign-out"></i></button>
                                 </form>
@@ -40,7 +41,7 @@
                                 <!-- <li><a href="{{ route('admin.profile') }}" class="dropdown-item"><i class="fa fa-user"></i> Profile</a></li>                                 -->
                                 <!-- <li><a href="{{ route('admin.changePasswordForm') }}" class="dropdown-item"><i class="fa fa-key"></i> Change Password</a></li>                                 -->
                                 <li>
-                                    <form action="{{ route('logout') }}" method="POST">
+                                    <form action="{{ route('admin.logout') }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn bg-transparent dropdown-item" title="Logout"><i class="fa fa-sign-out"></i> Logout</button>
                                     </form>
