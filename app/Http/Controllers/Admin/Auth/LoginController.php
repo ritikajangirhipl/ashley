@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Admin\Auth;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Http\JsonResponse;
 
 class LoginController extends Controller
 {
@@ -19,7 +18,6 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers;
 
     /**
@@ -36,7 +34,12 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+    }
+
+    public function showLoginForm()
+    {
+        return view('admin.auth.login');
     }
 
     public function login(Request $request)
@@ -46,7 +49,7 @@ class LoginController extends Controller
             'password' => 'required',
         ]);        
         $remember_me = $request->has('remember') ? true : false; 
-        if (Auth::attempt($request->only('email', 'password'), $remember_me)) {
+        if (Auth::guard('admin')->attempt($request->only('email', 'password'), $remember_me)) {
             return redirect()->intended($this->redirectPath());
         }
         return redirect()->back()
@@ -55,4 +58,22 @@ class LoginController extends Controller
                 'email' => 'These credentials do not match our records.',
             ]);
     }
+
+    public function logout(Request $request)
+    {
+        //$this->guard()->logout();
+        Auth::guard('admin')->logout();
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/admin/login');
+    }
+
 }

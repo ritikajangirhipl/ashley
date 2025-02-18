@@ -11,7 +11,7 @@
             @endif
             <h3 class="mb-4">{{ __('Login') }}</h3>
 
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('admin.loginSubmit') }}">
                 @csrf
                 <div class="input-group mb-3">
                     <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{ __('Email') }}" autofocus>
