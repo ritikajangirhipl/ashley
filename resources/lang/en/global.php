@@ -255,5 +255,7 @@ return [
     'no_alerts'                            => 'No alerts',
     'profile'                              => 'Profile',
     'account'                              => 'Account',
-    'N/A'                                  => 'Not Available'
+    'N/A'                                  => 'Not Available',
+    'please_select'                        => 'Please Select',
+    'no_sub_categories_found'              => 'No Sub Category found'
 ];

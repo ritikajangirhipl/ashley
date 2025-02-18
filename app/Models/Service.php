@@ -8,7 +8,7 @@ class Service extends Model
 {
     use HasFactory;
 
-    protected $table = 'services';  // Explicitly define table name (singular)
+    protected $table = 'services';  
 
     protected $fillable = [
         'country_id',

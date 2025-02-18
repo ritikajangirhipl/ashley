@@ -83,7 +83,7 @@
         <div class="form-group">
             <label for="verification_provider_id">{{ trans('cruds.services.fields.verification_provider') }}<span class="text-danger">*</span></label>
             <select name="verification_provider_id" id="verification_provider_id" class="form-control select2" required>
-                @foreach($verificationModes as $id => $name)
+                @foreach($verificationProviders as $id => $name)
                     <option value="{{ $id }}" {{ isset($service) &&  $service->verification_provider_id == $id ? 'selected' : '' }}>
                         {{ $name }}
                     </option>

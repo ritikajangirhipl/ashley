@@ -9,6 +9,11 @@
         }
     }
 @endphp
+<div class="mt-3 mb-4 d-flex align-items-center justify-content-end ml-auto">
+    <a href="javascript:void(0);" onclick="addServiceFields($(this))" id="addAdditionalField add-more-field" class="btn btn-sm btn-success add_additional_field" data-counter="{{ $counter }}" title="Add More">
+        <i class="fa fa-plus"></i>
+    </a>
+</div>
 
 
 <div class="col-12 col-md-12" id="service-fields-block">
@@ -54,6 +59,7 @@
                         
                         @php
                             $displayCombo = "none";
+                            dd($displayCombo);
                             $options = [];
                             if($serviceField->field_type == 2){
                                 $displayCombo = "block";

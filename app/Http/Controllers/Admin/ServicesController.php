@@ -119,6 +119,7 @@ class ServicesController extends Controller
 
     public function update(UpdateRequest $request, Service $service)
     {
+        dd($request);
         try {
             $service->update($request->except('_token', '_method','additional_fields','deleted_fields'));
 

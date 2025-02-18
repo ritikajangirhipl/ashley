@@ -50,11 +50,54 @@
 
         thisElement.remove();
     } 
+    function addServiceFields(thisElement) {
+        var counter = $(thisElement).attr('data-counter');
+        counter = parseInt(counter) + 1;
+        $(thisElement).attr('data-counter', counter);
+        var newFieldRow = createNewFieldRow(counter);
+        $('.service-fields-details').append(newFieldRow);
+        setComboValuesOptions("services_combo_values_" + counter);
+
+        $("#services_field_type_" + counter).val("");
+        $(".services_combo_values" + counter).val("");
+    }
+
+    function createNewFieldRow(counter) {
+        var row = $('<div>', { class: 'row mb-3 position-relative repeatable-content-service-fields service-field-' + counter, 'data-row': counter });
+
+        var hiddenInput = $('<input>', { type: 'hidden', class: 'service_additional_field_id', name: 'additional_fields[' + counter + '][additional_field_id]', value: '' });
+
+        var fieldNameInput = $('<input>', { type: 'text', id: 'services_field_name_' + counter, name: 'additional_fields[' + counter + '][field_name]', class: 'form-control services_field_name', required: true, placeholder: 'Field Name' });
+        var fieldTypeSelect = $('<select>', { name: 'additional_fields[' + counter + '][field_type]', id: 'services_field_type_' + counter, class: 'form-control services_field_type', required: true });
+        fieldTypeSelect.append('<option value="">Select Field Type</option>');
+        @foreach($fieldTypes as $id => $name)
+            fieldTypeSelect.append('<option value="{{ $id }}">{{ $name }}</option>');
+        @endforeach
+
+        var comboValuesWrapper = $('<div>', { class: 'combo_values_wrap', id: 'combo_values_wrap_' + counter, style: 'display:none;' });
+
+        var comboValuesSelect = $('<select>', { class: 'form-control services_combo_values', name: 'additional_fields[' + counter + '][combo_values][]', multiple: true, id: 'services_combo_values_' + counter });
+        var fieldRequiredSelect = $('<select>', { name: 'additional_fields[' + counter + '][field_required]', id: 'services_field_required_' + counter, class: 'form-control services_field_required', required: true });
+        fieldRequiredSelect.append('<option value="">Select Field Required</option>');
+        @foreach($inputDetailsOpts as $id => $name)
+            fieldRequiredSelect.append('<option value="{{ $id }}">{{ $name }}</option>');
+        @endforeach
+
+        var removeButton = $('<a>', { href: 'javascript:void(0);', class: 'del-field-btn del_field btn btn-sm btn-danger', title: 'Remove', 'data-services': 'service-field-' + counter });
+        removeButton.append('<i class="fa fa-minus"></i>');
+        var fieldNameWrapper = $('<div>', { class: 'col-md-5 col-sm-12' }).append($('<div>', { class: 'form-group' }).append('<label>Field Name <span class="text-danger">*</span></label>', fieldNameInput));
+        var fieldTypeWrapper = $('<div>', { class: 'col-md-5 col-sm-12 services_field_type_wrap' }).append($('<div>', { class: 'form-group' }).append('<label>Field Type <span class="text-danger">*</span></label>', fieldTypeSelect));
+        var comboValuesWrapperContainer = $('<div>', { class: 'col-md-5 col-sm-12' }).append($('<div>', { class: 'form-group' }).append('<label for="combo_values">Combo Values</label>', comboValuesSelect));
+        var fieldRequiredWrapper = $('<div>', { class: 'col-md-5 col-sm-12' }).append($('<div>', { class: 'form-group' }).append('<label>Field Required <span class="text-danger">*</span></label>', fieldRequiredSelect));
+        var actionsWrapper = $('<div>', { class: 'col-2 col-sm-6 col-md-2 col-lg-2 align-self-center service-field-actions' }).append(removeButton);
+        row.append(hiddenInput, fieldNameWrapper, fieldTypeWrapper, comboValuesWrapperContainer, fieldRequiredWrapper, actionsWrapper);
+        return row;
+    }
 
     var deletedFields = [];
     $(document).ready(function () {
 
-        $('#country_id').on('change', function(){
+        $('#country_id').on('change', function() {
             var country_id = $(this).val();
             $.ajax({
                 url: "{{ route('admin.countries.getCountryDetail') }}",
@@ -92,69 +135,64 @@
         });
 
         setComboValuesOptions();
-        
-        $('#category_id').on('change', function(){
+        $('#category_id').on('change', function() {
             var category_id = $(this).val();
-            console.log('category_id',category_id);
-            $.ajax({
-                url: "{{ route('admin.subcategories.getSubCategories') }}",
-                type: "POST",
-                data: {category_id : category_id},
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                beforeSend: function () {
-                    console.log("Request is being sent...");
-                },
-                success: function (response) {
-                    console.log(response);
-                    let emptyTxt = "{{ 'Select ' . trans('cruds.services.fields.sub_category') }}";
-                    html = '<option value="">'+emptyTxt+'</option>';
-                    $.each(response.sub_categories, function(key, value) {
-                        html += '<option value="'+key+'">' + value + '</option>';
-                    });
-                    $('#sub_category_id').html(html);
-                },
-                error: function (xhr) {
-                    console.log('ajax error:', xhr);
-                    
-                },
-                complete: function () {
-                    console.log("Request completed.");
-                }
-            });
+            console.log('Category ID:', category_id);
+            $('#sub_category_id').prop('disabled', true).html('<option value="">{{ trans("global.please_select") }}</option>');
 
-        });
-
-        $(document).on('click' , '.del_field' , function(event){
-            event.preventDefault();
-            if($('.repeatable-content-service-fields').length <= 1){
-                toastr.warning("{{ trans('messages.social_media_delete_warning') }}",'Warning!');
-            }else{          
-                var dataId = $(this).data("services");
-                console.log('dataId',dataId);
-                console.log($(document).find('.service-fields-details').find("."+dataId));
-                $(document).find('.service-fields-details').find("."+dataId).remove();
-                
-                if($(this).parents('.service-fields-row').find('.service_additional_field_id').length > 0){
-                    let fieldId = $(this).parents('.service-fields-row').find('.service_additional_field_id').val();
-                    if(fieldId){
-                        deletedFields.push(fieldId);
+            if (category_id) {
+                $.ajax({
+                    url: "{{ route('admin.subcategories.getSubCategories') }}",
+                    type: "POST",
+                    data: { category_id: category_id },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    beforeSend: function() {
+                        console.log("Request is being sent...");
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        let emptyTxt = "{{ 'Select ' . trans('cruds.services.fields.sub_category') }}";
+                        let html = '<option value="">' + emptyTxt + '</option>';
+                        if (response.sub_categories && Object.keys(response.sub_categories).length > 0) {
+                            $.each(response.sub_categories, function(key, value) {
+                                html += '<option value="' + key + '">' + value + '</option>';
+                            });
+                        } else {
+                            html += '<option value="">{{ trans("global.no_sub_categories_found") }}</option>';
+                        }
+                        $('#sub_category_id').html(html).prop('disabled', false);
+                    },
+                    error: function(xhr) {
+                        console.log('AJAX error:', xhr);
+                    },
+                    complete: function() {
+                        console.log("Request completed.");
                     }
-                    console.log('deletedFields',deletedFields);
-                    $('#service-fields-block').find('#delete-additional-fields').val(deletedFields);
-                }
-
-                var isAddMoreExists = $(this).siblings('.add_additional_field');
-                console.log('isAddMoreExists',isAddMoreExists);
-                if(isAddMoreExists.length > 0){
-                    var lastRow = $(document).find('.repeatable-content-service-fields').last();
-
-                    isAddMoreExists.clone().appendTo(lastRow.find('.service-field-actions'));
-                }
+                });
             }
-        });
+        }).change();
 
+        $(document).on('click', '.del_field', function(event) {
+            event.preventDefault();
+
+            let fieldsContainer = $('.service-fields-details');
+            let fieldRows = fieldsContainer.find('.repeatable-content-service-fields');
+
+            let fieldToRemove = $(this).closest('.repeatable-content-service-fields');
+            let fieldId = fieldToRemove.find('.service_additional_field_id').val(); 
+
+            if (fieldId) {
+                deletedFields.push(fieldId);
+                $('#delete-additional-fields').val(deletedFields.join(','));
+            }
+
+            fieldToRemove.remove();
+
+            let newCounter = $('.repeatable-content-service-fields').length;
+            $('.add_additional_field').attr('data-counter', newCounter);
+        });
 
         $("#services-form").validate({
             rules: {

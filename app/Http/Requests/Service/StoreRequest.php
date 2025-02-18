@@ -14,7 +14,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|unique:services,name',
+            'name' => 'required|string|max:255|',
             'description' => 'nullable|string|max:500',
             "country_id" => 'required',
             "category_id" => 'required',
