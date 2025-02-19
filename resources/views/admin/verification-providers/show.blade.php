@@ -26,7 +26,7 @@
                             <p>{{ $verificationProvider->providerType->name ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.verification_provider.fields.email_address') }}:</h6>
+                            <h6 class="mb-0">{{ trans('cruds.verification_provider.fields.email') }}:</h6>
                             <p>{{ $verificationProvider->email ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">

@@ -31,7 +31,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
         Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
         Route::post('/login', [LoginController::class, 'login'])->name('loginSubmit');
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-        Route::get('/forget-password', [ForgotPasswordController::class, 'showForm'])->name('password.request');
+        // Route::get('/forget-password', [ForgotPasswordController::class, 'showForm'])->name('password.request');
     });
 });
 
@@ -51,19 +51,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
         Route::post('sub-categories/get', [SubCategoryController::class, 'getSubCategories'])->name('subcategories.getSubCategories');
 
         Route::resources([
-            'categories' => 'CategoryController',
-            'provider-types' => 'ProviderTypeController',
-            'verification-modes' => 'VerificationModeController',
-            'countries' => 'CountryController',
-            'evidence-types' => 'EvidenceTypeController',
-            'sub-categories' => 'SubCategoryController',
+            'categories'             => 'CategoryController',
+            'provider-types'         => 'ProviderTypeController',
+            'verification-modes'     => 'VerificationModeController',
+            'countries'              => 'CountryController',
+            'evidence-types'         => 'EvidenceTypeController',
+            'sub-categories'         => 'SubCategoryController',
             'verification-providers' => 'VerificationProviderController',
-            'service-partners' => 'ServicePartnerController',
-            'services' => 'ServicesController',
-            'clients' => 'ClientController',
-            'orders' => 'OrderController',
-            'payments' => 'PaymentController',
-            'processings' => 'ProcessingController',
+            'service-partners'       => 'ServicePartnerController',
+            'services'               => 'ServicesController',
+            'clients'                => 'ClientController',
+            'orders'                 => 'OrderController',
+            'payments'               => 'PaymentController',
+            'processings'            => 'ProcessingController',
         ]);
     });
 });

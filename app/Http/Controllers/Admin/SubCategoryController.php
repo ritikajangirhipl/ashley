@@ -69,7 +69,6 @@ class SubCategoryController extends Controller
         }
     }
 
-
     public function show($id)
     {
         try {
@@ -106,17 +105,15 @@ class SubCategoryController extends Controller
             if (!$category) {
                 return jsonResponseWithMessage(400, __('messages.category_not_found'), []);
             }
-            $imagePath = $subCategory->image;
-    
-            if ($request->hasFile('image')) {
-                if ($subCategory->image && Storage::exists('public/' . $subCategory->image)) {
-                    Storage::delete('public/' . $subCategory->image);
-                }
-                $file = $request->file('image');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $imagePath = $file->storeAs('public/subcategory_images', $filename);
-                $imagePath = str_replace('public/', '', $imagePath);
+            if ($request->status == '0' && $subCategory->services()->exists()) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => __('messages.sub_category_associated_with_services', ['attribute' => __('attribute.sub_category')])
+                ], 400);
             }
+            
+            $imagePath = $this->uploadImage($request, $subCategory);
+
             $subCategory->update([
                 'name' => $request->name,
                 'image' => $imagePath,
@@ -124,15 +121,14 @@ class SubCategoryController extends Controller
                 'category_id' => $request->category_id,
                 'status' => $request->status,
             ]);
-    
+
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.sub_category')]), 
                 ['redirect_url' => route('admin.sub-categories.index')]);
-    
+
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
-    
 
     public function destroy($id)
     {
@@ -145,44 +141,52 @@ class SubCategoryController extends Controller
                     'message' => __('messages.sub_category_already_deleted') 
                 ], 400); 
             }
+
+            if ($subCategory->services()->exists()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => __('messages.sub_category__delete_error', ['attribute' => __('attribute.sub_category')]) 
+                ], 400);
+            }
     
-            // Delete the image if it exists
             if ($subCategory->image && Storage::exists('public/' . $subCategory->image)) {
                 Storage::delete('public/' . $subCategory->image);
             }
     
-            // Delete the subcategory
             $subCategory->delete();
     
             return response()->json([
                 'status' => true,
                 'message' => __('messages.delete_success_message', ['attribute' => __('attribute.sub_category')])
-            ], 200); // 200: Success
+            ], 200);
         } catch (Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => __('messages.unexpected_error')
-            ], 500); // 500: Internal Server Error
+            ], 500);
         }
     }
     
 
     private function uploadImage(Request $request, SubCategory $subCategory = null)
     {
-        $imagePath = $subCategory ? $subCategory->image : null;
+        $imagePath = $subCategory ? $subCategory->image : null; 
 
         if ($request->hasFile('image')) {
             if ($subCategory && $subCategory->image && Storage::exists('public/' . $subCategory->image)) {
                 Storage::delete('public/' . $subCategory->image);
             }
+
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
             $imagePath = $file->storeAs('public/subcategory_images', $filename);
-            $imagePath = str_replace('public/', '', $imagePath); 
+
+            $imagePath = str_replace('public/', '', $imagePath);
         }
 
         return $imagePath;
     }
+
 
     public function getSubCategories(Request $request)
     {

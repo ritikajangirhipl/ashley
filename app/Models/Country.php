@@ -32,4 +32,9 @@ class Country extends Model
     {
         return $this->hasMany(ServicePartner::class, 'country_id', 'id');
     }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'country_id', 'id');
+    }
 }

@@ -24,8 +24,8 @@
                             <p>{{ $client->client_type == 'individual' ? 'Individual' : 'Organization' }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.client.fields.email_address') }}:</h6>
-                            <p>{{ $client->email_address ?? __('global.N/A') }}</p>
+                            <h6 class="mb-0">{{ trans('cruds.client.fields.email') }}:</h6>
+                            <p>{{ $client->email ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.client.fields.phone_number') }}:</h6>

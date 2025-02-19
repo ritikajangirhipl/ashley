@@ -14,4 +14,9 @@ class VerificationMode extends Model
         'description',
         'status',
     ];
+
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'verification_mode_id', 'id');
+    }
 }

@@ -13,4 +13,9 @@ class EvidenceType extends Model
         'description',
         'status',
     ];
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'evidence_type_id', 'id');
+    }
+
 }

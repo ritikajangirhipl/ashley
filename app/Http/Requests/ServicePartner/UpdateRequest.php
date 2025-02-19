@@ -19,10 +19,10 @@ class UpdateRequest extends FormRequest
             'description' => 'nullable|string',
             'country_id' => 'required|exists:countries,id',
             'contact_address' => 'nullable|string',
-            'email_address' => [
+            'email' => [
                 'required',
                 'email',
-                'unique:service_partners,email_address,' . $this->service_partner->id, 
+                'unique:service_partners,email,' . $this->service_partner->id, 
                 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', 
             ],
             'website_address' => 'required|url',

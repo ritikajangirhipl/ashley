@@ -23,7 +23,7 @@
                     minlength: 5,
                     maxlength: 255
                 },
-                email_address: {
+                email: {
                     required: true,
                     email: true, 
                     customEmail: true  

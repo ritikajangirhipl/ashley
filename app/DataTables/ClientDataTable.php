@@ -41,6 +41,11 @@ class ClientDataTable extends DataTable
                             </button>
                         </div>';
             })
+            ->filterColumn('country_name', function ($query, $keyword) {
+                $query->whereHas('country', function ($q) use ($keyword) {
+                    $q->where('countries.name', 'LIKE', "%{$keyword}%"); 
+                });
+            })
             ->rawColumns(['action']); 
     }
 
@@ -58,7 +63,7 @@ class ClientDataTable extends DataTable
                     ->columns($this->getColumns()) 
                     ->minifiedAjax()
                     ->dom('frtip') 
-                    ->orderBy(9)
+                    ->orderBy(7)
                     ->language([
                         'emptyTable' => 'No records found', 
                     ]);
@@ -74,10 +79,8 @@ class ClientDataTable extends DataTable
                   ->addClass('text-center'),    
             Column::make('name')->title(trans('cruds.client.fields.name')), 
             Column::make('client_type')->title(trans('cruds.client.fields.client_type')), 
-            Column::make('email_address')->title(trans('cruds.client.fields.email_address')),
+            Column::make('email')->title(trans('cruds.client.fields.email')),
             Column::make('phone_number')->title(trans('cruds.client.fields.phone_number')), 
-            Column::make('website_address')->title(trans('cruds.client.fields.website_address'))->optional(),
-            Column::make('contact_address')->title(trans('cruds.client.fields.contact_address')),
             Column::make('status')->title(trans('cruds.client.fields.status')), 
             Column::make('country_name')->title(trans('cruds.client.fields.country')),  
             Column::make('created_at')->title(trans('cruds.client.fields.created_at')),

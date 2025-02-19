@@ -78,7 +78,14 @@ class VerificationModeController extends Controller
     public function update(UpdateRequest $request, VerificationMode $verificationMode)
     {
         try {
+            if ($request->status == '0' && $verificationMode->services()->count() > 0) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => __('messages.verificationMode_associated_with_services', ['attribute' => __('attribute.verification_mode')])
+                ], 400);
+            }
             $verificationMode->update($request->except('_token', '_method'));
+
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.verification_mode')]),
             ['redirect_url' => route('admin.verification-modes.index')]);
         } catch (Exception $e) {
@@ -89,10 +96,24 @@ class VerificationModeController extends Controller
     public function destroy(VerificationMode $verificationMode)
     {
         try {
+            if ($verificationMode->services()->exists()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => __('messages.verification_mode_delete_error', ['attribute' => __('attribute.verification_mode')])
+                ], 400);
+                
+            }
             $verificationMode->delete();
-            return jsonResponseWithMessage(200, 'Verification Mode deleted successfully!');
+
+             return response()->json([
+                'status' => true,
+                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.verification_mode')])
+            ], 200);
         } catch (Exception $e) {
-            return jsonResponseWithException($e);
+            return response()->json([
+                'status' => false,
+                'message' => __('messages.unexpected_error')
+            ], 500);
         }
     }
 }
