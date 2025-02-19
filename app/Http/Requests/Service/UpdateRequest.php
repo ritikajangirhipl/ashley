@@ -14,7 +14,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|' . $this->service->id,
+            'name' => 'required|string|max:255|unique:services,name,' . $this->service->id,
             'description' => 'nullable|string|max:500',
             "country_id" => 'required',
             "category_id" => 'required',

@@ -29,4 +29,9 @@ class ForgotPasswordController extends Controller
     {
         $this->middleware('guest:admin');
     }
+
+    public function showForm()
+    {
+        return view('admin.auth.verify');
+    }
 }

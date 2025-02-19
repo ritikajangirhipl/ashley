@@ -18,38 +18,6 @@
         });
     }
 
-    function addServiceFields(thisElement){
-        var counter = $(thisElement).attr('data-counter');
-        
-        counter = parseInt(counter)+1;
-        $(thisElement).attr('data-counter',counter);
-        var rowToCopy =  $(document).find('.service-fields-outer').last();
-        
-        var rowNumber = rowToCopy.data('row');
-        rowToCopy.clone().attr('data-row',counter).removeClass('service-field-'+rowNumber)
-        .find(".validation-error").remove().end()
-        .find(".service_additional_field_id").remove().end()
-        .find(".services_field_name").attr('name',"additional_fields["+counter+"][field_name]").attr('id',"services_field_name_"+counter).val("").end()
-
-        .find(".services_combo_values").attr('name',"additional_fields["+counter+"][combo_values][]").attr('id',"services_combo_values_"+counter).removeClass("is-valid select2-hidden-accessible survey-input").addClass("services_combo_values_"+counter).attr('data-select2-id',"services_combo_values_"+counter).val("").end()
-
-        .find(".combo_values_wrap").attr('id','combo_values_wrap_'+counter).end()
-        
-        .find(".services_field_type").attr('name',"additional_fields["+counter+"][field_type]").attr('id',"services_field_type_"+counter).removeClass("is-valid").val("").end()   
-
-        .find(".services_field_required").attr('name',"additional_fields["+counter+"][field_required]").attr('id',"services_field_required_"+counter).removeClass("is-valid").val("").end()
-        .find(".del-field-btn").removeClass('delete_record').addClass('del_field').removeAttr('data-url').attr('data-services',"service-field-"+counter).end()
-        .removeClass('service-field-0')
-        .addClass("service-field-"+counter)
-        .appendTo($('.service-fields-details'));
-
-        setComboValuesOptions("services_combo_values_"+counter);    
-       
-        $("#services_field_type_"+counter).val("");
-        $(".services_combo_values"+counter).val("");
-
-        thisElement.remove();
-    } 
     function addServiceFields(thisElement) {
         var counter = $(thisElement).attr('data-counter');
         counter = parseInt(counter) + 1;

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 
 Route::get('/cache-clear', function() {
     Artisan::call('optimize:clear');
@@ -28,7 +29,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
         Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
         Route::post('/login', [LoginController::class, 'login'])->name('loginSubmit');
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-        
+        Route::get('/forget-password', [ForgotPasswordController::class, 'showForm'])->name('password.request');
     });
 });
 
