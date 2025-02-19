@@ -17,6 +17,9 @@ Route::redirect('/', '/home');
 //Auth::routes(['register' => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
+Route::get('/login', [HomeController::class, 'login'])->name('login');
+Route::get('/register', [HomeController::class, 'register'])->name('register');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
     //Auth::routes(['register' => false]);

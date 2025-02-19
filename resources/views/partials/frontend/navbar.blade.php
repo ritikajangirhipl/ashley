@@ -11,22 +11,22 @@
                 <div id="kt_header_menu" class="header-menu header-menu-left header-menu-mobile  header-menu-layout-default">
                     <ul class="menu-nav">
                         <li class="menu-item menu-item-here">
-                            <a  href="index.html" class="menu-link">
+                            <a  href="{{route('home')}}" class="menu-link">
                                 <span class="menu-text">Home</span>
                             </a>
                         </li>					
                         <li class="menu-item">
-                            <a  href="global-catalogue.html" class="menu-link">
+                            <a  href="{{route('catalogue')}}" class="menu-link">
                                 <span class="menu-text">Catalogue</span>
                             </a>
                         </li>					
                         <li class="menu-item">
-                            <a  href="register.html" class="menu-link">
+                            <a  href="{{route('register')}}" class="menu-link">
                                 <span class="menu-text">Register</span>
                             </a>
                         </li>					
                         <li class="menu-item">
-                            <a  href="login.html" class="menu-link">
+                            <a  href="{{route('login')}}" class="menu-link">
                                 <span class="menu-text">Login</span>
                             </a>
                         </li>				

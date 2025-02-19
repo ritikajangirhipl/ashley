@@ -16,4 +16,17 @@ class HomeController extends Controller
         return view('home', compact('countries'));
     }
 
+    public function catalogue()
+    {
+        return view('catalogue');
+    }
+    public function login()
+    {
+        return view('auth.login');
+    }
+    public function register()
+    {
+        return view('auth.register');
+    }
+
 }
