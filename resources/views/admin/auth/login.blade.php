@@ -42,6 +42,11 @@
 
                 <button type="submit" class="btn btn-primary shadow-2 mb-4">{{ __('Login') }}</button>
             </form>
+            @if (Route::has('admin.password.request'))
+                <a class="" href="{{ route('admin.password.request') }}">
+                    {{ __('Forgot Your Password?') }}
+                </a>
+            @endif
         </div>
     </div>
   </div>
