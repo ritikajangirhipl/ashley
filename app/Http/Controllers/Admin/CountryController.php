@@ -139,6 +139,7 @@ class CountryController extends Controller
     }
         
     private function checkExistance($country, $forStatusUpdate = false)
+
     {
         if ($country->services()->exists()) {
             return response()->json([
@@ -176,7 +177,7 @@ class CountryController extends Controller
             ], 400);
         }
     
-        return null; // No restriction
+        return null;
     }
     
     private function uploadFlag(Request $request, Country $country = null)

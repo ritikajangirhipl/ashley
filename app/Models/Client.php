@@ -24,6 +24,7 @@ class Client extends Authenticatable implements MustVerifyEmail
         'password',
         'status',
         'remember_token',
+        'email_verified_at'
     ];
 
     protected $hidden = [
