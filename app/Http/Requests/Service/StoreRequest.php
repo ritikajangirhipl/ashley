@@ -44,14 +44,6 @@ class StoreRequest extends FormRequest
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'name.required' => 'The name field is required.',
-            'name.unique' => 'This service name has already been taken.',
-            'status.in' => 'The status must be either active or inactive.',
-        ];
-    }
 }
 
 

@@ -35,6 +35,10 @@ class VerificationProvider extends Model
     {
         return $this->belongsTo(ProviderType::class, 'provider_type_id', 'id');
     }
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'verification_provider_id', 'id');
+    }
 
 }
 

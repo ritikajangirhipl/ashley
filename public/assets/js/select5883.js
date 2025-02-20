@@ -25,6 +25,11 @@ var KTSelect2 = function() {
             placeholder: 'Search and Filter by Select Evidence Type'
         });
 
+        $('#client_type').select2({
+        });
+        $('#country_id').select2({
+        });
+
 
         // loading data from array
         var data = [{

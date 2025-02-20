@@ -16,10 +16,10 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|',
             'client_type' => 'required|in:individual,organization',
-            'email_address' => [
+            'email' => [
                 'required',
                 'email',
-                'unique:clients,email_address',
+                'unique:clients,email',
                 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
             ],
             'phone_number' => 'required|numeric',

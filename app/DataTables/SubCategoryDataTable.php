@@ -21,6 +21,7 @@ class SubCategoryDataTable extends DataTable
             ->editColumn('category_name', function ($subCategory) {
                 return $subCategory->category_name ? $subCategory->category_name : __('global.N/A');
             })
+            
             ->editColumn('image', function ($subCategory) {
                 return $subCategory->image ? '<img src="' . asset('storage/' . $subCategory->image) . '" width="50">' : 'No image';
             })
@@ -40,6 +41,11 @@ class SubCategoryDataTable extends DataTable
                             </button>
                         </div>';
             })
+            ->filterColumn('category_name', function ($query, $keyword) {
+                $query->whereHas('category', function ($q) use ($keyword) {
+                    $q->where('categories.name', 'LIKE', "%{$keyword}%"); 
+                });
+            })
             ->rawColumns(['action', 'image']);
     }
 
@@ -50,7 +56,7 @@ class SubCategoryDataTable extends DataTable
                  ->join('categories', 'categories.id', '=', 'sub_categories.category_id');
                    
     }
-
+    
     public function html()
     {
         return $this->builder()

@@ -10,32 +10,34 @@
             <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
                 <div id="kt_header_menu" class="header-menu header-menu-left header-menu-mobile  header-menu-layout-default">
                     <ul class="menu-nav">
-                        <li class="menu-item menu-item-here">
+                        <li class="menu-item {{ request()->is('home') ? 'menu-item-here' : '' }}">
                             <a  href="{{route('home')}}" class="menu-link">
                                 <span class="menu-text">Home</span>
                             </a>
                         </li>					
-                        <li class="menu-item">
+                        <li class="menu-item {{ request()->is('catalogue') ? 'menu-item-here' : '' }}">
                             <a  href="{{route('catalogue')}}" class="menu-link">
                                 <span class="menu-text">Catalogue</span>
                             </a>
-                        </li>					
-                        <li class="menu-item">
+                        </li>	
+                        @guest				
+                        <li class="menu-item {{ request()->is('register') ? 'menu-item-here' : '' }}">
                             <a  href="{{route('register')}}" class="menu-link">
                                 <span class="menu-text">Register</span>
                             </a>
                         </li>					
-                        <li class="menu-item">
+                        <li class="menu-item {{ request()->is('login') ? 'menu-item-here' : '' }}">
                             <a  href="{{route('login')}}" class="menu-link">
                                 <span class="menu-text">Login</span>
                             </a>
-                        </li>				
+                        </li>
+                        @endguest				
                     </ul>
                 </div>
             </div>
         </div>
         <div class="topbar">
-            <div class="dropdown">
+            {{-- <div class="dropdown">
                 <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                     <div class="btn btn-icon btn-hover-transparent-white btn-lg btn-dropdown mr-1">
                         <span class="svg-icon svg-icon-xl">
@@ -754,18 +756,20 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> --}}
+            @auth('web')
             <div class="dropdown">
                 <div class="topbar-item">
                     <div class="btn btn-icon btn-hover-transparent-white d-flex align-items-center btn-lg px-md-2 w-md-auto" id="kt_quick_user_toggle">
                         <span class="text-white opacity-70 font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-                        <span class="text-white opacity-90 font-weight-bolder font-size-base d-none d-md-inline mr-4">Sean</span>
-                        <span class="symbol symbol-35">
+                        <span class="text-white opacity-90 font-weight-bolder font-size-base d-none d-md-inline mr-4">{{ auth()->guard('web')->user()->name ?? auth()->guard('web')->user()->name }}</span>
+                        {{-- <span class="symbol symbol-35">
                             <span class="symbol-label text-white font-size-h5 font-weight-bold bg-white-o-30">S</span>
-                        </span>
+                        </span> --}}
                     </div>
                 </div>
             </div>
+            @endauth
         </div>
     </div>
 </div>

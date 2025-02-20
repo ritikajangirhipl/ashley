@@ -40,6 +40,17 @@ class VerificationProviderDataTable extends DataTable
                             </button>
                         </div>';
             })
+            ->filterColumn('country_name', function ($query, $keyword) {
+                $query->whereHas('country', function ($q) use ($keyword) {
+                    $q->where('countries.name', 'LIKE', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('provider_type_name', function ($query, $keyword) {
+                $query->whereHas('providerType', function ($q) use ($keyword) {
+                    $q->where('provider_types.name', 'LIKE', "%{$keyword}%");
+                });
+            })
+            
             ->rawColumns(['action']);
     }
 
@@ -50,7 +61,7 @@ class VerificationProviderDataTable extends DataTable
         ->join('countries', 'countries.id', '=', 'verification_providers.country_id') 
         ->join('provider_types', 'provider_types.id', '=', 'verification_providers.provider_type_id'); 
     }
-
+    
     public function html()
     {
         return $this->builder()
@@ -72,7 +83,7 @@ class VerificationProviderDataTable extends DataTable
                   ->addClass('text-center'),    
             Column::make('name')->title(trans('cruds.verification_provider.fields.name')),
             Column::make('description')->title(trans('cruds.verification_provider.fields.description')),
-            Column::make('email')->title(trans('cruds.verification_provider.fields.email_address')),
+            Column::make('email')->title(trans('cruds.verification_provider.fields.email')),
             Column::make('country_name')->title(trans('cruds.verification_provider.fields.country')),
             Column::make('provider_type_name')->title(trans('cruds.verification_provider.fields.provider_type')),
             Column::make('status')->title(trans('cruds.verification_provider.fields.status')),

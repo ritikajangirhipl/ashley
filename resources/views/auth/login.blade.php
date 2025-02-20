@@ -110,28 +110,44 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="fields-blog bg-white radius-15">
+                                @if (session('message'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('message') }}
+                                    </div>
+                                @endif
                                 <h2 class="text-center mb-3">Login</h2>
                                 <p class="text-center mb-5">Enter your details to get login to your account</p>
-                                <form>
+                                <form method="POST" action="{{ route('login')}}">
+                                 @csrf
                                     <div class="form-group">
                                         <label class="col-form-label pt-0">Email</label>
-                                        <input type="email" placeholder="Example@site.com" class="form-control">
+                                        <input type="email" placeholder="Example@site.com" name="email" class="form-control @error('email') is-invalid @enderror">
+                                        @error('email')
+                                            <span class="invalid-feedback text-left" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group password-container">
                                         <label class="col-form-label pt-0">Password</label>
-                                        <input type="password" placeholder="**********" class="form-control">
+                                        <input type="password" placeholder="**********" class="form-control @error('password') is-invalid @enderror" name="password">
                                         <span class="toggle-password close-eye">
                                             <img src="{{asset('assets/images/eye-open.svg')}}" alt="eye icon" class="eye-symbol1">
                                             <img src="{{asset('assets/images/eye-close.svg')}}" alt="eye icon" class="eye-symbol2">
                                         </span>
+                                        @error('password')
+                                            <span class="invalid-feedback text-left" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group d-flex flex-wrap gap-2 align-items-center justify-content-between">
                                         <div class="d-flex align-items-center form-checkbox position-relative">
-                                            <input type="checkbox" id="agree-tc">
+                                            <input type="checkbox" id="agree-tc" name="remember" {{ old('remember') ? 'checked' : '' }}>
                                             <label class="mb-0" for="agree-tc">Remember Me</label>
                                         </div>
                                         <div class="for-password-text">
-                                            <a href="#">Forgot Password</a>
+                                            <a href="{{ route('password.request') }}">Forgot Password</a>
                                         </div>
                                     </div>
                                     <div class="form-group mt-4">

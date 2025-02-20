@@ -15,7 +15,7 @@ class ServicePartner extends Model
         'description',
         'country_id',
         'contact_address',
-        'email_address',
+        'email',
         'website_address',
         'contact_person',
         'status',
@@ -24,5 +24,9 @@ class ServicePartner extends Model
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'service_partner_id', 'id');
     }
 }

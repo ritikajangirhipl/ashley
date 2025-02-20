@@ -112,64 +112,103 @@
                             <div class="fields-blog bg-white radius-15">
                                 <h2 class="text-center mb-3">Register</h2>
                                 <p class="text-center mb-5">Enter your details to get register to your account</p>
-                                <form>
+                                <form method="POST" action="{{ route('register')}}" id="register-form">
+                                @csrf
                                     <div class="form-group">
                                         <label class="col-form-label pt-0">Full Name <span class="text-danger">*</span></label>
-                                        <input type="text" placeholder="Your Name" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label pt-0">Client Type</label>
-                                        <select class="form-control">
-                                            <option>Client Type 1</option>
-                                            <option>Client Type 2</option>
-                                            <option>Client Type 3</option>
-                                            <option>Client Type 4</option>
-                                            <option>Client Type 5</option>
-                                        </select>
+                                        <input type="text" placeholder="Your Name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{old('name')}}">
+                                         @error('name')
+                                            <span class="invalid-feedback text-left" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label pt-0">Email Address <span class="text-danger">*</span></label>
-                                        <input type="email" placeholder="Example@site.com" class="form-control">
+                                        <input type="email" name="email" placeholder="Example@site.com" class="form-control @error('email') is-invalid @enderror"  value="{{old('email')}}">
+                                         @error('email')
+                                            <span class="invalid-feedback text-left" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label pt-0">Phone Number</label>
-                                        <input type="text" placeholder="91-789456321" class="form-control">
+                                        <label class="col-form-label pt-0">Phone Number <span class="text-danger">*</span></label>
+                                        <input type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror"  value="{{old('phone_number')}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" />
+                                         @error('phone_number')
+                                            <span class="invalid-feedback text-left" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label pt-0">Country</label>
-                                        <select class="form-control">
-                                            <option>Country 1</option>
-                                            <option>Country 2</option>
-                                            <option>Country 3</option>
-                                            <option>Country 4</option>
-                                            <option>Country 5</option>
+                                        <label class="col-form-label pt-0">Client Type <span class="text-danger">*</span></label>
+                                        <select name="client_type" id="client_type" class="form-control select2 @error('client_type') is-invalid @enderror" required>
+                                            <option value="">{{ 'Select ' . trans('cruds.client.fields.client_type') }}</option>
+                                            @foreach($clientTypes as $key => $type)
+                                                <option value="{{ $key }}">{{ $type }}</option>
+                                            @endforeach
                                         </select>
+                                         @error('client_type')
+                                            <span class="invalid-feedback text-left" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label pt-0">Country <span class="text-danger">*</span></label>
+                                        <select name="country_id" id="country_id" class="form-control select2 @error('country_id') is-invalid @enderror" required>
+                                            <option value="">{{ 'Select ' . trans('cruds.client.fields.country') }}</option>
+                                            @foreach($countries as $id => $name)
+                                                <option value="{{ $id }}">{{ $name }}</option>
+                                            @endforeach
+                                        </select>
+                                         @error('country_id')
+                                            <span class="invalid-feedback text-left" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label pt-0">Website Address</label>
-                                        <input type="text" placeholder="www.dummy.com" class="form-control">
+                                        <input type="url" class="form-control @error('website_address') is-invalid @enderror" name="website_address" value="{{old('website_address')}}">
+                                         @error('website_address')
+                                            <span class="invalid-feedback text-left" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-form-label pt-0">Contact Address</label>
+                                        <input type="text" class="form-control @error('contact_address') is-invalid @enderror" name="contact_address" value="{{old('contact_address')}}">
+                                         @error('contact_address')
+                                            <span class="invalid-feedback text-left" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group password-container">
                                         <label class="col-form-label pt-0">Password <span class="text-danger">*</span></label>
-                                        <input type="password" placeholder="**********" class="form-control">
+                                        <input type="password" placeholder="**********" class="form-control @error('password') is-invalid @enderror" name="password">
+                                        <span class="toggle-password close-eye">
+                                            <img src="{{asset('assets/images/eye-open.svg')}}" alt="eye icon" class="eye-symbol1">
+                                            <img src="{{asset('assets/images/eye-close.svg')}}" alt="eye icon" class="eye-symbol2">
+                                        </span>
+                                         @error('password')
+                                            <span class="invalid-feedback text-left" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group password-container">
+                                        <label class="col-form-label pt-0">Confirm Password <span class="text-danger">*</span></label>
+                                        <input type="password" placeholder="**********" class="form-control" name="password_confirmation">
                                         <span class="toggle-password close-eye">
                                             <img src="{{asset('assets/images/eye-open.svg')}}" alt="eye icon" class="eye-symbol1">
                                             <img src="{{asset('assets/images/eye-close.svg')}}" alt="eye icon" class="eye-symbol2">
                                         </span>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label pt-0">Status</label>
-                                        <select class="form-control">
-                                            <option>Active</option>
-                                            <option>Deactivate</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group d-flex flex-wrap gap-2 align-items-center justify-content-between">
-                                        <div class="d-flex align-items-center form-checkbox position-relative">
-                                            <input type="checkbox" id="agree-tc">
-                                            <label class="mb-0" for="agree-tc">Agree on T&C</label>
-                                        </div>
-                                    </div>
+                                   
                                     <div class="form-group mt-4">
                                         <button type="submit" class="btn btn-primary w-100">Register</button>
                                     </div>
@@ -184,4 +223,73 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.validator.addMethod("customEmail", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+        }, "Please enter a valid email address.");
+        $("#register-form").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 255
+                },
+                client_type: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true,
+                    customEmail: true  
+                },
+                phone_number: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 15
+                },
+
+                country_id: {
+                    required: true
+                },
+                contact_address: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 255
+                },
+                website_address: {
+                    required: true,
+                    url: true
+                },
+                password: {
+                    required: true,
+                    minlength: 8
+                },
+                password_confirmation: {
+                    required: true,
+                    minlength: 8
+                },
+            },
+            errorElement: 'span',
+            errorClass: 'invalid-feedback',
+            errorPlacement: function (error, element) {
+                error.appendTo(element.closest('.form-group'));
+            },
+            highlight: function (element, errorClass, validClass) {
+                
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                
+            },
+            submitHandler: function (form) {
+                submitForm(form);
+            }
+        });
+    });
+</script>
 @endsection

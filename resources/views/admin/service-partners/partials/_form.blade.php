@@ -20,8 +20,8 @@
     </div>
     <div class="col-md-4 col-sm-12">
         <div class="form-group">
-            <label for="email_address">{{ trans('cruds.service_partners.fields.email_address') }}<span class="text-danger">*</span></label>
-            <input type="email" id="email_address" name="email_address" class="form-control" value="{{ isset($servicePartner) ? $servicePartner->email_address : '' }}" required>
+            <label for="email">{{ trans('cruds.service_partners.fields.email') }}<span class="text-danger">*</span></label>
+            <input type="email" id="email" name="email" class="form-control" value="{{ isset($servicePartner) ? $servicePartner->email : '' }}" required>
         </div>
     </div>
     <div class="col-md-4 col-sm-12">

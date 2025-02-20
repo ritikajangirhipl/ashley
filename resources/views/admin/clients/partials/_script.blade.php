@@ -14,7 +14,7 @@
                 client_type: {
                     required: true
                 },
-                email_address: {
+                email: {
                     required: true,
                     email: true,
                     customEmail: true  

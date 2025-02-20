@@ -16,11 +16,11 @@ class ServiceDataTable extends DataTable
             ->editColumn('status', function ($service) {
                 return config('constant.enums.status.' . $service->status);
             })
-            ->addColumn('country', function ($service) {
-                return $service->country ? $service->country->name : __('global.N/A');
+            ->editColumn('country_name', function ($service) {
+                return $service->country_name ?? __('global.N/A'); 
             })
             ->editColumn('created_at', function ($record) {
-                return date("Y-m-d", strtotime($record['created_at'])) ?? __('global.N/A');;
+                return date("Y-m-d", strtotime($record['created_at'])) ?? __('global.N/A');
             })
             ->addColumn('action', function ($service) {
                 return '<div class="group-button d-flex">
@@ -35,12 +35,19 @@ class ServiceDataTable extends DataTable
                             </button>
                         </div>';
             })
+            ->filterColumn('country_name', function ($query, $keyword) {
+                $query->whereHas('country', function ($q) use ($keyword) {
+                    $q->where('countries.name', 'LIKE', "%{$keyword}%");
+                });
+            }) 
             ->rawColumns(['action']); 
     }
 
     public function query(Service $model)
     {
-        return $model->newQuery()->orderBy('created_at', 'desc');;
+        return $model->newQuery()
+                    ->select('services.*', 'countries.name as country_name')
+                    ->leftJoin('countries', 'countries.id', '=', 'services.country_id');
     }
 
     public function html()
@@ -50,11 +57,12 @@ class ServiceDataTable extends DataTable
                     ->columns($this->getColumns()) 
                     ->minifiedAjax()
                     ->dom('frtip') 
-                    ->orderBy(4)
+                    ->orderBy(4) 
                     ->language([
                         'emptyTable' => 'No records found', 
                     ]);
     }
+
 
     protected function getColumns()
     {
@@ -66,11 +74,12 @@ class ServiceDataTable extends DataTable
                   ->addClass('text-center'),    
             Column::make('name')->title(trans('cruds.services.fields.name')), 
             Column::make('status')->title(trans('cruds.services.fields.status')), 
-            Column::computed('country') 
+            Column::make('country_name') 
                   ->title(trans('cruds.services.fields.country'))
                   ->orderable(true) 
                   ->searchable(true), 
-            Column::make('created_at')->title(trans('cruds.services.fields.created_at')), 
+            Column::make('created_at')->title(trans('cruds.services.fields.created_at'))
+                  ->orderable(true),
             Column::computed('action') 
                   ->title(trans('cruds.services.fields.action'))
                   ->exportable(false) 
@@ -79,6 +88,7 @@ class ServiceDataTable extends DataTable
                   ->addClass('text-center'),
         ];
     }
+    
 
     protected function filename(): string
     {

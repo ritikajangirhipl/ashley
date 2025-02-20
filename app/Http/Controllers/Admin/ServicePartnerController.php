@@ -79,7 +79,14 @@ class ServicePartnerController extends Controller
     public function update(UpdateRequest $request, ServicePartner $servicePartner)
     {
         try {
+            if ($request->status == '0' && $servicePartner->services()->count() > 0) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => __('messages.servicePartner_associated_with_services', ['attribute' => __('attribute.service_partners')])
+                ], 400);
+            }
             $servicePartner->update($request->except('_token', '_method'));
+
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.service_partners')]), 
             ['redirect_url' => route('admin.service-partners.index')]);
         } catch (Exception $e) {
@@ -90,11 +97,25 @@ class ServicePartnerController extends Controller
     public function destroy(ServicePartner $servicePartner)
     {
         try {
+            if ($servicePartner->services()->exists()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => __('messages.service_partner_delete_error', ['attribute' => __('attribute.service_partners')])
+                ], 400);
+                
+            }
+
             $servicePartner->delete();
 
-            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service_partners')]));
+            return response()->json([
+                'status' => true,
+                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.service_partners')])
+            ], 200);
         } catch (Exception $e) {
-            return jsonResponseWithException($e);
+            return response()->json([
+                'status' => false,
+                'message' => __('messages.unexpected_error')
+            ], 500);
         }
     }
 }

@@ -90,6 +90,7 @@
 		<script src="{{asset('assets/js/scripts.bundle5883.js')}}"></script>
         <script src="{{asset('assets/js/select5883.js')}}"></script>
         <script src="{{asset('assets/js/record-selection5883.js')}}"></script>
+	@yield('scripts')
     </body>
 </html>
    

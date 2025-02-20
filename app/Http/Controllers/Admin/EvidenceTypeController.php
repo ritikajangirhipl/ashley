@@ -78,7 +78,14 @@ class EvidenceTypeController extends Controller
     public function update(UpdateRequest $request, EvidenceType $evidenceType)
     {
         try {
+            if ($request->status == '0' && $evidenceType->services()->count() > 0) {
+                return response()->json([
+                    'status' => 400,
+                    'message' => __('messages.evidenceType_associated_with_services', ['attribute' => __('attribute.evidence_type')])
+                ], 400);
+            }
             $evidenceType->update($request->except('_token', '_method'));
+
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.evidence_type')]), 
             ['redirect_url' => route('admin.evidence-types.index')]);
         } catch (Exception $e) {
@@ -89,10 +96,24 @@ class EvidenceTypeController extends Controller
     public function destroy(EvidenceType $evidenceType)
     {
         try {
+            if ($evidenceType->services()->exists()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => __('messages.evidence_type_delete_error', ['attribute' => __('attribute.evidence_type')])
+                ], 400);
+                
+            }
             $evidenceType->delete();
-            return jsonResponseWithMessage(200, 'Evidence Type deleted successfully!');
+
+            return response()->json([
+                'status' => true,
+                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.evidence_type')])
+            ], 200);
         } catch (Exception $e) {
-            return jsonResponseWithException($e);
+            return response()->json([
+                'status' => false,
+                'message' => __('messages.unexpected_error')
+            ], 500);
         }
     }
 }
