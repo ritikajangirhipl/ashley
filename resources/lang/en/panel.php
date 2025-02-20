@@ -3,6 +3,11 @@
 return [
     'all' => 'All',
     'view' => 'View',
+    'catalogue' => 'Catalogue',
+    'login' => 'Login',
+    'register' => 'Register',
+    'forgot_password' => 'Forgot Password',
+    'reset_password' => 'Reset Password',
     'site_title' => 'Student Management System',
     'page'                          => 'page',
     'extract_transcript_reprot'     => 'Extract Transcript Report',

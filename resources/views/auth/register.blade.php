@@ -1,17 +1,18 @@
 @extends('layouts.frontend')
+@section('title', trans('panel.register'))
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid row-gap-2" id="kt_content">
     <div class="subheader py-2 py-lg-12  subheader-transparent " id="kt_subheader">
         <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-1">
                 <div class="d-flex flex-column">
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Register</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">{{trans('panel.register')}}</h2>
                     <div class="d-flex align-items-center flex-wrap font-weight-bold my-2 mb-3">
                         <a href="{{route('home')}}" class="opacity-75 hover-opacity-100">
                             <i class="flaticon2-shelter text-white icon-1x"></i>
                         </a>
                         <span class="label label-dot label-sm bg-white opacity-75 mx-3"></span>
-                        <a href="{{route('register')}}" class="text-white text-hover-white opacity-75 hover-opacity-100">Register</a>
+                        <a href="{{route('register')}}" class="text-white text-hover-white opacity-75 hover-opacity-100">{{trans('panel.register')}}</a>
                     </div>
                 </div>
             </div>
@@ -46,7 +47,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="fields-blog bg-white radius-15">
-                                <h2 class="text-center mb-3">Register</h2>
+                                <h2 class="text-center mb-3">{{trans('panel.register')}}</h2>
                                 <p class="text-center mb-5">Enter your details to get register to your account</p>
                                 <form method="POST" action="{{ route('register')}}" id="register-form">
                                 @csrf

@@ -1,4 +1,5 @@
 @extends('layouts.frontend')
+@section('title', trans('cruds.country.title'))
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid row-gap-2" id="kt_content">
     <div class="subheader py-2 py-lg-12  subheader-transparent " id="kt_subheader">

@@ -257,5 +257,7 @@ return [
     'account'                              => 'Account',
     'N/A'                                  => 'Not Available',
     'please_select'                        => 'Please Select',
-    'no_sub_categories_found'              => 'No Sub Category found'
+    'no_sub_categories_found'              => 'No Sub Category found',
+    'enter_detail_to_login'                => 'Enter your details to get login to your account',
+    'do_not_have_acc'                      => 'Don’t have an Account?',
 ];
