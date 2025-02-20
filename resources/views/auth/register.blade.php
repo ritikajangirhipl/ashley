@@ -48,11 +48,11 @@
                         <div class="col-lg-6">
                             <div class="fields-blog bg-white radius-15">
                                 <h2 class="text-center mb-3">{{trans('panel.register')}}</h2>
-                                <p class="text-center mb-5">Enter your details to get register to your account</p>
+                                <p class="text-center mb-5">{{trans('panel.enter_detail_to_register')}}</p>
                                 <form method="POST" action="{{ route('register')}}" id="register-form">
                                 @csrf
                                     <div class="form-group">
-                                        <label class="col-form-label pt-0">Full Name <span class="text-danger">*</span></label>
+                                        <label class="col-form-label pt-0">{{trans('panel.name')}}<span class="text-danger">*</span></label>
                                         <input type="text" placeholder="Your Name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{old('name')}}">
                                          @error('name')
                                             <span class="invalid-feedback text-left" role="alert">
@@ -61,7 +61,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label pt-0">Email Address <span class="text-danger">*</span></label>
+                                        <label class="col-form-label pt-0">{{trans('panel.email')}}<span class="text-danger">*</span></label>
                                         <input type="email" name="email" placeholder="Example@site.com" class="form-control @error('email') is-invalid @enderror"  value="{{old('email')}}">
                                          @error('email')
                                             <span class="invalid-feedback text-left" role="alert">
@@ -70,7 +70,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label pt-0">Phone Number <span class="text-danger">*</span></label>
+                                        <label class="col-form-label pt-0">{{trans('panel.phone_number')}}<span class="text-danger">*</span></label>
                                         <input type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror"  value="{{old('phone_number')}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" />
                                          @error('phone_number')
                                             <span class="invalid-feedback text-left" role="alert">
@@ -79,7 +79,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label pt-0">Client Type <span class="text-danger">*</span></label>
+                                        <label class="col-form-label pt-0">{{trans('panel.client_type')}}<span class="text-danger">*</span></label>
                                         <select name="client_type" id="client_type" class="form-control select2 @error('client_type') is-invalid @enderror" required>
                                             <option value="">{{ 'Select ' . trans('cruds.client.fields.client_type') }}</option>
                                             @foreach($clientTypes as $key => $type)
@@ -93,7 +93,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label pt-0">Country <span class="text-danger">*</span></label>
+                                        <label class="col-form-label pt-0">{{trans('panel.country')}}<span class="text-danger">*</span></label>
                                         <select name="country_id" id="country_id" class="form-control select2 @error('country_id') is-invalid @enderror" required>
                                             <option value="">{{ 'Select ' . trans('cruds.client.fields.country') }}</option>
                                             @foreach($countries as $id => $name)
@@ -107,7 +107,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label pt-0">Website Address</label>
+                                        <label class="col-form-label pt-0">{{trans('panel.website_address')}}</label>
                                         <input type="url" class="form-control @error('website_address') is-invalid @enderror" name="website_address" value="{{old('website_address')}}">
                                          @error('website_address')
                                             <span class="invalid-feedback text-left" role="alert">
@@ -116,7 +116,7 @@
                                         @enderror
                                     </div>
                                      <div class="form-group">
-                                        <label class="col-form-label pt-0">Contact Address</label>
+                                        <label class="col-form-label pt-0">{{trans('panel.contact_address')}}</label>
                                         <input type="text" class="form-control @error('contact_address') is-invalid @enderror" name="contact_address" value="{{old('contact_address')}}">
                                          @error('contact_address')
                                             <span class="invalid-feedback text-left" role="alert">
@@ -125,7 +125,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group password-container">
-                                        <label class="col-form-label pt-0">Password <span class="text-danger">*</span></label>
+                                        <label class="col-form-label pt-0">{{trans('panel.password')}}<span class="text-danger">*</span></label>
                                         <input type="password" placeholder="**********" class="form-control @error('password') is-invalid @enderror" name="password">
                                         <span class="toggle-password close-eye">
                                             <img src="{{asset('assets/images/eye-open.svg')}}" alt="eye icon" class="eye-symbol1">
@@ -138,7 +138,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group password-container">
-                                        <label class="col-form-label pt-0">Confirm Password <span class="text-danger">*</span></label>
+                                        <label class="col-form-label pt-0">{{trans('panel.confirm_password')}}<span class="text-danger">*</span></label>
                                         <input type="password" placeholder="**********" class="form-control" name="password_confirmation">
                                         <span class="toggle-password close-eye">
                                             <img src="{{asset('assets/images/eye-open.svg')}}" alt="eye icon" class="eye-symbol1">
@@ -147,10 +147,10 @@
                                     </div>
                                    
                                     <div class="form-group mt-4">
-                                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                                        <button type="submit" class="btn btn-primary w-100">{{trans('panel.register')}}</button>
                                     </div>
-                                    <p class="text-center">Already have an account? <a href="{{route('login')}}">Login</a></p>
-                                    <p class="mb-0">By clicking the button above, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+                                    <p class="text-center">{{ trans('global.do_not_have_acc') }} <a href="{{route('login')}}">{{ trans('global.login') }}</a></p>
+                                    <p class="mb-0">{{ trans('global.agree_terms') }}<a href="#">{{ trans('global.term_of_service') }}</a> and <a href="#">{{ trans('global.privacy_policy') }}</a>.</p>
                                 </form>
                             </div>
                         </div>

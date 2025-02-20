@@ -44,6 +44,45 @@ class StoreRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'name.required' => 'Please enter the service name.',
+            'name.string' => 'The service name must be a valid string.',
+            'name.max' => 'The service name cannot exceed 255 characters.',
+
+            'description.max' => 'The description cannot exceed 500 characters.',
+
+            'country_id.required' => 'Please select a country.',
+            'category_id.required' => 'Please select a category.',
+            'sub_category_id.required' => 'Please select a sub-category.',
+            'subject.required' => 'Please enter the subject.',
+            'verification_mode_id.required' => 'Please select a verification mode.',
+            'verification_summary.required' => 'Please enter the verification summary.',
+            'verification_provider_id.required' => 'Please select a verification provider.',
+            'verification_duration.required' => 'Please enter the verification duration.',
+            'evidence_type_id.required' => 'Please select an evidence type.',
+            'evidence_summary.required' => 'Please enter the evidence summary.',
+            'service_partner_id.required' => 'Please select a service partner.',
+            'service_currency.required' => 'Please enter the service currency.',
+            'local_service_price.required' => 'Please enter the local service price.',
+            'usd_service_price.required' => 'Please enter the USD service price.',
+            'subject_name.required' => 'Please enter the subject name.',
+            'copy_of_document_to_verify.required' => 'Please enter the document to verify.',
+            'reason_for_request.required' => 'Please enter the reason for the request.',
+            'subject_consent_requirement.required' => 'Please enter the subject consent requirement.',
+            'name_of_reference_provider.required' => 'Please enter the name of the reference provider.',
+            'address_information.required' => 'Please enter the address information.',
+            'location.required' => 'Please enter the location.',
+            'gender.required' => 'Please select gender.',
+            'marital_status.required' => 'Please select marital status.',
+            'registration_number.required' => 'Please enter the registration number.',
+
+            'status.required' => 'Please select a status.',
+            'status.in' => 'Invalid status selected. Please choose Active or Inactive.',
+        ];
+    }
+
 }
 
 

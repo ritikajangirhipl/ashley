@@ -49,7 +49,7 @@ class UpdateRequest extends FormRequest
             'password.string' => 'Password must be valid string.',
             'password.min' => 'Password must be at least 8 characters long.',
             'status.required' => 'Please select status.',
-            'status.in' => 'Invalid status value.',
+            'status.in' => 'Invalid status value.Please choose Active or Inactive.',
         ];
     }
 

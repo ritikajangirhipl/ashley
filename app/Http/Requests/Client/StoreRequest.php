@@ -61,7 +61,7 @@ class StoreRequest extends FormRequest
             'password.min' => 'Password must be at least 8 characters long.',
 
             'status.required' => 'Please select status.',
-            'status.in' => 'Invalid status value.',
+            'status.in' => 'Invalid status value.Please choose Active or Inactive.',
         ];
     }
 }

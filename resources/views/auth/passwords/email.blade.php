@@ -54,7 +54,7 @@
                                     </div>
                                 @endif
                                 <h2 class="text-center mb-3">{{ trans('global.forgot_password_title') }}</h2>
-                                <p class="text-center mb-5">Enter your email address for your password</p>
+                                <p class="text-center mb-5">{{ trans('global.email_for_password') }}</p>
                                 <form method="POST" action="{{ route('password.email') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">
@@ -69,7 +69,7 @@
                                     <div class="form-group mb-0">
                                         <button type="submit" class="btn btn-primary w-100">{{ trans('global.reset_password') }}</button>
                                         <a href="{{ route('login') }}" class="mb-2 mr-0 mt-4">
-                                            Back to Login
+                                        {{ trans('global.back_to_login') }}
                                         </a>
                                     </div>
                                 </form>

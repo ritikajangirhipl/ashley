@@ -48,7 +48,7 @@
                         <div class="col-lg-6">
                             <div class="fields-blog bg-white radius-15">
                                 <h2 class="text-center mb-3">{{ trans('global.reset_password') }}</h2>
-                                <p class="text-center mb-5">Enter your password for your password reset</p>
+                                <p class="text-center mb-5">{{ trans('global.enter_password_to_reset') }}</p>
                                 <form method="POST" action="{{ route('password.update') }}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="token" value="{{ request()->route('token') }}">
@@ -63,7 +63,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group password-container">
-                                        <label class="col-form-label pt-0">Password</label>
+                                        <label class="col-form-label pt-0">{{ trans('global.password') }}</label>
                                         <input type="password" placeholder="**********" class="form-control @error('password') is-invalid @enderror" name="password" required>
                                         <span class="toggle-password close-eye">
                                             <img src="{{asset('assets/images/eye-open.svg')}}" alt="eye icon" class="eye-symbol1">
@@ -76,7 +76,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group password-container">
-                                        <label class="col-form-label pt-0">Confirm Password</label>
+                                        <label class="col-form-label pt-0">{{ trans('global.password_confirmation') }}</label>
                                         <input id="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" required autocomplete="password_confirmation" placeholder="{{ __('Confirm Password') }}">
 
                       
@@ -91,7 +91,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group mb-0">
-                                        <button type="submit" class="btn btn-primary w-100">Submit</button>
+                                        <button type="submit" class="btn btn-primary w-100">{{ trans('global.submit') }}</button>
                                     </div>
                                 </form>
                             </div>

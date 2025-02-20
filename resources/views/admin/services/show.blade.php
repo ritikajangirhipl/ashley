@@ -6,6 +6,7 @@
             <h4 class="card-title">
                 {{ __('panel.page_title.service.show') }}
             </h4>
+            <a href="{{ route('admin.services.index') }}" class="btn btn-secondary">Back</a>
         </div>
 
         <div class="card-body">

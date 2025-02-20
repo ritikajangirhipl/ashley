@@ -19,4 +19,16 @@ class StatusRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'id.required' => 'The service ID is required.',
+            'id.numeric' => 'The service ID must be a valid number.',
+            'id.exists' => 'The selected service does not exist.',
+
+            'status.required' => 'Please select a status.',
+            'status.in' => 'Invalid status selected. Please choose Active or Inactive.',
+        ];
+    }
+
 }

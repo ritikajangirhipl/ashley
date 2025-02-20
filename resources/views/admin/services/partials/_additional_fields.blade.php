@@ -62,13 +62,12 @@
                                 $options = array_combine($tempOptions,$options);
                             }
                         @endphp
-                        <div class="col-lg-3 col-md-3 col-sm-12  combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
+                        <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
                             <div class="form-group">
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}<span class="text-danger">*</span></label>
 
-                                {{ Form::select('additional_fields['.$number.'][combo_values][]', $options, $options,['class' => "form-control services_combo_values multi-select", 'id' => 'services_combo_values_'.$number, 'required' => false, 'multiple' => "multiple"]) }}
+                                <input type="text" class="form-control" value="{{ implode(', ', json_decode($serviceField->combo_values, true)) }}" readonly>
 
-                                </select>
                             </div>
                         </div>
 
