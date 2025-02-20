@@ -62,9 +62,14 @@ $(document).ready(function() {
                                 icon: "success",
                                 confirmButtonText: "Okay",
                                 confirmButtonColor: "#04a9f5"
+                            }).then((result) => {
+                                if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
+                                    window.location.href = response.redirect_url; 
+                                } else {
+                                    $('#countries-table').DataTable().ajax.reload(null, false); 
+                                }
                             });
-                            $('#countries-table').DataTable().ajax.reload(null, false);
-                        }
+                        }   
                     },
                     error: function(xhr) {
                         if (xhr.status === 400) { 

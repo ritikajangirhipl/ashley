@@ -156,7 +156,8 @@ class ServicesController extends Controller
             $service->additionalFields()->delete();
             $service->delete();
 
-            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service')]));
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service')]),
+            ['redirect_url' => route('admin.services.index')]);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }

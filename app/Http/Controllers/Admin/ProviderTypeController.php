@@ -105,15 +105,10 @@ class ProviderTypeController extends Controller
             }
             $providerType->delete();
     
-            return response()->json([
-                'status' => true,
-                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.provider_type')])
-            ], 200);
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.provider_type')]),
+            ['redirect_url' => route('admin.provider-types.index')]);
         } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => __('messages.unexpected_error')
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
 

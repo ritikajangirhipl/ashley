@@ -78,11 +78,11 @@ class VerificationModeController extends Controller
     public function update(UpdateRequest $request, VerificationMode $verificationMode)
     {
         try {
-            if ($request->status == '0' && $verificationMode->services()->count() > 0) {
-                return response()->json([
-                    'status' => 400,
-                    'message' => __('messages.verificationMode_associated_with_services', ['attribute' => __('attribute.verification_mode')])
-                ], 400);
+            if ($request->status == '0') {
+                $existenceCheck = $this->checkExistance($verificationMode, true);
+                if ($existenceCheck) {
+                    return $existenceCheck;
+                }
             }
             $verificationMode->update($request->except('_token', '_method'));
 
@@ -96,24 +96,32 @@ class VerificationModeController extends Controller
     public function destroy(VerificationMode $verificationMode)
     {
         try {
-            if ($verificationMode->services()->exists()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => __('messages.verification_mode_delete_error', ['attribute' => __('attribute.verification_mode')])
-                ], 400);
-                
+            $existenceCheck = $this->checkExistance($verificationMode);
+            if ($existenceCheck) {
+                return $existenceCheck; 
             }
             $verificationMode->delete();
 
-             return response()->json([
-                'status' => true,
-                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.verification_mode')])
-            ], 200);
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.verification_mode')]),
+            ['redirect_url' => route('admin.verification-modes.index')]);
         } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => __('messages.unexpected_error')
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
+
+    private function checkExistance($verificationMode, $forStatusUpdate = false)
+
+    {
+        if ($verificationMode->services()->exists()) {
+            return response()->json([
+                'status' => 400,
+                'message' => $forStatusUpdate
+                    ? __('messages.providerType_associated_with_verificationProviders')
+                    : __('messages.provider_type_delete_error')
+            ], 400);
+        }
+
+        return null;
+    }
+    
 }

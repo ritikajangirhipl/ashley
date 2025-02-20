@@ -132,7 +132,8 @@ class CountryController extends Controller
 
             $country->delete();
 
-            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.country')]));
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.country')]),
+            ['redirect_url' => route('admin.categories.index')]);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }

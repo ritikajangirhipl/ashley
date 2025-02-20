@@ -84,11 +84,11 @@ class VerificationProviderController extends Controller
     {
        
         try {
-            if ($request->status == '0' && $verificationProvider->services()->count() > 0) {
-                return response()->json([
-                    'status' => 400,
-                    'message' => __('messages.verificationProvider_associated_with_services', ['attribute' => __('attribute.verification_provider')])
-                ], 400);
+            if ($request->status == '0') {
+                $existenceCheck = $this->checkExistance($verificationProvider, true);
+                if ($existenceCheck) {
+                    return $existenceCheck;
+                }
             }
             $verificationProvider->update($request->except('_token', '_method'));
 
@@ -102,25 +102,30 @@ class VerificationProviderController extends Controller
     public function destroy(VerificationProvider $verificationProvider)
     {
         try {
-            if ($verificationProvider->services()->exists()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => __('messages.verification_provider_delete_error', ['attribute' => __('attribute.verification_provider')])
-                ], 400);
-                
+            $existenceCheck = $this->checkExistance($verificationProvider);
+            if ($existenceCheck) {
+                return $existenceCheck; 
             }
             $verificationProvider->delete();
 
-            return response()->json([
-                'status' => true,
-                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.verification_provider')])
-            ], 200);
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.verification_provider')]),
+            ['redirect_url' => route('admin.verification-providers.index')]);
         } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => __('messages.unexpected_error')
-            ], 500);
+            return jsonResponseWithException($e);
         }
+    }
+
+    private function checkExistance($verificationProvider, $forStatusUpdate = false)
+    {
+        if ($verificationProvider->services()->exists()) {
+            return response()->json([
+                'status' => 400,
+                'message' => $forStatusUpdate
+                    ? __('messages.verificationProvider_associated_with_services') 
+                    : __('messages.verification_provider_delete_error') 
+            ], 400);
+        }
+        return null;
     }
 
 }

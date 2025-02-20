@@ -105,7 +105,8 @@ class ClientController extends Controller
         try {
             $client->delete();
 
-            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.client')]));
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.client')]),
+            ['redirect_url' => route('admin.clients.index')]);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
