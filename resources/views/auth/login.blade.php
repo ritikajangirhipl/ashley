@@ -1,17 +1,18 @@
 @extends('layouts.frontend')
+@section('title', trans('panel.login'))
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid row-gap-2" id="kt_content">
     <div class="subheader py-2 py-lg-12  subheader-transparent " id="kt_subheader">
         <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-1">
                 <div class="d-flex flex-column">
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Login</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">{{ trans('global.login') }}</h2>
                     <div class="d-flex align-items-center flex-wrap font-weight-bold my-2 mb-3">
                         <a href="{{route('home')}}" class="opacity-75 hover-opacity-100">
                             <i class="flaticon2-shelter text-white icon-1x"></i>
                         </a>
                         <span class="label label-dot label-sm bg-white opacity-75 mx-3"></span>
-                        <a href="{{route('login')}}" class="text-white text-hover-white opacity-75 hover-opacity-100">Login</a>
+                        <a href="{{route('login')}}" class="text-white text-hover-white opacity-75 hover-opacity-100">{{ trans('global.login') }}</a>
                     </div>
                 </div>
             </div>
@@ -51,12 +52,12 @@
                                         {{ session('message') }}
                                     </div>
                                 @endif
-                                <h2 class="text-center mb-3">Login</h2>
-                                <p class="text-center mb-5">Enter your details to get login to your account</p>
+                                <h2 class="text-center mb-3">{{ trans('global.login') }}</h2>
+                                <p class="text-center mb-5">{{ trans('global.enter_detail_to_login') }}</p>
                                 <form method="POST" action="{{ route('login')}}">
                                  @csrf
                                     <div class="form-group">
-                                        <label class="col-form-label pt-0">Email</label>
+                                        <label class="col-form-label pt-0">{{ trans('global.login_email') }}</label>
                                         <input type="email" placeholder="Example@site.com" name="email" class="form-control @error('email') is-invalid @enderror">
                                         @error('email')
                                             <span class="invalid-feedback text-left" role="alert">
@@ -65,7 +66,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group password-container">
-                                        <label class="col-form-label pt-0">Password</label>
+                                        <label class="col-form-label pt-0">{{ trans('global.login_password') }}</label>
                                         <input type="password" placeholder="**********" class="form-control @error('password') is-invalid @enderror" name="password">
                                         <span class="toggle-password close-eye">
                                             <img src="{{asset('assets/images/eye-open.svg')}}" alt="eye icon" class="eye-symbol1">
@@ -80,16 +81,16 @@
                                     <div class="form-group d-flex flex-wrap gap-2 align-items-center justify-content-between">
                                         <div class="d-flex align-items-center form-checkbox position-relative">
                                             <input type="checkbox" id="agree-tc" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                                            <label class="mb-0" for="agree-tc">Remember Me</label>
+                                            <label class="mb-0" for="agree-tc">{{ trans('global.remember_me') }}</label>
                                         </div>
                                         <div class="for-password-text">
-                                            <a href="{{ route('password.request') }}">Forgot Password</a>
+                                            <a href="{{ route('password.request') }}"> {{ trans('global.forgot_password_title') }}</a>
                                         </div>
                                     </div>
                                     <div class="form-group mt-4">
-                                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                                        <button type="submit" class="btn btn-primary w-100">{{ trans('global.login') }}</button>
                                     </div>
-                                    <p class="text-center">Don’t have an Account? <a href="{{route('register')}}">Register</a></p>
+                                    <p class="text-center">{{ trans('global.do_not_have_acc') }} <a href="{{route('register')}}">{{trans('panel.register')}}</a></p>
                                     <!-- <div class="or-text">
                                         <p><span>or</span></p>
                                     </div>
