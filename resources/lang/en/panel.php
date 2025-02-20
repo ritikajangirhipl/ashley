@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'all' => 'All',
+    'view' => 'View',
     'site_title' => 'Student Management System',
     'page'                          => 'page',
     'extract_transcript_reprot'     => 'Extract Transcript Report',

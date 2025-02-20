@@ -10,6 +10,7 @@ return new class extends Migration
         Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
+            $table->string('slug')->unique(); 
             $table->string('name')->unique();
             $table->string('image')->nullable();
             $table->text('description')->nullable();

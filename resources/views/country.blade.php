@@ -5,16 +5,17 @@
         <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-1">
                 <div class="d-flex flex-column">
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Home</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">{{ trans('cruds.country.title') }}</h2>
                     <div class="d-flex align-items-center flex-wrap font-weight-bold my-2 mb-3">
                         <a href="{{route('home')}}" class="opacity-75 hover-opacity-100">
                             <i class="flaticon2-shelter text-white icon-1x"></i>
                         </a>
                         <span class="label label-dot label-sm bg-white opacity-75 mx-3"></span>
-                        <a href="{{route('home')}}" class="text-white text-hover-white opacity-75 hover-opacity-100">Home</a>
+                        <a href="javascript:void(0);" class="text-white text-hover-white opacity-75 hover-opacity-100">{{ trans('panel.all') }} {{ trans('cruds.country.title') }}</a>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
     <div class="d-flex flex-column-fluid">
@@ -35,53 +36,26 @@
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                 </div>
             </div>
-            @if(count($countries) > 0)
             <div class="card card-custom gutter-b example example-compact">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center row-gap-2">
-                    <h3 class="card-title">{{ trans('cruds.country.title') }}</h3>
-                    <a href="{{route('countries')}}" target="_blank" class="view_all_btn">{{ trans('panel.view') }} {{ trans('panel.all') }}</a>
+                    <h3 class="card-title mb-0">{{ trans('panel.all') }} {{ trans('cruds.country.title') }}</h3>
+                    <div class="input-icon">
+                        <input type="text" class="form-control form-control-solid search-input" placeholder="Search...">
+                        <span><i class="flaticon2-search-1 text-muted"></i></span>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <ul class="catalogue_lists">
+                    <ul class="catalogue_lists search-list">
                         @foreach ($countries as $key => $country )
-                            <li><a href="javascript:void(0);" title="{{$country->name}}"><span><img src="{{ asset('storage/' . $country->flag) }}" alt="{{$country->name}}"></span>{{$country->name}}</a></li>
+                            <li><a href="javascript:void(0);" title="{{$country->name}}"><span><img src="{{ asset('storage/' . $country->flag) }}" alt="Plateau State"></span>{{$country->name}}</a></li>
                         @endforeach
+                       
                     </ul>
+                    <p class="no-result">No results found</p>
                 </div>
             </div>
-            @endif
-            @if(count($categories) > 0)
-            <div class="card card-custom gutter-b">
-                <div class="card-header d-flex flex-wrap justify-content-between align-items-center row-gap-2">
-                    <h3 class="card-title">{{ trans('cruds.category.title') }}</h3>
-                    <a href="{{route('categories')}}" target="_blank" class="view_all_btn">{{ trans('panel.view') }} {{ trans('panel.all') }}</a>
-                </div>
-                <div class="card-body">
-                    <ul class="catalogue_lists">
-                        @foreach ($categories as $key => $category)
-                            <li><a href="javascript:void(0);" title="{{$category->name}}"><span><img src="{{ asset('storage/' . $category->image) }}" alt="{{$category->name}}"></span>{{$category->name}}</a></li>
-                        @endforeach
-                     
-                    </ul>
-                </div>
-            </div>
-            @endif
-            @if(count($verificationProviders) > 0)
-            <div class="card card-custom">
-                <div class="card-header d-flex flex-wrap justify-content-between align-items-center row-gap-2">
-                    <h3 class="card-title">{{ trans('cruds.verification_provider.title') }}</h3>
-                    <a href="{{route('verification-providers')}}" target="_blank" class="view_all_btn">{{ trans('panel.view') }} {{ trans('panel.all') }}</a>
-                </div>
-                <div class="card-body">
-                    <ul class="catalogue_lists">
-                        @foreach ($verificationProviders as $key => $verificationProvider)
-                            <li><a href="javascript:void(0);" title="{{$verificationProvider->name}}">{{$verificationProvider->name}}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-             @endif
         </div>
     </div>
 </div>
+
 @endsection
