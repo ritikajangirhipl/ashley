@@ -103,66 +103,66 @@
             <div class="card card-custom gutter-b example example-compact">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center row-gap-2">
                     <h3 class="card-title">Countries</h3>
-                    <a href="all-countries.html" target="_blank" class="view_all_btn">View All</a>
+                    <a href="javascript:void(0);" target="_blank" class="view_all_btn">View All</a>
                 </div>
                 <div class="card-body">
                     <ul class="catalogue_lists">
-                        <li><a href="country-details.html" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
-                        <li><a href="country-details.html" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
-                        <li><a href="country-details.html" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
-                        <li><a href="country-details.html" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
-                        <li><a href="country-details.html" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
-                        <li><a href="country-details.html" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
-                        <li><a href="country-details.html" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
-                        <li><a href="country-details.html" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
-                        <li><a href="country-details.html" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
-                        <li><a href="country-details.html" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
-                        <li><a href="country-details.html" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
-                        <li><a href="country-details.html" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
+                        <li><a href="javascript:void(0);" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
+                        <li><a href="javascript:void(0);" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
+                        <li><a href="javascript:void(0);" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
+                        <li><a href="javascript:void(0);" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
+                        <li><a href="javascript:void(0);" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
+                        <li><a href="javascript:void(0);" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
+                        <li><a href="javascript:void(0);" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
+                        <li><a href="javascript:void(0);" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
+                        <li><a href="javascript:void(0);" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
+                        <li><a href="javascript:void(0);" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
+                        <li><a href="javascript:void(0);" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
+                        <li><a href="javascript:void(0);" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
                     </ul>
                 </div>
             </div>
             <div class="card card-custom gutter-b">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center row-gap-2">
                     <h3 class="card-title">Sub Categories</h3>
-                    <a href="all-categories.html" target="_blank" class="view_all_btn">View All</a>
+                    <a href="javascript:void(0);" target="_blank" class="view_all_btn">View All</a>
                 </div>
                 <div class="card-body">
                     <ul class="catalogue_lists">
-                        <li><a href="category-details.html" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
-                        <li><a href="category-details.html" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
-                        <li><a href="category-details.html" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
-                        <li><a href="category-details.html" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
-                        <li><a href="category-details.html" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
-                        <li><a href="category-details.html" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
-                        <li><a href="category-details.html" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
-                        <li><a href="category-details.html" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
-                        <li><a href="category-details.html" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
-                        <li><a href="category-details.html" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
-                        <li><a href="category-details.html" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
-                        <li><a href="category-details.html" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
+                        <li><a href="javascript:void(0);" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
+                        <li><a href="javascript:void(0);" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
+                        <li><a href="javascript:void(0);" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
+                        <li><a href="javascript:void(0);" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
+                        <li><a href="javascript:void(0);" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
+                        <li><a href="javascript:void(0);" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
+                        <li><a href="javascript:void(0);" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
+                        <li><a href="javascript:void(0);" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
+                        <li><a href="javascript:void(0);" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
+                        <li><a href="javascript:void(0);" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
+                        <li><a href="javascript:void(0);" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
+                        <li><a href="javascript:void(0);" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
                     </ul>
                 </div>
             </div>
             <div class="card card-custom">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center row-gap-2">
                     <h3 class="card-title">Verification Providers</h3>
-                    <a href="all-providers.html" target="_blank" class="view_all_btn">View All</a>
+                    <a href="javascript:void(0);" target="_blank" class="view_all_btn">View All</a>
                 </div>
                 <div class="card-body">
                     <ul class="catalogue_lists">
-                        <li><a href="provider-details.html" title="University of ABC">University of ABC</a></li>
-                        <li><a href="provider-details.html" title="University of ABC">University of ABC</a></li>
-                        <li><a href="provider-details.html" title="University of ABC">University of ABC</a></li>
-                        <li><a href="provider-details.html" title="University of ABC">University of ABC</a></li>
-                        <li><a href="provider-details.html" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
-                        <li><a href="provider-details.html" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
-                        <li><a href="provider-details.html" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
-                        <li><a href="provider-details.html" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
-                        <li><a href="provider-details.html" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
-                        <li><a href="provider-details.html" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
-                        <li><a href="provider-details.html" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
-                        <li><a href="provider-details.html" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
+                        <li><a href="javascript:void(0);" title="University of ABC">University of ABC</a></li>
+                        <li><a href="javascript:void(0);" title="University of ABC">University of ABC</a></li>
+                        <li><a href="javascript:void(0);" title="University of ABC">University of ABC</a></li>
+                        <li><a href="javascript:void(0);" title="University of ABC">University of ABC</a></li>
+                        <li><a href="javascript:void(0);" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
+                        <li><a href="javascript:void(0);" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
+                        <li><a href="javascript:void(0);" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
+                        <li><a href="javascript:void(0);" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
+                        <li><a href="javascript:void(0);" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
+                        <li><a href="javascript:void(0);" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
+                        <li><a href="javascript:void(0);" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
+                        <li><a href="javascript:void(0);" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
                     </ul>
                 </div>
             </div>

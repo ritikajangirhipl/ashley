@@ -102,22 +102,20 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        try{
-            $this->validator($request->all())->validate();
-            $user = $this->create($request->all());
-            event(new Registered($user));
-            
-            $this->guard()->login($user);
+        $this->validator($request->all())->validate();
+        $user = $this->create($request->all());
+        event(new Registered($user));
+        
+        // $this->guard()->login($user);
 
-            if ($response = $this->registered($request, $user)) {
-                return $response;
-            }
-
-            return $request->wantsJson()
-                        ? new JsonResponse([], 201)
-                        : redirect($this->redirectPath());
-        }catch(\Exception $e){
-            \Log::info($e->getMessage().' '.$e->getFile().' '.$e->getLine());
+        if ($response = $this->registered($request, $user)) {
+            return $response;
         }
+
+        // return $request->wantsJson()
+        //             ? new JsonResponse([], 201)
+        //             : redirect($this->redirectPath());
+        return redirect()->route('login')->with(['message' => 'verification link has been sent to your email address.Please verify your email']);
+        
     }
 }

@@ -110,6 +110,11 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="fields-blog bg-white radius-15">
+                                @if (session('message'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('message') }}
+                                    </div>
+                                @endif
                                 <h2 class="text-center mb-3">Login</h2>
                                 <p class="text-center mb-5">Enter your details to get login to your account</p>
                                 <form method="POST" action="{{ route('login')}}">
