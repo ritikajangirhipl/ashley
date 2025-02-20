@@ -1,18 +1,18 @@
 @extends('layouts.frontend')
-@section('title', trans('cruds.country.title'))
+@section('title', trans('cruds.sub_category.title'))
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid row-gap-2" id="kt_content">
     <div class="subheader py-2 py-lg-12  subheader-transparent " id="kt_subheader">
         <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-1">
                 <div class="d-flex flex-column">
-                    <h2 class="text-white font-weight-bold my-2 mr-5">{{ trans('cruds.country.title') }}</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">{{ $category->name }}</h2>
                     <div class="d-flex align-items-center flex-wrap font-weight-bold my-2 mb-3">
                         <a href="{{route('home')}}" class="opacity-75 hover-opacity-100">
                             <i class="flaticon2-shelter text-white icon-1x"></i>
                         </a>
                         <span class="label label-dot label-sm bg-white opacity-75 mx-3"></span>
-                        <a href="javascript:void(0);" class="text-white text-hover-white opacity-75 hover-opacity-100">{{ trans('panel.all') }} {{ trans('cruds.country.title') }}</a>
+                        <a href="javascript:void(0);" class="text-white text-hover-white opacity-75 hover-opacity-100">{{ trans('panel.all') }} {{ trans('cruds.sub_category.title') }}</a>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
             </div>
             <div class="card card-custom gutter-b example example-compact">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center row-gap-2">
-                    <h3 class="card-title mb-0">{{ trans('panel.all') }} {{ trans('cruds.country.title') }}</h3>
+                    <h3 class="card-title mb-0">{{ trans('panel.all') }} {{ trans('cruds.sub_category.title') }}</h3>
                     <div class="input-icon">
                         <input type="text" class="form-control form-control-solid search-input" placeholder="Search...">
                         <span><i class="flaticon2-search-1 text-muted"></i></span>
@@ -47,16 +47,17 @@
                 </div>
                 <div class="card-body">
                     <ul class="catalogue_lists search-list">
-                        @foreach ($countries as $key => $country )
-                            <li><a href="javascript:void(0);" title="{{$country->name}}"><span><img src="{{ asset('storage/' . $country->flag) }}" alt="Plateau State"></span>{{$country->name}}</a></li>
+                        @if(count($subcategories) > 0)
+                        @foreach ($subcategories as $key => $subCategory)
+                            <li><a href="javascript:void(0);" title="{{$subCategory->name}}"><span><img src="{{ asset('storage/' . $subCategory->image) }}" alt="{{$subCategory->name}}"></span>{{$subCategory->name}}</a></li>
                         @endforeach
+                        @endif
+                       <li>No records found</li>
                     </ul>
-                    {{ $countries->links() }}
                     <p class="no-result">No results found</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 @endsection
