@@ -2,7 +2,7 @@
     <div class="container d-flex align-items-stretch justify-content-between">
         <div class="d-flex align-items-stretch mr-3">
             <div class="header-logo">
-                <a href="index.html">
+                <a href="{{route('home')}}">
                     <img alt="Logo" src="{{asset('assets/images/logo-white-main.png')}}" class="logo-default max-h-50px"/>
                     <img alt="Logo" src="{{asset('assets/images/logo-main.png')}}" class="logo-sticky max-h-50px"/>
                 </a>

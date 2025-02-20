@@ -19,6 +19,7 @@ Route::redirect('/', '/home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/countries', [HomeController::class, 'country'])->name('countries');
 Route::get('/categories', [HomeController::class, 'category'])->name('categories');
+Route::get('/sub-categories/{slug}', [HomeController::class, 'subCategory'])->name('sub-categories');
 Route::get('/verification-providers', [HomeController::class, 'verificationProvider'])->name('verification-providers');
 Route::get('/catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
 

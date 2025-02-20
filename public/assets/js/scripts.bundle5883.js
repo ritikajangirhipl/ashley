@@ -27,11 +27,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (text.includes(searchText)) {
                     item.style.display = "block";
                     hasVisibleItems = true;
+                   
                 } else {
                     item.style.display = "none";
                 }
             });
             noResultMessage.style.display = hasVisibleItems ? "none" : "block";
+            if (hasVisibleItems) {
+                $(document).find('.pagination').show();
+            } else {
+                $(document).find('.pagination').hide();
+            }
         });
     });
 });

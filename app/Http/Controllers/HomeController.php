@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\VerificationProvider;
 
 class HomeController extends Controller
@@ -24,7 +25,7 @@ class HomeController extends Controller
 
     public function country()
     {
-        $countries = Country::where(['status' => 1])->orderBy('name', 'asc')->get();
+        $countries = Country::where(['status' => 1])->orderBy('name', 'asc')->paginate(1);
         return view('country', compact('countries'));
     }
     public function category()
@@ -36,6 +37,13 @@ class HomeController extends Controller
     {
         $verificationProviders = VerificationProvider::where(['status' => 1])->orderBy('name', 'asc')->get();
         return view('verification_provider', compact('verificationProviders'));
+    }
+
+    public function subCategory($slug)
+    {
+        $category = Category::where(['slug' => $slug])->first();
+        $subcategories = SubCategory::where(['category_id' => $category->id])->get();
+        return view('sub_category', compact('subcategories','category'));
     }
    
 

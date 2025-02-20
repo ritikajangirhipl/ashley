@@ -60,7 +60,7 @@
                 <div class="card-body">
                     <ul class="catalogue_lists">
                         @foreach ($categories as $key => $category)
-                            <li><a href="javascript:void(0);" title="{{$category->name}}"><span><img src="{{ asset('storage/' . $category->image) }}" alt="{{$category->name}}"></span>{{$category->name}}</a></li>
+                            <li><a href="{{route('sub-categories',$category->slug)}}" title="{{$category->name}}"><span><img src="{{ asset('storage/' . $category->image) }}" alt="{{$category->name}}"></span>{{$category->name}}</a></li>
                         @endforeach
                      
                     </ul>
