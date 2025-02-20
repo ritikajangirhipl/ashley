@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', trans('global.forgot_password_title'))
 @section('content')
 
 <div class="col-md-8 col-lg-6">
@@ -19,7 +20,7 @@
                         </div>
                     </div>
                 @endif
-                <form method="POST" action="{{ route('password.email') }}">
+                <form method="POST" action="{{ route('admin.password.email') }}">
                     {{ csrf_field() }}
 
                     <div class="input-group mb-3">

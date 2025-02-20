@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', __('Login'))
 @section('content')
 <div class="col-md-8 col-lg-6">
   <div class="card-body text-center">
