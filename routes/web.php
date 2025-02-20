@@ -29,12 +29,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     //Auth::routes(['register' => false]);
     // 
     Route::namespace('Auth')->group(function () {
-<<<<<<< Updated upstream
-        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-        Route::post('/login', [LoginController::class, 'login'])->name('loginSubmit');
-        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-        // Route::get('/forget-password', [ForgotPasswordController::class, 'showForm'])->name('password.request');
-=======
         Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
         Route::post('login', [LoginController::class, 'login'])->name('loginSubmit');
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
@@ -42,7 +36,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
         Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
         Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
         Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
->>>>>>> Stashed changes
     });
 });
 
