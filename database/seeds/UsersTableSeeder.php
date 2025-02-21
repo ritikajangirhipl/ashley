@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
             [
                 'id'             => 1,
                 'name'           => 'Admin',
-                'email'          => 'admin@admin.com',
+                'email'          => 'admin@hipl.com',
                 'password'       => Hash::make('password'),
                 'remember_token' => null,
                 'created_at'     => date('Y-m-d H:i:s'),
@@ -21,9 +21,9 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'id'             => 2,
-                'name'           => 'Evaluate',
-                'email'          => 'evaluate@student.com',
-                'password'       => Hash::make('12345678'),
+                'name'           => 'Ashley HIPL',
+                'email'          => 'ashley@hipl.com',
+                'password'       => Hash::make('password'),
                 'remember_token' => null,
                 'created_at'     => date('Y-m-d H:i:s'),
                 'updated_at'     => date('Y-m-d H:i:s'),

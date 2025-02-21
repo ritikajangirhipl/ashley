@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', trans('global.reset_password'))
 @section('content')
 
 <div class="col-md-8 col-lg-6">
@@ -7,7 +8,7 @@
             <div class="col-sm-10">
                 <h3 class="mb-4">{{ trans('global.reset_password') }}</h3>
 
-                <form method="POST" action="{{ route('password.update') }}">
+                <form method="POST" action="{{ route('admin.password.update') }}">
                 {{ csrf_field() }}
                     <input type="hidden" name="token" value="{{ request()->route('token') }}">
                     <div class="input-group mb-3">

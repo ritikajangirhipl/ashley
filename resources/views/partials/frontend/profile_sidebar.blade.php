@@ -1,11 +1,12 @@
 <!-- My Profile Sidebar -->
+@auth('web')
 <div id="kt_quick_user" class="offcanvas offcanvas-right p-10">
     <div class="offcanvas-header d-flex align-items-center justify-content-between pb-5">
         <h3 class="font-weight-bold m-0">
             User Profile
-            <small class="text-muted font-size-sm ml-2">12 messages</small>
+            {{-- <small class="text-muted font-size-sm ml-2">12 messages</small> --}}
         </h3>
-        <a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_user_close">
+        <a href="javascript:void(0);" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_user_close">
             <i class="ki ki-close icon-xs text-muted"></i>
         </a>
     </div>
@@ -16,14 +17,14 @@
                 <i class="symbol-badge bg-success"></i>
             </div>
             <div class="d-flex flex-column">
-                <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
-                    James Jones
+                <a href="javascript:void(0);" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
+                    {{ auth()->guard('web')->user()->name ?? auth()->guard('web')->user()->name }}
                 </a>
-                <div class="text-muted mt-1">
+                {{-- <div class="text-muted mt-1">
                     Application Developer
-                </div>
+                </div> --}}
                 <div class="navi mt-2">
-                    <a href="#" class="navi-item">
+                    <a href="javascript:void(0);" class="navi-item">
                         <span class="navi-link p-0 pb-2">
                             <span class="navi-icon mr-1">
                                 <span class="svg-icon svg-icon-lg svg-icon-primary">
@@ -36,14 +37,16 @@
                                     </svg>
                                 </span>
                             </span>
-                            <span class="navi-text text-muted text-hover-primary">jm@softplus.com</span>
+                            <span class="navi-text text-muted text-hover-primary">{{ auth()->guard('web')->user()->email ?? auth()->guard('web')->user()->email }}</span>
                         </span>
                     </a>
-                    <a href="#" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
+                    <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</button>
                 </div>
             </div>
         </div>
-        <div class="separator separator-dashed mt-8 mb-5"></div>
+        {{-- <div class="separator separator-dashed mt-8 mb-5"></div>
         <div class="navi navi-spacer-x-0 p-0">
             <a href="#" class="navi-item">
                 <div class="navi-link">
@@ -228,6 +231,7 @@
                 </div>
                 <span class="font-weight-bolder text-info py-1 font-size-lg">+8%</span>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
+@endauth

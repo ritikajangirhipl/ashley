@@ -52,10 +52,12 @@ class CategoryController extends Controller
 
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.category')]),
             ['redirect_url' => route('admin.categories.index')]);
+
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
+
 
     public function show($id)
     {
@@ -88,24 +90,13 @@ class CategoryController extends Controller
     public function update(UpdateRequest $request, Category $category)
     {
         try {
-            if ($request->status == '0' && $category->subCategories()->exists()) {
-                return response()->json([
-                    'status' => 400,
-                    'message' => __('messages.category_associated_with_subcategories', ['attribute' => __('attribute.category')])
-                ], 400);
-            }
-    
-            $imagePath = $category->image;
-
-            if ($request->hasFile('image')) {
-                if ($category->image && Storage::exists('public/' . $category->image)) {
-                    Storage::delete('public/' . $category->image);
+            if ($request->status == '0') {
+                $existenceCheck = $this->checkExistance($category, true);
+                if ($existenceCheck) {
+                    return $existenceCheck;
                 }
-                $file = $request->file('image');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $imagePath = $file->storeAs('public/category_images', $filename);
-                $imagePath = str_replace('public/', '', $imagePath);
             }
+            $imagePath = $this->uploadImage($request, $category);
 
             $category->update([
                 'name' => $request->name,
@@ -113,50 +104,63 @@ class CategoryController extends Controller
                 'description' => $request->description,
                 'status' => $request->status,
             ]);
-    
+
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.category')]), 
-                ['redirect_url' => route('admin.categories.index')]);
-    
+            ['redirect_url' => route('admin.categories.index')]);
+
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
 
+
     public function destroy(Category $category)
     {
         try {
-            // Check if the category has related subcategories
-            if ($category->subCategories()->exists()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => __('messages.category_delete_error', ['attribute' => __('attribute.category')])
-                ], 400);
+
+            $existenceCheck = $this->checkExistance($category);
+            if ($existenceCheck) {
+                return $existenceCheck; 
             }
 
-            // Delete the category image if it exists
             if ($category->image && Storage::exists('public/' . $category->image)) {
                 Storage::delete('public/' . $category->image);
             }
 
-            // Delete the category
             $category->delete();
 
-            return response()->json([
-                'status' => true,
-                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.category')])
-            ], 200);
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.category')]),
+            ['redirect_url' => route('admin.categories.index')]);
         } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => __('messages.unexpected_error')
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
 
+    private function checkExistance($category, $forStatusUpdate = false)
+    {
+        if ($category->services()->exists()) {
+            return response()->json([
+                'status' => 400,
+                'message' => $forStatusUpdate
+                    ? __('messages.category_associated_with_services') 
+                    : __('messages.category_service_delete_error') 
+            ], 400);
+        }
+
+        if ($category->subCategories()->exists()) {
+            return response()->json([
+                'status' => 400,
+                'message' => $forStatusUpdate
+                    ? __('messages.category_associated_with_subcategories') 
+                    : __('messages.category_delete_error') 
+            ], 400);
+        }
+        return null;
+    }
 
     private function uploadImage(Request $request, Category $category = null)
     {
-        $imagePath = $category ? $category->image : null;
+        $imagePath = $category ? $category->image : null; 
 
         if ($request->hasFile('image')) {
             if ($category && $category->image && Storage::exists('public/' . $category->image)) {
@@ -166,11 +170,13 @@ class CategoryController extends Controller
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
             $imagePath = $file->storeAs('public/category_images', $filename);
+
             $imagePath = str_replace('public/', '', $imagePath);
         }
 
         return $imagePath;
     }
+
     
 }
 

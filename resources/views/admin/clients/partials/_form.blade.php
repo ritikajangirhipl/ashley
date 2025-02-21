@@ -3,8 +3,10 @@
         <div class="form-group">
             <label for="name">{{ trans('cruds.client.fields.name') }}<span class="text-danger">*</span></label>
             <input type="text" id="name" name="name" class="form-control" value="{{ isset($client) ? $client->name : '' }}" required autofocus>
+            @error('name') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
     </div>
+    
 
     <div class="col-md-4 col-sm-12">
         <div class="form-group">
@@ -17,13 +19,15 @@
                     </option>
                 @endforeach
             </select>
+            @error('client_type') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
     </div>
 
     <div class="col-md-4 col-sm-12">
         <div class="form-group">
-            <label for="email_address">{{ trans('cruds.client.fields.email_address') }}<span class="text-danger">*</span></label>
-            <input type="email" id="email_address" name="email_address" class="form-control" value="{{ isset($client) ? $client->email_address : '' }}" required>
+            <label for="email">{{ trans('cruds.client.fields.email') }}<span class="text-danger">*</span></label>
+            <input type="email" id="email" name="email" class="form-control" value="{{ isset($client) ? $client->email : '' }}" required>
+            @error('email') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
     </div>
 
@@ -31,6 +35,7 @@
         <div class="form-group">
             <label for="phone_number">{{ trans('cruds.client.fields.phone_number') }}<span class="text-danger">*</span></label>
             <input type="text" id="phone_number" name="phone_number" class="form-control" value="{{ isset($client) ? $client->phone_number : '' }}" required>
+            @error('phone_number') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
     </div>
 
@@ -45,6 +50,7 @@
                     </option>
                 @endforeach
             </select>
+            @error('country') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
     </div>
 
@@ -59,6 +65,7 @@
         <div class="form-group">
             <label for="password">{{ trans('cruds.client.fields.password') }}<span class="text-danger">*</span></label>
             <input type="password" id="password" name="password" class="form-control" value="{{ isset($client) ? $client->password : '' }}" required>
+            @error('password') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
     </div>
 
@@ -72,6 +79,7 @@
                     </option>
                 @endforeach
             </select>
+            @error('status') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
     </div>
 
@@ -79,6 +87,7 @@
         <div class="form-group">
             <label for="contact_address">{{ trans('cruds.client.fields.contact_address') }}<span class="text-danger">*</span></label>
             <textarea id="contact_address" name="contact_address" class="form-control">{{ isset($client) ? $client->contact_address : '' }}</textarea>
+            @error('contact_address') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
     </div>
 </div>

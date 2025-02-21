@@ -9,6 +9,8 @@ use App\Http\Requests\Client\UpdateRequest;
 use App\Models\Client;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
 
 class ClientController extends Controller
 {
@@ -44,7 +46,10 @@ class ClientController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            Client::create($request->except('_token'));
+            $data = $request->except('_token', '_method');
+            $data['password'] = Hash::make($request->password); 
+            $data['email_verified_at'] = Carbon::now();
+            Client::create($data);
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.client')]), 
             ['redirect_url' => route('admin.clients.index')]);
         } catch (Exception $e) {
@@ -85,7 +90,9 @@ class ClientController extends Controller
     public function update(UpdateRequest $request, Client $client)
     {
         try {
-            $client->update($request->except('_token', '_method'));
+            $data = $request->except('_token', '_method');
+            $data['password'] = Hash::make($request->password); 
+            $client->update($data);
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.client')]), 
             ['redirect_url' => route('admin.clients.index')]);
         } catch (Exception $e) {
@@ -98,7 +105,8 @@ class ClientController extends Controller
         try {
             $client->delete();
 
-            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.client')]));
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.client')]),
+            ['redirect_url' => route('admin.clients.index')]);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }

@@ -63,8 +63,13 @@
                                 icon: "success",
                                 confirmButtonText: "Okay",
                                 confirmButtonColor: "#04a9f5"
+                            }).then((result) => {
+                                if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
+                                    window.location.href = response.redirect_url; 
+                                } else {
+                                    $('#services-table-table').DataTable().ajax.reload(null, false); 
+                                }
                             });
-                            $('#services-table').DataTable().ajax.reload(null, false);
                         } else {
                             Swal.fire({
                                 title: 'Error',

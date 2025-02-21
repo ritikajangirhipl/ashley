@@ -36,7 +36,7 @@
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <label for="email">{{ trans('cruds.verification_provider.fields.email_address') }}<span class="text-danger">*</span></label>
+            <label for="email">{{ trans('cruds.verification_provider.fields.email') }}<span class="text-danger">*</span></label>
             <input type="email" id="email" name="email" class="form-control" value="{{ isset($verificationProvider) ? $verificationProvider->email : '' }}" required>
         </div>
     </div>

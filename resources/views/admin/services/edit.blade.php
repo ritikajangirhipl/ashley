@@ -8,6 +8,7 @@
         <h4 class="card-title">
             {{ trans('global.edit') }} {{ trans('cruds.services.title_singular') }}
         </h4>
+        <a href="{{ route('admin.services.index') }}" class="btn btn-secondary">Back</a>
     </div>
 
     <div class="card-body">

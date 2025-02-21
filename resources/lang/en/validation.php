@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'strongPassword' => 'Your password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
     'accepted'                       => 'The :attribute must be accepted.',
     'active_url'                     => 'The :attribute is not a valid URL.',
     'after'                          => 'The :attribute must be a date after :date.',

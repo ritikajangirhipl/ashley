@@ -63,26 +63,35 @@
                                 icon: "success",
                                 confirmButtonText: "Okay",
                                 confirmButtonColor: "#04a9f5"
+                            }).then((result) => {
+                                if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
+                                    window.location.href = response.redirect_url; 
+                                } else {
+                                    $('#verification-providers-table').DataTable().ajax.reload(null, false); 
+                                }
                             });
-                            $('#verification-providers-table').DataTable().ajax.reload(null, false);
-                        } else {
+                        }
+                    },
+                    error: function(xhr){
+                        if(xhr.status === 400){
                             Swal.fire({
                                 title: 'Error',
-                                text: response.message,
+                                text: xhr.responseJSON.message,
                                 icon: "error",
                                 confirmButtonText: "Okay",
                                 confirmButtonColor: "#04a9f5"
                             });
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "{{ trans('messages.unexpected_error') }}",
+                                icon: "error",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            })
                         }
-                    },
-                    error: function(response) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Something went wrong!',
-                            icon: "error",
-                            confirmButtonText: "Okay",
-                            confirmButtonColor: "#04a9f5"
-                        });
+
+
                     }
                 });
             }

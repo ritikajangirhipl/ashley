@@ -1,4 +1,5 @@
 @extends('layouts.frontend')
+@section('title', 'Home')
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid row-gap-2" id="kt_content">
     <div class="subheader py-2 py-lg-12  subheader-transparent " id="kt_subheader">
@@ -7,76 +8,11 @@
                 <div class="d-flex flex-column">
                     <h2 class="text-white font-weight-bold my-2 mr-5">Home</h2>
                     <div class="d-flex align-items-center flex-wrap font-weight-bold my-2 mb-3">
-                        <a href="index.html" class="opacity-75 hover-opacity-100">
+                        <a href="{{route('home')}}" class="opacity-75 hover-opacity-100">
                             <i class="flaticon2-shelter text-white icon-1x"></i>
                         </a>
                         <span class="label label-dot label-sm bg-white opacity-75 mx-3"></span>
-                        <a href="index.html" class="text-white text-hover-white opacity-75 hover-opacity-100">Home</a>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex align-items-center">
-                <a href="#" class="btn btn-transparent-white font-weight-bold  py-3 px-6 mr-2">
-                    Reports
-                </a>
-                <div class="dropdown dropdown-inline ml-2" data-toggle="tooltip" title="Quick actions" data-placement="top">
-                    <a href="#" class="btn btn-white font-weight-bold py-3 px-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Actions
-                    </a>
-                    <div class="dropdown-menu p-0 m-0 dropdown-menu-md dropdown-menu-right">
-                        <ul class="navi navi-hover py-5">
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon"><i class="flaticon2-drop"></i></span>
-                                    <span class="navi-text">New Group</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon"><i class="flaticon2-list-3"></i></span>
-                                    <span class="navi-text">Contacts</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon"><i class="flaticon2-rocket-1"></i></span>
-                                    <span class="navi-text">Groups</span>
-                                    <span class="navi-link-badge">
-                                        <span class="label label-light-primary label-inline font-weight-bold">new</span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon"><i class="flaticon2-bell-2"></i></span>
-                                    <span class="navi-text">Calls</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon"><i class="flaticon2-gear"></i></span>
-                                    <span class="navi-text">Settings</span>
-                                </a>
-                            </li>
-
-                            <li class="navi-separator my-3"></li>
-
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon"><i class="flaticon2-magnifier-tool"></i></span>
-                                    <span class="navi-text">Help</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon"><i class="flaticon2-bell-2"></i></span>
-                                    <span class="navi-text">Privacy</span>
-                                    <span class="navi-link-badge">
-                                        <span class="label label-light-danger label-rounded font-weight-bold">5</span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
+                        <a href="{{route('home')}}" class="text-white text-hover-white opacity-75 hover-opacity-100">Home</a>
                     </div>
                 </div>
             </div>
@@ -100,72 +36,52 @@
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                 </div>
             </div>
+            @if(count($countries) > 0)
             <div class="card card-custom gutter-b example example-compact">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center row-gap-2">
-                    <h3 class="card-title">Countries</h3>
-                    <a href="all-countries.html" target="_blank" class="view_all_btn">View All</a>
+                    <h3 class="card-title">{{ trans('cruds.country.title') }}</h3>
+                    <a href="{{route('countries')}}" target="_blank" class="view_all_btn">{{ trans('panel.view') }} {{ trans('panel.all') }}</a>
                 </div>
                 <div class="card-body">
                     <ul class="catalogue_lists">
-                        <li><a href="country-details.html" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
-                        <li><a href="country-details.html" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
-                        <li><a href="country-details.html" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
-                        <li><a href="country-details.html" title="Plateau State"><span><img src="{{asset('assets/images/flags/plateau_state.png')}}" alt="Plateau State"></span>Plateau State</a></li>
-                        <li><a href="country-details.html" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
-                        <li><a href="country-details.html" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
-                        <li><a href="country-details.html" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
-                        <li><a href="country-details.html" title="Edo State"><span><img src="{{asset('assets/images/flags/edo_state.png')}}" alt="Edo State"></span>Edo State</a></li>
-                        <li><a href="country-details.html" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
-                        <li><a href="country-details.html" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
-                        <li><a href="country-details.html" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
-                        <li><a href="country-details.html" title="FCT Abuja"><span><img src="{{asset('assets/images/flags/abuja.png')}}" alt="FCT Abuja"></span>FCT Abuja</a></li>
+                        @foreach ($countries as $key => $country )
+                            <li><a href="javascript:void(0);" title="{{$country->name}}"><span><img src="{{ asset('storage/' . $country->flag) }}" alt="{{$country->name}}"></span>{{$country->name}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
+            @endif
+            @if(count($categories) > 0)
             <div class="card card-custom gutter-b">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center row-gap-2">
-                    <h3 class="card-title">Sub Categories</h3>
-                    <a href="all-categories.html" target="_blank" class="view_all_btn">View All</a>
+                    <h3 class="card-title">{{ trans('cruds.category.title') }}</h3>
+                    <a href="{{route('categories')}}" target="_blank" class="view_all_btn">{{ trans('panel.view') }} {{ trans('panel.all') }}</a>
                 </div>
                 <div class="card-body">
                     <ul class="catalogue_lists">
-                        <li><a href="category-details.html" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
-                        <li><a href="category-details.html" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
-                        <li><a href="category-details.html" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
-                        <li><a href="category-details.html" title="Ministry of Environment"><span><img src="{{asset('assets/images/flags/ministry-of-environment.png')}}" alt="Ministry of Environment"></span>Ministry of Environment</a></li>
-                        <li><a href="category-details.html" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
-                        <li><a href="category-details.html" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
-                        <li><a href="category-details.html" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
-                        <li><a href="category-details.html" title="NYSC"><span><img src="{{asset('assets/images/flags/nysc.png')}}" alt="NYSC"></span>NYSC</a></li>
-                        <li><a href="category-details.html" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
-                        <li><a href="category-details.html" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
-                        <li><a href="category-details.html" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
-                        <li><a href="category-details.html" title="Ministry of Tourism"><span><img src="{{asset('assets/images/flags/ministry_of_tourism.png')}}" alt="Ministry of Tourism"></span>Ministry of Tourism</a></li>
+                        @foreach ($categories as $key => $category)
+                            <li><a href="{{route('sub-categories',$category->slug)}}" title="{{$category->name}}"><span><img src="{{ asset('storage/' . $category->image) }}" alt="{{$category->name}}"></span>{{$category->name}}</a></li>
+                        @endforeach
+                     
                     </ul>
                 </div>
             </div>
+            @endif
+            @if(count($verificationProviders) > 0)
             <div class="card card-custom">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center row-gap-2">
-                    <h3 class="card-title">Verification Providers</h3>
-                    <a href="all-providers.html" target="_blank" class="view_all_btn">View All</a>
+                    <h3 class="card-title">{{ trans('cruds.verification_provider.title') }}</h3>
+                    <a href="{{route('verification-providers')}}" target="_blank" class="view_all_btn">{{ trans('panel.view') }} {{ trans('panel.all') }}</a>
                 </div>
                 <div class="card-body">
                     <ul class="catalogue_lists">
-                        <li><a href="provider-details.html" title="University of ABC">University of ABC</a></li>
-                        <li><a href="provider-details.html" title="University of ABC">University of ABC</a></li>
-                        <li><a href="provider-details.html" title="University of ABC">University of ABC</a></li>
-                        <li><a href="provider-details.html" title="University of ABC">University of ABC</a></li>
-                        <li><a href="provider-details.html" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
-                        <li><a href="provider-details.html" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
-                        <li><a href="provider-details.html" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
-                        <li><a href="provider-details.html" title="ABC Consulting Company Limited">ABC Consulting Company Limited</a></li>
-                        <li><a href="provider-details.html" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
-                        <li><a href="provider-details.html" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
-                        <li><a href="provider-details.html" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
-                        <li><a href="provider-details.html" title="XYZ Civil Organization">XYZ Civil Organization</a></li>
+                        @foreach ($verificationProviders as $key => $verificationProvider)
+                            <li><a href="javascript:void(0);" title="{{$verificationProvider->name}}">{{$verificationProvider->name}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
+             @endif
         </div>
     </div>
 </div>

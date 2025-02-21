@@ -33,7 +33,7 @@
 <script type="text/javascript" src="{{ asset('assets/admin/js/sweet-alert/sweetalert2@9.js') }}"></script>
 
 <script type="text/javascript">
-  $(document).ready(function() {
+$(document).ready(function() {
     // Delete record
     $(document).on("click", ".delete-record", function(event) {
         event.preventDefault();
@@ -63,8 +63,13 @@
                                 icon: "success",
                                 confirmButtonText: "Okay",
                                 confirmButtonColor: "#04a9f5"
+                            }).then((result) => {
+                                if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
+                                    window.location.href = response.redirect_url; 
+                                } else {
+                                    $('#clients-table').DataTable().ajax.reload(null, false); 
+                                }
                             });
-                            $('#clients-table').DataTable().ajax.reload(null, false);
                         } else {
                             Swal.fire({
                                 title: 'Error',
@@ -88,6 +93,7 @@
             }
         });
     });
-  });
+});
+
 </script>
 @endsection

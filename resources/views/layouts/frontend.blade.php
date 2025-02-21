@@ -87,9 +87,10 @@
 			};
         </script>
     	<script src="{{asset('assets/plugins/plugins.bundle5883.js')}}"></script>
-		<script src="{{asset('assets/js/scripts.js')}}"></script>
-        <script src="{{asset('assets/js/select.js')}}"></script>
-        <script src="{{asset('assets/js/record-selection.js')}}"></script>
+		<script src="{{asset('assets/js/scripts.bundle5883.js')}}"></script>
+        <script src="{{asset('assets/js/select5883.js')}}"></script>
+        <script src="{{asset('assets/js/record-selection5883.js')}}"></script>
+	@yield('scripts')
     </body>
 </html>
    

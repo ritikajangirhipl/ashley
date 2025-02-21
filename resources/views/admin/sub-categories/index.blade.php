@@ -55,35 +55,44 @@
                     type: 'POST',
                     url: url,
                     dataType: 'json',
-                    data: { _token: csrf_token, _method: "DELETE" ,  sub_category_id: subCategoryId},
+                    data: { _token: csrf_token, _method: "DELETE" },
                     success: function(response) {
                         if (response.status) {
                             Swal.fire({
-                            title: 'Success',
-                            text: response.message,
-                            icon: "success",
-                            confirmButtonText: "Okay",
-                            confirmButtonColor: "#04a9f5"
-                            });
-                            $('#sub-categories-table').DataTable().ajax.reload(null, false); 
-                        } else {
-                            Swal.fire({
-                            title: 'Error',
-                            text: response.message,
-                            icon: "error",
-                            confirmButtonText: "Okay",
-                            confirmButtonColor: "#04a9f5"
+                                title: 'Success',
+                                text: response.message,
+                                icon: "success",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            }).then((result) => {
+                                if (result.isConfirmed || result.dismiss === Swal.DismissReason.backdrop) {
+                                    window.location.href = response.redirect_url; 
+                                } else {
+                                    $('#sub-categories-table').DataTable().ajax.reload(null, false); 
+                                }
                             });
                         }
                     },
-                    error: function(response) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Something went wrong!',
-                            icon: "error",
-                            confirmButtonText: "Okay",
-                            confirmButtonColor: "#04a9f5"
-                        });
+                    error: function(xhr){
+                        if(xhr.status === 400){
+                            Swal.fire({
+                                title: 'Error',
+                                text: xhr.responseJSON.message,
+                                icon: "error",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "{{ trans('messages.unexpected_error') }}",
+                                icon: "error",
+                                confirmButtonText: "Okay",
+                                confirmButtonColor: "#04a9f5"
+                            })
+                        }
+
+
                     }
                 });
             }

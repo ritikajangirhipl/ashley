@@ -1,6 +1,23 @@
 <?php
 
 return [
+    'all' => 'All',
+    'view' => 'View',
+    'catalogue' => 'Catalogue',
+    'login' => 'Login',
+    'register' => 'Register',
+    'forgot_password' => 'Forgot Password',
+    'reset_password' => 'Reset Password',
+    'name' => 'Full Name',
+    'email' => 'Email Address',
+    'client_type' => 'Client Type',
+    'country' => 'Country',
+    'website_address' => 'Website Address',
+    'phone_number' => 'Phone Number',
+    'contact_address' => 'Contact Address',
+    'password' => 'Password',
+    'confirm_password' => 'Confirm Password',
+    'enter_detail_to_register' => 'Enter your details to get register to your account',
     'site_title' => 'Student Management System',
     'page'                          => 'page',
     'extract_transcript_reprot'     => 'Extract Transcript Report',

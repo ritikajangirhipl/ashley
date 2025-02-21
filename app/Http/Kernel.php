@@ -41,5 +41,6 @@ class Kernel extends HttpKernel
         'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'preventBackHistory' => \App\Http\Middleware\PreventBackHistory::class,
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 }

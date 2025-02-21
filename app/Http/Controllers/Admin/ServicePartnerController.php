@@ -79,7 +79,14 @@ class ServicePartnerController extends Controller
     public function update(UpdateRequest $request, ServicePartner $servicePartner)
     {
         try {
+            if ($request->status == '0') {
+                $existenceCheck = $this->checkExistance($servicePartner, true);
+                if ($existenceCheck) {
+                    return $existenceCheck;
+                }
+            }
             $servicePartner->update($request->except('_token', '_method'));
+
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.service_partners')]), 
             ['redirect_url' => route('admin.service-partners.index')]);
         } catch (Exception $e) {
@@ -90,12 +97,33 @@ class ServicePartnerController extends Controller
     public function destroy(ServicePartner $servicePartner)
     {
         try {
+            $existenceCheck = $this->checkExistance($servicePartner);
+            if ($existenceCheck) {
+                return $existenceCheck; 
+            }
+
             $servicePartner->delete();
 
-            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service_partners')]));
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service_partners')]),
+            ['redirect_url' => route('admin.service-partners.index')]);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
+    }
+
+    private function checkExistance($evidenceType, $forStatusUpdate = false)
+
+    {
+        if ($evidenceType->services()->exists()) {
+            return response()->json([
+                'status' => 400,
+                'message' => $forStatusUpdate
+                    ? __('messages.servicePartner_associated_with_services')
+                    : __('messages.service_partner_delete_error')
+            ], 400);
+        }
+
+        return null;
     }
 }
 

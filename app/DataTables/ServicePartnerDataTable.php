@@ -38,6 +38,11 @@ class ServicePartnerDataTable extends DataTable
                             </button>
                         </div>';
             })
+            ->filterColumn('country_name', function ($query, $keyword) {
+                $query->whereHas('country', function ($q) use ($keyword) {
+                    $q->where('countries.name', 'LIKE', "%{$keyword}%"); 
+                });
+            })
             ->rawColumns(['action']);
     }
 
@@ -70,7 +75,7 @@ class ServicePartnerDataTable extends DataTable
                   ->width(50)
                   ->addClass('text-center'),    
             Column::make('name')->title(trans('cruds.service_partners.fields.name')), 
-            Column::make('email_address')->title(trans('cruds.service_partners.fields.email_address')),
+            Column::make('email')->title(trans('cruds.service_partners.fields.email')),
             Column::make('website_address')->title(trans('cruds.service_partners.fields.website_address')),
             Column::make('country_name')->title(trans('cruds.service_partners.fields.country')),
             Column::make('status')->title(trans('cruds.service_partners.fields.status')), 

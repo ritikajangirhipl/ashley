@@ -78,7 +78,14 @@ class EvidenceTypeController extends Controller
     public function update(UpdateRequest $request, EvidenceType $evidenceType)
     {
         try {
+            if ($request->status == '0') {
+                $existenceCheck = $this->checkExistance($evidenceType, true);
+                if ($existenceCheck) {
+                    return $existenceCheck;
+                }
+            }
             $evidenceType->update($request->except('_token', '_method'));
+
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.evidence_type')]), 
             ['redirect_url' => route('admin.evidence-types.index')]);
         } catch (Exception $e) {
@@ -89,10 +96,31 @@ class EvidenceTypeController extends Controller
     public function destroy(EvidenceType $evidenceType)
     {
         try {
+            $existenceCheck = $this->checkExistance($evidenceType);
+            if ($existenceCheck) {
+                return $existenceCheck; 
+            }
             $evidenceType->delete();
-            return jsonResponseWithMessage(200, 'Evidence Type deleted successfully!');
+
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.evidence_type')]),
+            ['redirect_url' => route('admin.evidence-types.index')]);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
+    }
+
+    private function checkExistance($evidenceType, $forStatusUpdate = false)
+
+    {
+        if ($evidenceType->services()->exists()) {
+            return response()->json([
+                'status' => 400,
+                'message' => $forStatusUpdate
+                    ? __('messages.evidenceType_associated_with_services')
+                    : __('messages.evidence_type_delete_error')
+            ], 400);
+        }
+
+        return null;
     }
 }

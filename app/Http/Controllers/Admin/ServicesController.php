@@ -119,7 +119,6 @@ class ServicesController extends Controller
 
     public function update(UpdateRequest $request, Service $service)
     {
-        dd($request);
         try {
             $service->update($request->except('_token', '_method','additional_fields','deleted_fields'));
 
@@ -157,7 +156,8 @@ class ServicesController extends Controller
             $service->additionalFields()->delete();
             $service->delete();
 
-            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service')]));
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.service')]),
+            ['redirect_url' => route('admin.services.index')]);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }

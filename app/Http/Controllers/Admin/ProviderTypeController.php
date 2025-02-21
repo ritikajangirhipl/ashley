@@ -79,11 +79,11 @@ class ProviderTypeController extends Controller
     public function update(UpdateRequest $request, ProviderType $providerType)
     {
         try {
-            if ($request->status == '0' && $providerType->verificationProviders()->count() > 0) {
-                return response()->json([
-                    'status' => 400,
-                    'message' => __('messages.providerType_associated_with_verificationProviders', ['attribute' => __('attribute.provider_type')])
-                ], 400);
+            if ($request->status == '0') {
+                $existenceCheck = $this->checkExistance($providerType, true);
+                if ($existenceCheck) {
+                    return $existenceCheck;
+                }
             }
 
             $providerType->update($request->except('_token', '_method'));
@@ -99,26 +99,34 @@ class ProviderTypeController extends Controller
     public function destroy(ProviderType $providerType)
     {
         try {
-            if ($providerType->verificationProviders()->exists()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => __('messages.provider_type_delete_error', ['attribute' => __('attribute.provider_type')])
-                ], 400);
-                
+            $existenceCheck = $this->checkExistance($providerType);
+            if ($existenceCheck) {
+                return $existenceCheck; 
             }
             $providerType->delete();
     
-            return response()->json([
-                'status' => true,
-                'message' => __('messages.delete_success_message', ['attribute' => __('attribute.provider_type')])
-            ], 200);
+            return jsonResponseWithMessage(200, __('messages.delete_success_message', ['attribute' => __('attribute.provider_type')]),
+            ['redirect_url' => route('admin.provider-types.index')]);
         } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => __('messages.unexpected_error')
-            ], 500);
+            return jsonResponseWithException($e);
         }
     }
+
+    private function checkExistance($providerType, $forStatusUpdate = false)
+
+    {
+        if ($providerType->verificationProviders()->exists()) {
+            return response()->json([
+                'status' => 400,
+                'message' => $forStatusUpdate
+                    ? __('messages.providerType_associated_with_verificationProviders')
+                    : __('messages.provider_type_delete_error')
+            ], 400);
+        }
+
+        return null;
+    }
+    
     
 }
 
