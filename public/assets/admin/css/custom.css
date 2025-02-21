@@ -1487,6 +1487,9 @@ a.dropdown-item.delete_employee i {
     border-radius: 5px;
     background: #fcfcfc;
 }
+.form_view_outer.service-view > .form-group {
+    width: calc(25% - 18px);
+}
 @media (max-width: 1366px) {
     label {
         font-weight: 500;

@@ -11,7 +11,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form_view_outer mb-5">
+                    <div class="form_view_outer mb-5 service-view">
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.services.fields.country') }}:</h6>
                             <p>{{ ucwords($service->country->name) ?? __('global.N/A') }}</p>

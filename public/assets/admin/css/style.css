@@ -2330,7 +2330,7 @@ table.dataTable.nowrap td {
   width: 264px;
   height: 100vh;
   top: 0;
-  background: #004354;
+  background:#004354;
   color: #a9b7d0;
 }
 .pcoded-navbar ul {
@@ -8614,6 +8614,17 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 }
 .auth-wrapper .input-group {
   background: transparent;
+  position: relative;
+}
+.auth-wrapper .input-group .toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 14px;
+  cursor: pointer;
+  z-index: 3;
+}
+.auth-wrapper .input-group input[type="password"] {
+  padding-right: 30px;
 }
 .auth-wrapper .card {
   margin-bottom: 0;

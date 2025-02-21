@@ -25,7 +25,7 @@
 
                 <div class="input-group mb-4">
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ __('Password') }}">
-
+                    <span toggle="#password" class="feather icon-eye field-icon toggle-password"></span>
                     @error('password')
                         <span class="invalid-feedback text-left" role="alert">
                             <strong>{{ $message }}</strong>
@@ -47,5 +47,17 @@
   </div>
 </div>
 
-
+@endsection
+@section('scripts')
+<script>
+    $(".toggle-password").click(function() {
+  $(this).toggleClass("icon-eye icon-eye-off");
+  var input = $($(this).attr("toggle"));
+  if (input.attr("type") == "password") {
+  input.attr("type", "text");
+  } else {
+  input.attr("type", "password");
+  }
+});
+</script>
 @endsection
