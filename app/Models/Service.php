@@ -3,10 +3,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'services';  
 
@@ -39,6 +40,8 @@ class Service extends Model
         'registration_number',
         'status',
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function country()
     {

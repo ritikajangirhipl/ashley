@@ -127,30 +127,31 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-12">
-                    <h4 class="mb-3"><b>Additional Field Information</b></h4>
-                    <table class="table table-bordered table-striped">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>{{ trans('cruds.services.fields.field_name') }}</th>
-                                <th>{{ trans('cruds.services.fields.field_type') }}</th>
-                                <th>{{ trans('cruds.services.fields.combo_values') }}</th>
-                                <th>{{ trans('cruds.services.fields.field_required') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($service->additionalFields as $key => $field)
-                            <tr>
-                                <td>{{ $field->field_name ?? "" }}</td>
-                                <td>{{ $field_types[$field->field_type] ?? "" }}</td>
-                                <td>{{ $field->combo_values ? $field->combo_values : "-" }}</td>
-                                <td>{{ $input_details[$field->field_required] ?? "" }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                @if($service->additionalFields->count())
+                    <div class="col-md-12">
+                        <h4 class="mb-3"><b>Additional Field Information</b></h4>
+                        <table class="table table-bordered table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>{{ trans('cruds.services.fields.field_name') }}</th>
+                                    <th>{{ trans('cruds.services.fields.field_type') }}</th>
+                                    <th>{{ trans('cruds.services.fields.combo_values') }}</th>
+                                    <th>{{ trans('cruds.services.fields.field_required') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($service->additionalFields as $key => $field)
+                                <tr>
+                                    <td>{{ $field->field_name ?? "" }}</td>
+                                    <td>{{ $field_types[$field->field_type] ?? "" }}</td>
+                                    <td>{{ $field->combo_values ? $field->combo_values : "-" }}</td>
+                                    <td>{{ $input_details[$field->field_required] ?? "" }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

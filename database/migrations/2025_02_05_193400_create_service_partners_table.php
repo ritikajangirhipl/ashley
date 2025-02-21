@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('country_id'); 
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->text('contact_address')->nullable();
-            $table->string('email_address')->unique();
+            $table->string('email')->unique();
             $table->string('website_address')->nullable();
             $table->string('contact_person');
             $table->tinyInteger('status')->unsigned()->nullable();

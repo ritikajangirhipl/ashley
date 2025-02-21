@@ -45,6 +45,8 @@ class VerificationProvider extends Model
        
     }
 
+    protected $dates = ['deleted_at'];
+
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');

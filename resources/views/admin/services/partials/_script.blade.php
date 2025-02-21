@@ -1,6 +1,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script type="text/javascript">
     var rowHtml = $(document).find('.service-fields-outer').last().html();
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     function setComboValuesOptions(element=null){
         var elementSelector = ".services_combo_values";
         if(element){
@@ -52,6 +56,7 @@
         $(".services_combo_values"+counter).val("");
 
         // thisElement.remove();
+<<<<<<< Updated upstream
     } 
 
     // function addServiceFields(thisElement) {
@@ -97,6 +102,9 @@
     //     row.append(hiddenInput, fieldNameWrapper, fieldTypeWrapper, comboValuesWrapperContainer, fieldRequiredWrapper, actionsWrapper);
     //     return row;
     // }
+=======
+    }
+>>>>>>> Stashed changes
 
     var deletedFields = [];
     $(document).ready(function () {
@@ -141,7 +149,6 @@
         setComboValuesOptions();
         $('#category_id').on('change', function() {
             var category_id = $(this).val();
-            console.log('Category ID:', category_id);
             $('#sub_category_id').prop('disabled', true).html('<option value="">{{ trans("global.please_select") }}</option>');
 
             if (category_id) {
@@ -273,9 +280,6 @@
                     required: true
                 },
                 gender: {
-                    required: true
-                },
-                marital_status: {
                     required: true
                 },
                 registration_number: {

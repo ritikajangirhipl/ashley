@@ -28,6 +28,7 @@ class HomeController extends Controller
         $countries = Country::where(['status' => 1])->orderBy('name', 'asc')->paginate(1);
         return view('country', compact('countries'));
     }
+    
     public function category()
     {
         $categories = Category::where(['status' => 1])->orderBy('name', 'asc')->get();

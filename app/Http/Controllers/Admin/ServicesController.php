@@ -60,12 +60,14 @@ class ServicesController extends Controller
             $additionalFields = $request->additional_fields;
             if(!empty($additionalFields)){
                 foreach($additionalFields as $key => $field){
-                    $service->additionalFields()->create([
-                        'field_name' => $field['field_name'],
-                        'field_type' => $field['field_type'],
-                        'combo_values' => (isset($field['combo_values']) && !is_null($field['combo_values'])) ? json_encode($field['combo_values']) : NULL,
-                        'field_required' => $field['field_required'],
-                    ]);
+                    if($field['field_name'] && $field['field_type'] && $field['field_required']){
+                        $service->additionalFields()->create([
+                            'field_name' => $field['field_name'],
+                            'field_type' => $field['field_type'],
+                            'combo_values' => (isset($field['combo_values']) && !is_null($field['combo_values'])) ? json_encode($field['combo_values']) : NULL,
+                            'field_required' => $field['field_required'],
+                        ]);
+                    }
                 }
             }
 
