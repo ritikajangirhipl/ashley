@@ -1,10 +1,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script type="text/javascript">
     var rowHtml = $(document).find('.service-fields-outer').last().html();
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     function setComboValuesOptions(element=null){
         var elementSelector = ".services_combo_values";
         if(element){
@@ -56,55 +52,7 @@
         $(".services_combo_values"+counter).val("");
 
         // thisElement.remove();
-<<<<<<< Updated upstream
-    } 
-
-    // function addServiceFields(thisElement) {
-    //     var counter = $(thisElement).attr('data-counter');
-    //     counter = parseInt(counter) + 1;
-    //     $(thisElement).attr('data-counter', counter);
-    //     var newFieldRow = createNewFieldRow(counter);
-    //     $('.service-fields-details').append(rowHtml);
-    //     setComboValuesOptions("services_combo_values_" + counter);
-
-    //     $("#services_field_type_" + counter).val("");
-    //     $(".services_combo_values" + counter).val("");
-    // }
-
-    // function createNewFieldRow(counter) {
-    //     var row = $('<div>', { class: 'row mb-3 position-relative repeatable-content-service-fields service-field-' + counter, 'data-row': counter });
-
-    //     var hiddenInput = $('<input>', { type: 'hidden', class: 'service_additional_field_id', name: 'additional_fields[' + counter + '][additional_field_id]', value: '' });
-
-    //     var fieldNameInput = $('<input>', { type: 'text', id: 'services_field_name_' + counter, name: 'additional_fields[' + counter + '][field_name]', class: 'form-control services_field_name', required: true, placeholder: 'Field Name' });
-    //     var fieldTypeSelect = $('<select>', { name: 'additional_fields[' + counter + '][field_type]', id: 'services_field_type_' + counter, class: 'form-control services_field_type', required: true });
-    //     fieldTypeSelect.append('<option value="">Select Field Type</option>');
-    //     @foreach($fieldTypes as $id => $name)
-    //         fieldTypeSelect.append('<option value="{{ $id }}">{{ $name }}</option>');
-    //     @endforeach
-
-    //     var comboValuesWrapper = $('<div>', { class: 'combo_values_wrap', id: 'combo_values_wrap_' + counter, style: 'display:none;' });
-
-    //     var comboValuesSelect = $('<select>', { class: 'form-control services_combo_values', name: 'additional_fields[' + counter + '][combo_values][]', multiple: true, id: 'services_combo_values_' + counter });
-    //     var fieldRequiredSelect = $('<select>', { name: 'additional_fields[' + counter + '][field_required]', id: 'services_field_required_' + counter, class: 'form-control services_field_required', required: true });
-    //     fieldRequiredSelect.append('<option value="">Select Field Required</option>');
-    //     @foreach($inputDetailsOpts as $id => $name)
-    //         fieldRequiredSelect.append('<option value="{{ $id }}">{{ $name }}</option>');
-    //     @endforeach
-
-    //     var removeButton = $('<a>', { href: 'javascript:void(0);', class: 'del-field-btn del_field btn btn-sm btn-danger', title: 'Remove', 'data-services': 'service-field-' + counter });
-    //     removeButton.append('<i class="fa fa-minus"></i>');
-    //     var fieldNameWrapper = $('<div>', { class: 'col-md-5 col-sm-12' }).append($('<div>', { class: 'form-group' }).append('<label>Field Name <span class="text-danger">*</span></label>', fieldNameInput));
-    //     var fieldTypeWrapper = $('<div>', { class: 'col-md-5 col-sm-12 services_field_type_wrap' }).append($('<div>', { class: 'form-group' }).append('<label>Field Type <span class="text-danger">*</span></label>', fieldTypeSelect));
-    //     var comboValuesWrapperContainer = $('<div>', { class: 'col-md-5 col-sm-12' }).append($('<div>', { class: 'form-group' }).append('<label for="combo_values">Combo Values</label>', comboValuesSelect));
-    //     var fieldRequiredWrapper = $('<div>', { class: 'col-md-5 col-sm-12' }).append($('<div>', { class: 'form-group' }).append('<label>Field Required <span class="text-danger">*</span></label>', fieldRequiredSelect));
-    //     var actionsWrapper = $('<div>', { class: 'col-2 col-sm-6 col-md-2 col-lg-2 align-self-center service-field-actions' }).append(removeButton);
-    //     row.append(hiddenInput, fieldNameWrapper, fieldTypeWrapper, comboValuesWrapperContainer, fieldRequiredWrapper, actionsWrapper);
-    //     return row;
-    // }
-=======
     }
->>>>>>> Stashed changes
 
     var deletedFields = [];
     $(document).ready(function () {
