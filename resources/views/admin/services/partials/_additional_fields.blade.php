@@ -67,7 +67,6 @@
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
 
                                 <input type="text" class="form-control" value="{{ implode(', ', json_decode($serviceField->combo_values, true)) }}" readonly>
-
                             </div>
                         </div>
 

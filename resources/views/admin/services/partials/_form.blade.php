@@ -31,13 +31,14 @@
             <label for="sub_category_id">{{ trans('cruds.services.fields.sub_category') }}<span class="text-danger">*</span></label>
             <select name="sub_category_id" id="sub_category_id" class="form-control select2" required>
                 @foreach($subCategories as $id => $name)
-                    <option value="{{ $id }}" {{ isset($service) &&  $service->sub_category_id == $id ? 'selected' : '' }}>
+                    <option value="{{ $id }}" {{ isset($service) && $service->sub_category_id == $id ? 'selected' : '' }}>
                         {{ $name }}
                     </option>
                 @endforeach
-            </select>
+        </select>
         </div>
     </div>    
+    
     <!-- Name -->
     <div class="col-lg-3 col-md-4 col-sm-12">
         <div class="form-group">
@@ -95,7 +96,14 @@
     <div class="col-lg-3 col-md-4 col-sm-12">
         <div class="form-group">
             <label for="verification_duration">{{ trans('cruds.services.fields.verification_duration') }}<span class="text-danger">*</span></label>
-            <input type="text" id="verification_duration" name="verification_duration" class="form-control" value="{{ isset($service) ? $service->verification_duration : '' }}" required >
+            <div class="verification_file">
+                <input type="text" id="verification_duration" name="verification_duration" class="form-control" value="{{ isset($service) ? $service->verification_duration : '' }}" required >
+                <select name="evidence_type_id" class="form-control durationbox" required>
+                    <option>option 1</option>
+                    <option>option 2</option>
+                    <option>option 3</option>
+            </select>
+            </div>
         </div>
     </div>
     <!-- Evidence Type -->
@@ -149,7 +157,7 @@
     <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="usd_service_price">{{ trans('cruds.services.fields.usd_service_price') }}<span class="text-danger">*</span></label>
-            <input type="number" step="0.01" id="usd_service_price" name="usd_service_price" class="form-control" value="{{ isset($service) ? $service->usd_service_price : '' }}" required >
+            <input type="text" step="0.01" id="usd_service_price" name="usd_service_price" class="form-control" value="{{ isset($service) ? $service->usd_service_price : '' }}" required >
         </div>
     </div>
     <!-- Description -->

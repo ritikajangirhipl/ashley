@@ -97,7 +97,7 @@
         setComboValuesOptions();
         $('#category_id').on('change', function() {
             var category_id = $(this).val();
-            $('#sub_category_id').prop('disabled', true).html('<option value="">{{ trans("global.please_select") }}</option>');
+            $('#sub_category_id').prop('disabled', true).html(''); 
 
             if (category_id) {
                 $.ajax({
@@ -112,16 +112,17 @@
                     },
                     success: function(response) {
                         console.log(response);
-                        let emptyTxt = "{{ 'Select ' . trans('cruds.services.fields.sub_category') }}";
-                        let html = '<option value="">' + emptyTxt + '</option>';
+                        let html = ''; 
                         if (response.sub_categories && Object.keys(response.sub_categories).length > 0) {
                             $.each(response.sub_categories, function(key, value) {
                                 html += '<option value="' + key + '">' + value + '</option>';
                             });
                         } else {
-                            html += '<option value="">{{ trans("global.no_sub_categories_found") }}</option>';
+                            html = '<option value="">{{ trans("global.no_sub_categories_found") }}</option>'; 
                         }
+
                         $('#sub_category_id').html(html).prop('disabled', false);
+
                     },
                     error: function(xhr) {
                         console.log('AJAX error:', xhr);
