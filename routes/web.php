@@ -25,8 +25,6 @@ Route::get('/global-catalogue', [HomeController::class, 'catalogue'])->name('cat
 Route::get('/service/{id}', [HomeController::class, 'serviceDetail'])->name('services.view');
 Route::post('sub-categories-get', [HomeController::class, 'getSubCategories'])->name('subcategories.getSubCategories');
 
-Route::get('/{slug}', [HomeController::class, 'catalogue'])->name('catalogue.redirection');
-
     // foreach(getActiveCountries() as $keyCountry => $valueCountry){
         
     //     die;
@@ -85,3 +83,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     });
 });
 
+
+Route::get('/{slug}', [HomeController::class, 'catalogue'])->name('catalogue.redirection');

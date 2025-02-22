@@ -137,26 +137,12 @@ class VerificationServiceDataTable extends DataTable
                     ->parameters([
                         'searching' => false,
                         'initComplete' => "function () {   
-                            
+                            // if(dataArray || Object.keys(dataArray).length > 0){
+                            // $('#searchService').submit();  
+                            // }
                             $(document).on('submit', '#searchService', function(e){
                                 e.preventDefault();
-                                let params = {};
-                                $('#searchService').find('input, select').each(function() {
-                                    let name = $(this).attr('name'); 
-                                    let value = $(this).val();
-                                    if (name && value !== null && value !== undefined && value !== '') {
-                                        params[name] = value;
-                                    }
-                                });
-                                // if (params['free_text_search']) {
-                                //     params['search'] = {
-                                //         value: params['free_text_search']
-                                //     };
-                                //     //delete params['free_text_search']; 
-                                // }
-                                    console.log(params);
-                                    console.log(datatableUrl);
-                                $('#services-table').DataTable().ajax.url(datatableUrl+'?'+$.param(params)).draw();
+                                updateDataTable();
                             });
                             //$('#formSubmit').trigger('click');  
                             // $('#searchService').submit();  
