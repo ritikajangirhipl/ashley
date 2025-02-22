@@ -78,7 +78,14 @@ class VerificationServiceDataTable extends DataTable
      */
     public function query(Service $model)
     {
-        return $model->newQuery()
+        \Log::info(request()->all());
+       // dd(request()->all());
+        if (request()->has('free_text_search') && request('free_text_search') != '') {
+            $search = request('search');
+            $search = ['value' => request('free_text_search')];
+        }
+        \Log::info(request()->all());
+        $query = $model->newQuery()
         ->select('services.*', 'countries.name as country_name','verification_providers.name as provider_name', 'countries.currency_name as currency_name', DB::raw("(CASE 
             WHEN services.country_id = " . (auth()->check() ? auth()->user()->country_id : 0) . " 
             THEN CONCAT(countries.currency_name, ' : ', FORMAT(services.local_service_price, 2)) 
@@ -86,6 +93,37 @@ class VerificationServiceDataTable extends DataTable
         END) AS price"))
         ->leftJoin('countries', 'countries.id', '=', 'services.country_id')
         ->leftJoin('verification_providers', 'verification_providers.id', '=', 'services.verification_provider_id');
+
+        
+
+        if (request()->has('verification_country') && request('verification_country') != '') {
+            $query->where('countries.id', request('verification_country'));
+        }
+        if (request()->has('verification_provider_type') && request('verification_provider_type') != '') {
+            $query->where('verification_providers.provider_type_id', request('verification_provider_type'));
+        }
+
+        if (request()->has('verification_provider') && request('verification_provider') != '') {
+            $query->where('verification_providers.id', request('verification_provider'));
+        }
+
+        if (request()->has('verification_subject') && request('verification_subject') != '') {
+            $query->where('services.subject', request('verification_subject'));
+        }
+        if (request()->has('verification_category') && request('verification_category') != '') {
+            $query->where('services.category_id', request('verification_category'));
+        }
+
+        if (request()->has('verification_subcategory') && request('verification_subcategory') != '') {
+            $query->where('services.sub_category_id', request('verification_subcategory'));
+        }
+        if (request()->has('evidence_type') && request('evidence_type') != '') {
+            $query->where('services.evidence_type_id', request('evidence_type'));
+        }
+        if (request()->has('verification_mode') && request('verification_mode') != '') {
+            $query->where('services.verification_mode_id', request('verification_mode'));
+        }
+        return $query;
     }
 
     /**
@@ -103,6 +141,30 @@ class VerificationServiceDataTable extends DataTable
                     ->orderBy(1) 
                     ->language([
                         'emptyTable' => 'No records found', 
+                    ])
+                    ->parameters([
+                        'searching' => false,
+                        'initComplete' => "function () {   
+                            let params = {};
+                            $(document).on('submit', '#searchService', function(e){
+                                e.preventDefault();
+                                $('#searchService').find('input, select').each(function() {
+                                    let name = $(this).attr('name'); 
+                                    let value = $(this).val();
+                                    if (name && value !== null && value !== undefined && value !== '') {
+                                        params[name] = value;
+                                    }
+                                });
+                                // if (params['free_text_search']) {
+                                //     params['search'] = {
+                                //         value: params['free_text_search']
+                                //     };
+                                //     //delete params['free_text_search']; 
+                                // }
+                                    //console.log(params);
+                                $('#services-table').DataTable().ajax.url(datatableUrl+'?'+$.param(params)).draw();
+                            });
+                        }"
                     ]);
     }
 
