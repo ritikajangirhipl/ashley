@@ -12,10 +12,13 @@ var KTSelect2 = function() {
         $('#verification_provider').select2({
             placeholder: 'Search and Filter by Select Verification Provider'
         });
+        $('#verification_subject').select2({
+            placeholder: 'Search and Filter by Select Verification Subject'
+        });
         $('#verification_category').select2({
             placeholder: 'Search and Filter by Select Category'
         });
-        $('#verification_area').select2({
+        $('#verification_subcategory').select2({
             placeholder: 'Search and Filter by Select Sub Category'
         });
         $('#verification_mode').select2({

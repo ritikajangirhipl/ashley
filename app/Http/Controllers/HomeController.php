@@ -9,6 +9,9 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\VerificationProvider;
 use App\Models\Service;
+use App\Models\ProviderType;
+use App\Models\VerificationMode;
+use App\Models\EvidenceType;
 use Illuminate\Contracts\Encryption\DecryptException;
 
 class HomeController extends Controller
@@ -23,8 +26,14 @@ class HomeController extends Controller
 
     public function catalogue(VerificationServiceDataTable $dataTable)
     {
-        // return view('catalogue');
-        return $dataTable->render('catalogue');
+        $countries = Country::where(['status' => 1])->orderBy('name', 'asc')->get();
+        $categories = Category::where(['status' => 1])->orderBy('name', 'asc')->get();
+        $verificationProviders = VerificationProvider::where(['status' => 1])->orderBy('name', 'asc')->get();
+        $providerTypes = ProviderType::where(['status' => 1])->orderBy('name', 'asc')->get();
+        $verificationModes = VerificationMode::where(['status' => 1])->orderBy('name', 'asc')->get();
+        $evidenceTypes = EvidenceType::where(['status' => 1])->orderBy('name', 'asc')->get();
+        //$subcategories = SubCategory::where(['status' => 1])->get();
+        return $dataTable->render('catalogue',compact('countries','categories','verificationProviders','providerTypes','verificationModes','evidenceTypes'));
     }
 
     public function country()
@@ -58,6 +67,7 @@ class HomeController extends Controller
         try {
             $service = Service::with(['country','category','subCategory','verificationMode', 'verificationProvider', 'evidenceType'])->where('id', decrypt($id))->firstOrFail();
             $otherServices = Service::where(['verification_provider_id' => $service->verification_provider_id])->where('id', '!=', $service->id)->orderBy('name', 'asc')->limit(5)->get();
+            
             if(!$service){
                 abort(404);
             }
@@ -66,6 +76,25 @@ class HomeController extends Controller
         } catch (DecryptException) {
             abort(404);
         } 
+    }
+
+    public function getSubCategories(Request $request)
+    {
+        $subCategories = getActiveSubCategories($request->category_id);
+        if($subCategories){
+
+            return response()->json([
+                'status' => 400,
+                'message' => __('attribute.sub_category'),
+                'sub_categories' => $subCategories,
+            ], 200);
+        }else{
+            return response()->json([
+                'status' => 400,
+                'message' => __('messages.record_not_found',['record' => __('attribute.country')])
+            ], 400);
+        }
+
     }
    
 
