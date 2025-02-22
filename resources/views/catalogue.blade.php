@@ -233,9 +233,32 @@
 {!! $dataTable->scripts() !!}
 <script>
     var datatableUrl =  "{{ route('catalogue') }}";
+    var dataArray = @json($dataArr);
     $(document).ready(function () {
-        $('#verification_category').on('change', function() {
+        if (dataArray || Object.keys(dataArray).length > 0) {
+           switch (dataArray.type) {
+                case "country":
+                    $(document).find('#verification_country').val(dataArray.id).change();
+                    $(document).find("#verification_country").addClass("disableSelect");
+                    break;
+                case "category":
+                    $(document).find('#verification_category').val(dataArray.category_id).change();
+                    //$(document).find("#verification_category").trigger("change");
+                    $(document).find("#verification_category").addClass("disableSelect");
+
+                    break;
+                case "providers":
+                    $(document).find('#verification_provider').val(dataArray.id).change();
+                    $(document).find("#verification_provider").addClass("disableSelect");
+                    break;
+                default:
+                    break;
+            }
+        } 
+        $(document).on('change','#verification_category', function() {
+            alert('dsfsd')
             var category_id = $(this).val();
+             console.log(category_id);
             $('#verification_subcategory').prop('disabled', true).html('<option value="">{{ trans("global.please_select") }}</option>');
 
             if (category_id) {
@@ -261,6 +284,12 @@
                             html += '<option value="">{{ trans("global.no_sub_categories_found") }}</option>';
                         }
                         $('#verification_subcategory').html(html).prop('disabled', false);
+                        if (dataArray || Object.keys(dataArray).length > 0) {
+                            if(dataArray.type == 'category'){
+                                $(document).find('#verification_subcategory').val(dataArray.id).change();
+                                $(document).find('#verification_subcategory').addClass("disableSelect");
+                            }
+                        }
                     },
                     error: function(xhr) {
                         console.log('AJAX error:', xhr);
