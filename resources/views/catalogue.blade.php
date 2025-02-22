@@ -1,5 +1,8 @@
 @extends('layouts.frontend')
 @section('title', trans('panel.catalogue'))
+@section('styles')
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/data-tables/css/datatables.min.css') }}">
+@endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid row-gap-2" id="kt_content">
     <div class="subheader py-2 py-lg-12  subheader-transparent " id="kt_subheader">
@@ -145,7 +148,7 @@
                     </div>
                 </form>
             </div>
-            <div class="card card-custom gutter-b">
+            {{-- <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap">
                     <div class="card-title">
                         <h3 class="card-label">Verification Services</h3>
@@ -205,8 +208,28 @@
                     </div>
                     <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable"></div>
                 </div>
+            </div> --}}
+            <div class="card card-custom gutter-b">
+                <div class="card-header flex-wrap">
+                    <div class="card-title">
+                        <h3 class="card-label">Verification Services</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="clearfix"></div>
+                        {{ $dataTable->table(['class' => 'display table nowrap table-hover', 'id' => 'services-table', 'style' => 'width:100%;']) }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script src="{{ asset('assets/admin/plugins/data-tables/js/datatables.min.js') }}" defer></script>
+<script src="{{ asset('vendor/datatables/buttons.server-side.js')}}" defer></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" defer></script>
+{!! $dataTable->scripts() !!}
+
 @endsection

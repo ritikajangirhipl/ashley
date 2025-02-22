@@ -331,6 +331,9 @@ return [
             'input_details'                 => 'Input Details',
             'created_at'        => 'Created at',
             'action'        => 'Action',
+            'local_price'   => 'Local Price',
+            'duration'      => 'Duration',
+            'usd_price'     => 'USD Price',
         ]
     ],
 

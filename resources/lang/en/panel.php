@@ -1,9 +1,11 @@
 <?php
 
 return [
+    'from' => 'From',
+    'other' => 'Other',
     'all' => 'All',
     'view' => 'View',
-    'catalogue' => 'Catalogue',
+    'catalogue' => 'Global Catalogue',
     'login' => 'Login',
     'register' => 'Register',
     'forgot_password' => 'Forgot Password',

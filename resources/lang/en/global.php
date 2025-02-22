@@ -268,5 +268,14 @@ return [
     'do_not_have_acc'                      => 'Don’t have an Account?',
     'agree_terms'                          => 'By clicking the button above, you agree to our',
     'term_of_service'                      => 'Terms of Service',
-    'privacy_policy'                       => 'Privacy Policy'
+    'privacy_policy'                       => 'Privacy Policy',
+    'service_info'                         => 'Service Information',
+    'summary_info'                         => 'Summary Details',
+    'verification_info'                    => 'Verification Details',
+    'evidence_info'                        => 'Evidence Details',
+    'pricing_info'                         => 'Pricing Details',
+    'local_req'                            => 'Local Requester',
+    'international_req'                    => 'International Requester',
+    'usd'                                  => 'USD',
+    'price'                                => 'Price',
 ];

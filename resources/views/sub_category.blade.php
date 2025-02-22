@@ -51,8 +51,9 @@
                         @foreach ($subcategories as $key => $subCategory)
                             <li><a href="javascript:void(0);" title="{{$subCategory->name}}"><span><img src="{{ asset('storage/' . $subCategory->image) }}" alt="{{$subCategory->name}}"></span>{{$subCategory->name}}</a></li>
                         @endforeach
+                        @else
+                        <li>No records found</li>
                         @endif
-                       <li>No records found</li>
                     </ul>
                     <p class="no-result">No results found</p>
                 </div>

@@ -14,14 +14,15 @@ Route::get('/cache-clear', function() {
     Artisan::call('optimize:clear');
     return '<h1>All Cache cleared</h1>';
 });
-Route::redirect('/', '/home');
+// Route::redirect('/', '/home');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/countries', [HomeController::class, 'country'])->name('countries');
-Route::get('/categories', [HomeController::class, 'category'])->name('categories');
-Route::get('/sub-categories/{slug}', [HomeController::class, 'subCategory'])->name('sub-categories');
-Route::get('/verification-providers', [HomeController::class, 'verificationProvider'])->name('verification-providers');
-Route::get('/catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/all-countries', [HomeController::class, 'country'])->name('countries');
+Route::get('/all-categories', [HomeController::class, 'category'])->name('categories');
+Route::get('/category/{slug}', [HomeController::class, 'subCategory'])->name('sub-categories');
+Route::get('/all-providers', [HomeController::class, 'verificationProvider'])->name('verification-providers');
+Route::get('/global-catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
+Route::get('/service/{id}', [HomeController::class, 'serviceDetail'])->name('services.view');
 
 Auth::routes(['verify' => true]);
 
