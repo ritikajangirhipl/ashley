@@ -45,100 +45,100 @@
                         Search Our Verification Services Catalogue
                     </h3>
                 </div>
-                <form class="form">
+                <form class="form" id="searchService">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 col-lg-4">
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Verification Country</label>
-                                    <select class="form-control select2" id="verification_country" name="param">
-                                        <option label="Search and Filter by Select Country"></option>
-                                        <option>Plateau State</option>
-                                        <option>Edo State</option>
-                                        <option>FCT Abuja</option>
-                                        <option>Plateau State</option>
+                                    <select class="form-control select2" id="verification_country" name="verification_country">
+                                        <option label="Search and Filter by Select Country" value=''>Search and Filter by Select Country</option>
+                                        @foreach ($countries as $countryKey => $country )
+                                        <option value='{{$country->id}}'>{{$country->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Verification Provider Type</label>
-                                    <select class="form-control select2" id="verification_provider_type" name="param">
-                                        <option label="Search and Filter by Select Verification Provider Type"></option>
-                                        <option>University of ABC</option>
-                                        <option>ABC Consulting Company Limited</option>
-                                        <option>XYZ Civil Organization</option>
+                                    <select class="form-control select2" id="verification_provider_type" name="verification_provider_type">
+                                        <option label="Search and Filter by Select Verification Provider Type" value="">Search and Filter by Select Verification Provider Type</option>
+                                        @foreach ($providerTypes as $providerTypeKey => $providerType )
+                                            <option value='{{$providerType->id}}'>{{$providerType->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Verification Provider</label>
-                                    <select class="form-control select2" id="verification_provider" name="param">
+                                    <select class="form-control select2" id="verification_provider" name="verification_provider">
                                         <option label="Search and Filter by Select Verification Provider"></option>
-                                        <option>University of ABC</option>
-                                        <option>ABC Consulting Company Limited</option>
-                                        <option>XYZ Civil Organization</option>
+                                        @foreach ($verificationProviders as $verificationProviderKey => $verificationProvider )
+                                            <option value='{{$verificationProvider->id}}'>{{$verificationProvider->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Verification Subject</label>
-                                    <input type="text" class="form-control" placeholder="Search and Filter by Verification Subject">
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="form-group">
-                                    <label class="col-form-label pt-0">Verification Category</label>
-                                    <select class="form-control select2" id="verification_category" name="param">
-                                        <option label="Search and Filter by Select Category"></option>
-                                        <option>Ministry of Environment</option>
-                                        <option>NYSC</option>
-                                        <option>Ministry of Tourism</option>
+                                    {{-- <input type="text" class="form-control" placeholder="Search and Filter by Verification Subject" name="verification_subject"> --}}
+                                    <select class="form-control select2" id="verification_subject" name="verification_subject">
+                                        <option label="Search and Filter by Verification Subject"></option>
+                                        @foreach(config('constant.enums.subjects') as $id => $name)
+                                            <option value='{{$id}}'>{{$name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="form-group">
-                                    <label class="col-form-label pt-0">Verification Area</label>
-                                    <select class="form-control select2" id="verification_area" name="param">
-                                        <option label="Search and Filter by Select Sub Category"></option>
-                                        <option>Verification Area 1</option>
-                                        <option>Verification Area 2</option>
-                                        <option>Verification Area 3</option>
-                                        <option>Verification Area 4</option>
+                                    <label class="col-form-label pt-0">Verification Category</label>
+                                    <select class="form-control select2" id="verification_category" name="verification_category">
+                                        <option label="Search and Filter by Select Category" value=""></option>
+                                        @foreach ($categories as $categoriesKey => $category )
+                                            <option value='{{$category->id}}'>{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-form-label pt-0">Verification Sub Category</label>
+                                    <select class="form-control select2" id="verification_subcategory" name="verification_subcategory">
+                                        <option label="Search and Filter by Select Sub Category" value=""></option>
+                                        
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Verification Mode</label>
-                                    <select class="form-control select2" id="verification_mode" name="param">
+                                    <select class="form-control select2" id="verification_mode" name="verification_mode">
                                         <option label="Search and Filter by Select Verification Mode"></option>
-                                        <option>Verification Mode 1</option>
-                                        <option>Verification Mode 2</option>
-                                        <option>Verification Mode 3</option>
-                                        <option>Verification Mode 4</option>
+                                        @foreach ($verificationModes as $verificationModeKey => $verificationMode )
+                                            <option value='{{$verificationMode->id}}'>{{$verificationMode->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Evidence Type</label>
-                                    <select class="form-control select2" id="evidence_type" name="param">
+                                    <select class="form-control select2" id="evidence_type" name="evidence_type">
                                         <option label="Search and Filter by Select Evidence Type"></option>
-                                        <option>Evidence Type 1</option>
-                                        <option>Evidence Type 2</option>
-                                        <option>Evidence Type 3</option>
-                                        <option>Evidence Type 4</option>
+                                        @foreach ($evidenceTypes as $evidenceTypeKey => $evidenceType )
+                                            <option value='{{$evidenceType->id}}'>{{$evidenceType->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Free Text Search</label>
-                                    <input type="text" class="form-control" placeholder="Input Search Text">
+                                    <input type="text" class="form-control" placeholder="Input Search Text" name="free_text_search">
                                 </div>
                             </div>
                             <div class="col-md-12 col-lg-12 text-right">
@@ -231,5 +231,47 @@
 <script src="{{ asset('vendor/datatables/buttons.server-side.js')}}" defer></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" defer></script>
 {!! $dataTable->scripts() !!}
+<script>
+    var datatableUrl =  "{{ route('catalogue') }}";
+    $(document).ready(function () {
+        $('#verification_category').on('change', function() {
+            var category_id = $(this).val();
+            $('#verification_subcategory').prop('disabled', true).html('<option value="">{{ trans("global.please_select") }}</option>');
+
+            if (category_id) {
+                $.ajax({
+                    url: "{{ route('subcategories.getSubCategories') }}",
+                    type: "POST",
+                    data: { category_id: category_id },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    beforeSend: function() {
+                        console.log("Request is being sent...");
+                    },
+                    success: function(response) {
+                        
+                        let emptyTxt = "{{ 'Select ' . trans('cruds.services.fields.sub_category') }}";
+                        let html = '<option value="">' + emptyTxt + '</option>';
+                        if (response.sub_categories && Object.keys(response.sub_categories).length > 0) {
+                            $.each(response.sub_categories, function(key, value) {
+                                html += '<option value="' + key + '">' + value + '</option>';
+                            });
+                        } else {
+                            html += '<option value="">{{ trans("global.no_sub_categories_found") }}</option>';
+                        }
+                        $('#verification_subcategory').html(html).prop('disabled', false);
+                    },
+                    error: function(xhr) {
+                        console.log('AJAX error:', xhr);
+                    },
+                    complete: function() {
+                        console.log("Request completed.");
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 @endsection
