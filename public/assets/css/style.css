@@ -87698,6 +87698,61 @@ body[data-header-scroll=on] .topbar .show .btn.btn-icon {
   background-color: #6993FF;
   color: #FFFFFF;
 }
+
+.navi .nav-tabs {border: none !important;}
+
+.navi .nav-tabs li.nav-item {
+    width: 100%;
+    margin: 0 !important;
+    border: none !important;
+}
+
+.navi .nav-tabs li.nav-item a.nav-link {
+    border: none !important;
+    border-radius: 0.42rem !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    line-height: normal !important;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0.75rem 1.5rem !important;
+    outline: none !important;
+    margin: 0 !important;
+}
+
+.navi .nav-tabs li.nav-item a.nav-link.active,.navi .nav-tabs li.nav-item a.nav-link:hover {
+    border: none !important;
+    background: #f3f6f9;
+    border-radius: 0.42rem !important;
+    padding: 0.75rem 1.5rem !important
+}
+.navi .nav-tabs li.nav-item a.nav-link:hover .navi-icon svg g [fill],
+.navi .nav-tabs li.nav-item a.nav-link.active .navi-icon svg g [fill]{
+    -webkit-transition: fill 0.3s ease;
+    transition: fill 0.3s ease;
+    fill: #6993FF;
+}
+.navi .nav-tabs li.nav-item:not(:last-child) {
+    margin: 0 0 5px !important;
+}
+
+.service-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+.stripe-img{
+  text-align: center;
+}
+.stripe-img img{
+  max-width: 270px;
+  display: block;
+  margin:10px auto 0;
+}
 @media (min-width: 992px) {
   .header-fixed.subheader-fixed .subheader {
     position: fixed;
