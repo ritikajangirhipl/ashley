@@ -56,18 +56,19 @@
                             $options = [];
                             if($serviceField->field_type == 2){
                                 $displayCombo = "block";
-
+                                
                                 $tempOptions = json_decode($serviceField->combo_values);
-                                $options = array_values($tempOptions);
-                                $options = array_combine($tempOptions,$options);
+                                if($tempOptions){
+                                    $options = array_values($tempOptions);
+                                    $options = array_combine($tempOptions,$options);
+                                }
                             }
                         @endphp
                         <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
                             <div class="form-group">
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
 
-                                <input type="text" class="form-control" value="{{ implode(', ', json_decode($serviceField->combo_values, true)) }}" readonly>
-
+                                <input type="text" class="form-control" value="{{ $serviceField->combo_values ? implode(', ', json_decode($serviceField->combo_values, true)) : '' }}" readonly>
                             </div>
                         </div>
 
