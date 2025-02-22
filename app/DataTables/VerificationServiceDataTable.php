@@ -115,6 +115,7 @@ class VerificationServiceDataTable extends DataTable
         if (request()->has('verification_mode') && request('verification_mode') != '') {
             $query->where('services.verification_mode_id', request('verification_mode'));
         }
+        
         return $query;
     }
 

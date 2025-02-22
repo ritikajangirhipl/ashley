@@ -48,7 +48,7 @@
                 <div class="card-body">
                     <ul class="catalogue_lists search-list">
                         @foreach ($verificationProviders as $key => $verificationProvider)
-                            <li><a href="javascript:void(0);" title="{{$verificationProvider->name}}">{{$verificationProvider->name}}</a></li>
+                            <li><a href="{{route('catalogue.redirection',$verificationProvider->slug)}}" title="{{$verificationProvider->name}}">{{$verificationProvider->name}}</a></li>
                         @endforeach
                     </ul>
                     <p class="no-result">No results found</p>
