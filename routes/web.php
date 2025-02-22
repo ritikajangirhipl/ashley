@@ -23,6 +23,7 @@ Route::get('/category/{slug}', [HomeController::class, 'subCategory'])->name('su
 Route::get('/all-providers', [HomeController::class, 'verificationProvider'])->name('verification-providers');
 Route::get('/global-catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
 Route::get('/service/{id}', [HomeController::class, 'serviceDetail'])->name('services.view');
+Route::post('sub-categories-get', [HomeController::class, 'getSubCategories'])->name('subcategories.getSubCategories');
 
 Auth::routes(['verify' => true]);
 
