@@ -140,7 +140,7 @@ return [
         ],
         'input_details' => [
             1   => 'Yes',
-            2   => 'No',
+            0   => 'No',
         ],
         'field_types' => [
             1   => 'Text',
@@ -158,6 +158,82 @@ return [
             'female' => 'Female',
             'other' => 'Other',
         ],
+        'input_details_fields' => [ 
+            'subject_name' => [
+                'field_name' => "subject_name",
+                'label' => "Name of Subject",
+                'inp_type' => "text",
+                'options' => [],
+            ],
+            'copy_of_document_to_verify' => [
+                'field_name' => "copy_of_document_to_verify",
+                'label' => "Copy of Document to Verify",
+                'inp_type' => "file",
+                'options' => [],
+            ],
+            'reason_for_request' => [
+                'field_name' => "reason_for_request",
+                'label' => "Reason for Request",
+                'inp_type' => "select",
+                'options' => [
+                    'admission' => "Admission", 
+                    'employment' => "Employment", 
+                    'other' => "Other", 
+                ]
+            ],
+            'subject_consent_requirement' => [
+                'field_name' => "subject_consent_requirement",
+                'label' => "Subject Consent Requirement",
+                'inp_type' => "file",
+                'options' => [],
+            ],
+            'name_of_reference_provider' => [
+                'field_name' => "name_of_reference_provider",
+                'label' => "Name of Reference Provider",
+                'inp_type' => "text",
+            ],
+            'address_information' => [
+                'field_name' => "address_information",
+                'label' => "Address Information",
+                'inp_type' => "textarea",
+            ],
+            'location' => [
+                'field_name' => "location",
+                'label' => "Location",
+                'inp_type' => "select", // countries
+                'options' => [], 
+            ],
+            'gender' => [
+                'field_name' => "gender",
+                'label' => "Gender",
+                'inp_type' => "select",
+                'options' => [
+                    'male' => "Male", 
+                    'female' => "Female", 
+                    'other' => "Other", 
+                ]
+            ],
+            'marital_status' => [
+                'field_name' => "marital_status",
+                'label' => "Marital Status",
+                'inp_type' => "select",
+                'options' => [
+                    'single' => "Single", 
+                    'married' => "Married", 
+                    'other' => "Other", 
+                ]
+            ],
+            'registration_number' => [
+                'field_name' => "registration_number",
+                'label' => "Registration Number",
+                'inp_type' => "text",
+            ],
+            'subject_name' => [
+                'field_name' => "subject_name",
+                'label' => "Name of Subject",
+                'inp_type' => "text",
+            ],
+        ]
 
     ],
 ];

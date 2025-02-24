@@ -64,15 +64,18 @@ class HomeController extends Controller
     }
 
     public function serviceDetail($id){
-        try {
-            $service = Service::with(['country','category','subCategory','verificationMode', 'verificationProvider', 'evidenceType'])->where('id', decrypt($id))->firstOrFail();
+        try { 
+            $service = Service::with(['country','category','subCategory','verificationMode', 'verificationProvider', 'evidenceType','additionalFields'])->where('id', decrypt($id))->firstOrFail();
+
+            $fields = config('constant.enums.input_details_fields');
+
             $otherServices = Service::where(['verification_provider_id' => $service->verification_provider_id])->where('id', '!=', $service->id)->orderBy('name', 'asc')->limit(5)->get();
             
             if(!$service){
                 abort(404);
             }
             // dd($service->toArray());
-            return view('service-detail', compact('service','otherServices'));
+            return view('service-detail', compact('service','otherServices','fields'));
         } catch (DecryptException) {
             abort(404);
         } 
