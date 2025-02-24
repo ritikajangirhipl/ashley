@@ -240,25 +240,27 @@
                 case "country":
                     $(document).find('#verification_country').val(dataArray.id).change();
                     $(document).find("#verification_country").addClass("disableSelect");
+                    updateDataTable();
                     break;
                 case "category":
-                    $(document).find('#verification_category').val(dataArray.category_id).change();
-                    //$(document).find("#verification_category").trigger("change");
+                    $(document).find('#verification_category').val(dataArray.category_id);
+                    setTimeout(()=>{
+                        $(document).find('#verification_category').change();
+                    },100);
                     $(document).find("#verification_category").addClass("disableSelect");
 
                     break;
                 case "providers":
                     $(document).find('#verification_provider').val(dataArray.id).change();
                     $(document).find("#verification_provider").addClass("disableSelect");
+                    updateDataTable();
                     break;
                 default:
                     break;
             }
         } 
         $(document).on('change','#verification_category', function() {
-            alert('dsfsd')
             var category_id = $(this).val();
-             console.log(category_id);
             $('#verification_subcategory').prop('disabled', true).html('<option value="">{{ trans("global.please_select") }}</option>');
 
             if (category_id) {
@@ -288,6 +290,7 @@
                             if(dataArray.type == 'category'){
                                 $(document).find('#verification_subcategory').val(dataArray.id).change();
                                 $(document).find('#verification_subcategory').addClass("disableSelect");
+                                updateDataTable();
                             }
                         }
                     },
@@ -301,6 +304,18 @@
             }
         });
     });
+
+    function updateDataTable(){
+        let params = {};
+        $('#searchService').find('input, select').each(function() {
+            let name = $(this).attr('name'); 
+            let value = $(this).val();
+            if (name && value !== null && value !== undefined && value !== '') {
+                params[name] = value;
+            }
+        });
+        $('#services-table').DataTable().ajax.url(datatableUrl+'?'+$.param(params)).draw();
+    }
 </script>
 
 @endsection

@@ -321,6 +321,13 @@ legend {
   top: 16px;
   right: 2.25rem;
 }
+
+.disableSelect ~ .select2-container .select2-selection--single, .disable-input {
+  cursor: default;
+  pointer-events: none;
+  background-color: #eeeeee;
+}
+
 @media (max-width: 1200px) {
   legend {
     font-size: calc(1.275rem + 0.3vw);
@@ -87752,11 +87759,6 @@ body[data-header-scroll=on] .topbar .show .btn.btn-icon {
   max-width: 270px;
   display: block;
   margin:10px auto 0;
-}
-.disableSelect {
-    cursor: default;
-    pointer-events: none;
-    background-color: var(--bright-gray);
 }
 @media (min-width: 992px) {
   .header-fixed.subheader-fixed .subheader {
