@@ -86,11 +86,7 @@
                         Search Our Verification Services Catalogue
                     </h3>
                 </div>
-<<<<<<< HEAD
                 <form class="form" action="javascript:void(0);" id="searchService">
-=======
-                <form class="form" id="searchService">
->>>>>>> bd0a5b3 (catalogue page apply custom filters)
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 col-lg-4">
@@ -226,42 +222,28 @@
                 case "country":
                     $(document).find('#verification_country').val(dataArray.id).change();
                     $(document).find("#verification_country").addClass("disableSelect");
-<<<<<<< HEAD
                     updateDataTable();
                     break;
+                
                 case "category":
                     $(document).find('#verification_category').val(dataArray.category_id);
                     setTimeout(()=>{
                         $(document).find('#verification_category').change();
                     },100);
-=======
-                    break;
-                case "category":
-                    $(document).find('#verification_category').val(dataArray.category_id).change();
-                    //$(document).find("#verification_category").trigger("change");
->>>>>>> fac1cb9 (conflict resolve)
                     $(document).find("#verification_category").addClass("disableSelect");
 
                     break;
                 case "providers":
                     $(document).find('#verification_provider').val(dataArray.id).change();
                     $(document).find("#verification_provider").addClass("disableSelect");
-<<<<<<< HEAD
                     updateDataTable();
-=======
->>>>>>> fac1cb9 (conflict resolve)
                     break;
                 default:
                     break;
             }
         } 
         $(document).on('change','#verification_category', function() {
-<<<<<<< HEAD
-=======
-            alert('dsfsd')
->>>>>>> fac1cb9 (conflict resolve)
             var category_id = $(this).val();
-             console.log(category_id);
             $('#verification_subcategory').prop('disabled', true).html('<option value="">{{ trans("global.please_select") }}</option>');
 
             if (category_id) {
@@ -291,10 +273,7 @@
                             if(dataArray.type == 'category'){
                                 $(document).find('#verification_subcategory').val(dataArray.id).change();
                                 $(document).find('#verification_subcategory').addClass("disableSelect");
-<<<<<<< HEAD
                                 updateDataTable();
-=======
->>>>>>> fac1cb9 (conflict resolve)
                             }
                         }
                     },
