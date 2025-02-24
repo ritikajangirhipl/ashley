@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignId('verification_mode_id')->constrained('verification_modes')->onDelete('cascade');
             $table->text('verification_summary')->nullable();
             $table->foreignId('verification_provider_id')->constrained('verification_providers')->onDelete('cascade');
-            $table->text('verification_duration')->nullable();
+            $table->decimal('verification_duration',10,2)->nullable();
             $table->foreignId('evidence_type_id')->constrained('evidence_types')->onDelete('cascade');
             $table->text('evidence_summary')->nullable();
             $table->foreignId('service_partner_id')->constrained('service_partners')->onDelete('cascade');

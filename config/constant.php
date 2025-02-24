@@ -148,6 +148,11 @@ return [
             3   => 'Memo',
             4   => 'Date',
         ],
+        'verification_duration_types' => [
+            "days"   => 'Days',
+            "months"   => 'Months',
+            "years"   => 'Years',
+        ],
         'marital_status' => [
             'married' => 'Married',
             'single' => 'Single',

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CartController;
+
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CountryController;
@@ -24,6 +26,9 @@ Route::get('/all-providers', [HomeController::class, 'verificationProvider'])->n
 Route::get('/global-catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
 Route::get('/service/{id}', [HomeController::class, 'serviceDetail'])->name('services.view');
 Route::post('sub-categories-get', [HomeController::class, 'getSubCategories'])->name('subcategories.getSubCategories');
+
+
+Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
 
 Auth::routes(['verify' => true]);
 
