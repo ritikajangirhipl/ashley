@@ -33,6 +33,9 @@ Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.add
 =======
 >>>>>>> bd0a5b3 (catalogue page apply custom filters)
 
+
+Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
+
 Auth::routes(['verify' => true]);
 
 // Route::middleware(['auth', 'preventBackHistory', 'verified'])->group(function () {
