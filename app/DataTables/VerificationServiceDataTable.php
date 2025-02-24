@@ -42,7 +42,7 @@ class VerificationServiceDataTable extends DataTable
             
             ->addColumn('action', function ($service) {
                 return '<div class="group-button text-center">
-                            <a href="' . route('services.view', encrypt($service->id)) . '" class="btn btn-info btn-sm" title="View">
+                            <a href="' . route('services.view', encrypt($service->id)) . '" class="infobtn" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
                         </div>';
@@ -130,23 +130,23 @@ class VerificationServiceDataTable extends DataTable
                     ->setTableId('services-table')
                     ->columns($this->getColumns()) 
                     ->minifiedAjax()
-                    ->dom('frtip') 
+                    ->dom('lfrtip') 
+                    ->pageLength(10)
                     ->orderBy(1) 
                     ->language([
                         'emptyTable' => 'No records found', 
                     ])
                     ->parameters([
+                        'stateSave' => false,
+                        'buttons' => ['pageLength'],
+                        'responsive' => true,
                         'searching' => false,
-                        'initComplete' => "function () {   
-                            // if(dataArray || Object.keys(dataArray).length > 0){
-                            // $('#searchService').submit();  
-                            // }
+                        'initComplete' => "function () {  
                             $(document).on('submit', '#searchService', function(e){
                                 e.preventDefault();
                                 updateDataTable();
                             });
-                            //$('#formSubmit').trigger('click');  
-                            // $('#searchService').submit();  
+                           
                         }"
                     ]);
     }
