@@ -14,6 +14,7 @@ class UpdateRequest extends FormRequest
 
     public function rules()
     {
+        
         return [
             'name' => 'required|string|unique:provider_types,name,' . $this->verification_provider->id . '|max:255',
             'description' => 'nullable|string',

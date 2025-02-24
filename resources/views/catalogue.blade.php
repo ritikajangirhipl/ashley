@@ -224,6 +224,7 @@
                     $(document).find("#verification_country").addClass("disableSelect");
                     updateDataTable();
                     break;
+                
                 case "category":
                     $(document).find('#verification_category').val(dataArray.category_id);
                     setTimeout(()=>{
