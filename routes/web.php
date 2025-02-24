@@ -83,3 +83,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     });
 });
 
+
+Route::get('/{slug}', [HomeController::class, 'catalogue'])->name('catalogue.redirection');

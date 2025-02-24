@@ -78,13 +78,7 @@ class VerificationServiceDataTable extends DataTable
      */
     public function query(Service $model)
     {
-        \Log::info(request()->all());
-       // dd(request()->all());
-        if (request()->has('free_text_search') && request('free_text_search') != '') {
-            $search = request('search');
-            $search = ['value' => request('free_text_search')];
-        }
-        \Log::info(request()->all());
+        
         $query = $model->newQuery()
         ->select('services.*', 'countries.name as country_name','verification_providers.name as provider_name', 'countries.currency_name as currency_name', DB::raw("(CASE 
             WHEN services.country_id = " . (auth()->check() ? auth()->user()->country_id : 0) . " 
@@ -93,8 +87,6 @@ class VerificationServiceDataTable extends DataTable
         END) AS price"))
         ->leftJoin('countries', 'countries.id', '=', 'services.country_id')
         ->leftJoin('verification_providers', 'verification_providers.id', '=', 'services.verification_provider_id');
-
-        
 
         if (request()->has('verification_country') && request('verification_country') != '') {
             $query->where('countries.id', request('verification_country'));
@@ -123,6 +115,7 @@ class VerificationServiceDataTable extends DataTable
         if (request()->has('verification_mode') && request('verification_mode') != '') {
             $query->where('services.verification_mode_id', request('verification_mode'));
         }
+        
         return $query;
     }
 
@@ -145,25 +138,15 @@ class VerificationServiceDataTable extends DataTable
                     ->parameters([
                         'searching' => false,
                         'initComplete' => "function () {   
-                            let params = {};
+                            // if(dataArray || Object.keys(dataArray).length > 0){
+                            // $('#searchService').submit();  
+                            // }
                             $(document).on('submit', '#searchService', function(e){
                                 e.preventDefault();
-                                $('#searchService').find('input, select').each(function() {
-                                    let name = $(this).attr('name'); 
-                                    let value = $(this).val();
-                                    if (name && value !== null && value !== undefined && value !== '') {
-                                        params[name] = value;
-                                    }
-                                });
-                                // if (params['free_text_search']) {
-                                //     params['search'] = {
-                                //         value: params['free_text_search']
-                                //     };
-                                //     //delete params['free_text_search']; 
-                                // }
-                                    //console.log(params);
-                                $('#services-table').DataTable().ajax.url(datatableUrl+'?'+$.param(params)).draw();
+                                updateDataTable();
                             });
+                            //$('#formSubmit').trigger('click');  
+                            // $('#searchService').submit();  
                         }"
                     ]);
     }

@@ -48,7 +48,7 @@
                 <div class="card-body">
                     <ul class="catalogue_lists search-list">
                         @foreach ($countries as $key => $country )
-                            <li><a href="javascript:void(0);" title="{{$country->name}}"><span><img src="{{ asset('storage/' . $country->flag) }}" alt="Plateau State"></span>{{$country->name}}</a></li>
+                            <li><a href="{{route('catalogue.redirection',$country->slug)}}" title="{{$country->name}}"><span><img src="{{ asset('storage/' . $country->flag) }}" alt="Plateau State"></span>{{$country->name}}</a></li>
                         @endforeach
                     </ul>
                     {{ $countries->links() }}

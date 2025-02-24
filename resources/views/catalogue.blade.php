@@ -233,8 +233,33 @@
 {!! $dataTable->scripts() !!}
 <script>
     var datatableUrl =  "{{ route('catalogue') }}";
+    var dataArray = @json($dataArr);
     $(document).ready(function () {
-        $('#verification_category').on('change', function() {
+        if (dataArray || Object.keys(dataArray).length > 0) {
+           switch (dataArray.type) {
+                case "country":
+                    $(document).find('#verification_country').val(dataArray.id).change();
+                    $(document).find("#verification_country").addClass("disableSelect");
+                    updateDataTable();
+                    break;
+                case "category":
+                    $(document).find('#verification_category').val(dataArray.category_id);
+                    setTimeout(()=>{
+                        $(document).find('#verification_category').change();
+                    },100);
+                    $(document).find("#verification_category").addClass("disableSelect");
+
+                    break;
+                case "providers":
+                    $(document).find('#verification_provider').val(dataArray.id).change();
+                    $(document).find("#verification_provider").addClass("disableSelect");
+                    updateDataTable();
+                    break;
+                default:
+                    break;
+            }
+        } 
+        $(document).on('change','#verification_category', function() {
             var category_id = $(this).val();
             $('#verification_subcategory').prop('disabled', true).html('<option value="">{{ trans("global.please_select") }}</option>');
 
@@ -261,6 +286,13 @@
                             html += '<option value="">{{ trans("global.no_sub_categories_found") }}</option>';
                         }
                         $('#verification_subcategory').html(html).prop('disabled', false);
+                        if (dataArray || Object.keys(dataArray).length > 0) {
+                            if(dataArray.type == 'category'){
+                                $(document).find('#verification_subcategory').val(dataArray.id).change();
+                                $(document).find('#verification_subcategory').addClass("disableSelect");
+                                updateDataTable();
+                            }
+                        }
                     },
                     error: function(xhr) {
                         console.log('AJAX error:', xhr);
@@ -272,6 +304,18 @@
             }
         });
     });
+
+    function updateDataTable(){
+        let params = {};
+        $('#searchService').find('input, select').each(function() {
+            let name = $(this).attr('name'); 
+            let value = $(this).val();
+            if (name && value !== null && value !== undefined && value !== '') {
+                params[name] = value;
+            }
+        });
+        $('#services-table').DataTable().ajax.url(datatableUrl+'?'+$.param(params)).draw();
+    }
 </script>
 
 @endsection
