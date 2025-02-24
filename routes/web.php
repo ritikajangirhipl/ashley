@@ -18,6 +18,7 @@ Route::get('/cache-clear', function() {
 });
 // Route::redirect('/', '/home');
 
+Auth::routes(['verify' => true]);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/all-countries', [HomeController::class, 'country'])->name('countries');
 Route::get('/all-categories', [HomeController::class, 'category'])->name('categories');
@@ -29,7 +30,7 @@ Route::post('sub-categories-get', [HomeController::class, 'getSubCategories'])->
 
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
 
-Auth::routes(['verify' => true]);
+
 
 // Route::middleware(['auth', 'preventBackHistory', 'verified'])->group(function () {
 //     Route::get('/catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
