@@ -43,8 +43,12 @@ class HomeController extends Controller
             }
             $dataArr['type'] = $type;
             $dataArr['id'] = $data->id;
+            $dataArr['name'] = $data->name;
+
             if($type == 'category'){
                 $dataArr['category_id'] = $data->category->id;
+                $dataArr['category_name'] = $data->category->name;
+                $dataArr['category_slug'] = $data->category->slug;
             }
         }
         $countries = Country::where(['status' => 1])->orderBy('name', 'asc')->get();
@@ -59,7 +63,7 @@ class HomeController extends Controller
 
     public function country()
     {
-        $countries = Country::where(['status' => 1])->orderBy('name', 'asc')->paginate(1);
+        $countries = Country::where(['status' => 1])->orderBy('name', 'asc')->paginate(40);
         return view('country', compact('countries'));
     }
     
