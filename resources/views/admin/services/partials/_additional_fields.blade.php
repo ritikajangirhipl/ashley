@@ -70,13 +70,8 @@
                         <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
                             <div class="form-group">
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
-<<<<<<< HEAD
-
-                                <input type="text" class="form-control" value="{{ $serviceField->combo_values ? implode(', ', json_decode($serviceField->combo_values, true)) : '' }}" readonly>
-=======
                                 
                                 <input type="text" class="form-control" value="{{ $value }}" readonly>
->>>>>>> e5d7ac2092a4c7f171ef4766d5bf4f1fd7cd6d4a
                             </div>
                         </div>
 
