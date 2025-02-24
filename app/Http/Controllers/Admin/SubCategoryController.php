@@ -165,8 +165,8 @@ class SubCategoryController extends Controller
             return response()->json([
                 'status' => 400,
                 'message' => $forStatusUpdate
-                    ? __('messages.country_cannot_be_inactive_due_to_service') 
-                    : __('messages.country_cannot_be_deleted_due_to_service') 
+                    ? __('messages.subcategory_cannot_be_inactive_due_to_service') 
+                    : __('messages.subcategory_cannot_be_deleted_due_to_service') 
             ], 400);
         }
         return null;

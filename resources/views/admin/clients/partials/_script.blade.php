@@ -4,6 +4,7 @@
         $.validator.addMethod("customEmail", function(value, element) {
             return this.optional(element) || /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
         }, "Please enter a valid email address.");
+        
         $("#client-form").validate({
             rules: {
                 name: {
@@ -25,7 +26,6 @@
                     minlength: 10,
                     maxlength: 15
                 },
-
                 country_id: {
                     required: true
                 },
@@ -39,7 +39,7 @@
                     url: true
                 },
                 password: {
-                    required: true,
+                    required: isEditPage ? false : true,
                     minlength: 8
                 },
                 status: {

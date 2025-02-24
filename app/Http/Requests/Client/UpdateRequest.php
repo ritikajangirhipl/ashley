@@ -45,9 +45,6 @@ class UpdateRequest extends FormRequest
             'contact_address.required' => 'Please enter contact address.',
             'contact_address.string' => 'Contact address must be valid string.',
             'website_address.url' => 'Enter valid website URL.',
-            'password.required' => 'Password is required.',
-            'password.string' => 'Password must be valid string.',
-            'password.min' => 'Password must be at least 8 characters long.',
             'status.required' => 'Please select status.',
             'status.in' => 'Invalid status value.Please choose Active or Inactive.',
         ];
