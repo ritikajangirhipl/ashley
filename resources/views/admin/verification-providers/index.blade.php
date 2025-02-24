@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title float-left">
-                    {{ trans('global.list') }} {{ trans('cruds.verification_provider.title') }}
+                    {{ __('panel.page_title.verification_provider.list') }}
                 </h4>
                 <a class="btn btn-success btn-sm float-right" title="{{ trans('global.add') }} {{ trans('cruds.verification_provider.title_singular') }}" href="{{ route('admin.verification-providers.create') }}">
                     <i class="fas fa-plus"></i>
