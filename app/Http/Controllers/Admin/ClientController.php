@@ -37,11 +37,12 @@ class ClientController extends Controller
             $countries = getActiveCountries();
             $clientTypes = $this->clientTypes;
     
-            return view('admin.clients.create', compact('pageTitle', 'status', 'countries', 'clientTypes'));
+            return view('admin.clients.create', compact('pageTitle', 'status', 'countries', 'clientTypes'))->with('isEditPage', false);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
+    
 
     public function store(StoreRequest $request)
     {
@@ -79,26 +80,31 @@ class ClientController extends Controller
             $status = $this->status;
             $countries = getActiveCountries(); 
             $clientTypes = $this->clientTypes;
-            return view('admin.clients.edit', compact('client', 'pageTitle', 'status', 'countries', 'clientTypes'));
+    
+            return view('admin.clients.edit', compact('client', 'pageTitle', 'status', 'countries', 'clientTypes'))->with('isEditPage', true);
         } catch (ModelNotFoundException) {
             abort(404);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
+    
 
     public function update(UpdateRequest $request, Client $client)
     {
         try {
             $data = $request->except('_token', '_method');
-            $data['password'] = Hash::make($request->password); 
+            if (!empty($request->password)) {
+                $data['password'] = Hash::make($request->password);
+            }
             $client->update($data);
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.client')]), 
-            ['redirect_url' => route('admin.clients.index')]);
+                ['redirect_url' => route('admin.clients.index')]);
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
     }
+
 
     public function destroy(Client $client)
     {

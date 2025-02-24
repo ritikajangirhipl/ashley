@@ -54,17 +54,25 @@
                         @php
                             $displayCombo = "none";
                             $options = [];
-                            $value = "";
-                            if($serviceField->field_type == 2 && $serviceField->combo_values){
+                            $tempOptions = []; // Initialize $tempOptions as an empty array
+
+                            if ($serviceField->field_type == 2) {
                                 $displayCombo = "block";
-                                
-                                $tempOptions = json_decode($serviceField->combo_values);
-                                if($tempOptions){
-                                    $options = array_values($tempOptions);
-                                    $options = array_combine($tempOptions,$options);
+
+                                // Decode the combo_values JSON string
+                                $tempOptions = json_decode($serviceField->combo_values, true);
+
+                                // Ensure $tempOptions is an array
+                                if (!is_array($tempOptions)) {
+                                    $tempOptions = [];
                                 }
+
+                                // Prepare $options for the select dropdown
+                                $options = array_values($tempOptions);
+                                $options = array_combine($tempOptions, $options);
                             }
                         @endphp
+
                         <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
                             <div class="form-group">
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>

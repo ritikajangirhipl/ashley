@@ -116,8 +116,8 @@ class VerificationModeController extends Controller
             return response()->json([
                 'status' => 400,
                 'message' => $forStatusUpdate
-                    ? __('messages.providerType_associated_with_verificationProviders')
-                    : __('messages.provider_type_delete_error')
+                    ? __('messages.verificationMode_associated_with_services')
+                    : __('messages.verificationMode_delete_error')
             ], 400);
         }
 
