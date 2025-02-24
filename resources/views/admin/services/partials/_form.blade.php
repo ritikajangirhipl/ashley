@@ -97,11 +97,12 @@
         <div class="form-group">
             <label for="verification_duration">{{ trans('cruds.services.fields.verification_duration') }}<span class="text-danger">*</span></label>
             <div class="verification_file">
-                <input type="text" id="verification_duration" name="verification_duration" class="form-control" value="{{ isset($service) ? $service->verification_duration : '' }}" required >
-                <select name="evidence_type_id" class="form-control durationbox" required>
-                    <option>option 1</option>
-                    <option>option 2</option>
-                    <option>option 3</option>
+                <input type="number" step="0.5" id="verification_duration" name="verification_duration" class="form-control" value="{{ isset($service) ? $service->verification_duration : '' }}" required >
+                <select name="duration_type" id="duration_type" class="form-control durationbox" required>
+                    <option value="">Select one</option>
+                    @foreach($verificationDurationTypes as $key => $value)
+                        <option value="{{ $key }}" {{ isset($service) && $service->duration_type == $key ? "selected" : "" }}>{{ $value }}</option>
+                    @endforeach
             </select>
             </div>
         </div>
