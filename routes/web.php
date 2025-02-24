@@ -30,8 +30,6 @@ Route::post('sub-categories-get', [HomeController::class, 'getSubCategories'])->
 
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
 
-
-
 // Route::middleware(['auth', 'preventBackHistory', 'verified'])->group(function () {
 //     Route::get('/catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
 // });
