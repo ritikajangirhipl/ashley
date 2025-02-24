@@ -30,6 +30,9 @@ Route::get('/{slug}', [HomeController::class, 'catalogue'])->name('catalogue.red
 
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
 
+
+Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
+
 Auth::routes(['verify' => true]);
 
 // Route::middleware(['auth', 'preventBackHistory', 'verified'])->group(function () {
