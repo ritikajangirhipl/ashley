@@ -49,7 +49,7 @@
                     <ul class="catalogue_lists search-list">
                         @if(count($subcategories) > 0)
                         @foreach ($subcategories as $key => $subCategory)
-                            <li><a href="javascript:void(0);" title="{{$subCategory->name}}"><span><img src="{{ asset('storage/' . $subCategory->image) }}" alt="{{$subCategory->name}}"></span>{{$subCategory->name}}</a></li>
+                            <li><a href="{{route('catalogue.redirection',$subCategory->slug)}}" title="{{$subCategory->name}}"><span><img src="{{ asset('storage/' . $subCategory->image) }}" alt="{{$subCategory->name}}"></span>{{$subCategory->name}}</a></li>
                         @endforeach
                         @else
                         <li>No records found</li>
