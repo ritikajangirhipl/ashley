@@ -16,6 +16,7 @@ class ServicesController extends Controller
     protected $subjects;
     protected $input_details;
     protected $field_types;
+    protected $verification_duration_types;
 
     public function __construct()
     {
@@ -23,6 +24,7 @@ class ServicesController extends Controller
         $this->subjects = config('constant.enums.subjects');
         $this->input_details = config('constant.enums.input_details');
         $this->field_types = config('constant.enums.field_types');
+        $this->verification_duration_types = config('constant.enums.verification_duration_types');
     }
 
     public function index(ServiceDataTable $dataTable)
@@ -39,6 +41,7 @@ class ServicesController extends Controller
             $subjects = $this->subjects;
             $inputDetailsOpts = $this->input_details;
             $fieldTypes = $this->field_types;
+            $verificationDurationTypes = $this->verification_duration_types;
             $countries = getActiveCountries();
             $categories = getActiveCategories();
             $verificationModes = getVerificationModes();
@@ -47,7 +50,7 @@ class ServicesController extends Controller
             $servicePartners = getServicePartners();
             $subCategories = getActiveSubCategories();
             // $currencies = getCurrencies();
-            return view('admin.services.create', compact('pageTitle', 'status', 'countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes','subCategories'));
+            return view('admin.services.create', compact('pageTitle', 'status', 'countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes','subCategories','verificationDurationTypes'));
         } catch (Exception $e) {
             return jsonResponseWithException($e);
         }
@@ -87,7 +90,8 @@ class ServicesController extends Controller
             $subjects = $this->subjects;
             $input_details = $this->input_details;
             $field_types = $this->field_types;
-            return view('admin.services.show', compact('service', 'pageTitle', 'status','subjects','input_details','field_types'));
+            $verificationDurationTypes = $this->verification_duration_types;
+            return view('admin.services.show', compact('service', 'pageTitle', 'status','subjects','input_details','field_types','verificationDurationTypes'));
         } catch (ModelNotFoundException) {
             abort(404);
         } catch (Exception $e) {
@@ -104,6 +108,7 @@ class ServicesController extends Controller
             $subjects               = $this->subjects;
             $inputDetailsOpts       = $this->input_details;
             $fieldTypes             = $this->field_types;
+            $verificationDurationTypes = $this->verification_duration_types;
             $countries              = getActiveCountries();
             $categories             = getActiveCategories();
             $verificationModes      = getVerificationModes();
@@ -111,7 +116,7 @@ class ServicesController extends Controller
             $evidenceTypes          = getEvidenceTypes();
             $servicePartners        = getServicePartners();
             $subCategories          = getActiveSubCategories($service->category_id);
-            return view('admin.services.edit', compact('service', 'pageTitle', 'status','countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes','subCategories'));
+            return view('admin.services.edit', compact('service', 'pageTitle', 'status','countries','categories','verificationModes','verificationProviders','subjects','evidenceTypes','servicePartners','inputDetailsOpts','fieldTypes','subCategories','verificationDurationTypes'));
         } catch (ModelNotFoundException) {
             abort(404);
         } catch (Exception $e) {

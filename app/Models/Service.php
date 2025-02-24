@@ -22,6 +22,7 @@ class Service extends Model
         'verification_summary',
         'verification_provider_id',
         'verification_duration',
+        'duration_type',
         'evidence_type_id',
         'evidence_summary',
         'service_partner_id',
