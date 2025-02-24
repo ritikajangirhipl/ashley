@@ -26,9 +26,12 @@ Route::get('/all-providers', [HomeController::class, 'verificationProvider'])->n
 Route::get('/global-catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
 Route::get('/service/{id}', [HomeController::class, 'serviceDetail'])->name('services.view');
 Route::post('sub-categories-get', [HomeController::class, 'getSubCategories'])->name('subcategories.getSubCategories');
+<<<<<<< HEAD
 Route::get('/{slug}', [HomeController::class, 'catalogue'])->name('catalogue.redirection');
 
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
+=======
+>>>>>>> bd0a5b3 (catalogue page apply custom filters)
 
 Auth::routes(['verify' => true]);
 
