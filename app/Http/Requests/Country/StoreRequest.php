@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Country;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -14,7 +15,13 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|unique:countries,name',
+            'name' => ['required',
+                        'string',
+                        'max:255',
+                        Rule::unique('countries')->where(function ($query) {
+                            return $query->whereNull('deleted_at');
+                        }),
+                    ],
             'flag' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'description' => 'nullable|string',
             'currency_name' => 'required|string|max:255',
