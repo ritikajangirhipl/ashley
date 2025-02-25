@@ -1499,6 +1499,16 @@ a.dropdown-item.delete_employee i {
     padding-left: 4px;
 }
 
+.repeatable-content-service-fields .service-field-actions {
+    position: static;
+}
+
+.repeatable-content-service-fields .service-field-actions .form-group {
+    position: absolute;
+    top: 37px;
+    margin-bottom: 0;
+}
+
 @media (max-width: 1366px) {
     label {
         font-weight: 500;
@@ -1508,6 +1518,10 @@ a.dropdown-item.delete_employee i {
 @media (max-width: 991px) {
     .form_view_outer > div {
         width: calc(50% - 12px);
+    }
+
+    .repeatable-content-service-fields .service-field-actions .form-group{
+        position: initial;
     }
 }
 @media (max-width: 767px) {

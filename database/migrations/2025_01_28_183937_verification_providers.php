@@ -9,13 +9,13 @@ return new class extends Migration {
     {
         Schema::create('verification_providers', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->unique(); 
+            $table->string('slug'); 
             $table->string('name');
             $table->text('description')->nullable();
             $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
             $table->foreignId('provider_type_id')->constrained('provider_types')->onDelete('cascade');
             $table->text('contact_address')->nullable();
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('website')->nullable();
             $table->string('contact_person')->nullable();
             $table->tinyInteger('status')->unsigned()->nullable();

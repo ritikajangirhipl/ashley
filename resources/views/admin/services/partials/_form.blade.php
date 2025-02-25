@@ -97,7 +97,7 @@
         <div class="form-group">
             <label for="verification_duration">{{ trans('cruds.services.fields.verification_duration') }}<span class="text-danger">*</span></label>
             <div class="verification_file">
-                <input type="number" step="0.5" id="verification_duration" name="verification_duration" class="form-control" value="{{ isset($service) ? $service->verification_duration : '' }}" required >
+                <input type="number" id="verification_duration" name="verification_duration" class="form-control" value="{{ isset($service) ? $service->verification_duration : '' }}" required >
                 <select name="duration_type" id="duration_type" class="form-control durationbox" required>
                     <option value="">Select one</option>
                     @foreach($verificationDurationTypes as $key => $value)
@@ -151,14 +151,14 @@
     <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="local_service_price">{{ trans('cruds.services.fields.local_service_price') }}<span class="text-danger">*</span></label>
-            <input type="number" step="0.01" id="local_service_price" name="local_service_price" class="form-control" value="{{ isset($service) ? $service->local_service_price : '' }}" required >
+            <input type="number" step="0.01" id="local_service_price" name="local_service_price" class="form-control" value="{{ isset($service) ? $service->local_service_price : '' }}" required oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
         </div>
     </div>
     <!-- usd Service Price -->
     <div class="col-md-4 col-sm-12">
         <div class="form-group">
             <label for="usd_service_price">{{ trans('cruds.services.fields.usd_service_price') }}<span class="text-danger">*</span></label>
-            <input type="text" step="0.01" id="usd_service_price" name="usd_service_price" class="form-control" value="{{ isset($service) ? $service->usd_service_price : '' }}" required >
+            <input type="text" step="0.01" id="usd_service_price" name="usd_service_price" class="form-control" value="{{ isset($service) ? $service->usd_service_price : '' }}" required oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
         </div>
     </div>
     <!-- Description -->

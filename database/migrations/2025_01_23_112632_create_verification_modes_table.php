@@ -9,7 +9,7 @@ return new class extends Migration
     {
         Schema::create('verification_modes', function (Blueprint $table) {
             $table->id(); 
-            $table->string('name')->unique();
+            $table->string('name');
             $table->text('description');
             $table->tinyInteger('status')->unsigned()->nullable();
             $table->timestamps();

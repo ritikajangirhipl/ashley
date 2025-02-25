@@ -29,7 +29,7 @@ class Country extends Model
             $slug = Str::slug($model->name);
             $originalSlug = $slug;
             $count = 1;
-            while (Country::where('slug', $slug)->exists()) {
+            while (Country::where(['slug' => $slug])->whereNull('deleted_at')->exists()) {
                 $slug = $originalSlug . '-' . $count;
                 $count++;
             }

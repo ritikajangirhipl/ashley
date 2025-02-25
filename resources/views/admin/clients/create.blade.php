@@ -23,5 +23,9 @@
 @section('scripts')
 @parent
 @include('admin.clients.partials._script')
+<script>
+    var isEditPage = false;
+</script>
 <script src="{{ asset('js/common.js') }}"></script>
 @endsection
+

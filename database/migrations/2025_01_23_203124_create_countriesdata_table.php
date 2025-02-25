@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->id(); 
-            $table->string('slug')->unique(); 
-            $table->string('name')->unique(); 
+            $table->string('slug'); 
+            $table->string('name'); 
             $table->string('flag')->nullable();
             $table->text('description')->nullable(); 
             $table->string('currency_name'); 

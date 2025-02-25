@@ -187,7 +187,11 @@
                     required: true
                 },
                 verification_duration: {
-                    required: true
+                    required: true,
+                    number: true,
+                    positive: true,
+                    multipleOfHalf: true,
+                    min: 0.5
                 },
                 evidence_type_id: {
                     required: true
@@ -241,6 +245,13 @@
                     required: true
                 }
             },
+            messages: {
+                verification_duration: {
+                    positive: "Please enter a positive value.",
+                    multipleOfHalf: "Please enter a value that is a multiple of 0.5.",
+                    min: "Please enter a value greater than or equal to 0.5."
+                }
+            },
             errorElement: 'span',
             errorClass: 'invalid-feedback',
             errorPlacement: function (error, element) {
@@ -262,5 +273,15 @@
             submitForm(form);
         }
         });
+
+        $.validator.addMethod("positive", function(value, element) {
+            return this.optional(element) || parseFloat(value) > 0;
+        }, "Please enter a positive value.");
+
+        $.validator.addMethod("multipleOfHalf", function(value, element) {
+            return this.optional(element) || (parseFloat(value) % 0.5 === 0);
+        }, "Please enter a value that is a multiple of 0.5.");
+
+
     });
 </script>
