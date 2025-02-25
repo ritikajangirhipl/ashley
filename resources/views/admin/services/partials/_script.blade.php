@@ -187,7 +187,10 @@
                     required: true
                 },
                 verification_duration: {
-                    required: true
+                    required: true,
+                    number: true,
+                    multipleOfHalf: true,
+                    min: 0.5
                 },
                 evidence_type_id: {
                     required: true
@@ -262,5 +265,10 @@
             submitForm(form);
         }
         });
+        
+        $.validator.addMethod("multipleOfHalf", function(value, element) {
+            return this.optional(element) || (parseFloat(value) % 0.5 === 0 && parseFloat(value) > 0);
+        }, "Please enter a value that is a multiple of 0.5.");
+
     });
 </script>
