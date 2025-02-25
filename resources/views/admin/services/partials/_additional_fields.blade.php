@@ -67,6 +67,13 @@
                             }
                         @endphp
 
+                        <!-- <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
+                            <div class="form-group">
+                                <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
+                                
+                                <input type="text" class="form-control" value="{{ $value }}" readonly>
+                            </div>
+                        </div> -->
                         <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
                             <div class="form-group">
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
