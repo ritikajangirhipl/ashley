@@ -9,7 +9,7 @@ return new class extends Migration
     {
         Schema::create('evidence_types', function (Blueprint $table) {
             $table->id(); 
-            $table->string('name')->unique(); 
+            $table->string('name'); 
             $table->text('description')->nullable(); 
             $table->tinyInteger('status')->unsigned()->nullable();
             $table->timestamps();
