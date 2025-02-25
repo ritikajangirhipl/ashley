@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -62,6 +64,22 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             if ($request->hasSession()) {
                 $request->session()->put('auth.password_confirmed_at', time());
+            }
+            
+            if (Session::has('cart_product')) {
+                $product = Session::get('cart_product');
+    
+                // Add the product to the cart
+                Cart::instance('shopping')->add([
+                    'id' => $product['id'],
+                    'name' => $product['name'],
+                    'qty' => $product['qty'] ?? 1,
+                    'price' => $product['price'],
+                    'options' => $product['options'],
+                ])->associate('App\Models\Service');
+    
+                // Remove product from session
+                Session::forget('cart_product');
             }
 
             return $this->sendLoginResponse($request);
@@ -158,6 +176,7 @@ class LoginController extends Controller
         ]);
     }
 
+    
 
    
 }
