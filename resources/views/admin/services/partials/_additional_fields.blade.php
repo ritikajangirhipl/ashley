@@ -51,33 +51,33 @@
                             </div>
                         </div>
                         
+                        
                         @php
                             $displayCombo = "none";
                             $options = [];
-                            $tempOptions = []; // Initialize $tempOptions as an empty array
-
-                            if ($serviceField->field_type == 2) {
+                            if($serviceField->field_type == 2){
                                 $displayCombo = "block";
                                 
-                                $tempOptions = json_decode($serviceField->combo_values);
-                                if($tempOptions){
+                                if($serviceField->combo_values){
+                                    $tempOptions = json_decode($serviceField->combo_values);
                                     $options = array_values($tempOptions);
                                     $options = array_combine($tempOptions,$options);
                                 }
                             }
                         @endphp
-
-                        <!-- <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
-                            <div class="form-group">
-                                <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
-                                
-                                <input type="text" class="form-control" value="{{ $value }}" readonly>
-                            </div>
-                        </div> -->
-
                         <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
                             <div class="form-group">
+                                <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}<span class="text-danger">*</span></label>
+                                {{ Form::select('additional_fields['.$number.'][combo_values][]', $options, $options,['class' => "form-control services_combo_values multi-select", 'id' => 'services_combo_values_'.$number, 'required' => false, 'multiple' => "multiple"]) }}
+
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
+                            <div class="form-group">
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
+
                                 @if($serviceField->field_type == 2)
                                         @foreach($serviceAdditionalFields as $key => $item)
                                             @php
@@ -96,7 +96,7 @@
                                     </select>
                                 @endif
                             </div>
-                        </div>
+                        </div> --}} 
 
 
 
