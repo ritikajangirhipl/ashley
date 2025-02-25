@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -14,7 +15,13 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|unique:categories,name',
+            'name' => ['required',
+                        'string',
+                        'max:255',
+                        Rule::unique('categories')->where(function ($query) {
+                            return $query->whereNull('deleted_at');
+                        }),
+                    ],
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'nullable|string|max:500',
             'status' => 'required|in:0,1', 
