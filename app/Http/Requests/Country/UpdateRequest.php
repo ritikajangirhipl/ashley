@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Country;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -14,7 +15,11 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:countries,name,'. $this->country->id.'|max:255 ',
+            'name' => ['required',
+                        // unique:countries,name,'. $this->country->id.,
+                        Rule::unique('countries', 'name')->ignore($this->country)->whereNull('deleted_at'),
+                        'max:255'
+                    ],
             'flag' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'description' => 'nullable|string',
             'currency_name' => 'required|string|max:255',
