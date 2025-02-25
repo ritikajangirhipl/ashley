@@ -87753,6 +87753,11 @@ body[data-header-scroll=on] .topbar .show .btn.btn-icon {
   display: block;
   margin:10px auto 0;
 }
+.disableSelect {
+    cursor: default;
+    pointer-events: none;
+    background-color: var(--bright-gray);
+}
 @media (min-width: 992px) {
   .header-fixed.subheader-fixed .subheader {
     position: fixed;
