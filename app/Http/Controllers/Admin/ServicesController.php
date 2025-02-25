@@ -135,8 +135,8 @@ class ServicesController extends Controller
                     $additionalFieldId = $field['additional_field_id'] ?? NULL;
 
                     $service->additionalFields()->updateOrCreate(['id' => $additionalFieldId],[
-                        'field_name' => $field['field_name'],
-                        'field_type' => $field['field_type'],
+                        'field_name' => $field['field_name'] ?? null,
+                        'field_type' => $field['field_type'] ?? null,
                         'combo_values' => (isset($field['combo_values']) && !is_null($field['combo_values'])) ? json_encode($field['combo_values']) : NULL,
                         'field_required' => isset($field['field_required']) ? $field['field_required'] : 0,
                     ]);
@@ -153,7 +153,7 @@ class ServicesController extends Controller
             return jsonResponseWithMessage(200, __('messages.update_success_message', ['attribute' => __('attribute.service')]), 
             ['redirect_url' => route('admin.services.index')]);
         } catch (Exception $e) {
-            dd($e->getMessage().' '.$e->getFile().' '.$e->getCode());
+            // dd($e->getMessage().' '.$e->getFile().' '.$e->getCode());
             return jsonResponseWithException($e);
         }
     }

@@ -74,13 +74,33 @@
                                 <input type="text" class="form-control" value="{{ $value }}" readonly>
                             </div>
                         </div> -->
+
                         <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
                             <div class="form-group">
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
-                                
-                                <input type="text" class="form-control" value="{{ $value }}" readonly>
+                                @if($serviceField->field_type == 2)
+                                        @foreach($serviceAdditionalFields as $key => $item)
+                                            @php
+                                                $isSelected = false;
+                                                if($item->id && $item->combo_values) {
+                                                    $isSelected = true;
+                                                } 
+                                            @endphp
+                                            @php
+                                                $comboValuesString = isset($item->combo_values) && !empty($item->combo_values) ? implode(', ', json_decode($item->combo_values, true)) : $value;
+                                            @endphp
+                                            <input type="text" class="form-control" value="{{ $comboValuesString }}" readonly>
+                                        @endforeach
+                                @else
+                                    <select class="form-control services_combo_values" name="additional_fields[0][combo_values][]" multiple="multiple" id="services_combo_values_0">
+                                    </select>
+                                @endif
                             </div>
                         </div>
+
+
+
+
 
                         <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="form-group">

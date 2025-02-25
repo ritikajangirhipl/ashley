@@ -3,7 +3,7 @@
 namespace App\Http\Requests\VerificationProvider;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class UpdateRequest extends FormRequest
 {
 
@@ -16,6 +16,11 @@ class UpdateRequest extends FormRequest
     {
         
         return [
+            'name' => ['required',
+                // unique:countries,name,'. $this->country->id.,
+                Rule::unique('provider_types', 'name')->ignore($this->verification_provider)->whereNull('deleted_at'),
+                'max:255'
+            ],
             'name' => 'required|string|unique:provider_types,name,' . $this->verification_provider->id . '|max:255',
             'description' => 'nullable|string',
             'country_id' => 'required|exists:countries,id',
