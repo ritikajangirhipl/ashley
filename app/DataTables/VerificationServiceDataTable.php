@@ -78,6 +78,11 @@ class VerificationServiceDataTable extends DataTable
      */
     public function query(Service $model)
     {
+        if (request()->has('free_text_search') && request('free_text_search') != '') {
+            $search = request()->input('search', []);
+            $search['value'] = request('free_text_search'); 
+            request()->merge(['search' => $search]); 
+        }
         
         $query = $model->newQuery()
         ->select('services.*', 'countries.name as country_name','verification_providers.name as provider_name', 'countries.currency_name as currency_name', DB::raw("(CASE 

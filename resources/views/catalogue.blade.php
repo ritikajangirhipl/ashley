@@ -217,14 +217,13 @@
     var datatableUrl =  "{{ route('catalogue') }}";
     var dataArray = @json($dataArr);
     $(document).ready(function () {
-        if (dataArray || Object.keys(dataArray).length > 0) {
+        if (Object.keys(dataArray).length > 0) {
            switch (dataArray.type) {
                 case "country":
                     $(document).find('#verification_country').val(dataArray.id).change();
                     $(document).find("#verification_country").addClass("disableSelect");
                     updateDataTable();
                     break;
-                
                 case "category":
                     $(document).find('#verification_category').val(dataArray.category_id);
                     setTimeout(()=>{
@@ -269,7 +268,7 @@
                             html += '<option value="">{{ trans("global.no_sub_categories_found") }}</option>';
                         }
                         $('#verification_subcategory').html(html).prop('disabled', false);
-                        if (dataArray || Object.keys(dataArray).length > 0) {
+                        if (Object.keys(dataArray).length > 0) {
                             if(dataArray.type == 'category'){
                                 $(document).find('#verification_subcategory').val(dataArray.id).change();
                                 $(document).find('#verification_subcategory').addClass("disableSelect");
@@ -297,7 +296,8 @@
                 }
                 
             });
-            if (dataArray || Object.keys(dataArray).length > 0) {
+            
+            if (Object.keys(dataArray).length > 0) {
                 switch (dataArray.type) {
                     case "country":
                         $(document).find('#verification_country').val(dataArray.id).change();
@@ -336,6 +336,7 @@
                 params[name] = value;
             }
         });
+        
         $('#services-table').DataTable().ajax.url(datatableUrl+'?'+$.param(params)).draw();
     }
 </script>
