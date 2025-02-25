@@ -78,11 +78,7 @@
                             <div class="form-group">
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
                                 
-                                <select class="form-control services_combo_values" name="additional_fields[{{ $number }}][combo_values][]" multiple="multiple" id="services_combo_values_{{ $number }}">
-                                    @foreach($options as $key => $value)
-                                        <option value="{{ $key }}" {{ in_array($key, $options) ? 'selected' : '' }}>{{ $value }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" class="form-control" value="{{ $value }}" readonly>
                             </div>
                         </div>
 
