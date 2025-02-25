@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->enum('client_type', ['individual', 'organization']);
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('phone_number');
             $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
             $table->text('contact_address')->nullable();
