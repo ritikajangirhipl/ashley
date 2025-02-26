@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Country;
 use App\Models\VerificationMode;
 use App\Models\VerificationProvider;
@@ -118,6 +119,38 @@ function getActivePaymentStatuses()
 function getActiveProcessingStatuses()
 {
     return Processing::where('status', 1)->pluck('status', 'id');
+}
+
+if (!function_exists('updateCartWishlist')) {
+
+	/**
+	 * updateCart function
+	 * @return void
+	 */
+	function updateCartWithDb($identifier, $instance)
+	{
+		$cartContent = Cart::instance($instance)->content();
+		$cartDataExist = \DB::table(config('cart.database.table', 'shoppingcart'))
+			->where('identifier', $identifier)
+			->where('instance', $instance)
+			->exists();
+		if ($cartDataExist) {
+			\DB::table(config('cart.database.table', 'shoppingcart'))
+				->where('identifier', $identifier)
+				->where('instance', $instance)
+				->update(['content' => serialize($cartContent), 'updated_at'	=> new \DateTime()]);
+		} else {
+			\DB::table(config('cart.database.table', 'shoppingcart'))
+				->insert([
+					'identifier'    => $identifier,
+					'instance' 		=> $instance,
+					'content' 		=> serialize($cartContent),
+					'created_at'	=> new \DateTime(),
+					'updated_at'	=> new \DateTime()
+				]);
+		}
+		return true;
+	}
 }
 
 /**

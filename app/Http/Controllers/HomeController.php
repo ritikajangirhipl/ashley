@@ -84,8 +84,10 @@ class HomeController extends Controller
         return view('sub_category', compact('subcategories','category'));
     }
 
-    public function serviceDetail($id){
+    public function serviceDetail(Request $request, $id){
         try { 
+            $update = $request->update ?? 1;
+            
             $service = Service::with(['country','category','subCategory','verificationMode', 'verificationProvider', 'evidenceType','additionalFields'])->where('id', decrypt($id))->firstOrFail();
 
             $fields = config('constant.enums.input_details_fields');
@@ -95,8 +97,9 @@ class HomeController extends Controller
             if(!$service){
                 abort(404);
             }
-            // dd($service->toArray());
-            return view('service-detail', compact('service','otherServices','fields'));
+
+
+            return view('service-detail', compact('service','otherServices','fields','update'));
         } catch (DecryptException) {
             abort(404);
         } 
