@@ -37,20 +37,9 @@ Route::group(['prefix' => 'ajax/cart', 'as' => 'cart.'], function () {
     
 });
 
-    // foreach(getActiveCountries() as $keyCountry => $valueCountry){
-        
-    //     die;
-    // }
-
 Auth::routes(['verify' => true]);
 
-// Route::middleware(['auth', 'preventBackHistory', 'verified'])->group(function () {
-//     Route::get('/catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
-// });
-
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
-    //Auth::routes(['register' => false]);
-    // 
     Route::namespace('Auth')->group(function () {
         Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
         Route::post('login', [LoginController::class, 'login'])->name('loginSubmit');
