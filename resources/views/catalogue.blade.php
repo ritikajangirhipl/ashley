@@ -244,7 +244,6 @@
         } 
         $(document).on('change','#verification_category', function() {
             var category_id = $(this).val();
-             console.log(category_id);
             $('#verification_subcategory').prop('disabled', true).html('<option value="">{{ trans("global.please_select") }}</option>');
 
             if (category_id) {
