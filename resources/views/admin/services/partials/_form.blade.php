@@ -102,7 +102,7 @@
                     @foreach($verificationDurationTypes as $key => $value)
                         <option value="{{ $key }}" {{ isset($service) && $service->duration_type == $key ? "selected" : "" }}>{{ $value }}</option>
                     @endforeach
-            </select>
+                </select>
             </div>
         </div>
     </div>
