@@ -20,7 +20,6 @@
     }
 
     async function addUniqueFieldName(){
-        console.log('addUniqueFieldName',$("input[name^='additional_fields']"));
         $.validator.addMethod("uniqueFieldName", function (value, element) {
             var isUnique = true;
             $("input[name^='additional_fields']").each(function () {
@@ -173,7 +172,7 @@
             if(newCounter == 0){
                 fieldsContainer.css("visibility", "hidden");
             }
-            $('.add_additional_field').attr('data-counter', newCounter);
+            // $('.add_additional_field').attr('data-counter', newCounter);
         });
 
         
