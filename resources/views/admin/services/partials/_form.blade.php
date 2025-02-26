@@ -99,7 +99,6 @@
             <div class="verification_file">
                 <input type="number" id="verification_duration" name="verification_duration" class="form-control" value="{{ isset($service) ? $service->verification_duration : '' }}" required >
                 <select name="duration_type" id="duration_type" class="form-control durationbox" required>
-                    <option value="">Select one</option>
                     @foreach($verificationDurationTypes as $key => $value)
                         <option value="{{ $key }}" {{ isset($service) && $service->duration_type == $key ? "selected" : "" }}>{{ $value }}</option>
                     @endforeach

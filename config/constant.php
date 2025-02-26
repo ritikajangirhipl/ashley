@@ -149,9 +149,9 @@ return [
             4   => 'Date',
         ],
         'verification_duration_types' => [
-            "days"   => 'Days',
-            "months"   => 'Months',
-            "years"   => 'Years',
+            "days"   => 'Day',
+            "months"   => 'Month',
+            "years"   => 'Year',
         ],
         'marital_status' => [
             'married' => 'Married',
