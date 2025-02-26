@@ -35,7 +35,6 @@ Route::middleware(['auth', 'preventBackHistory', 'verified'])->group(function ()
 
 Route::group(['prefix' => 'ajax/cart', 'as' => 'cart.'], function () {
     Route::post('add', [CartController::class, 'addToCart'])->name('add');
-    
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
