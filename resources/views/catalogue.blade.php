@@ -86,7 +86,11 @@
                         Search Our Verification Services Catalogue
                     </h3>
                 </div>
+<<<<<<< HEAD
                 <form class="form" action="javascript:void(0);" id="searchService">
+=======
+                <form class="form" id="searchService">
+>>>>>>> bd0a5b3 (catalogue page apply custom filters)
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 col-lg-4">
