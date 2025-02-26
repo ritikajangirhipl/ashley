@@ -26,8 +26,6 @@ Route::get('/all-providers', [HomeController::class, 'verificationProvider'])->n
 Route::get('/global-catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
 Route::get('/service/{id}', [HomeController::class, 'serviceDetail'])->name('services.view');
 Route::post('sub-categories-get', [HomeController::class, 'getSubCategories'])->name('subcategories.getSubCategories');
-
-
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
 
 Auth::routes(['verify' => true]);
