@@ -14,115 +14,115 @@
                 <div class="col-md-12">
                     <div class="form_view_outer mb-5 service-view">
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.country') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.country') }}:</h6>
                             <p>{{ ucwords($service->country->name) ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.category') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.category') }}:</h6>
                             <p>{{ ucwords($service->category->name) ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.sub_category') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.sub_category') }}:</h6>
                             <p>{{ ucwords($service->subCategory->name) ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.name') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.name') }}:</h6>
                             <p>{{ $service->name }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.description') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.description') }}:</h6>
                             <p>{{ $service->description ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.subject') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.subject') }}:</h6>
                             <p>{{ $subjects[$service->subject] ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.verification_mode') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.verification_mode') }}:</h6>
                             <p>{{ $service->verificationMode->name ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.verification_summary') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.verification_summary') }}:</h6>
                             <p>{{ $service->verification_summary ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.verification_provider') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.verification_provider') }}:</h6>
                             <p>{{ $service->verificationProvider->name ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.verification_duration') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.verification_duration') }}:</h6>
                             <p>{{ $service->verification_duration." ".$service->duration_type ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.evidence_type') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.evidence_type') }}:</h6>
                             <p>{{ $service->evidenceType->name ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.evidence_summary') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.evidence_summary') }}:</h6>
                             <p>{{ $service->evidence_summary ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.service_partner') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.service_partner') }}:</h6>
                             <p>{{ $service->servicePartner->name ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.service_currency') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.service_currency') }}:</h6>
                             <p>{{ $service->country->currency_name ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.local_service_price') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.local_service_price') }}:</h6>
                             <p>{{ $service->local_service_price ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.usd_service_price') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.usd_service_price') }}:</h6>
                             <p>{{ $service->usd_service_price ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.subject_name') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.subject_name') }}:</h6>
                             <p>{{ $input_details[$service->subject_name] ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.copy_of_document_to_verify') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.copy_of_document_to_verify') }}:</h6>
                             <p>{{ $input_details[$service->copy_of_document_to_verify] ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.reason_for_request') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.reason_for_request') }}:</h6>
                             <p>{{ $input_details[$service->reason_for_request] ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.subject_consent_requirement') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.subject_consent_requirement') }}:</h6>
                             <p>{{ $input_details[$service->subject_consent_requirement] ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.name_of_reference_provider') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.name_of_reference_provider') }}:</h6>
                             <p>{{ $input_details[$service->name_of_reference_provider] ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.address_information') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.address_information') }}:</h6>
                             <p>{{ $input_details[$service->address_information] ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.location') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.location') }}:</h6>
                             <p>{{ $input_details[$service->location] ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.gender') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.gender') }}:</h6>
                             <p>{{ $input_details[$service->gender] ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.marital_status') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.marital_status') }}:</h6>
                             <p>{{ $input_details[$service->marital_status] ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.registration_number') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.registration_number') }}:</h6>
                             <p>{{ $input_details[$service->registration_number] ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.status') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.status') }}:</h6>
                             <p>{{ config('constant.enums.status.'.$service->status) }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
-                            <h6 class="mb-0">{{ trans('cruds.services.fields.created_at') }}</h6>
+                            <h6 class="mb-0">{{ trans('cruds.services.fields.created_at') }}:</h6>
                             <p>{{ date("Y-m-d", strtotime($service->created_at)) ?? __('global.N/A') }}</p>
                         </div>
                     </div>
@@ -145,17 +145,21 @@
                                     <td>{{ ucwords($field->field_name) ?? "" }}</td>
                                     <td>{{ $field_types[$field->field_type] ?? "" }}</td>
                                     <td>
-                                        @php
-                                            $options = [];
-                                            if($field->combo_values){
-                                                $tempOptions = json_decode($field->combo_values);
-                                                $options = array_values($tempOptions);
-                                                $options = array_combine($tempOptions,$options);
-                                            }
-                                        @endphp
-                                        @foreach($options as $key => $option)
-                                            <span class="combo-text">{{ $option }}</span>
-                                        @endforeach
+                                        @if($field->field_type == 2)
+                                            @php
+                                                $options = [];
+                                                if($field->combo_values){
+                                                    $tempOptions = json_decode($field->combo_values);
+                                                    $options = array_values($tempOptions);
+                                                    $options = array_combine($tempOptions,$options);
+                                                }
+                                            @endphp
+                                            @foreach($options as $key => $option)
+                                                <span class="btn btn-sm btn-primary">{{ $option }}</span>
+                                            @endforeach
+                                        @else
+                                            {{ "-" }}   
+                                        @endif
                                     </td>
                                     <td>
                                         {{ $input_details[$field->field_required] ?? "" }}
