@@ -38,8 +38,6 @@ Route::group(['prefix' => 'ajax/cart', 'as' => 'cart.'], function () {
     
 });
 
-
-
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
     Route::namespace('Auth')->group(function () {
         Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
