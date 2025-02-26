@@ -7,6 +7,8 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 
 class VerificationServiceDataTable extends DataTable
 {
@@ -76,9 +78,10 @@ class VerificationServiceDataTable extends DataTable
      * @param \App\Models\VerificationServiceDataTable $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Service $model)
+    public function query(Service $model, Request $request)
     {
-        
+        \Log::info($request->search);
+
         $query = $model->newQuery()
         ->select('services.*', 'countries.name as country_name','verification_providers.name as provider_name', 'countries.currency_name as currency_name', DB::raw("(CASE 
             WHEN services.country_id = " . (auth()->check() ? auth()->user()->country_id : 0) . " 
