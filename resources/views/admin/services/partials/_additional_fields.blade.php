@@ -58,18 +58,12 @@
 
                             if ($serviceField->field_type == 2) {
                                 $displayCombo = "block";
-
-                                // Decode the combo_values JSON string
-                                $tempOptions = json_decode($serviceField->combo_values, true);
-
-                                // Ensure $tempOptions is an array
-                                if (!is_array($tempOptions)) {
-                                    $tempOptions = [];
+                                
+                                $tempOptions = json_decode($serviceField->combo_values);
+                                if($tempOptions){
+                                    $options = array_values($tempOptions);
+                                    $options = array_combine($tempOptions,$options);
                                 }
-
-                                // Prepare $options for the select dropdown
-                                $options = array_values($tempOptions);
-                                $options = array_combine($tempOptions, $options);
                             }
                         @endphp
 
