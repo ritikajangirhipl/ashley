@@ -145,17 +145,21 @@
                                     <td>{{ ucwords($field->field_name) ?? "" }}</td>
                                     <td>{{ $field_types[$field->field_type] ?? "" }}</td>
                                     <td>
-                                        @php
-                                            $options = [];
-                                            if($field->combo_values){
-                                                $tempOptions = json_decode($field->combo_values);
-                                                $options = array_values($tempOptions);
-                                                $options = array_combine($tempOptions,$options);
-                                            }
-                                        @endphp
-                                        @foreach($options as $key => $option)
-                                            <span class="btn btn-sm btn-primary">{{ $option }}</span>
-                                        @endforeach
+                                        @if($field->field_type == 2)
+                                            @php
+                                                $options = [];
+                                                if($field->combo_values){
+                                                    $tempOptions = json_decode($field->combo_values);
+                                                    $options = array_values($tempOptions);
+                                                    $options = array_combine($tempOptions,$options);
+                                                }
+                                            @endphp
+                                            @foreach($options as $key => $option)
+                                                <span class="btn btn-sm btn-primary">{{ $option }}</span>
+                                            @endforeach
+                                        @else
+                                            {{ "-" }}   
+                                        @endif
                                     </td>
                                     <td>
                                         {{ $input_details[$field->field_required] ?? "" }}

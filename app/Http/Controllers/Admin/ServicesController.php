@@ -67,7 +67,7 @@ class ServicesController extends Controller
                         $service->additionalFields()->create([
                             'field_name' => $field['field_name'],
                             'field_type' => $field['field_type'],
-                            'combo_values' => (isset($field['combo_values']) && !is_null($field['combo_values'])) ? json_encode($field['combo_values']) : NULL,
+                            'combo_values' => (isset($field['combo_values']) && !is_null($field['combo_values']) && $field['field_type'] == 2) ? json_encode($field['combo_values']) : NULL,
                             'field_required' => $field['field_required'],
                         ]);
                     }
@@ -138,7 +138,7 @@ class ServicesController extends Controller
                         $service->additionalFields()->updateOrCreate(['id' => $additionalFieldId],[
                             'field_name' => $field['field_name'] ?? null,
                             'field_type' => $field['field_type'] ?? null,
-                            'combo_values' => (isset($field['combo_values']) && !is_null($field['combo_values'])) ? json_encode($field['combo_values']) : NULL,
+                            'combo_values' => (isset($field['combo_values']) && !is_null($field['combo_values']) && $field['field_type'] == 2) ? json_encode($field['combo_values']) : NULL,
                             'field_required' => isset($field['field_required']) ? $field['field_required'] : 0,
                         ]);
                     }

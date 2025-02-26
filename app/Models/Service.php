@@ -45,7 +45,7 @@ class Service extends Model
     protected $dates = ['deleted_at'];
 
     public function getVerificationDurationAttribute(){
-        return $this->attributes['verification_duration'] = is_double($this->attributes['verification_duration']) ? $this->attributes['verification_duration'] : (int)$this->attributes['verification_duration'];
+        return $this->attributes['verification_duration'] = is_integer($this->attributes['verification_duration']) ? (int)$this->attributes['verification_duration'] : $this->attributes['verification_duration'];
     }
 
     public function getBuyableIdentifier($options = NULL)

@@ -102,8 +102,11 @@
 
         $(document).on('change','.services_field_type',function(){
             var _this_element = $(this);
-            console.log(_this_element.val());
-            console.log(_this_element.parents('.services_field_type_wrap').siblings('.combo_values_wrap'));
+            if(_this_element.val() != ""){
+                _this_element.parents('.repeatable-content-service-fields').find('.services_field_name').attr('required',true);
+            }else{
+                _this_element.parents('.repeatable-content-service-fields').find('.services_field_name').removeAttr('required');
+            }
             if(_this_element.val() == 2){
                 _this_element.parents('.services_field_type_wrap').siblings('.combo_values_wrap').show();
             }else{
