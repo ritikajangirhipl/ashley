@@ -16,7 +16,7 @@ class StoreRequest extends FormRequest
     {
         return [
 
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|unique:service_partners,name',
             'description' => 'nullable|string',
             'country_id' => 'required|exists:countries,id',
             'contact_address' => 'nullable|string',
@@ -37,6 +37,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name.required' => 'Please enter the service partner name.',
+            'name.unique' => 'This service partner name is already in use. Please choose another name.',
             'name.max' => 'The service partner name cannot exceed 255 characters.',
 
             'description.string' => 'The description must be a valid string.',

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\VerificationProvider;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class StoreRequest extends FormRequest
 {
 
@@ -15,6 +15,13 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
+                'name' => ['required',
+                'string',
+                'max:255',
+                Rule::unique('verification_providers')->where(function ($query) {
+                    return $query->whereNull('deleted_at');
+                }),
+            ],
             'name' => 'required|unique:verification_providers,name|max:255',
             'description' => 'nullable|string',
             'country_id' => 'required|exists:countries,id',
