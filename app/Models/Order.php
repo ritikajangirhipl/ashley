@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -12,7 +13,7 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'order_id',
+        'uuid',
         'client_id',
         'service_id',
         'subject_name',
@@ -29,6 +30,14 @@ class Order extends Model
         'order_amount',
         'status',
     ];
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function($model){
+           $model->uuid = Str::uuid()->toString();
+        });
+    }
 
     public function client()
     {
