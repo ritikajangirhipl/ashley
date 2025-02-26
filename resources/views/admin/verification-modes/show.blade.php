@@ -15,19 +15,19 @@
             <div class="col-md-12">
                 <div class="form_view_outer">
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.verification_mode.fields.name') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.verification_mode.fields.name') }}</h6>
                         <p>{{ $verificationMode->name }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.verification_mode.fields.description') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.verification_mode.fields.description') }}</h6>
                         <p>{{ $verificationMode->description }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.verification_mode.fields.status') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.verification_mode.fields.status') }}</h6>
                         <p>{{ config('constant.enums.status.'.$verificationMode->status) }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.verification_mode.fields.created_at') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.verification_mode.fields.created_at') }}</h6>
                         <p>{{ date("Y-m-d", strtotime($verificationMode->created_at)) ?? __('global.N/A') }}</p>
                     </div>
                 </div>

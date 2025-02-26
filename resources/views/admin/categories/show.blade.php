@@ -17,19 +17,19 @@
             <div class="col-md-12">
                 <div class="form_view_outer">
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.category.fields.name') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.category.fields.name') }}</h6>
                         <p>{{ $category->name }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.category.fields.description') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.category.fields.description') }}</h6>
                         <p>{{ $category->description }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.category.fields.status') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.category.fields.status') }}</h6>
                         <p>{{ config('constant.enums.status.'.$category->status) }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.category.fields.image') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.category.fields.image') }}</h6>
                         @if($category->image)
                             <p>
                                 <a href="{{ asset('storage/' . $category->image) }}" class="upload_data_img" data-fancybox="gallery">
@@ -41,7 +41,7 @@
                         @endif
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.category.fields.created_at') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.category.fields.created_at') }}</h6>
                         <p>{{ date("Y-m-d", strtotime($category->created_at)) ?? __('global.N/A') }}</p>
                     </div>
                 </div>
