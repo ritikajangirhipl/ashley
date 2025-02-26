@@ -410,7 +410,67 @@
                                 <div class="card-body">												
                                     <form class="form">
                                         <div class="row">
-                                            <div class="col-md-6 col-lg-6">
+                                            @if($fields)
+                                                @foreach($fields as $key => $field)
+                                                    @if($service->{$key})
+                                                        <div class="col-md-6 col-lg-6">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label pt-0">{{ $field['label'] }}</label>
+                                                                @if($field['inp_type'] == "text")
+                                                                    {{ Form::text($field['field_name'], null,['class' => "form-control", 'id' => $field['field_name'], 'required' => true, 'placeholder' => $field['label']]) }}
+                                                                    
+                                                                @elseif($field['inp_type'] == "file")
+                                                                    {{ Form::file($field['field_name'], null,['class' => "form-control",'accept' =>"application/pdf", 'id' => $field['field_name'], 'required' => true, 'placeholder' => $field['label']]) }}
+                                                                @elseif($field['inp_type'] == "select")
+                                                                    @php
+                                                                        $options = $field['options'];
+                                                                        if($key == "location"){
+                                                                            $options = getActiveCountries();
+                                                                        }
+                                                                    @endphp
+                                                                    <select name="{{ $field['field_name'] }}" class="form-control">
+                                                                        <option label="Select One">Select One</option>
+                                                                        @foreach($options as $oKey => $option)
+                                                                            <option value="{{ $oKey }}">{{ $option }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                @elseif($field['inp_type'] == "textarea")
+                                                                    {{ Form::textarea($field['field_name'], null,['class' => "form-control", 'id' => $field['field_name'], 'required' => true, 'placeholder' => $field['label'],'rows' => 2]) }}
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+
+                                            @if($service->additionalFields)
+                                                @foreach($service->additionalFields as $key => $aField)
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <div class="form-group">
+                                                            {{ Form::label("", $aField->field_name) }}
+                                                            @if($aField->field_type == 1)
+                                                                {{ Form::text($aField->field_name, null,['class' => "form-control", 'id' => "", 'required' => $aField->field_required, 'placeholder' => $aField->field_name]) }}
+                                                                
+                                                            @elseif($aField->field_type == 4)
+                                                                {{ Form::date($aField->field_name, null,['class' => "form-control", 'id' => "", 'required' => $aField->field_required, 'placeholder' => $aField->field_name]) }}
+                                                            @elseif($aField->field_type == 2) 
+                                                                @php
+                                                                    $options = json_decode($aField->combo_values) ?? [];
+                                                                @endphp
+                                                                <select id="" name="{{ $aField->field_name }}" class="form-control">
+                                                                    <option label="Select One">Select One</option>
+                                                                    @foreach($options as $oKey => $option)
+                                                                        <option value="{{ $oKey }}">{{ $option }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            @elseif($aField->field_type == 3)
+                                                                {{ Form::textarea($aField->field_name, null,['class' => "form-control", 'id' => $field['field_name'], 'required' => $aField->field_required, 'placeholder' => $aField->field_name,'rows' => 2]) }}
+                                                            @endif 
+                                                        </div>
+                                                    </div>                    
+                                                @endforeach
+                                            @endif
+                                            <!-- <div class="col-md-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label class="col-form-label pt-0">Subjects Last Name</label>
                                                     <input type="text" class="form-control" placeholder="Subjects Last Name">
@@ -444,7 +504,7 @@
                                                         <option>Other</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-md-12 col-lg-12 text-left">
                                                 <button class="btn btn-primary min-w-130px">Add to cart</button>
                                             </div>
