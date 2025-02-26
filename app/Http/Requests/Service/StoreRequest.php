@@ -41,6 +41,7 @@ class StoreRequest extends FormRequest
             "marital_status" => 'required',
             "registration_number" => 'required',
             'status' => 'required|in:0,1', 
+            // 'additional_fields.*.field_name' => 'nullable|unique:your_table,column_name',
         ];
     }
 

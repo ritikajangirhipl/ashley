@@ -63,7 +63,7 @@ class ServicesController extends Controller
             $additionalFields = $request->additional_fields;
             if(!empty($additionalFields)){
                 foreach($additionalFields as $key => $field){
-                    if($field['field_name'] && $field['field_type'] && $field['field_required']){
+                    if($field['field_name'] && $field['field_type'] && in_array($field['field_required'],[0,1])){
                         $service->additionalFields()->create([
                             'field_name' => $field['field_name'],
                             'field_type' => $field['field_type'],
@@ -134,12 +134,14 @@ class ServicesController extends Controller
                 foreach($additionalFields as $key => $field){
                     $additionalFieldId = $field['additional_field_id'] ?? NULL;
 
-                    $service->additionalFields()->updateOrCreate(['id' => $additionalFieldId],[
-                        'field_name' => $field['field_name'] ?? null,
-                        'field_type' => $field['field_type'] ?? null,
-                        'combo_values' => (isset($field['combo_values']) && !is_null($field['combo_values'])) ? json_encode($field['combo_values']) : NULL,
-                        'field_required' => isset($field['field_required']) ? $field['field_required'] : 0,
-                    ]);
+                    if($field['field_name'] && $field['field_type'] && in_array($field['field_required'],[0,1])){
+                        $service->additionalFields()->updateOrCreate(['id' => $additionalFieldId],[
+                            'field_name' => $field['field_name'] ?? null,
+                            'field_type' => $field['field_type'] ?? null,
+                            'combo_values' => (isset($field['combo_values']) && !is_null($field['combo_values'])) ? json_encode($field['combo_values']) : NULL,
+                            'field_required' => isset($field['field_required']) ? $field['field_required'] : 0,
+                        ]);
+                    }
                 }
             }
 

@@ -1072,7 +1072,10 @@ footer {
     border: 1px solid #ddd;
     padding: 14px;
 }
-
+.durationbox {
+    max-width: 122px;
+    padding-left: 4px;
+}
 /* Media Css */
 
 @media (max-width: 768px) {
@@ -1495,7 +1498,7 @@ a.dropdown-item.delete_employee i {
 }
 
 .durationbox {
-    max-width: 100px;
+    max-width: 122px;
     padding-left: 4px;
 }
 

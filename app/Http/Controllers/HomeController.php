@@ -102,7 +102,10 @@ class HomeController extends Controller
                 abort(404);
             }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 09d8d9689b124c82a54166eef76aef23c5f57c4e
             return view('service-detail', compact('service','otherServices','fields','update'));
         } catch (DecryptException) {
             abort(404);

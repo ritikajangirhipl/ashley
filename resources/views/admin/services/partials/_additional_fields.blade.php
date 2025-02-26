@@ -55,7 +55,9 @@
                         @php
                             $displayCombo = "none";
                             $options = [];
-                            if($serviceField->field_type == 2){
+                            $tempOptions = [];
+
+                            if ($serviceField->field_type == 2) {
                                 $displayCombo = "block";
                                 
                                 if($serviceField->combo_values){
@@ -65,6 +67,19 @@
                                 }
                             }
                         @endphp
+
+                        <!-- <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
+                            <div class="form-group">
+                                <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
+                                <select class="form-control services_combo_values" name="additional_fields[{{ $number }}][combo_values][]" multiple="multiple" id="services_combo_values_{{ $number }}">
+                                    @foreach($tempOptions as $option)
+                                        <option value="{{ $option }}" selected>{{ $option }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div> -->
+
                         <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
                             <div class="form-group">
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}<span class="text-danger">*</span></label>
@@ -98,10 +113,6 @@
                             </div>
                         </div> --}} 
 
-
-
-
-
                         <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="form-group">
                                 <label >{{ trans('cruds.services.fields.field_required') }}</label>
@@ -116,7 +127,6 @@
                                 </select>
                             </div>
                         </div>   
-
 
                         <div class="col-2 col-sm-6 col-md-2 col-lg-2 align-self-end service-field-actions">
                             <div class="form-group">
