@@ -18,6 +18,7 @@ Route::get('/cache-clear', function() {
 });
 // Route::redirect('/', '/home');
 
+Auth::routes(['verify' => true]);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/all-countries', [HomeController::class, 'country'])->name('countries');
 Route::get('/all-categories', [HomeController::class, 'category'])->name('categories');
@@ -37,7 +38,7 @@ Route::group(['prefix' => 'ajax/cart', 'as' => 'cart.'], function () {
     
 });
 
-Auth::routes(['verify' => true]);
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
     Route::namespace('Auth')->group(function () {
