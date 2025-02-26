@@ -52,7 +52,7 @@
         
         .find(".services_field_type").attr('name',"additional_fields["+counter+"][field_type]").attr('id',"services_field_type_"+counter).removeClass("is-valid").val("").end()   
 
-        .find(".services_field_required").attr('name',"additional_fields["+counter+"][field_required]").attr('id',"services_field_required_"+counter).removeClass("is-valid").val("").end()
+        .find(".services_field_required").attr('name',"additional_fields["+counter+"][field_required]").attr('id',"services_field_required_"+counter).removeClass("is-valid").val("1").end()
         .find(".del-field-btn").removeClass('delete_record').addClass('del_field').removeAttr('data-url').attr('data-services',"service-field-"+counter).end()
         .removeClass('service-field-0')
         .addClass("service-field-"+counter)

@@ -118,7 +118,7 @@
                                 <label >{{ trans('cruds.services.fields.field_required') }}</label>
 
                                 <select name="additional_fields[{{ $number }}][field_required]" id="services_field_required_{{ $number }}" class="form-control services_field_required" >
-                                    <option value="">{{ 'Select ' . trans('cruds.services.fields.field_required') }}</option>
+                                    {{-- <option value="">{{ 'Select ' . trans('cruds.services.fields.field_required') }}</option> --}}
                                     @foreach($inputDetailsOpts as $id => $name)
                                         <option value="{{ $id }}" {{ $serviceField->field_required == $id ? 'selected' : ''}}>
                                             {{ $name }}
@@ -181,7 +181,7 @@
                         <label>{{ trans('cruds.services.fields.field_required') }}</label>
 
                         <select name="additional_fields[0][field_required]" id="services_field_required_0" class="form-control services_field_required">
-                            <option value="">{{ 'Select ' . trans('cruds.services.fields.field_required') }}</option>
+                            {{-- <option value="">{{ 'Select ' . trans('cruds.services.fields.field_required') }}</option> --}}
                             @foreach($inputDetailsOpts as $id => $name)
                                 <option value="{{ $id }}" >
                                     {{ $name }}
