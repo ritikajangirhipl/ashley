@@ -28,6 +28,13 @@ Route::get('/service/{id}', [HomeController::class, 'serviceDetail'])->name('ser
 Route::post('sub-categories-get', [HomeController::class, 'getSubCategories'])->name('subcategories.getSubCategories');
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
 
+Route::get('/{slug}', [HomeController::class, 'catalogue'])->name('catalogue.redirection');
+
+    // foreach(getActiveCountries() as $keyCountry => $valueCountry){
+        
+    //     die;
+    // }
+
 Auth::routes(['verify' => true]);
 
 // Route::middleware(['auth', 'preventBackHistory', 'verified'])->group(function () {

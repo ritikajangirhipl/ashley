@@ -24,8 +24,29 @@ class HomeController extends Controller
         return view('home', compact('countries','categories','verificationProviders'));
     }
 
-    public function catalogue(VerificationServiceDataTable $dataTable)
+    public function catalogue(VerificationServiceDataTable $dataTable, $slug=null)
     {
+        $dataArr = [];
+        if(!empty($slug)){
+            $data = Country::where(['slug' => $slug])->first();
+            $type ='country';
+            if(!$data){
+                $data = SubCategory::with(['category'])->where(['slug' => $slug])->first();
+                $type ='category';
+            }
+            if(!$data){
+                $data = VerificationProvider::where(['slug' => $slug])->first();
+                $type ='providers';
+            }
+            if(!$data){
+                abort(404);
+            }
+            $dataArr['type'] = $type;
+            $dataArr['id'] = $data->id;
+            if($type == 'category'){
+                $dataArr['category_id'] = $data->category->id;
+            }
+        }
         $countries = Country::where(['status' => 1])->orderBy('name', 'asc')->get();
         $categories = Category::where(['status' => 1])->orderBy('name', 'asc')->get();
         $verificationProviders = VerificationProvider::where(['status' => 1])->orderBy('name', 'asc')->get();
@@ -33,7 +54,7 @@ class HomeController extends Controller
         $verificationModes = VerificationMode::where(['status' => 1])->orderBy('name', 'asc')->get();
         $evidenceTypes = EvidenceType::where(['status' => 1])->orderBy('name', 'asc')->get();
         //$subcategories = SubCategory::where(['status' => 1])->get();
-        return $dataTable->render('catalogue',compact('countries','categories','verificationProviders','providerTypes','verificationModes','evidenceTypes'));
+        return $dataTable->render('catalogue',compact('countries','categories','verificationProviders','providerTypes','verificationModes','evidenceTypes','dataArr'));
     }
 
     public function country()
@@ -98,6 +119,22 @@ class HomeController extends Controller
             ], 400);
         }
 
+    }
+
+    public function catalogueCountry(VerificationServiceDataTable $dataTable, $slug)
+    {
+        $country = Country::where(['slug' => $slug])->first();
+        if(!$country){
+            abort(404);
+        }
+        $countryId = $country->id;
+        $countries = Country::where(['status' => 1])->orderBy('name', 'asc')->get();
+        $categories = Category::where(['status' => 1])->orderBy('name', 'asc')->get();
+        $verificationProviders = VerificationProvider::where(['status' => 1])->orderBy('name', 'asc')->get();
+        $providerTypes = ProviderType::where(['status' => 1])->orderBy('name', 'asc')->get();
+        $verificationModes = VerificationMode::where(['status' => 1])->orderBy('name', 'asc')->get();
+        $evidenceTypes = EvidenceType::where(['status' => 1])->orderBy('name', 'asc')->get();
+        return $dataTable->render('catalogue_country',compact('countries','categories','verificationProviders','providerTypes','verificationModes','evidenceTypes','countryId','slug'));
     }
    
 
