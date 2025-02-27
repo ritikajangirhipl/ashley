@@ -19,7 +19,21 @@
         });
     }
 
+    async function addUniqueFieldName(){
+        $.validator.addMethod("uniqueFieldName", function (value, element) {
+            var isUnique = true;
+            $("input[name^='additional_fields']").each(function () {
+                if ($(this).val() === value && this !== element) {
+                    isUnique = false;
+                    return false; // Break loop
+                }
+            });
+            return isUnique;
+        }, "Field name must be unique.");
+    }
+
     function addServiceFields(thisElement){
+        $('.service-fields-details').css("visibility", "visible");
         var counter = $(thisElement).attr('data-counter');
         
         counter = parseInt(counter)+1;
@@ -34,11 +48,11 @@
 
         .find(".services_combo_values").attr('name',"additional_fields["+counter+"][combo_values][]").attr('id',"services_combo_values_"+counter).removeClass("is-valid select2-hidden-accessible survey-input").addClass("services_combo_values_"+counter).attr('data-select2-id',"services_combo_values_"+counter).val("").end()
 
-        .find(".combo_values_wrap").attr('id','combo_values_wrap_'+counter).end()
+        .find(".combo_values_wrap").attr('id','combo_values_wrap_'+counter).hide().end()
         
         .find(".services_field_type").attr('name',"additional_fields["+counter+"][field_type]").attr('id',"services_field_type_"+counter).removeClass("is-valid").val("").end()   
 
-        .find(".services_field_required").attr('name',"additional_fields["+counter+"][field_required]").attr('id',"services_field_required_"+counter).removeClass("is-valid").val("").end()
+        .find(".services_field_required").attr('name',"additional_fields["+counter+"][field_required]").attr('id',"services_field_required_"+counter).removeClass("is-valid").val("1").end()
         .find(".del-field-btn").removeClass('delete_record').addClass('del_field').removeAttr('data-url').attr('data-services',"service-field-"+counter).end()
         .removeClass('service-field-0')
         .addClass("service-field-"+counter)
@@ -51,12 +65,16 @@
         $("#services_field_type_"+counter).val("");
         $(".services_combo_values"+counter).val("");
 
-        // thisElement.remove();
+        addUniqueFieldName();
     }
 
     var deletedFields = [];
     $(document).ready(function () {
 
+        $(document).on("input", ".services_field_name", function () {
+            $(this).rules("add", { uniqueFieldName: true });
+        });
+        
         $('#country_id').on('change', function() {
             var country_id = $(this).val();
             $.ajax({
@@ -70,7 +88,6 @@
                     console.log("Request is being sent...");
                 },
                 success: function (response) {
-                    console.log(response);
                     $('#service_currency').val(response.data.currency_name);
                 },
                 error: function (xhr) {
@@ -85,8 +102,11 @@
 
         $(document).on('change','.services_field_type',function(){
             var _this_element = $(this);
-            console.log(_this_element.val());
-            console.log(_this_element.parents('.services_field_type_wrap').siblings('.combo_values_wrap'));
+            if(_this_element.val() != ""){
+                _this_element.parents('.repeatable-content-service-fields').find('.services_field_name').attr('required',true);
+            }else{
+                _this_element.parents('.repeatable-content-service-fields').find('.services_field_name').removeAttr('required');
+            }
             if(_this_element.val() == 2){
                 _this_element.parents('.services_field_type_wrap').siblings('.combo_values_wrap').show();
             }else{
@@ -95,6 +115,8 @@
         });
 
         setComboValuesOptions();
+        addUniqueFieldName();
+
         $('#category_id').on('change', function() {
             var category_id = $(this).val();
             $('#sub_category_id').prop('disabled', true).html(''); 
@@ -111,7 +133,6 @@
                         console.log("Request is being sent...");
                     },
                     success: function(response) {
-                        console.log(response);
                         let html = ''; 
                         if (response.sub_categories && Object.keys(response.sub_categories).length > 0) {
                             $.each(response.sub_categories, function(key, value) {
@@ -151,8 +172,13 @@
             fieldToRemove.remove();
 
             let newCounter = $('.service-fields-outer').length;
-            $('.add_additional_field').attr('data-counter', newCounter);
+            if(newCounter == 0){
+                fieldsContainer.css("visibility", "hidden");
+            }
+            // $('.add_additional_field').attr('data-counter', newCounter);
         });
+
+        
 
         $("#services-form").validate({
             rules: {
@@ -189,6 +215,7 @@
                 verification_duration: {
                     required: true,
                     number: true,
+                    positive: true,
                     multipleOfHalf: true,
                     min: 0.5
                 },
@@ -244,6 +271,13 @@
                     required: true
                 }
             },
+            messages: {
+                verification_duration: {
+                    positive: "Please enter a positive value.",
+                    multipleOfHalf: "Please enter a value that is a multiple of 0.5.",
+                    min: "Please enter a value greater than or equal to 0.5."
+                }
+            },
             errorElement: 'span',
             errorClass: 'invalid-feedback',
             errorPlacement: function (error, element) {
@@ -265,10 +299,15 @@
             submitForm(form);
         }
         });
-        
+
+        $.validator.addMethod("positive", function(value, element) {
+            return this.optional(element) || parseFloat(value) > 0;
+        }, "Please enter a positive value.");
+
         $.validator.addMethod("multipleOfHalf", function(value, element) {
-            return this.optional(element) || (parseFloat(value) % 0.5 === 0 && parseFloat(value) > 0);
+            return this.optional(element) || (parseFloat(value) % 0.5 === 0);
         }, "Please enter a value that is a multiple of 0.5.");
+
 
     });
 </script>

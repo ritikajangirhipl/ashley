@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('field_name')->nullable();
             $table->integer('field_type')->unsigned()->nullable();
             $table->json('combo_values')->default(NULL)->nullable();
-            $table->boolean('field_required')->default(0);
+            $table->boolean('field_required')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

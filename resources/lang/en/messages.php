@@ -16,7 +16,7 @@ return [
     'generate_success_message'                                    => 'generated successfully',
     'documents_required_message'                                  => "You can't deliver report. Please upload all submission documents first!",
     'category_associated_with_subcategories'                      => 'This Category is associated with subcategories and cannot be modified.',
-    'category_delete_error'                                       => 'This Categoryis associated with subcategories and cannot be deleted.',
+    'category_delete_error'                                       => 'This Category is associated with subcategories and cannot be deleted.',
     'category_not_found'                                          => 'The selected category does not exist.',
     'category_associated_with_services'                           => 'This Category is associated with services and cannot be modified.',
     'category_service_delete_error'                               => 'This Category is associated with services and cannot be deleted.',

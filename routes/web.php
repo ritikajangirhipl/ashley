@@ -28,15 +28,16 @@ Route::get('/global-catalogue', [HomeController::class, 'catalogue'])->name('cat
 Route::get('/service/{id}', [HomeController::class, 'serviceDetail'])->name('services.view');
 Route::post('sub-categories-get', [HomeController::class, 'getSubCategories'])->name('subcategories.getSubCategories');
 
-Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
+// cart functionality
+    Route::middleware(['auth', 'preventBackHistory', 'verified'])->group(function () {
+        Route::get('cart', [CartController::class, 'index'])->name('cart.get');
+    });
 
-// Route::middleware(['auth', 'preventBackHistory', 'verified'])->group(function () {
-//     Route::get('/catalogue', [HomeController::class, 'catalogue'])->name('catalogue');
-// });
+    Route::group(['prefix' => 'ajax/cart', 'as' => 'cart.'], function () {
+        Route::post('add', [CartController::class, 'addToCart'])->name('add');
+    });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
-    //Auth::routes(['register' => false]);
-    // 
     Route::namespace('Auth')->group(function () {
         Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
         Route::post('login', [LoginController::class, 'login'])->name('loginSubmit');

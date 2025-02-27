@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.services.fields.verification_duration') }}:</h6>
-                            <p>{{ $service->verification_duration ?? __('global.N/A') }}</p>
+                            <p>{{ $service->verification_duration." ".$service->duration_type ?? __('global.N/A') }}</p>
                         </div>
                         <div class="form-group d-flex view-listing">
                             <h6 class="mb-0">{{ trans('cruds.services.fields.evidence_type') }}:</h6>
@@ -142,10 +142,24 @@
                             <tbody>
                                 @foreach($service->additionalFields as $key => $field)
                                 <tr>
-                                    <td>{{ $field->field_name ?? "" }}</td>
+                                    <td>{{ ucwords($field->field_name) ?? "" }}</td>
                                     <td>{{ $field_types[$field->field_type] ?? "" }}</td>
-                                    <td>{{ $field->combo_values ? $field->combo_values : "-" }}</td>
-                                    <td>{{ $input_details[$field->field_required] ?? "" }}</td>
+                                    <td>
+                                        @php
+                                            $options = [];
+                                            if($field->combo_values){
+                                                $tempOptions = json_decode($field->combo_values);
+                                                $options = array_values($tempOptions);
+                                                $options = array_combine($tempOptions,$options);
+                                            }
+                                        @endphp
+                                        @foreach($options as $key => $option)
+                                            <span class="combo-text">{{ $option }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        {{ $input_details[$field->field_required] ?? "" }}
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

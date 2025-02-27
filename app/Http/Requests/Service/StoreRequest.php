@@ -23,7 +23,7 @@ class StoreRequest extends FormRequest
             "verification_mode_id" => 'required',
             "verification_summary" => 'required',
             "verification_provider_id" => 'required',
-            "verification_duration" => 'required',
+            "verification_duration" => 'required|numeric|min:0.5',
             "evidence_type_id" => 'required',
             "evidence_summary" => 'required',
             "service_partner_id" => 'required',
@@ -41,6 +41,7 @@ class StoreRequest extends FormRequest
             "marital_status" => 'required',
             "registration_number" => 'required',
             'status' => 'required|in:0,1', 
+            // 'additional_fields.*.field_name' => 'nullable|unique:your_table,column_name',
         ];
     }
 
@@ -61,6 +62,8 @@ class StoreRequest extends FormRequest
             'verification_summary.required' => 'Please enter the verification summary.',
             'verification_provider_id.required' => 'Please select a verification provider.',
             'verification_duration.required' => 'Please enter the verification duration.',
+            'verification_duration.numeric' => 'The verification duration must be a valid number.',
+            'verification_duration.min' => 'The verification duration cannot be negative or less than 0.5.',
             'evidence_type_id.required' => 'Please select an evidence type.',
             'evidence_summary.required' => 'Please enter the evidence summary.',
             'service_partner_id.required' => 'Please select a service partner.',

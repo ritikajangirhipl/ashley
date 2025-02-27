@@ -17,32 +17,32 @@
             <div class="col-md-12">
                 <div class="form_view_outer">
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.country.fields.name') }} :</h6>
+                        <h6 class="mb-0">{{ trans('cruds.country.fields.name') }} </h6>
                         <p>{{ $country->name }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.country.fields.description') }} :</h6>
+                        <h6 class="mb-0">{{ trans('cruds.country.fields.description') }} </h6>
                         <p>{{ $country->description }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.country.fields.currency_symbol') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.country.fields.currency_symbol') }}</h6>
                         <p>{{ $country->currency_symbol }}</p>
                     </div>
 
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.country.fields.currency_name') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.country.fields.currency_name') }}</h6>
                         <p>{{ $country->currency_name }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.country.fields.status') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.country.fields.status') }}</h6>
                         <p>{{ config('constant.enums.status.'.$country->status) }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.country.fields.created_at') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.country.fields.created_at') }}</h6>
                         <p>{{ date("Y-m-d", strtotime($country->created_at)) ?? __('global.N/A') }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.country.fields.flag') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.country.fields.flag') }}</h6>
                         <p>
                             @if($country->flag)
                             <a href="{{ asset('storage/' . $country->flag) }}" class="upload_data_img" data-fancybox="gallery">

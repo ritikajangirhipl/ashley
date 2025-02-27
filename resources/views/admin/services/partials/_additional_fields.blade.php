@@ -51,16 +51,17 @@
                             </div>
                         </div>
                         
+                        
                         @php
                             $displayCombo = "none";
                             $options = [];
-                            $tempOptions = []; // Initialize $tempOptions as an empty array
+                            $tempOptions = [];
 
                             if ($serviceField->field_type == 2) {
                                 $displayCombo = "block";
                                 
-                                $tempOptions = json_decode($serviceField->combo_values);
-                                if($tempOptions){
+                                if($serviceField->combo_values){
+                                    $tempOptions = json_decode($serviceField->combo_values);
                                     $options = array_values($tempOptions);
                                     $options = array_combine($tempOptions,$options);
                                 }
@@ -70,24 +71,54 @@
                         <!-- <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
                             <div class="form-group">
                                 <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
-                                
-                                <input type="text" class="form-control" value="{{ $value }}" readonly>
+                                <select class="form-control services_combo_values" name="additional_fields[{{ $number }}][combo_values][]" multiple="multiple" id="services_combo_values_{{ $number }}">
+                                    @foreach($tempOptions as $option)
+                                        <option value="{{ $option }}" selected>{{ $option }}</option>
+                                    @endforeach
+                                </select>
+
                             </div>
                         </div> -->
+
                         <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
                             <div class="form-group">
-                                <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
-                                
-                                <input type="text" class="form-control" value="{{ $value }}" readonly>
+                                <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}<span class="text-danger">*</span></label>
+                                {{ Form::select('additional_fields['.$number.'][combo_values][]', $options, $options,['class' => "form-control services_combo_values multi-select", 'id' => 'services_combo_values_'.$number, 'required' => false, 'multiple' => "multiple"]) }}
+
+                                </select>
                             </div>
                         </div>
+
+                        {{-- <div class="col-lg-3 col-md-3 col-sm-12 combo_values_wrap" id="combo_values_wrap_{{ $number }}" style="display:{{ $displayCombo }};">
+                            <div class="form-group">
+                                <label for="combo_values">{{ trans('cruds.services.fields.combo_values') }}</label>
+
+                                @if($serviceField->field_type == 2)
+                                        @foreach($serviceAdditionalFields as $key => $item)
+                                            @php
+                                                $isSelected = false;
+                                                if($item->id && $item->combo_values) {
+                                                    $isSelected = true;
+                                                } 
+                                            @endphp
+                                            @php
+                                                $comboValuesString = isset($item->combo_values) && !empty($item->combo_values) ? implode(', ', json_decode($item->combo_values, true)) : $value;
+                                            @endphp
+                                            <input type="text" class="form-control" value="{{ $comboValuesString }}" readonly>
+                                        @endforeach
+                                @else
+                                    <select class="form-control services_combo_values" name="additional_fields[0][combo_values][]" multiple="multiple" id="services_combo_values_0">
+                                    </select>
+                                @endif
+                            </div>
+                        </div> --}} 
 
                         <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="form-group">
                                 <label >{{ trans('cruds.services.fields.field_required') }}</label>
 
                                 <select name="additional_fields[{{ $number }}][field_required]" id="services_field_required_{{ $number }}" class="form-control services_field_required" >
-                                    <option value="">{{ 'Select ' . trans('cruds.services.fields.field_required') }}</option>
+                                    {{-- <option value="">{{ 'Select ' . trans('cruds.services.fields.field_required') }}</option> --}}
                                     @foreach($inputDetailsOpts as $id => $name)
                                         <option value="{{ $id }}" {{ $serviceField->field_required == $id ? 'selected' : ''}}>
                                             {{ $name }}
@@ -96,7 +127,6 @@
                                 </select>
                             </div>
                         </div>   
-
 
                         <div class="col-2 col-sm-6 col-md-2 col-lg-2 align-self-end service-field-actions">
                             <div class="form-group">
@@ -151,7 +181,7 @@
                         <label>{{ trans('cruds.services.fields.field_required') }}</label>
 
                         <select name="additional_fields[0][field_required]" id="services_field_required_0" class="form-control services_field_required">
-                            <option value="">{{ 'Select ' . trans('cruds.services.fields.field_required') }}</option>
+                            {{-- <option value="">{{ 'Select ' . trans('cruds.services.fields.field_required') }}</option> --}}
                             @foreach($inputDetailsOpts as $id => $name)
                                 <option value="{{ $id }}" >
                                     {{ $name }}

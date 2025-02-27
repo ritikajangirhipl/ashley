@@ -44,6 +44,31 @@ class Service extends Model
 
     protected $dates = ['deleted_at'];
 
+    public function getVerificationDurationAttribute(){
+        $duration = $this->attributes['verification_duration'];
+        return $this->attributes['verification_duration'] = (fmod($duration, 1) == 0) ? (int)$duration : $duration;
+    }
+
+    public function getBuyableIdentifier($options = NULL)
+    {
+        return $this->id;
+    }
+
+    public function getBuyableTitle($options = NULL)
+    {
+        return $this->name;
+    }
+
+    public function getBuyableDescription($options = NULL)
+    {
+        return $this->description;
+    }
+
+    public function getBuyablePrice($options = NULL)
+    {
+        return ($this->local_service_price) ? $this->local_service_price : $this->usd_service_price;
+    }
+
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');

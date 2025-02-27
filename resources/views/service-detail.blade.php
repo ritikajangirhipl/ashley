@@ -49,7 +49,7 @@
                             <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="service-tab" data-toggle="tab" data-target="#service" type="button" role="tab" aria-controls="service" aria-selected="true">
+                                    <a class="nav-link {{ (($update != 0) ? 'active' : '') }}" id="service-tab" data-toggle="tab" data-target="#service" type="button" role="tab" aria-controls="service" aria-selected="true">
                                         <span class="navi-icon mr-2">
                                             <span class="svg-icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -122,7 +122,7 @@
                                     </a>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="order-tab" data-toggle="tab" data-target="#order" type="button" role="tab" aria-controls="order" aria-selected="false">
+                                    <a class="nav-link {{ (($update == 0) ? 'active' : '') }}" id="order-tab" data-toggle="tab" data-target="#order" type="button" role="tab" aria-controls="order" aria-selected="false">
                                         <span class="navi-icon mr-2">
                                             <span class="svg-icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -164,7 +164,7 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="service" role="tabpanel" aria-labelledby="service-tab">
+                        <div class="tab-pane fade  {{ (($update != 0) ? 'show active' : '') }}" id="service" role="tabpanel" aria-labelledby="service-tab">
                             <div class="card card-custom">
                                 <div class="card-header py-3">
                                     <div class="card-title">
@@ -400,7 +400,7 @@
                                 </div>
                             </div>	
                         </div>
-                        <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
+                        <div class="tab-pane fade {{ (($update == 0) ? 'show active' : '') }}" id="order" role="tabpanel" aria-labelledby="order-tab">
                             @include('includes.service-order-form')										  	
                         </div>
                     </div>

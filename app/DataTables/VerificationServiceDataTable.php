@@ -7,6 +7,8 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 
 class VerificationServiceDataTable extends DataTable
 {
@@ -76,7 +78,7 @@ class VerificationServiceDataTable extends DataTable
      * @param \App\Models\VerificationServiceDataTable $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Service $model)
+    public function query(Service $model, Request $request)
     {
         if (request()->has('free_text_search') && request('free_text_search') != '') {
             $search = request()->input('search', []);

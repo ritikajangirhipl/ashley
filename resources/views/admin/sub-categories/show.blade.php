@@ -18,19 +18,19 @@
             <div class="col-md-12">
                 <div class="form_view_outer">
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.category') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.category') }}</h6>
                         <p>{{ optional($subCategory->category)->name ?? 'No Category' }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.name') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.name') }}</h6>
                         <p>{{ $subCategory->name }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.description') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.description') }}</h6>
                         <p>{{ $subCategory->description }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.image') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.image') }}</h6>
                         @if($subCategory->image)
                             <p>
                                 <a href="{{ asset('storage/' . $subCategory->image) }}" class="upload_data_img" data-fancybox="gallery">
@@ -42,11 +42,11 @@
                         @endif
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.status') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.status') }}</h6>
                         <p>{{ config('constant.enums.status.'.$subCategory->status) }}</p>
                     </div>
                     <div class="form-group d-flex view-listing">
-                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.created_at') }}:</h6>
+                        <h6 class="mb-0">{{ trans('cruds.sub_category.fields.created_at') }}</h6>
                         <p>{{ date("Y-m-d", strtotime($subCategory->created_at)) ?? __('global.N/A') }}</p>
                     </div>
                 </div>
