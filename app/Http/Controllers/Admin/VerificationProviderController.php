@@ -43,12 +43,11 @@ class VerificationProviderController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            VerificationProvider::create($request->except('_token'));
             $errorMessage = $this->validateCountryStatus($request->country_id);
             if ($errorMessage) {
                 return jsonResponseWithMessage(400, $errorMessage, []);
             }
-            $errorMessage = $this->validateCountryStatus($request->provider_type_id);
+            $errorMessage = $this->validateProviderTypeStatus($request->provider_type_id);
             if ($errorMessage) {
                 return jsonResponseWithMessage(400, $errorMessage, []);
             }

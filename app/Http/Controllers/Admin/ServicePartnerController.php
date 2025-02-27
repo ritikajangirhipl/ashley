@@ -40,7 +40,6 @@ class ServicePartnerController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            ServicePartner::create($request->except('_token'));
             $errorMessage = $this->validateCountryStatus($request->country_id);
             if ($errorMessage) {
                 return jsonResponseWithMessage(400, $errorMessage, []);

@@ -59,3 +59,8 @@
     </div>
 </div>
 @endsection
+<script>
+    document.getElementById('resetCategoryBtn').addEventListener('click', function() {
+        document.getElementById('categorySelect').value = ''; 
+    });
+</script>

@@ -42,8 +42,6 @@ class SubCategoryController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            // $category = Category::where('id', $request->category_id)->first();
-
             $errorMessage = $this->validateCategoryStatus($request->category_id);
             if ($errorMessage) {
                 return jsonResponseWithMessage(400, $errorMessage, []);
@@ -99,7 +97,6 @@ class SubCategoryController extends Controller
     public function update(UpdateRequest $request, SubCategory $subCategory)
     {
         try {
-            // $category = Category::find($request->category_id);
             $errorMessage = $this->validateCategoryStatus($request->category_id);
 
             if ($errorMessage) {

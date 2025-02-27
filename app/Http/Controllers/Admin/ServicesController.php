@@ -90,7 +90,7 @@ class ServicesController extends Controller
             if ($errorMessage) {
                 return jsonResponseWithMessage(400, $errorMessage, []);
             }
-            $errorMessage = $this->validateVerificationModeStatus($request->verification_provider_id);
+            $errorMessage = $this->validateVerificationProviderStatus($request->verification_provider_id);
             if ($errorMessage) {
                 return jsonResponseWithMessage(400, $errorMessage, []);
             }
@@ -186,6 +186,12 @@ class ServicesController extends Controller
                 return jsonResponseWithMessage(400, $errorMessage, []);
             }
             $errorMessage = $this->validateVerificationModeStatus($request->verification_mode_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+
+            $errorMessage = $this->validateVerificationProviderStatus($request->verification_provider_id);
 
             if ($errorMessage) {
                 return jsonResponseWithMessage(400, $errorMessage, []);

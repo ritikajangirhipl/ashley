@@ -41,6 +41,21 @@ class VerificationServiceDataTable extends DataTable
             ->editColumn('price', function ($service) {
                 return $service->price;
             })
+            ->orderColumn('verification_duration', function ($query, $order) {
+                $query->orderByRaw("
+                    CASE 
+                        WHEN services.duration_type = 'Day' THEN 1
+                        WHEN services.duration_type = 'Month' THEN 2
+                        WHEN services.duration_type = 'Year' THEN 3
+                        WHEN services.duration_type = 'Month' THEN 4 
+                        WHEN services.duration_type = 'Day' THEN 5 
+                    END ASC, 
+                    CAST(services.verification_duration AS UNSIGNED) ASC
+                ");
+            })
+            ->filterColumn('verification_duration', function ($query, $keyword) {
+                $query->whereRaw("CONCAT(services.verification_duration, ' ', services.duration_type) LIKE ?", ["%{$keyword}%"]);
+            })
             
             ->addColumn('action', function ($service) {
                 return '<div class="group-button text-center">

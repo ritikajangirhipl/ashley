@@ -25,7 +25,7 @@ class Category extends Model
             $slug = Str::slug($model->name);
             $originalSlug = $slug;
             $count = 1;
-            while (Category::where('slug', $slug)->exists()) {
+            while (Category::where('slug', $slug)->whereNull('deleted_at')->exists()) {
                 $slug = $originalSlug . '-' . $count;
                 $count++;
             }
