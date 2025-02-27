@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\VerificationProvider\StoreRequest;
 use App\Http\Requests\VerificationProvider\UpdateRequest;
 use App\Models\VerificationProvider;
+use App\Models\Country;
+use App\Models\ProviderType;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 
@@ -42,6 +44,14 @@ class VerificationProviderController extends Controller
     {
         try {
             VerificationProvider::create($request->except('_token'));
+            $errorMessage = $this->validateCountryStatus($request->country_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+            $errorMessage = $this->validateCountryStatus($request->provider_type_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
 
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.verification_provider')]), 
             ['redirect_url' => route('admin.verification-providers.index')]);
@@ -84,6 +94,16 @@ class VerificationProviderController extends Controller
     {
        
         try {
+            $errorMessage = $this->validateCountryStatus($request->country_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+            $errorMessage = $this->validateProviderTypeStatus($request->provider_type_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
             if ($request->status == '0') {
                 $existenceCheck = $this->checkExistance($verificationProvider, true);
                 if ($existenceCheck) {
@@ -126,6 +146,35 @@ class VerificationProviderController extends Controller
             ], 400);
         }
         return null;
+    }
+
+    private function validateCountryStatus($countryId)
+    {
+        $country = Country::find($countryId);
+
+        if (!$country) {
+            return __('messages.country_not_found');
+        }
+
+        if ($country->status == 0) {
+            return __('messages.country_inactive');
+        }
+
+        return null; 
+    }
+    private function validateProviderTypeStatus($providertypeId)
+    {
+        $providerType = ProviderType::find($providertypeId);
+
+        if (!$providerType) {
+            return __('messages.provider_type_not_found');
+        }
+
+        if ($providerType->status == 0) {
+            return __('messages.provider_type_inactive');
+        }
+
+        return null; 
     }
 
 }

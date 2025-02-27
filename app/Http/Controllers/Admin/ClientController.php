@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\StoreRequest;
 use App\Http\Requests\Client\UpdateRequest;
 use App\Models\Client;
+use App\Models\Country; 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 use Illuminate\Support\Facades\Hash;
@@ -48,6 +49,10 @@ class ClientController extends Controller
     {
         try {
             $data = $request->except('_token', '_method');
+            $errorMessage = $this->validateCountryStatus($request->country_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
             $data['password'] = Hash::make($request->password); 
             $data['email_verified_at'] = Carbon::now();
             Client::create($data);
@@ -94,6 +99,11 @@ class ClientController extends Controller
     {
         try {
             $data = $request->except('_token', '_method');
+            $errorMessage = $this->validateCountryStatus($request->country_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
             if (!empty($request->password)) {
                 $data['password'] = Hash::make($request->password);
             }
@@ -117,4 +127,20 @@ class ClientController extends Controller
             return jsonResponseWithException($e);
         }
     }
+
+    private function validateCountryStatus($countryId)
+    {
+        $category = Country::find($countryId);
+
+        if (!$category) {
+            return __('messages.country_not_found');
+        }
+
+        if ($category->status == 0) {
+            return __('messages.country_inactive');
+        }
+
+        return null; 
+    }
+
 }

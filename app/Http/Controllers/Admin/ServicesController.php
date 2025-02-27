@@ -7,6 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Service\StoreRequest;
 use App\Http\Requests\Service\UpdateRequest;
 use App\Models\Service;
+use App\Models\Category;
+use App\Models\Country;
+use App\Models\EvidenceType;
+use App\Models\ServicePartner;
+use App\Models\VerificationMode;
+use App\Models\VerificationProvider;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 
@@ -59,6 +65,30 @@ class ServicesController extends Controller
     public function store(StoreRequest $request)
     {
         try {
+            $errorMessage = $this->validateCategoryStatus($request->category_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+            $errorMessage = $this->validateEvidenceTypeStatus($request->evidence_type_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+            $errorMessage = $this->validateCountryStatus($request->country_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+            $errorMessage = $this->validateServicePartnerStatus($request->service_partner_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+            $errorMessage = $this->validateVerificationModeStatus($request->verification_mode_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+            $errorMessage = $this->validateVerificationModeStatus($request->verification_provider_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
             $service = Service::create($request->except('_token','additional_fields'));
             $additionalFields = $request->additional_fields;
             if(!empty($additionalFields)){
@@ -127,6 +157,41 @@ class ServicesController extends Controller
     public function update(UpdateRequest $request, Service $service)
     {
         try {
+            $errorMessage = $this->validateCategoryStatus($request->category_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+            $errorMessage = $this->validateEvidenceTypeStatus($request->evidence_type_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+
+            $errorMessage = $this->validateCountryStatus($request->country_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+
+            
+            $errorMessage = $this->validateServicePartnerStatus($request->service_partner_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+            $errorMessage = $this->validateVerificationModeStatus($request->verification_mode_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+
+            $errorMessage = $this->validateVerificationProviderStatus($request->verification_provider_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+
             $service->update($request->except('_token', '_method','additional_fields','deleted_fields'));
 
             $additionalFields = $request->additional_fields;
@@ -173,6 +238,95 @@ class ServicesController extends Controller
         }
     }
 
+    private function validateCategoryStatus($categoryId)
+    {
+        $category = Category::find($categoryId);
+
+        if (!$category) {
+            return __('messages.category_not_found');
+        }
+
+        if ($category->status == 0) {
+            return __('messages.category_inactive');
+        }
+
+        return null; 
+    }
+
+    private function validateCountryStatus($countryId)
+    {
+        $country = Country::find($countryId);
+
+        if (!$country) {
+            return __('messages.country_not_found');
+        }
+
+        if ($country->status == 0) {
+            return __('messages.country_inactive');
+        }
+
+        return null; 
+    }
+
+    private function validateEvidenceTypeStatus($evidencetypeId)
+    {
+        $evidenceType = EvidenceType::find($evidencetypeId);
+
+        if (!$evidenceType) {
+            return __('messages.evidence_type_not_found');
+        }
+
+        if ($evidenceType->status == 0) {
+            return __('messages.evidence_type_inactive');
+        }
+
+        return null; 
+    }
+
+    private function validateServicePartnerStatus($servicepartnerId)
+    {
+        $servicePartner = ServicePartner::find($servicepartnerId);
+
+        if (!$servicePartner) {
+            return __('messages.service_partner_not_found');
+        }
+
+        if ($servicePartner->status == 0) {
+            return __('messages.service_partner_inactive');
+        }
+
+        return null; 
+    }
+    
+    private function validateVerificationModeStatus($verificationmodeId)
+    {
+        $verificationMode = VerificationMode::find($verificationmodeId);
+
+        if (!$verificationMode) {
+            return __('messages.verification_mode_not_found');
+        }
+
+        if ($verificationMode->status == 0) {
+            return __('messages.verification_mode_inactive');
+        }
+
+        return null; 
+    }
+
+    private function validateVerificationProviderStatus($verificationproviderId)
+    {
+        $verificationProvider = VerificationProvider::find($verificationproviderId);
+
+        if (!$verificationProvider) {
+            return __('messages.verification_provider_not_found');
+        }
+
+        if ($verificationProvider->status == 0) {
+            return __('messages.verification_provider_inactive');
+        }
+
+        return null; 
+    }
     
 }
 

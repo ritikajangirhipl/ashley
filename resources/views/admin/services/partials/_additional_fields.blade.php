@@ -157,7 +157,6 @@
                     <div class="form-group">
                         <label>{{ trans('cruds.services.fields.field_type') }}</label>
                         <select name="additional_fields[0][field_type]" id="services_field_type_0" class="form-control services_field_type">
-                            <option value="">{{ 'Select ' . trans('cruds.services.fields.field_type') }}</option>
                             @foreach($fieldTypes as $id => $name)
                                 <option value="{{ $id }}">
                                     {{ $name }}

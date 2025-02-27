@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ServicePartner\StoreRequest;
 use App\Http\Requests\ServicePartner\UpdateRequest;
 use App\Models\ServicePartner;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 
@@ -40,6 +41,10 @@ class ServicePartnerController extends Controller
     {
         try {
             ServicePartner::create($request->except('_token'));
+            $errorMessage = $this->validateCountryStatus($request->country_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
             return jsonResponseWithMessage(200, __('messages.add_success_message', ['attribute' => __('attribute.service_partners')]), 
             ['redirect_url' => route('admin.service-partners.index')]);
         } catch (Exception $e) {
@@ -79,6 +84,12 @@ class ServicePartnerController extends Controller
     public function update(UpdateRequest $request, ServicePartner $servicePartner)
     {
         try {
+
+            $errorMessage = $this->validateCountryStatus($request->country_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
             if ($request->status == '0') {
                 $existenceCheck = $this->checkExistance($servicePartner, true);
                 if ($existenceCheck) {
@@ -124,6 +135,21 @@ class ServicePartnerController extends Controller
         }
 
         return null;
+    }
+
+    private function validateCountryStatus($countryId)
+    {
+        $country = Country::find($countryId);
+
+        if (!$country) {
+            return __('messages.country_not_found');
+        }
+
+        if ($country->status == 0) {
+            return __('messages.country_inactive');
+        }
+
+        return null; 
     }
 }
 

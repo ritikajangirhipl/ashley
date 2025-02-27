@@ -42,13 +42,11 @@ class SubCategoryController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            $category = Category::where('id', $request->category_id)->where('status', 1)->first();
+            // $category = Category::where('id', $request->category_id)->first();
 
-            if (!$category) {
-                return response()->json([
-                    'status' => 400,
-                    'message' => __('messages.category_not_found')
-                ], 400);
+            $errorMessage = $this->validateCategoryStatus($request->category_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
             }
 
             $imagePath = $this->uploadImage($request);
@@ -101,10 +99,13 @@ class SubCategoryController extends Controller
     public function update(UpdateRequest $request, SubCategory $subCategory)
     {
         try {
-            $category = Category::find($request->category_id);
-            if (!$category) {
-                return jsonResponseWithMessage(400, __('messages.category_not_found'), []);
+            // $category = Category::find($request->category_id);
+            $errorMessage = $this->validateCategoryStatus($request->category_id);
+
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
             }
+
             if ($request->status == '0') {
                 $existenceCheck = $this->checkExistance($subCategory, true);
                 if ($existenceCheck) {
@@ -209,6 +210,21 @@ class SubCategoryController extends Controller
             ], 400);
         }
 
+    }
+
+    private function validateCategoryStatus($categoryId)
+    {
+        $category = Category::find($categoryId);
+
+        if (!$category) {
+            return __('messages.category_not_found');
+        }
+
+        if ($category->status == 0) {
+            return __('messages.category_inactive');
+        }
+
+        return null; 
     }
 }
 
