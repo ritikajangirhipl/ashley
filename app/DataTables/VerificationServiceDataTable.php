@@ -30,7 +30,7 @@ class VerificationServiceDataTable extends DataTable
                 return $service->country_name ?? __('global.N/A'); 
             })
             ->editColumn('verification_duration', function ($service) {
-                return $service->verification_duration ?? __('global.N/A');
+                return $service->verification_duration ? $service->verification_duration. ' '.ucfirst($service->duration_type) : __('global.N/A');
             })
             ->editColumn('local_service_price', function ($service) {
                 return $service->local_service_price ? $service->currency_name. ' : '. number_format($service->local_service_price, 2, '.', ',') : __('global.N/A');
@@ -49,6 +49,7 @@ class VerificationServiceDataTable extends DataTable
                             </a>
                         </div>';
             })
+           
             ->filterColumn('price', function ($query, $keyword) {
                 $query->whereRaw("
                     (CASE 

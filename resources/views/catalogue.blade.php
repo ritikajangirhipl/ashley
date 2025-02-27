@@ -93,7 +93,7 @@
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Verification Country</label>
                                     <select class="form-control select2" id="verification_country" name="verification_country">
-                                        <option label="Search and Filter by Select Country" value=''>Search and Filter by Select Country</option>
+                                        <option value=' '>Search and Filter by Select Country</option>
                                         @foreach ($countries as $countryKey => $country )
                                         <option value='{{$country->id}}'>{{$country->name}}</option>
                                         @endforeach
@@ -104,7 +104,8 @@
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Verification Provider Type</label>
                                     <select class="form-control select2" id="verification_provider_type" name="verification_provider_type">
-                                        <option label="Search and Filter by Select Verification Provider Type" value="">Search and Filter by Select Verification Provider Type</option>
+                                        {{-- <option label="Search and Filter by Select Verification Provider Type" value="">Search and Filter by Select Verification Provider Type</option> --}}
+                                        <option value=' '>Search and Filter by Select Verification Provider Type</option>
                                         @foreach ($providerTypes as $providerTypeKey => $providerType )
                                             <option value='{{$providerType->id}}'>{{$providerType->name}}</option>
                                         @endforeach
@@ -115,7 +116,7 @@
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Verification Provider</label>
                                     <select class="form-control select2" id="verification_provider" name="verification_provider">
-                                        <option label="Search and Filter by Select Verification Provider"></option>
+                                        <option value=" ">Search and Filter by Select Verification Provider</option>
                                         @foreach ($verificationProviders as $verificationProviderKey => $verificationProvider )
                                             <option value='{{$verificationProvider->id}}'>{{$verificationProvider->name}}</option>
                                         @endforeach
@@ -127,7 +128,7 @@
                                     <label class="col-form-label pt-0">Verification Subject</label>
                                     {{-- <input type="text" class="form-control" placeholder="Search and Filter by Verification Subject" name="verification_subject"> --}}
                                     <select class="form-control select2" id="verification_subject" name="verification_subject">
-                                        <option label="Search and Filter by Verification Subject"></option>
+                                        <option value=" ">Search and Filter by Verification Subject</option>
                                         @foreach(config('constant.enums.subjects') as $id => $name)
                                             <option value='{{$id}}'>{{$name}}</option>
                                         @endforeach
@@ -138,7 +139,7 @@
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Verification Category</label>
                                     <select class="form-control select2" id="verification_category" name="verification_category">
-                                        <option label="Search and Filter by Select Category" value=""></option>
+                                        <option value=" " value="">Search and Filter by Select Category</option>
                                         @foreach ($categories as $categoriesKey => $category )
                                             <option value='{{$category->id}}'>{{$category->name}}</option>
                                         @endforeach
@@ -149,8 +150,7 @@
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Verification Sub Category</label>
                                     <select class="form-control select2" id="verification_subcategory" name="verification_subcategory">
-                                        <option label="Search and Filter by Select Sub Category" value=""></option>
-                                        
+                                        <option value=" ">Search and Filter by Select Sub Category</option>
                                     </select>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Verification Mode</label>
                                     <select class="form-control select2" id="verification_mode" name="verification_mode">
-                                        <option label="Search and Filter by Select Verification Mode"></option>
+                                        <option value=" ">Search and Filter by Select Verification Mode</option>
                                         @foreach ($verificationModes as $verificationModeKey => $verificationMode )
                                             <option value='{{$verificationMode->id}}'>{{$verificationMode->name}}</option>
                                         @endforeach
@@ -169,7 +169,7 @@
                                 <div class="form-group">
                                     <label class="col-form-label pt-0">Evidence Type</label>
                                     <select class="form-control select2" id="evidence_type" name="evidence_type">
-                                        <option label="Search and Filter by Select Evidence Type"></option>
+                                        <option value=" ">Search and Filter by Select Evidence Type</option>
                                         @foreach ($evidenceTypes as $evidenceTypeKey => $evidenceType )
                                             <option value='{{$evidenceType->id}}'>{{$evidenceType->name}}</option>
                                         @endforeach
@@ -294,36 +294,8 @@
                 } else {
                     $(this).val('');
                 }
-                
-            });
-            
-            if (Object.keys(dataArray).length > 0) {
-                switch (dataArray.type) {
-                    case "country":
-                        $(document).find('#verification_country').val(dataArray.id).change();
-                        $(document).find("#verification_country").addClass("disableSelect");
-                        updateDataTable();
-                        break;
-                    case "category":
-                        $(document).find('#verification_category').val(dataArray.category_id);
-                        setTimeout(()=>{
-                            $(document).find('#verification_category').change();
-                        },100);
-                        $(document).find("#verification_category").addClass("disableSelect");
-
-                        break;
-                    case "providers":
-                        $(document).find('#verification_provider').val(dataArray.id).change();
-                        $(document).find("#verification_provider").addClass("disableSelect");
-                        updateDataTable();
-                        break;
-                    default:
-                        break;
-                }
-            } else {
                 updateDataTable();
-            }
-            
+            });
         });
     });
 
@@ -336,7 +308,6 @@
                 params[name] = value;
             }
         });
-        
         $('#services-table').DataTable().ajax.url(datatableUrl+'?'+$.param(params)).draw();
     }
 </script>
