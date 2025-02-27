@@ -8,6 +8,7 @@ use App\Http\Requests\Service\StoreRequest;
 use App\Http\Requests\Service\UpdateRequest;
 use App\Models\Service;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\Country;
 use App\Models\EvidenceType;
 use App\Models\ServicePartner;
@@ -66,6 +67,10 @@ class ServicesController extends Controller
     {
         try {
             $errorMessage = $this->validateCategoryStatus($request->category_id);
+            if ($errorMessage) {
+                return jsonResponseWithMessage(400, $errorMessage, []);
+            }
+            $errorMessage = $this->validateSubcategoryStatus($request->sub_category_id);
             if ($errorMessage) {
                 return jsonResponseWithMessage(400, $errorMessage, []);
             }
@@ -186,7 +191,7 @@ class ServicesController extends Controller
                 return jsonResponseWithMessage(400, $errorMessage, []);
             }
 
-            $errorMessage = $this->validateVerificationProviderStatus($request->verification_provider_id);
+            $errorMessage = $this->validateSubcategoryStatus($request->sub_category_id);
 
             if ($errorMessage) {
                 return jsonResponseWithMessage(400, $errorMessage, []);
@@ -327,6 +332,22 @@ class ServicesController extends Controller
 
         return null; 
     }
+
+    private function validateSubcategoryStatus($subcategoryId)
+    {
+        $subCategory = SubCategory::find($subcategoryId);
+
+        if (!$subCategory) {
+            return __('messages.subcategory_not_found');
+        }
+
+        if ($subCategory->status == 0) {
+            return __('messages.subcategory_inactive');
+        }
+
+        return null; 
+    }
+    
     
 }
 

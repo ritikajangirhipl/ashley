@@ -43,6 +43,8 @@ return [
     'verification_mode_inactive'                                  => 'The selected verification mode is inactive.',
     'verification_provider_not_found'                             => 'The selected verification provider does not exist.',
     'verification_provider_inactive'                              => 'The selected verification mode is inactive.',
+    'subcategory_not_found'                                       => 'The selected subcategory does not exist.',
+    'subcategory_inactive'                                        => 'The selected subcategory is inactive.',
     'country_cannot_be_inactive_due_to_client'                    => 'This country is associated with a Client and cannot be modified.',
     'country_cannot_be_deleted_due_to_client'                     => 'This country is associated with a Client and cannot be deleted.',
     'country_cannot_be_inactive_due_to_service_partner'           => 'This country is associated with a Service Partner and cannot be modified.',
